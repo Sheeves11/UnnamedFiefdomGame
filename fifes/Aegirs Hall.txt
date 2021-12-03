@@ -1,0 +1,6 @@
+Aegirs Hall
+Unclaimed
+False
+50
+25
+1
