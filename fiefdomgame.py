@@ -2,6 +2,22 @@ import os
 import time
 import random
 
+
+'''
+
+Welcome to the Unnamed Fiefdom Game!
+
+This game was designed and written by
+Mike Quain of the University of Arkansas
+
+More info can be found at
+github.com/Sheeves11/UnnamedFiefdomGame
+
+'''
+
+
+
+
 #global variables
 loop = True
 screen = "login"
@@ -15,13 +31,13 @@ os.system("clear")
 def header():
     print('''
 |----------------------------------------------------|
-|---------------UNNAMED FIFEDOM GAME-----------------|
+|---------------UNNAMED FIEFDOM GAME-----------------|
 |----------------------------------------------------|
     ''')
 
 #the fifedom class holds variables that define a player's stats
 class Fifedom:
-    name = 'Default Fifedom'
+    name = 'Default Fiefdom'
     ruler = 'Unclaimed'
     home = False
     defenders = 25
@@ -89,13 +105,13 @@ while (loop):
         header()
         print("\n\n")
         print('''
-Welcome to the Unnamed Fifedom Game!
+Welcome to the Unnamed Fiefdom Game!
 
 This is a python programming project and multiplayer war game based on the classic
 BBS door games of the 80s and 90s. In much the same way, this system uses a central
 server to host the game to multiple users, who access it using a terminal emulator.
 
-See more info at github.com/Sheeves11/UnnamedFifedomGame
+See more info at github.com/Sheeves11/UnnamedFiefdomGame
         ''')
         print('\n\n')
         
@@ -146,7 +162,7 @@ See more info at github.com/Sheeves11/UnnamedFifedomGame
             userFife.write()
 
         print('On a hilltop overlooking endless rolling fields, you see the only home you have ever known.')
-        print('\n\nThe Fifedom is home to ' + str(userFife.defenders) + ' highly skilled warriors, and dozens of loyal citizens.')
+        print('\n\nThe Fiefdom is home to ' + str(userFife.defenders) + ' highly skilled warriors, and dozens of loyal citizens.')
         print('\nDo not let them down')
         print('\n\n\n\n')
         print('''\
@@ -163,7 +179,7 @@ See more info at github.com/Sheeves11/UnnamedFifedomGame
 
         print("Avalible Commands:")
         print('-------------------------------------')
-        print('{1}: View Nearby Fifedoms')
+        print('{1}: View Nearby Fiefdoms')
         print('{2}: About')
         print('-------------------------------------')
         print('\n')
@@ -191,20 +207,20 @@ See more info at github.com/Sheeves11/UnnamedFifedomGame
         
 Intro:
         
-Unnamed Fifedome Game is a python programming project by Mike Quain (mquain@uark.edu)
+Unnamed Fiefdom Game is a python programming project by Mike Quain (mquain@uark.edu)
 The goal was to take on a project that was big enough to be challenging, but small enough to stay interesting.
 This game looks simple, but it taught me the basics of reading and writing to a database, data persistance, and multi-user tools.
 
 How to play:
 
-Your goal is to control as many fifedoms as you can manage without spreading your army too thin and leaving yourself open to attack!
+Your goal is to control as many fiefdoms as you can manage without spreading your army too thin and leaving yourself open to attack!
 Your home stronghold will never fall, but any conquered fifedoms can be taken by opposing players. Make sure you can defend the
 territory you claim!
 
-Your Fifedom consists of soldiers and workers. The workers earn income and the soldiers both fight and defend your fifedoms.
+Your fiefdom consists of soldiers and workers. The workers earn income and the soldiers both fight and defend your fiefdoms.
 Each worker produces 1 coin per hour. These coins will be used to purchace various upgrades and to recruit new fighters.
 
-Additional Info is avalible at github.com/Sheeves11/UntitledFifedomGame
+Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
 
         ''')
 
@@ -256,7 +272,7 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFifedomGame
         print("Avalible Commands:")
         print('-------------------------------------')
         print('{1}: Return to stronghold')
-        print('{Stronghold Name}: View Fifedom Details') 
+        print('{Stronghold Name}: View Fiefdom Details') 
         print('-------------------------------------')
         print('\n')
         command = input("Enter your command: ")
@@ -272,16 +288,11 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFifedomGame
             print (fileFife + 'loading is happening')
             try:
                 with open(fileFife, 'r') as f:
-#                    print ('testing the file open: ')
-#                    print (f.readline().strip())
                     attackFife.name = f.readline().strip()
-#                    attackFife.ruler = f.readline().strip()
-
                     attackFife.read()
                     
                     if str(attackFife.ruler) == str(userFife.ruler):
                         screen = 'homeDetails'
-                    
                     if str(attackFife.ruler) != str(userFife.ruler):
                         screen = "details"
 
@@ -304,8 +315,8 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFifedomGame
         header()
         
         print("\n\n")
-        print('Now viewing the Fifedome of ' + attackFife.name)
-        print('You rule this fifedom')
+        print('Now viewing the Fiefdome of ' + attackFife.name)
+        print('You rule this fiefdom')
               
         time.sleep(2)
         print('\n\nStatus Report:')
@@ -318,7 +329,7 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFifedomGame
         print("Avalible Commands:")
         print('-------------------------------------')
         print('{1}: Return to stronghold')
-        print('{2}: View nearby fifedoms')
+        print('{2}: View nearby fiefdoms')
         print('{3}: Deploy or withdraw forces')
         print('-------------------------------------')
         print('\n')
@@ -347,7 +358,7 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFifedomGame
         header()
         
         print("\n\n")
-        print('Now viewing the Fifedome of ' + attackFife.name)
+        print('Now viewing the Fiefdome of ' + attackFife.name)
         time.sleep(1)
         print('\n\nStatus Report:')
         time.sleep(1)
@@ -356,28 +367,36 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFifedomGame
         print('You have ' + str(userFife.defenders) + ' ready to deploy.\n\n')
         deployNum = input('Enter the number of soldiers you would like to deploy: ')
         time.sleep(1)
-        print('Deploying ' + str(deployNum) + ' soldiers to ' + str(attackFife.name))
         
-        attackFife.defenders = str(int(attackFife.defenders) + int(deployNum))
-        attackFife.write()
-        attackFife.read()
+        if int(userFife.defenders) < int(deployNum):
+            os.system("clear")
+            print("You do not have enough soldiers for that")
+            time.sleep(2)
+            screen = 'homeDetails'
 
-        userFife.defenders = str(int(userFife.defenders) - int(deployNum))
-        userFife.write()
-        attackFife.read()
+        if int(userFife.defenders) >= int(deployNum):
 
-        print("\n\n\n\n\n\n\n\n\n")
-
-        print("Avalible Commands:")
-        print('-------------------------------------')
-        print('{1}: Return to stronghold')
-        print('-------------------------------------')
-        print('\n')
-        command = input("Enter your command: ")
+            print('Deploying ' + str(deployNum) + ' soldiers to ' + str(attackFife.name))
         
+            attackFife.defenders = str(int(attackFife.defenders) + int(deployNum))
+            attackFife.write()
+            attackFife.read()
 
-        if command == "1":
-            screen = "stronghold"
+            userFife.defenders = str(int(userFife.defenders) - int(deployNum))
+            userFife.write()
+            attackFife.read()
+
+            print("\n\n\n\n\n\n\n\n\n")
+
+            print("Avalible Commands:")
+            print('-------------------------------------')
+            print('{1}: Return to stronghold')
+            print('-------------------------------------')
+            print('\n')
+            command = input("Enter your command: ")
+        
+            if command == "1":
+                screen = "stronghold"
 
 
 #This is the details page for enemy fifedoms
@@ -392,10 +411,10 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFifedomGame
         header()
         
         print("\n\n")
-        print('Now viewing the Fifedome of ' + attackFife.name)
-        print('This Fifedome is ruled by ' + attackFife.ruler)
+        print('Now viewing the Fiefdome of ' + attackFife.name)
+        print('This Fiefdome is ruled by ' + attackFife.ruler)
         time.sleep(2)
-        print('\n\nYour scouts return early in the morning, bringing reports of the enemy Fifedom.')
+        print('\n\nYour scouts return early in the morning, bringing reports of the enemy Fiefdom.')
         time.sleep(1)
         print(attackFife.name + ' looks to have ' + attackFife.defenders + ' fighters.')
         time.sleep(3)
@@ -405,7 +424,7 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFifedomGame
         print("Avalible Commands:")
         print('-------------------------------------')
         print('{1}: Return to stronghold')
-        print('{2}: View nearby fifedoms')
+        print('{2}: View nearby fiefdoms')
         print('{3}: Attack')
         print('-------------------------------------')
         print('\n')
@@ -451,7 +470,7 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFifedomGame
             #assign some temp variables
             playerWins = True
             
-            print('\n\n\n\n\nThe two great fifedoms of ' + userFife.name + ' and ' + attackFife.name + ' prepare for battle!')
+            print('\n\n\n\n\nThe two great fiefdoms of ' + userFife.name + ' and ' + attackFife.name + ' prepare for battle!')
             time.sleep(2)
 
             print('\n\n' + userFife.name + ' fires the first volley of arrows, catching the defenders unaware.')
@@ -551,7 +570,7 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFifedomGame
     if screen == "createDefaults":
 
         os.system("clear")
-        print('Seeding the world with default Fifedoms')
+        print('Seeding the world with default fiefdoms')
             
         names = ['Razor Hills', 'Forest of Fado', 'Emerald Cove', 'Stormgrove', 'Aegirs Hall', 'Ashen Grove', 'Bellhollow']
         for x in names:
