@@ -11,7 +11,6 @@ tempName = {}
 #initial screen clear
 os.system("clear")
 
-
 #header() should be called on every page
 def header():
     print('''
@@ -19,7 +18,6 @@ def header():
 |---------------UNNAMED FIFEDOM GAME-----------------|
 |----------------------------------------------------|
     ''')
-
 
 #the fifedom class holds variables that define a player's stats
 class Fifedom:
@@ -78,14 +76,9 @@ class Fifedom:
 attackFife = Fifedom()
 userFife = Fifedom()
 
-
-
-
 #this begins the main game loop
 #------------------------------------------------------------------------------
 while (loop):
-
-    
     
     #The login page takes a username, puts it into memory, and sends you to the
     #stronghold page. It also contains a small intro snippet
@@ -93,10 +86,7 @@ while (loop):
     # - Add user authentication, preferably in a secure way
     if screen == "login":
         os.system("clear")
-
-        
         header()
-        
         print("\n\n")
         print('''
 Welcome to the Unnamed Fifedom Game!
@@ -106,11 +96,8 @@ BBS door games of the 80s and 90s. In much the same way, this system uses a cent
 server to host the game to multiple users, who access it using a terminal emulator.
 
 See more info at github.com/Sheeves11/UnnamedFifedomGame
-
-
-
         ''')
-        
+        print('\n\n')
         
         username = input("Enter your username\n(Note that usernames are not validated at the moment): ")
         currentUsername = username
@@ -129,7 +116,6 @@ See more info at github.com/Sheeves11/UnnamedFifedomGame
 
         time.sleep(2)
         screen = "stronghold"
-
 
 #The stronghold screen is homebase for players. The page also writes the current username
 #into the userFife object.
@@ -163,10 +149,6 @@ See more info at github.com/Sheeves11/UnnamedFifedomGame
         print('\n\nThe Fifedom is home to ' + str(userFife.defenders) + ' highly skilled warriors, and dozens of loyal citizens.')
         print('\nDo not let them down')
         print('\n\n\n\n')
-
-
-
-
         print('''\
 
 
@@ -178,7 +160,6 @@ See more info at github.com/Sheeves11/UnnamedFifedomGame
          /   \ 
 
                 ''')
-
 
         print("Avalible Commands:")
         print('-------------------------------------')
@@ -204,9 +185,10 @@ See more info at github.com/Sheeves11/UnnamedFifedomGame
         os.system("clear")
 
         header()
-        print('\n\n\n\n\n\n\n\n\n\n')
+        print('\n\n\n\n\n\n\n\n\n')
 
         print('''
+        
 Intro:
         
 Unnamed Fifedome Game is a python programming project by Mike Quain (mquain@uark.edu)
@@ -223,9 +205,10 @@ Your Fifedom consists of soldiers and workers. The workers earn income and the s
 Each worker produces 1 coin per hour. These coins will be used to purchace various upgrades and to recruit new fighters.
 
 Additional Info is avalible at github.com/Sheeves11/UntitledFifedomGame
+
         ''')
 
-        print('\n\n\n\n\n\n\n\n\n\n\n')
+        print('\n\n\n\n\n\n\n\n\n\n')
         print("Avalible Commands:")
         print('-------------------------------------')
         print('{1}: Return to Stronghold')
@@ -235,8 +218,6 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFifedomGame
         
         if command == "1":
             screen = "stronghold"
-
-
 
 #The attack page contains a list of fifedoms generated from the /fifes directory
 #
@@ -270,8 +251,7 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFifedomGame
 
                 print ('Fifedom: ' + tempName.name + ' || Ruled by: ' + tempName.ruler)
                 print ('Number of Warriors: ' + tempName.defenders + ' || ' + homeStatus)
-                print ('\n')
-                
+                print ('\n')            
 
         print("Avalible Commands:")
         print('-------------------------------------')
@@ -305,13 +285,10 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFifedomGame
                     if str(attackFife.ruler) != str(userFife.ruler):
                         screen = "details"
 
-
             except:
                 print ('the file open broke')
 
         os.system('clear')
-
-
 
 #The homeDetails page gets called when a user tries to view their own Fifedom
 #From this page, they'll be able to add and withdraw troops, make upgrades,
@@ -323,29 +300,20 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFifedomGame
 #------------------------------------------------------------------------------
 
     if screen == "homeDetails":
-        os.system("clear")
-        
+        os.system("clear") 
         header()
         
         print("\n\n")
         print('Now viewing the Fifedome of ' + attackFife.name)
         print('You rule this fifedom')
-        
-        
-        
-        
+              
         time.sleep(2)
         print('\n\nStatus Report:')
         time.sleep(1)
         print(attackFife.name + ' has ' + attackFife.defenders + ' fighters.')
         time.sleep(3)
 
-
-
-
         print("\n\n\n\n\n\n\n\n\n")
-
-
 
         print("Avalible Commands:")
         print('-------------------------------------')
@@ -355,7 +323,6 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFifedomGame
         print('-------------------------------------')
         print('\n')
         command = input("Enter your command: ")
-        
 
         if command == "1":
             screen = "stronghold"
@@ -366,8 +333,6 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFifedomGame
         if command == "3":
             screen = 'deploy'
 
-
-
 #The deploy screen allows players to deploy defenders to a Fifedom that they 
 #currently control.
 #
@@ -376,7 +341,6 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFifedomGame
 # - verify that the player has the troops avalible for deployment
 # - prevent negative numbers
 #------------------------------------------------------------------------------
-
     if screen == 'deploy':
         os.system("clear")
         
@@ -402,10 +366,7 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFifedomGame
         userFife.write()
         attackFife.read()
 
-
         print("\n\n\n\n\n\n\n\n\n")
-
-
 
         print("Avalible Commands:")
         print('-------------------------------------')
@@ -419,7 +380,6 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFifedomGame
             screen = "stronghold"
 
 
-
 #This is the details page for enemy fifedoms
 #
 #To Do
@@ -427,11 +387,10 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFifedomGame
 # - In the future, add a way to obscure exact numbers?
 # - Add ability to attempt spying to gain info on defenses and upgrades
 #------------------------------------------------------------------------------
-
     if screen == "details":
-        os.system("clear")
-        
+        os.system("clear")  
         header()
+        
         print("\n\n")
         print('Now viewing the Fifedome of ' + attackFife.name)
         print('This Fifedome is ruled by ' + attackFife.ruler)
@@ -472,10 +431,8 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFifedomGame
 # - make it prettier
 # 
 #------------------------------------------------------------------------------
-
     if screen == "battle":
         os.system("clear")
-
         header()
         
         print("\n\n")
