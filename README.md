@@ -1,7 +1,13 @@
 # UnnamedFifedomGame
-This is a little text based multiplayer game that can be hosted on a local Linux server and broadcast to your LAN!
 
-All you need to play is a browser. All you need to host the game is a basic Ubuntu Server installation.
+This is a little text based multiplayer game that can be hosted on a local Linux server and broadcast to your LAN
+or the internet! The game takes influences from the BBC door games of the late 80s and early 90s, as well as
+other text-based war games, like Kings of Chaos.
+
+All you need to play is a browser! All you need to host the game is a basic Ubuntu Server installation.
+
+
+![snip](https://user-images.githubusercontent.com/3498355/144886504-573dd8b0-dde5-489b-a229-36c5d0cf5ee2.PNG)
 
 ---------------------------------------------------------------------------------------------------------------
 
