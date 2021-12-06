@@ -11,6 +11,17 @@ tempName = {}
 #initial screen clear
 os.system("clear")
 
+
+#header() should be called on every page
+def header():
+    print('''
+|----------------------------------------------------|
+|---------------UNNAMED FIFEDOM GAME-----------------|
+|----------------------------------------------------|
+    ''')
+
+
+#the fifedom class holds variables that define a player's stats
 class Fifedom:
     name = 'Default Fifedom'
     ruler = 'Unclaimed'
@@ -19,12 +30,11 @@ class Fifedom:
     workers = 25
     location = 1
 
-
-
-
+    #take the current fifedom and write it to the /fifes directory
     def write(self):
         fifeFile = 'fifes/' + self.name + '.txt'
-#this part creates a file if it isn't made yet        
+        
+        #this part creates a file if it isn't made yet        
         try:
             with open(fifeFile, 'x') as f:
 
@@ -37,7 +47,7 @@ class Fifedom:
         except:
             pass
 
-#write the class variables down line by line in the text file
+        #write the class variables down line by line in the text file
         try:
             with open(fifeFile, 'w') as f:
                 f.write(self.name + '\n')
@@ -49,15 +59,12 @@ class Fifedom:
         except:
             pass
 
-#read class variables line by line
+    #read class variables line by line
     def read(self):
         fifeFile = 'fifes/' + self.name + '.txt'
         try:
             with open(fifeFile, 'r') as f:
-#                print('file opened successfully: ' + fifeFile)
-                
                 self.name = f.readline().strip()
-#                print ('self.name =' + self.name)
                 self.ruler = f.readline().strip()
                 self.home = f.readline().strip()
                 self.defenders = f.readline().strip()
@@ -65,34 +72,58 @@ class Fifedom:
             self.write()
             print('file read fail, creating new fife file for current user')
                     
-#        print('ruler name in the system as: ' + self.ruler)
 
 
-#defaut fief class
+#create some default objects that we'll write over later
 attackFife = Fifedom()
 userFife = Fifedom()
+
+
+
 
 #this begins the main game loop
 #------------------------------------------------------------------------------
 while (loop):
+
+    
+    
+    #The login page takes a username, puts it into memory, and sends you to the
+    #stronghold page. It also contains a small intro snippet
+    #TO DO:
+    # - Add user authentication, preferably in a secure way
     if screen == "login":
         os.system("clear")
 
-        print("Welcome to UNNAMED FIEFDOM GAME")
+        
+        header()
+        
         print("\n\n")
-        username = input("Enter your username: ")
-        currentUsername = username
+        print('''
+Welcome to the Unnamed Fifedom Game!
 
+This is a python programming project and multiplayer war game based on the classic
+BBS door games of the 80s and 90s. In much the same way, this system uses a central
+server to host the game to multiple users, who access it using a terminal emulator.
+
+See more info at github.com/Sheeves11/UnnamedFifedomGame
+
+
+
+        ''')
+        
+        
+        username = input("Enter your username\n(Note that usernames are not validated at the moment): ")
+        currentUsername = username
+        
+        #if "username.txt" does not exist, create it. The file only contains a name for now.
         try:
             usernameFile = username + ".txt"
             with open(usernameFile, 'x') as f:
                 f.write(username)
-                print('WRITING NEW USER FILE')
+               # print('WRITING NEW USER FILE')
         except:
             time.sleep(1)
  
-
-
         print('\n\n')
         print("Logging in as: " + username)
 
@@ -100,11 +131,20 @@ while (loop):
         screen = "stronghold"
 
 
+#The stronghold screen is homebase for players. The page also writes the current username
+#into the userFife object.
+#
+#Each player gets a "home" stronghold that can't be overrun. This page displays the stats
+#for that stronghold.
+#
+#TO DO:
+# - Flesh this out a little more. Make it prettier.
+# - Add a list of owned Fifedoms that aren't the home stronghold
 #------------------------------------------------------------------------------
     if screen == "stronghold":
         os.system("clear")
 
-        print("UNNAMED FIEFDOM GAME")
+        header()
         print("\n\n")
         print(username + "'s Stronghold")
         print("\n\n\n")
@@ -143,6 +183,7 @@ while (loop):
         print("Avalible Commands:")
         print('-------------------------------------')
         print('{1}: View Nearby Fifedoms')
+        print('{2}: About')
         print('-------------------------------------')
         print('\n')
         command = input("Enter your command: ")
@@ -153,11 +194,62 @@ while (loop):
         if command == 'defaults':
             screen = 'createDefaults'
 
+        if command == '2':
+            screen = 'about'
 
+
+#This is the about page for the game. Keep it updated
+#------------------------------------------------------------------------------
+    if screen == "about":
+        os.system("clear")
+
+        header()
+        print('\n\n\n\n\n\n\n\n\n\n')
+
+        print('''
+Intro:
+        
+Unnamed Fifedome Game is a python programming project by Mike Quain (mquain@uark.edu)
+The goal was to take on a project that was big enough to be challenging, but small enough to stay interesting.
+This game looks simple, but it taught me the basics of reading and writing to a database, data persistance, and multi-user tools.
+
+How to play:
+
+Your goal is to control as many fifedoms as you can manage without spreading your army too thin and leaving yourself open to attack!
+Your home stronghold will never fall, but any conquered fifedoms can be taken by opposing players. Make sure you can defend the
+territory you claim!
+
+Your Fifedom consists of soldiers and workers. The workers earn income and the soldiers both fight and defend your fifedoms.
+Each worker produces 1 coin per hour. These coins will be used to purchace various upgrades and to recruit new fighters.
+
+Additional Info is avalible at github.com/Sheeves11/UntitledFifedomGame
+        ''')
+
+        print('\n\n\n\n\n\n\n\n\n\n\n')
+        print("Avalible Commands:")
+        print('-------------------------------------')
+        print('{1}: Return to Stronghold')
+        print('-------------------------------------')
+        print('\n')
+        command = input("Enter your command: ")
+        
+        if command == "1":
+            screen = "stronghold"
+
+
+
+#The attack page contains a list of fifedoms generated from the /fifes directory
+#
+#To Do
+# - add some sort of "next page" function so that the printout won't scroll
+#   off the page as more players join.
+# - add some sort of sorting on the list. 
 #-------------------------------------------------------------------------------
     if screen == "attack":
         os.system("clear")
-        print("UNNAMED FIEFDOM GAME")
+        
+        header()
+        
         print("\n")
         print("Nearby Fiefdoms: ")
         print("-------------------------------------------------------")
@@ -189,10 +281,6 @@ while (loop):
         print('\n')
         command = input("Enter your command: ")
         
-       
-
-
-
         if str(command) == '1':
             screen = "stronghold"
         
@@ -211,7 +299,11 @@ while (loop):
 
                     attackFife.read()
                     
-                    screen = "details"
+                    if str(attackFife.ruler) == str(userFife.ruler):
+                        screen = 'homeDetails'
+                    
+                    if str(attackFife.ruler) != str(userFife.ruler):
+                        screen = "details"
 
 
             except:
@@ -220,23 +312,32 @@ while (loop):
         os.system('clear')
 
 
+
+#The homeDetails page gets called when a user tries to view their own Fifedom
+#From this page, they'll be able to add and withdraw troops, make upgrades,
+#etc
+#
+#To Do
+# - make it prettier
+# - add some sort of upgrade system for defenses
 #------------------------------------------------------------------------------
 
-    if screen == "details":
+    if screen == "homeDetails":
         os.system("clear")
-
-        print("UNNAMED FIEFDOM GAME")
+        
+        header()
+        
         print("\n\n")
         print('Now viewing the Fifedome of ' + attackFife.name)
-        print('This Fifedome is ruled by ' + attackFife.ruler)
+        print('You rule this fifedom')
         
         
         
         
         time.sleep(2)
-        print('\n\nYour scouts return early in the morning, bringing reports of the enemy Fifedom.')
+        print('\n\nStatus Report:')
         time.sleep(1)
-        print(attackFife.name + ' looks to have ' + attackFife.defenders + ' fighters.')
+        print(attackFife.name + ' has ' + attackFife.defenders + ' fighters.')
         time.sleep(3)
 
 
@@ -250,7 +351,7 @@ while (loop):
         print('-------------------------------------')
         print('{1}: Return to stronghold')
         print('{2}: View nearby fifedoms')
-        print('{3}: Attack')
+        print('{3}: Deploy or withdraw forces')
         print('-------------------------------------')
         print('\n')
         command = input("Enter your command: ")
@@ -263,15 +364,120 @@ while (loop):
             screen = "attack"
 
         if command == "3":
+            screen = 'deploy'
+
+
+
+#The deploy screen allows players to deploy defenders to a Fifedom that they 
+#currently control.
+#
+#To Do
+# - add a "withdraw" page for pulling troops out of a Fifedom
+# - verify that the player has the troops avalible for deployment
+# - prevent negative numbers
+#------------------------------------------------------------------------------
+
+    if screen == 'deploy':
+        os.system("clear")
+        
+        header()
+        
+        print("\n\n")
+        print('Now viewing the Fifedome of ' + attackFife.name)
+        time.sleep(1)
+        print('\n\nStatus Report:')
+        time.sleep(1)
+        print(attackFife.name + ' has ' + attackFife.defenders + ' fighters.')
+        time.sleep(1)
+        print('You have ' + str(userFife.defenders) + ' ready to deploy.\n\n')
+        deployNum = input('Enter the number of soldiers you would like to deploy: ')
+        time.sleep(1)
+        print('Deploying ' + str(deployNum) + ' soldiers to ' + str(attackFife.name))
+        
+        attackFife.defenders = str(int(attackFife.defenders) + int(deployNum))
+        attackFife.write()
+        attackFife.read()
+
+        userFife.defenders = str(int(userFife.defenders) - int(deployNum))
+        userFife.write()
+        attackFife.read()
+
+
+        print("\n\n\n\n\n\n\n\n\n")
+
+
+
+        print("Avalible Commands:")
+        print('-------------------------------------')
+        print('{1}: Return to stronghold')
+        print('-------------------------------------')
+        print('\n')
+        command = input("Enter your command: ")
+        
+
+        if command == "1":
+            screen = "stronghold"
+
+
+
+#This is the details page for enemy fifedoms
+#
+#To Do
+# - Make it prettier
+# - In the future, add a way to obscure exact numbers?
+# - Add ability to attempt spying to gain info on defenses and upgrades
+#------------------------------------------------------------------------------
+
+    if screen == "details":
+        os.system("clear")
+        
+        header()
+        print("\n\n")
+        print('Now viewing the Fifedome of ' + attackFife.name)
+        print('This Fifedome is ruled by ' + attackFife.ruler)
+        time.sleep(2)
+        print('\n\nYour scouts return early in the morning, bringing reports of the enemy Fifedom.')
+        time.sleep(1)
+        print(attackFife.name + ' looks to have ' + attackFife.defenders + ' fighters.')
+        time.sleep(3)
+        
+        print("\n\n\n\n\n\n\n\n\n")
+        
+        print("Avalible Commands:")
+        print('-------------------------------------')
+        print('{1}: Return to stronghold')
+        print('{2}: View nearby fifedoms')
+        print('{3}: Attack')
+        print('-------------------------------------')
+        print('\n')
+        
+        command = input("Enter your command: ")
+        
+        if command == "1":
+            screen = "stronghold"
+
+        if command == "2":
+            screen = "attack"
+
+        if command == "3":
             screen = 'battle'
 
 
+#The "battle" page simulates a battle between two fifedoms. This is currently the most
+#complicated page and could use some cleaning up.
+#
+#To Do
+# - add a better system for determining winners and casualties. The current system
+#   is almost entirely random, which is bad. 
+# - make it prettier
+# 
 #------------------------------------------------------------------------------
 
     if screen == "battle":
         os.system("clear")
 
-        print("UNNAMED FIEFDOM GAME")
+        header()
+        
         print("\n\n")
         print('This battle is between ' + attackFife.name + ' and ' + userFife.name)
         
@@ -380,88 +586,11 @@ while (loop):
                 screen = "attack"
 
 
-
-#-------------------------------------------------------------------------------
-#    if screen == "fifedomTest":
+#This is a "secret" page that you can use to create default fifedoms
+#to seed your installation with land that can be taken. 
 #
-#        os.system("clear")
-#        print('Welcome to the Fifedom read/write test')
-#        
-#        currentFifeName = input('Enter the name of your new Fifedom: ')
-#        
-#
-#        os.system("clear")
-#            
-#        currentFife = Fifedom()
-#        
-#        currentFife.name = currentFifeName
-#
-#        currentFife.write()
-#
-#        currentFife.read()
-#        print("UNNAMED FIEFDOM GAME")
-#        print('\n')
-#        print("-------------------------------------------------------")
-#        print('\n')
-#        print('Name: ' + currentFife.name)
-#        print('Ruler: ' + currentFife.ruler)
-#        print('Homebase: ' + str(currentFife.home))
-#        print('Villagers: ' + str(currentFife.workers))
-#        print('Location: ' + str(currentFife.location))
-#        print('\n\n')
-#
-#
-#        command = input('Enter your command: ')
-#
-
-#-------------------------------------------------------------------------------
-#    if screen == "fifedom":
-#
-#        os.system("clear")
-#        testfife = Fifedom()
-#        testfife.read()
-#        print("UNNAMED FIEFDOM GAME")
-#        print('\n')
-#        print("-------------------------------------------------------")
-#        print('\n')
-#        print('Name: ' + testfife.name)
-#        print('Ruler: ' + testfife.ruler)
-#        print('Homebase: ' + str(testfife.home))
-#        print('Villagers: ' + str(testfife.workers))
-#        print('Location: ' + str(testfife.location))
-#        print('\n\n')
-#        testfife.write()
-#        print('\n\nAttempting test read')
-#        testfife.read()
-#        print('\n\nSetting Ruler Name')
-#        testfife.ruler = 'Lars'
-#        testfife.read()
-#        testfife.write()
-#        testfife.read()
-
-
-
-#        print("-------------------------------------------------------")
-#        print("Avalible Commands: logout, stronghold")
-#        command = input("Enter your command: ")
-#
-#        if command == "logout":
-#            screen = "login"
-#
-#        if command == "attack":
-#            screen = "attack"
-#        
-#        if command == "stronghold":
-#            screen = "stronghold"
-#
-#        if command == "fifedom":
-#            screen = "fifedom"
-
-
-
+#It should be taken out if you ever open this game up to many players
 #----------------------------------------------------------------------------------
- 
-
     if screen == "createDefaults":
 
         os.system("clear")
