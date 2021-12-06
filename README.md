@@ -1,4 +1,4 @@
-# UnnamedFifedomGame
+# UnnamedFiefdomGame
 
 This is a little text based multiplayer game that can be hosted on a local Linux server and broadcast to your LAN
 or the internet! The game takes influences from the BBC door games of the late 80s and early 90s, as well as
@@ -13,7 +13,7 @@ All you need to play is a browser! All you need to host the game is a basic Ubun
 
 Intro:
 
-Unnamed Fifedome Game is a python programming project by Mike Quain (mquain@uark.edu)
+Unnamed Fiefdome Game is a python programming project by Mike Quain (mquain@uark.edu)
 The goal was to take on a project that was big enough to be challenging, but small enough to stay interesting.
 This game looks simple, but it taught me the basics of reading and writing to a database, data persistance, and multi-user tools.
 
@@ -21,11 +21,11 @@ This game looks simple, but it taught me the basics of reading and writing to a 
 
 How to play:
 
-Your goal is to control as many fifedoms as you can manage without spreading your army too thin and leaving yourself open to attack!
-Your home stronghold will never fall, but any conquered fifedoms can be taken by opposing players. Make sure you can defend the
+Your goal is to control as many fiefdoms as you can manage without spreading your army too thin and leaving yourself open to attack!
+Your home stronghold will never fall, but any conquered fiefdoms can be taken by opposing players. Make sure you can defend the
 territory you claim!
 
-Your Fifedom consists of soldiers and workers. The workers earn income and the soldiers both fight and defend your fifedoms.
+Your Fiefdom consists of soldiers and workers. The workers earn income and the soldiers both fight and defend your fiefdoms.
 Each worker produces 1 coin per hour. These coins will be used to purchace various upgrades and to recruit new fighters.
 
 ---------------------------------------------------------------------------------------------------------------
