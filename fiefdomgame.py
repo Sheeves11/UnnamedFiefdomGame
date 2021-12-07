@@ -378,14 +378,19 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
         deployNum = input('Enter the number of soldiers you would like to deploy: ')
         time.sleep(1)
         
-        if int(userFife.defenders) < int(deployNum):
+        if int(deployNum) < 0:
+            os.system("clear")
+            print("You cannot deploy a negative number of soldiers. \n\nThat doesn't even make sense.")
+            time.sleep(2)
+            screen = 'homeDetails'
+
+        if (int(userFife.defenders) < int(deployNum)) & int(deployNum) > 0:
             os.system("clear")
             print("You do not have enough soldiers for that")
             time.sleep(2)
             screen = 'homeDetails'
 
-        if int(userFife.defenders) >= int(deployNum):
-
+        if (int(userFife.defenders) >= int(deployNum)) & int(deployNum) > 0:
             print('Deploying ' + str(deployNum) + ' soldiers to ' + str(attackFife.name))
         
             attackFife.defenders = str(int(attackFife.defenders) + int(deployNum))
@@ -429,14 +434,19 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
         withdrawNum = input('Enter the number of soldiers you would like to return home: ')
         time.sleep(1)
         
-        if int(attackFife.defenders) < int(withdrawNum):
+        if int(withdrawNum) < 0:
+            os.system("clear")
+            print("You cannot send home a negative number of soldiers. \n\nThat doesn't even make sense.")
+            time.sleep(2)
+            screen = 'homeDetails'
+
+        if (int(attackFife.defenders) < int(withdrawNum)) & int(withdrawNum) > 0:
             os.system("clear")
             print("You do not have enough soldiers for that")
             time.sleep(2)
             screen = 'homeDetails'
 
-        if int(attackFife.defenders) >= int(withdrawNum):
-
+        if (int(attackFife.defenders) >= int(withdrawNum)) & int(withdrawNum) > 0:
             print('Returning ' + str(withdrawNum) + ' soldiers back home')
         
             attackFife.defenders = str(int(attackFife.defenders) - int(withdrawNum))
@@ -497,7 +507,6 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
         if command == "3":
             screen = 'battle'
 
-
 #The "battle" page simulates a battle between two fifedoms. This is currently the most
 #complicated page and could use some cleaning up.
 #
@@ -511,14 +520,9 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
         os.system("clear")
         header()
 
-
-
         #Idea: We're going to do a DnD style battle using D20s and modifiers. 
         #roll(mod) is going to give the result of a roll plus modifiers and is 
         #defined at the start of the file.
-        
-        #we will set this later, once we have upgrades and such
-#        mod = 0
         
         #This if statement prevents players from attacking a player's home stronghold
         #Eventually this will be replaced with a formula that allows you to attack
@@ -539,8 +543,6 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
 
             attackers = int(userFife.defenders)
             defenders = int(attackFife.defenders)
-
-#            print('attackers = ' + str(attackers) + ' defenders = ' + str(defenders))
             
             defenseLosses = 0
             attackLosses = 0
@@ -556,13 +558,13 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
                         defense = roll(defenseMod)
                         attack = roll(attackMod)
                         maxDeaths = maxDeaths - 1
-#                        print('Attacker: ' + str(attack) + ' vs. Defender:  ' + str(defense))
                         if attack > defense:
                             defenders = defenders - 1
                             defenseLosses = defenseLosses + 1
                         if attack <= defense:
                             attackers = attackers - 1
                             attackLosses = attackLosses + 1
+           
             print('\n')
             print('------------------------------------------------------------------------------')
             print('-----------------------------Battle Results-----------------------------------')
@@ -587,12 +589,6 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
                 userFife.defenders = attackers
                 userFife.write()
 
-
-
-
-
-
-
             #if the other player wins
             if attackers <= defenders:
                 print('Although your soldiers fought valiantly, they were unable to overcome ' + attackFife.ruler + '\'s forces')
@@ -604,7 +600,6 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
                 userFife.defenders = attackers
                 userFife.write()
 
-
             print("\n\n\n\n\n\n\n\n\n")
             print("Type leave to return to your stronghold: ")
             command = input("Enter your command: ")
@@ -614,7 +609,6 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
 
             if command == "attack":
                 screen = "attack"
-
 
 #This is a "secret" page that you can use to create default fifedoms
 #to seed your installation with land that can be taken. 
