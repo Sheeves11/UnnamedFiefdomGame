@@ -30,10 +30,16 @@ os.system("clear")
 #header() should be called on every page
 def header():
     print('''
-|----------------------------------------------------|
-|---------------UNNAMED FIEFDOM GAME-----------------|
-|----------------------------------------------------|
+|----------------------------------------------------------------------------------|
+|------------------------------UNNAMED FIEFDOM GAME--------------------------------|
+|----------------------------------------------------------------------------------|
     ''')
+
+#this is the d20 roll function
+def roll(mod):
+    d20 = random.randint(1, 20)
+    return d20 + mod
+
 
 #the fifedom class holds variables that define a player's stats
 class Fifedom:
@@ -324,7 +330,6 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
         print('\n\nStatus Report:')
         time.sleep(1)
         print(attackFife.name + ' has ' + attackFife.defenders + ' fighters.')
-        time.sleep(3)
 
         print("\n\n\n\n\n\n\n\n\n")
 
@@ -364,7 +369,7 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
         header()
         
         print("\n\n")
-        print('Now viewing the Fiefdome of ' + attackFife.name)
+        print('Now viewing the Fiefdom of ' + attackFife.name)
         print('\n\n')
         time.sleep(1)
         print(attackFife.name + ' has ' + attackFife.defenders + ' fighters.')
@@ -415,7 +420,7 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
         header()
         
         print("\n\n")
-        print('Now viewing the Fiefdome of ' + attackFife.name)
+        print('Now viewing the Fiefdom of ' + attackFife.name)
         print('\n\n')
         time.sleep(1)
         print(attackFife.name + ' has ' + attackFife.defenders + ' fighters.')
@@ -468,11 +473,8 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
         print("\n\n")
         print('Now viewing the Fiefdome of ' + attackFife.name)
         print('This Fiefdome is ruled by ' + attackFife.ruler)
-        time.sleep(2)
         print('\n\nYour scouts return early in the morning, bringing reports of the enemy Fiefdom.')
-        time.sleep(1)
         print(attackFife.name + ' looks to have ' + attackFife.defenders + ' fighters.')
-        time.sleep(3)
         
         print("\n\n\n\n\n\n\n\n\n")
         
@@ -508,7 +510,103 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
     if screen == "battle":
         os.system("clear")
         header()
+
+
+
+        #Idea: We're going to do a DnD style battle using D20s and modifiers. 
+        #roll(mod) is going to give the result of a roll plus modifiers and is 
+        #defined at the start of the file.
         
+        #we will set this later, once we have upgrades and such
+#        mod = 0
+        
+        #This if statement prevents players from attacking a player's home stronghold
+        #Eventually this will be replaced with a formula that allows you to attack
+        #for gold
+        if attackFife.home == 'True':
+            os.system('clear')
+            print('You are unable to claim a player\'s home stronghold')
+            time.sleep(3)
+            screen = 'stronghold'
+
+        #this is where the battle logic happens!
+        if attackFife.home == 'False':
+            print('\n\nThis battle is between ' + attackFife.name + ' and ' + userFife.name)
+            print('\n\nSimulating Battle...')
+            time.sleep(1)
+            print('\n...\n')
+            time.sleep(1)
+
+            attackers = int(userFife.defenders)
+            defenders = int(attackFife.defenders)
+
+#            print('attackers = ' + str(attackers) + ' defenders = ' + str(defenders))
+            
+            defenseLosses = 0
+            attackLosses = 0
+            attackMod = 0
+            defenseMod = 0
+            
+            for i in range(3):
+                
+                for i in range(int(4)):
+                    maxDeaths = attackers // 4
+                    
+                    while (defenders > 1 and attackers > 1) and maxDeaths > 0 :
+                        defense = roll(defenseMod)
+                        attack = roll(attackMod)
+                        maxDeaths = maxDeaths - 1
+#                        print('Attacker: ' + str(attack) + ' vs. Defender:  ' + str(defense))
+                        if attack > defense:
+                            defenders = defenders - 1
+                            defenseLosses = defenseLosses + 1
+                        if attack <= defense:
+                            attackers = attackers - 1
+                            attackLosses = attackLosses + 1
+            print('\n')
+            print('------------------------------------------------------------------------------')
+            print('-----------------------------Battle Results-----------------------------------')
+            print('------------------------------------------------------------------------------')
+            print('\n')
+            print(userFife.ruler + ' lost ' + str(attackLosses) + ' soldiers')
+            print(attackFife.ruler + ' lost ' + str(defenseLosses) + ' soldiers')
+            print('\n')
+            print('------------------------------------------------------------------------------')
+            print('------------------------------------------------------------------------------')
+            print('\n\n')
+
+            #if the current player wins
+            if attackers > defenders:
+                print('After a hard fought battle, your weary forces remain standing')
+                print('You are the new ruler of ' + attackFife.name)
+                
+                attackFife.defenders = defenders
+                attackFife.ruler = userFife.ruler
+                attackFife.write()
+
+                userFife.defenders = attackers
+                userFife.write()
+
+
+
+
+
+
+
+            #if the other player wins
+            if attackers <= defenders:
+                print('Although your soldiers fought valiantly, they were unable to overcome ' + attackFife.ruler + '\'s forces')
+                print('Your forces, now many fewer in number, begin the long march home.')
+
+                attackFife.defenders = defenders
+                attackFife.write()
+
+                userFife.defenders = attackers
+                userFife.write()
+
+
+
+            """
         print("\n\n")
         print('This battle is between ' + attackFife.name + ' and ' + userFife.name)
         
@@ -604,6 +702,9 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
                 #this happens if the player loses
                 
                 print(userFife.name + ' has been defeted')
+            """
+
+
 
 
             print("\n\n\n\n\n\n\n\n\n")
