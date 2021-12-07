@@ -293,6 +293,8 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
                     
                     if str(attackFife.ruler) == str(userFife.ruler):
                         screen = 'homeDetails'
+                    if str(attackFife.home) == 'True':
+                        screen = 'stronghold'
                     if str(attackFife.ruler) != str(userFife.ruler):
                         screen = "details"
 
@@ -330,7 +332,8 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
         print('-------------------------------------')
         print('{1}: Return to stronghold')
         print('{2}: View nearby fiefdoms')
-        print('{3}: Deploy or withdraw forces')
+        print('{3}: Deploy additional forces')
+        print('{4}: Withdraw forces')
         print('-------------------------------------')
         print('\n')
         command = input("Enter your command: ")
@@ -343,6 +346,9 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
 
         if command == "3":
             screen = 'deploy'
+
+        if command == "4":
+            screen = 'withdraw'
 
 #The deploy screen allows players to deploy defenders to a Fifedom that they 
 #currently control.
@@ -359,8 +365,7 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
         
         print("\n\n")
         print('Now viewing the Fiefdome of ' + attackFife.name)
-        time.sleep(1)
-        print('\n\nStatus Report:')
+        print('\n\n')
         time.sleep(1)
         print(attackFife.name + ' has ' + attackFife.defenders + ' fighters.')
         time.sleep(1)
@@ -398,6 +403,56 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
             if command == "1":
                 screen = "stronghold"
 
+#The withdraw screen allows players to withdraw forces from a ruled fiefdom
+#
+#To Do
+# - 
+#
+#------------------------------------------------------------------------------
+    if screen == 'withdraw':
+        os.system("clear")
+        
+        header()
+        
+        print("\n\n")
+        print('Now viewing the Fiefdome of ' + attackFife.name)
+        print('\n\n')
+        time.sleep(1)
+        print(attackFife.name + ' has ' + attackFife.defenders + ' fighters.')
+        time.sleep(1)
+        print('\n')
+        withdrawNum = input('Enter the number of soldiers you would like to return home: ')
+        time.sleep(1)
+        
+        if int(attackFife.defenders) < int(withdrawNum):
+            os.system("clear")
+            print("You do not have enough soldiers for that")
+            time.sleep(2)
+            screen = 'homeDetails'
+
+        if int(attackFife.defenders) >= int(withdrawNum):
+
+            print('Returning ' + str(withdrawNum) + ' soldiers back home')
+        
+            attackFife.defenders = str(int(attackFife.defenders) - int(withdrawNum))
+            attackFife.write()
+            attackFife.read()
+
+            userFife.defenders = str(int(userFife.defenders) + int(withdrawNum))
+            userFife.write()
+            userFife.read()
+
+            print("\n\n\n\n\n\n\n\n\n")
+
+            print("Avalible Commands:")
+            print('-------------------------------------')
+            print('{1}: Return to stronghold')
+            print('-------------------------------------')
+            print('\n')
+            command = input("Enter your command: ")
+        
+            if command == "1":
+                screen = "stronghold"
 
 #This is the details page for enemy fifedoms
 #
