@@ -40,6 +40,21 @@ def roll(mod):
     d20 = random.randint(1, 20)
     return d20 + mod
 
+#define some text colors
+class textColor:
+    RED = '\033[91m'
+    GREEN = '\033[92m'
+    RESET = '\033[0m'
+    DIM = '\033[2m'
+    MAGENTA = '\033[95m'
+    BLUE = '\033[94m'
+    CYAN = '\033[96m'
+    WARNING = '\033[93m'
+    YELLOW = '\033[33m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+
 
 #the fifedom class holds variables that define a player's stats
 class Fifedom:
@@ -255,8 +270,7 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
         
         print("\n")
         print("Nearby Fiefdoms: ")
-        print("-------------------------------------------------------")
-        print('\n')
+        print("------------------------------------------------------------------\n")
         
         for filename in os.listdir('fifes'):
             with open(os.path.join('fifes', filename), 'r') as f:
@@ -268,14 +282,22 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
                 
                 homeStatus = " "
 
-                if tempName.home == "True":
+                if tempName.home == "True" and tempName.ruler != userFife.name:
                     homeStatus = "Home Stronghold"
+                    print (textColor.WARNING + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + tempName.defenders + textColor.RESET)
 
-                print ('Fifedom: ' + tempName.name + ' || Ruled by: ' + tempName.ruler)
-                print ('Number of Warriors: ' + tempName.defenders + ' || ' + homeStatus)
-                print ('\n')            
+                if tempName.home != 'True' and tempName.ruler != userFife.name:
+                    print (textColor.YELLOW + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + tempName.defenders + textColor.RESET)
+                
+                if tempName.home == "True" and tempName.ruler == userFife.name: 
+                    print (textColor.GREEN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + tempName.defenders + textColor.RESET)
+                
+                if tempName.home != "True" and tempName.ruler == userFife.name: 
+                    print (textColor.CYAN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + tempName.defenders + textColor.RESET)
+                
+                #print (' ')
 
-        print("Avalible Commands:")
+        print("\nAvalible Commands:")
         print('-------------------------------------')
         print('{1}: Return to stronghold')
         print('{Stronghold Name}: View Fiefdom Details') 
@@ -377,6 +399,8 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
         print('You have ' + str(userFife.defenders) + ' ready to deploy.\n\n')
         deployNum = input('Enter the number of soldiers you would like to deploy: ')
         time.sleep(1)
+
+        print(deployNum + ' : deploynum || userFife.defenders : ' + userFife.defenders)
         
         if int(deployNum) < 0:
             os.system("clear")
@@ -384,13 +408,13 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
             time.sleep(2)
             screen = 'homeDetails'
 
-        if (int(userFife.defenders) < int(deployNum)) & int(deployNum) > 0:
+        if (int(userFife.defenders) < int(deployNum)) and int(deployNum) > 0:
             os.system("clear")
             print("You do not have enough soldiers for that")
             time.sleep(2)
             screen = 'homeDetails'
 
-        if (int(userFife.defenders) >= int(deployNum)) & int(deployNum) > 0:
+        if (int(userFife.defenders) >= int(deployNum)) and int(deployNum) > 0:
             print('Deploying ' + str(deployNum) + ' soldiers to ' + str(attackFife.name))
         
             attackFife.defenders = str(int(attackFife.defenders) + int(deployNum))
@@ -399,6 +423,7 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
 
             userFife.defenders = str(int(userFife.defenders) - int(deployNum))
             userFife.write()
+            userFife.read()
             attackFife.read()
 
             print("\n\n\n\n\n\n\n\n\n")
@@ -413,6 +438,7 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
             if command == "1":
                 screen = "stronghold"
 
+        time.sleep(3)
 #The withdraw screen allows players to withdraw forces from a ruled fiefdom
 #
 #To Do
@@ -440,13 +466,13 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
             time.sleep(2)
             screen = 'homeDetails'
 
-        if (int(attackFife.defenders) < int(withdrawNum)) & int(withdrawNum) > 0:
+        if (int(attackFife.defenders) < int(withdrawNum)) and int(withdrawNum) > 0:
             os.system("clear")
             print("You do not have enough soldiers for that")
             time.sleep(2)
             screen = 'homeDetails'
 
-        if (int(attackFife.defenders) >= int(withdrawNum)) & int(withdrawNum) > 0:
+        if (int(attackFife.defenders) >= int(withdrawNum)) and int(withdrawNum) > 0:
             print('Returning ' + str(withdrawNum) + ' soldiers back home')
         
             attackFife.defenders = str(int(attackFife.defenders) - int(withdrawNum))
@@ -620,11 +646,11 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
         os.system("clear")
         print('Seeding the world with default fiefdoms')
             
-        names = ['Razor Hills', 'Forest of Fado', 'Emerald Cove', 'Stormgrove', 'Aegirs Hall', 'Ashen Grove', 'Bellhollow']
+        names = ['Razor Hills', 'Forest of Fado', 'Emerald Cove', 'Stormgrove', 'Aegirs Hall', 'Ashen Grove', 'Bellhollow', 'Howling Plains', 'Jade Hill', 'Knoblands', 'Kestrel Keep', 'Direbrook', 'Greystone']
         for x in names:
             currentFife = Fifedom()
             currentFife.name = x
-            currentFife.defenders = random.randint(10, 50)
+            currentFife.defenders = random.randint(10, 100)
             currentFife.write()
 
         time.sleep(2)
