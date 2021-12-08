@@ -62,8 +62,11 @@ class Fifedom:
     ruler = 'Unclaimed'
     home = False
     defenders = 25
-    workers = 25
-    location = 1
+    gold = 500
+    defLevel = 0
+    defType = "Open Camp"
+    attLevel = 0
+    attType = "Angry Mob"
 
     #take the current fifedom and write it to the /fifes directory
     def write(self):
@@ -77,8 +80,11 @@ class Fifedom:
                 f.write(self.ruler + '\n')
                 f.write(str(self.home) + '\n')
                 f.write(str(self.defenders) + '\n')
-                f.write(str(self.workers) + '\n')
-                f.write(str(self.location) + '\n')
+                f.write(str(self.gold) + '\n')
+                f.write(str(self.defLevel) + '\n')
+                f.write(str(self.defType) + '\n')
+                f.write(str(self.attLevel) + '\n')
+                f.write(str(self.attType) + '\n')
         except:
             pass
 
@@ -89,8 +95,11 @@ class Fifedom:
                 f.write(self.ruler + '\n')
                 f.write(str(self.home) + '\n')
                 f.write(str(self.defenders) + '\n')
-                f.write(str(self.workers) + '\n')
-                f.write(str(self.location) + '\n')
+                f.write(str(self.gold) + '\n')
+                f.write(str(self.defLevel) + '\n')
+                f.write(str(self.defType) + '\n')
+                f.write(str(self.attLevel) + '\n')
+                f.write(str(self.attType) + '\n')
         except:
             pass
 
@@ -103,6 +112,12 @@ class Fifedom:
                 self.ruler = f.readline().strip()
                 self.home = f.readline().strip()
                 self.defenders = f.readline().strip()
+                self.gold = f.readline().strip()
+                self.defLevel = f.readline().strip()
+                self.defType = f.readline().strip()
+                self.attLevel = f.readline().strip()
+                self.attType = f.readline().strip()
+
         except:
             self.write()
             print('file read fail, creating new fife file for current user')
@@ -168,9 +183,9 @@ See more info at github.com/Sheeves11/UnnamedFiefdomGame
         os.system("clear")
 
         header()
+        print("\n")
+        print(textColor.WARNING + username + "'s Stronghold" + textColor.RESET)
         print("\n\n")
-        print(username + "'s Stronghold")
-        print("\n\n\n")
         
         userFife.name = username
         userFife.read()
@@ -183,8 +198,11 @@ See more info at github.com/Sheeves11/UnnamedFiefdomGame
             userFife.write()
 
         print('On a hilltop overlooking endless rolling fields, you see the only home you have ever known.')
-        print('\n\nThe Fiefdom is home to ' + str(userFife.defenders) + ' highly skilled warriors, and dozens of loyal citizens.')
+        print('The Fiefdom is home to ' + str(userFife.defenders) + ' highly skilled warriors, and dozens of loyal citizens.')
         print('\nDo not let them down')
+        print('\n\nWithin your coffiers, you have ' + userFife.gold + ' gold.')
+        print('Defense type: ' + str(userFife.defType))
+        print('Offensive type: ' + str(userFife.attType))
         print('\n\n\n\n')
         print('''\
 
@@ -202,6 +220,8 @@ See more info at github.com/Sheeves11/UnnamedFiefdomGame
         print('-------------------------------------')
         print('{1}: View Nearby Fiefdoms')
         print('{2}: About')
+        print('{3}: Upgrade Defense')
+        print('{4}: Upgrade Attack')
         print('-------------------------------------')
         print('\n')
         command = input("Enter your command: ")
@@ -284,16 +304,16 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
 
                 if tempName.home == "True" and tempName.ruler != userFife.name:
                     homeStatus = "Home Stronghold"
-                    print (textColor.WARNING + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + tempName.defenders + textColor.RESET)
+                    print (textColor.WARNING + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
 
                 if tempName.home != 'True' and tempName.ruler != userFife.name:
-                    print (textColor.YELLOW + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + tempName.defenders + textColor.RESET)
+                    print (textColor.YELLOW + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
                 
                 if tempName.home == "True" and tempName.ruler == userFife.name: 
-                    print (textColor.GREEN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + tempName.defenders + textColor.RESET)
+                    print (textColor.GREEN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
                 
                 if tempName.home != "True" and tempName.ruler == userFife.name: 
-                    print (textColor.CYAN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + tempName.defenders + textColor.RESET)
+                    print (textColor.CYAN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
                 
                 #print (' ')
 
@@ -344,14 +364,15 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
         os.system("clear") 
         header()
         
-        print("\n\n")
+        print("\n")
         print('Now viewing the Fiefdome of ' + attackFife.name)
         print('You rule this fiefdom')
               
-        time.sleep(2)
-        print('\n\nStatus Report:')
         time.sleep(1)
+        print('\nStatus Report:')
         print(attackFife.name + ' has ' + attackFife.defenders + ' fighters.')
+        print(attackFife.name + ' has ' + attackFife.gold + ' gold.')
+        print(attackFife.name + ' has the following defense: ' + attackFife.defType)
 
         print("\n\n\n\n\n\n\n\n\n")
 
@@ -361,6 +382,7 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
         print('{2}: View nearby fiefdoms')
         print('{3}: Deploy additional forces')
         print('{4}: Withdraw forces')
+        print('{5}: Withdraw gold')
         print('-------------------------------------')
         print('\n')
         command = input("Enter your command: ")
@@ -376,6 +398,66 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
 
         if command == "4":
             screen = 'withdraw'
+
+        if command == "5":
+            screen = 'withdrawGold'
+
+
+#The withdraw gold screen allows players to withdraw gold from a ruled fiefdom
+#
+#To Do
+# - 
+#
+#------------------------------------------------------------------------------
+    if screen == 'withdrawGold':
+        os.system("clear")
+        
+        header()
+        
+        print("\n")
+        print('Now viewing the Fiefdom of ' + attackFife.name)
+        print('\n')
+        time.sleep(1)
+        print(attackFife.name + ' has ' + attackFife.gold + ' gold.')
+        time.sleep(1)
+        print('\n')
+        withdrawNum = input('Enter the amount of gold you would like to return home: ')
+        time.sleep(1)
+        
+        if int(withdrawNum) < 0:
+            os.system("clear")
+            print("You cannot send home a negative number of gold. \n\nThat doesn't even make sense.")
+            time.sleep(2)
+            screen = 'homeDetails'
+
+        if (int(attackFife.gold) < int(withdrawNum)) and int(withdrawNum) > 0:
+            os.system("clear")
+            print("You do not have enough gold for that")
+            time.sleep(2)
+            screen = 'homeDetails'
+
+        if (int(attackFife.gold) >= int(withdrawNum)) and int(withdrawNum) > 0:
+            print('Sending ' + str(withdrawNum) + ' gold back home')
+        
+            attackFife.gold = str(int(attackFife.gold) - int(withdrawNum))
+            attackFife.write()
+            attackFife.read()
+
+            userFife.gold = str(int(userFife.gold) + int(withdrawNum))
+            userFife.write()
+            userFife.read()
+
+            print("\n\n\n\n\n\n\n\n\n")
+
+            print("Avalible Commands:")
+            print('-------------------------------------')
+            print('{1}: Return to stronghold')
+            print('-------------------------------------')
+            print('\n')
+            command = input("Enter your command: ")
+        
+            if command == "1":
+                screen = "stronghold"
 
 #The deploy screen allows players to deploy defenders to a Fifedom that they 
 #currently control.
@@ -651,6 +733,7 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
             currentFife = Fifedom()
             currentFife.name = x
             currentFife.defenders = random.randint(10, 100)
+            currentFife.gold = random.randint(500, 3100)
             currentFife.write()
 
         time.sleep(2)

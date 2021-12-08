@@ -2,6 +2,14 @@ import time
 import os
 import random
 
+#global variables for quick game balance adjustments
+goldPer = 100
+defendersPer = 3
+#interval in seconds
+interval = 3600
+
+
+
 #from fiefdomgame.py import Fifedom as Fiefdom
 
 #this is the backend to the Untitled Fiefdom Game. This is run alongside the user sessions.
@@ -13,8 +21,8 @@ class Fifedom:
     ruler = 'Unclaimed'
     home = False
     defenders = 25
-    workers = 25
-    location = 1
+    gold = 25
+    workers = 1
 
     #take the current fifedom and write it to the /fifes directory
     def write(self):
@@ -28,8 +36,8 @@ class Fifedom:
                 f.write(self.ruler + '\n')
                 f.write(str(self.home) + '\n')
                 f.write(str(self.defenders) + '\n')
+                f.write(str(self.gold) + '\n')
                 f.write(str(self.workers) + '\n')
-                f.write(str(self.location) + '\n')
         except:
             pass
 
@@ -40,8 +48,8 @@ class Fifedom:
                 f.write(self.ruler + '\n')
                 f.write(str(self.home) + '\n')
                 f.write(str(self.defenders) + '\n')
+                f.write(str(self.gold) + '\n')
                 f.write(str(self.workers) + '\n')
-                f.write(str(self.location) + '\n')
         except:
             pass
 
@@ -54,6 +62,8 @@ class Fifedom:
                 self.ruler = f.readline().strip()
                 self.home = f.readline().strip()
                 self.defenders = f.readline().strip()
+                self.gold = f.readline().strip()
+                self.workers = f.readline().strip()
         except:
             self.write()
             print('file read fail, creating new fife file for current user')
@@ -84,9 +94,10 @@ while (loop):
 
                 print(str(tempName.name + ' currently has ' + str(tempName.defenders) + ' defenders.'))
                 if tempName.ruler != 'Unclaimed':
-                    tempName.defenders = str(int(tempName.defenders) + 10)
+                    tempName.defenders = str(int(tempName.defenders) + defendersPer)
+                    tempName.gold = str(int(tempName.gold) + goldPer)
                     tempName.write()
     
     
 
-    time.sleep(3600)
+    time.sleep(interval)
