@@ -200,7 +200,7 @@ See more info at github.com/Sheeves11/UnnamedFiefdomGame
         print('On a hilltop overlooking endless rolling fields, you see the only home you have ever known.')
         print('The Fiefdom is home to ' + str(userFife.defenders) + ' highly skilled warriors, and dozens of loyal citizens.')
         print('\nDo not let them down')
-        print('\n\nWithin your coffiers, you have ' + userFife.gold + ' gold.')
+        print('\n\nWithin your coffers, you have ' + str(userFife.gold) + ' gold.')
         print('Defense type: ' + str(userFife.defType))
         print('Offensive type: ' + str(userFife.attType))
         print('\n\n\n\n')
@@ -222,6 +222,7 @@ See more info at github.com/Sheeves11/UnnamedFiefdomGame
         print('{2}: About')
         print('{3}: Upgrade Defense')
         print('{4}: Upgrade Attack')
+        print('{5}: Hire Mercenaries')
         print('-------------------------------------')
         print('\n')
         command = input("Enter your command: ")
@@ -234,6 +235,211 @@ See more info at github.com/Sheeves11/UnnamedFiefdomGame
 
         if command == '2':
             screen = 'about'
+
+        if command == '3':
+            screen = 'upgradeDef'
+
+        if command == '4':
+            screen = 'upgradeAtt'
+
+        if command == '5':
+            screen = 'mercs'
+
+
+
+#This is the screen for purchacing soldiers
+#----------------------------------------------------------------------------------
+    if screen == "mercs":
+        os.system("clear")
+
+        header()
+        
+
+        mercCost = 10
+        print('You currently have ' + userFife.defenders + ' soldiers and ' +  userFife.gold + ' gold.')
+        print('You can hire mercinaries for ' + str(mercCost) + ' gold each?')
+
+
+        upgradeInput = input('\nHow many mercinaries would you like to hire?\n')
+
+        if int(upgradeInput) == 0:
+            print("No changes were made!")
+
+        elif int(upgradeInput) < 0:
+            print("You can't hire a negative number of soldiers")
+
+        elif (int(userFife.gold) // int(upgradeInput) > mercCost): 
+            userFife.defenders = str(int(userFife.defenders) + int(upgradeInput))
+            userFife.gold = str(int(userFife.gold) - (mercCost * int(upgradeInput)))
+            userFife.write()
+            userFife.read()
+
+        else:
+            print("You need more gold first!")
+
+
+        print('\n\n\n\n\n\n\n\n\n\n')
+        print("Avalible Commands:")
+        print('-------------------------------------')
+        print('{1}: Return to Stronghold')
+        print('-------------------------------------')
+        print('\n')
+        command = input("Enter your command: ")
+        
+        if command == "1":
+            screen = "stronghold"
+
+            
+
+
+
+
+
+
+
+
+#This is the screen for updating a fief's defenses. Note: there are two screens
+#like this. One for fiefs and one for player strongholds.
+#----------------------------------------------------------------------------------
+    if screen == "upgradeFifeDef":
+        os.system("clear")
+
+        header()
+        
+        defTypeNext = 'undefined'
+        defUpgradeCost = 0
+        
+        if attackFife.defLevel == str('0'):
+            defTypeNext = 'Wooden Fences'
+            defUpgradeCost = 500
+                
+        if attackFife.defLevel == str('1'):
+            defTypeNext = 'Really Deep Ditches'
+            defUpgradeCost = 1500
+               
+        if attackFife.defLevel == str('2'):
+            defTypeNext = 'Ditch Spikes'
+            defUpgradeCost = 5000
+       
+        if attackFife.defLevel == str('3'):
+            defTypeNext = 'Moat'
+            defUpgradeCost = 10000
+
+        if attackFife.defLevel == str('4'):
+            defTypeNext = 'Alligators in the Moat'
+            defUpgradeCost = 20000
+
+        if attackFife.defLevel == str('5'):
+            defTypeNext = 'Drawbridge'
+            defUpgradeCost = 40000
+
+        print('Your current defense style is: ' + attackFife.defType)
+        print('Would you like to upgrade to ' + defTypeNext + ' for ' + str(defUpgradeCost) + ' gold?')
+
+
+        upgradeInput = input('y/n?')
+
+        if upgradeInput == 'y' and int(userFife.gold) >= defUpgradeCost:
+            print("Upgrade Complete!")
+            attackFife.defType = defTypeNext
+            attackFife.defLevel = str(int(attackFife.defLevel) + 1)
+            userFife.gold = str(int(userFife.gold) - defUpgradeCost)
+            attackFife.write()
+            attackFife.read()
+            userFife.write()
+            userFife.read()
+
+
+        elif upgradeInput == 'y' and int(userFife.gold) < defUpgradeCost:
+            print("You need more gold first!")
+
+        elif upgradeInput == 'n':
+            print("No changes made.")
+
+        print('\n\n\n\n\n\n\n\n\n\n')
+        print("Avalible Commands:")
+        print('-------------------------------------')
+        print('{1}: Return to Stronghold')
+        print('-------------------------------------')
+        print('\n')
+        command = input("Enter your command: ")
+        
+        if command == "1":
+            screen = "stronghold"
+
+            
+            
+#This screen is for upgrading your home stronghold's defenses
+#------------------------------------------------------------------------------
+    if screen == "upgradeDef":
+        os.system("clear")
+
+        header()
+        
+        defTypeNext = 'undefined'
+        defUpgradeCost = 0
+        
+        if userFife.defLevel == str('0'):
+            defTypeNext = 'Wooden Fences'
+            defUpgradeCost = 500
+                
+        if userFife.defLevel == str('1'):
+            defTypeNext = 'Really Deep Ditches'
+            defUpgradeCost = 1500
+               
+        if userFife.defLevel == str('2'):
+            defTypeNext = 'Ditch Spikes'
+            defUpgradeCost = 5000
+       
+        if userFife.defLevel == str('3'):
+            defTypeNext = 'Moat'
+            defUpgradeCost = 10000
+
+        if userFife.defLevel == str('4'):
+            defTypeNext = 'Alligators in the Moat'
+            defUpgradeCost = 20000
+
+        if userFife.defLevel == str('5'):
+            defTypeNext = 'Drawbridge'
+            defUpgradeCost = 40000
+
+
+
+
+
+
+        print('Your current defense style is: ' + userFife.defType)
+        print('Would you like to upgrade to ' + defTypeNext + ' for ' + str(defUpgradeCost) + ' gold?')
+
+
+        upgradeInput = input('y/n?')
+
+        if upgradeInput == 'y' and int(userFife.gold) >= defUpgradeCost:
+            print("Upgrade Complete!")
+            userFife.defType = defTypeNext
+            userFife.defLevel = str(int(userFife.defLevel) + 1)
+            userFife.gold = str(int(userFife.gold) - defUpgradeCost)
+            userFife.write()
+            userFife.read()
+
+        elif upgradeInput == 'y' and int(userFife.gold) < defUpgradeCost:
+            print("You need more gold first!")
+
+        elif upgradeInput == 'n':
+            print("No changes made.")
+
+
+        print('\n\n\n\n\n\n\n\n\n\n')
+        print("Avalible Commands:")
+        print('-------------------------------------')
+        print('{1}: Return to Stronghold')
+        print('-------------------------------------')
+        print('\n')
+        command = input("Enter your command: ")
+        
+        if command == "1":
+            screen = "stronghold"
+
 
 
 #This is the about page for the game. Keep it updated
@@ -304,13 +510,13 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
 
                 if tempName.home == "True" and tempName.ruler != userFife.name:
                     homeStatus = "Home Stronghold"
-                    print (textColor.WARNING + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
+                    print (textColor.WARNING + 'The Stronghold of ' +  tempName.name + ' || Defenders: ' + tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
 
                 if tempName.home != 'True' and tempName.ruler != userFife.name:
                     print (textColor.YELLOW + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
                 
                 if tempName.home == "True" and tempName.ruler == userFife.name: 
-                    print (textColor.GREEN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
+                    print (textColor.GREEN + 'The Stronghold of ' + tempName.name + ' || Defenders: ' + tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
                 
                 if tempName.home != "True" and tempName.ruler == userFife.name: 
                     print (textColor.CYAN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
@@ -320,7 +526,7 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
         print("\nAvalible Commands:")
         print('-------------------------------------')
         print('{1}: Return to stronghold')
-        print('{Stronghold Name}: View Fiefdom Details') 
+        print('{Enter fiefdom name or stronghold owner}: View Fiefdom Details') 
         print('-------------------------------------')
         print('\n')
         command = input("Enter your command: ")
@@ -365,7 +571,7 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
         header()
         
         print("\n")
-        print('Now viewing the Fiefdome of ' + attackFife.name)
+        print('Now viewing the Fiefdom of ' + attackFife.name)
         print('You rule this fiefdom')
               
         time.sleep(1)
@@ -383,6 +589,7 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
         print('{3}: Deploy additional forces')
         print('{4}: Withdraw forces')
         print('{5}: Withdraw gold')
+        print('{6}: Upgrade Defenses')
         print('-------------------------------------')
         print('\n')
         command = input("Enter your command: ")
@@ -401,6 +608,9 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
 
         if command == "5":
             screen = 'withdrawGold'
+
+        if command == '6':
+            screen = 'upgradeFifeDef'
 
 
 #The withdraw gold screen allows players to withdraw gold from a ruled fiefdom
@@ -589,11 +799,13 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
         header()
         
         print("\n\n")
-        print('Now viewing the Fiefdome of ' + attackFife.name)
+        print('Now viewing the Fiefdom of ' + attackFife.name)
         print('This Fiefdome is ruled by ' + attackFife.ruler)
-        print('\n\nYour scouts return early in the morning, bringing reports of the enemy Fiefdom.')
+        print('-------------------------------------------------------------------------')
+        print('\nYour scouts return early in the morning, bringing back reports of the enemy fiefdom.')
         print(attackFife.name + ' looks to have ' + attackFife.defenders + ' fighters.')
-        
+        print('Defense Type: ' + attackFife.defType)
+        print('-------------------------------------------------------------------------')
         print("\n\n\n\n\n\n\n\n\n")
         
         print("Avalible Commands:")
