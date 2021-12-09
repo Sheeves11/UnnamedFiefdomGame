@@ -186,23 +186,46 @@ while (loop):
                 See more info at github.com/Sheeves11/UnnamedFiefdomGame ''')
         print('\n')
         userFife = Fifedom()        
-        username = input("                Enter your username (Note that usernames are not validated at the moment): ")
+        username = input("                Enter your username (Note that passwords are not encrypted (yet): ")
         currentUsername = username
         
         #if "username.txt" does not exist, create it. The file only contains a name for now.
         try:
             usernameFile = username + ".txt"
             with open(usernameFile, 'x') as f:
-                f.write(username)
-               # print('WRITING NEW USER FILE')
+                f.write(username + '\n')
+                os.system('clear')
+                header()
+                print('\n\n')
+                print('Welcome, new user!')
+                print('Creating new account...')
+                password = "default"
+                password = input('Enter your password: ')
+                f.write(password)
+                time.sleep(1)
+                print('Logging in as: ' + username)
+                time.sleep(1)
+                screen = 'stronghold'
         except:
-            time.sleep(1)
- 
-        print('\n')
-        print("                Logging in as: " + username)
-
-        time.sleep(2)
-        screen = "stronghold"
+            with open(usernameFile, 'r') as f:
+                temp1 = f.readline().strip()
+                truePass = f.readline().strip()
+                os.system('clear')
+                header()
+                
+                print('\n\nWelcome back, ' + str(username))
+                userPass = input('Enter your password: ')
+                
+                if str(userPass) == str(truePass):
+                    print('Password is correct')
+                    time.sleep(1)
+                    print("Logging in as: " + username)
+                    time.sleep(1)
+                    screen = 'stronghold'
+                else:
+                    print('Access denied')
+                    time.sleep(2)
+                    screen = 'login'
 
 #The stronghold screen is homebase for players. The page also writes the current username
 #into the userFife object.
