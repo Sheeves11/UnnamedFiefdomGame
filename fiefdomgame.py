@@ -33,7 +33,7 @@ def header():
 -=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=--=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-
                                              UNNAMED FIEFDOM GAME
 -=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=--=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-'''
-    + textColor.WARNING + '                                    Announcement: Season 1 will begin on December 20th, 2021!'
+    + textColor.WARNING + '\n                          Announcement: Season 1 will begin on December 20th, 2021!'
     + textColor.RESET)
 
 #this is the d20 roll function
@@ -148,7 +148,7 @@ while (loop):
 | |__| | | | | | | | (_| | | | | | |  __/ (_| | | |    | |  __/ || (_| | (_) | | | | | | | |__| | (_| | | | | | |  __/
  \____/|_| |_|_| |_|\__,_|_| |_| |_|\___|\__,_| |_|    |_|\___|_| \__,_|\___/|_| |_| |_|  \_____|\__,_|_| |_| |_|\___|
                                                                                                                        
-~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~                                                                                                                       
+~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~          
         ''' + textColor.RESET + '''
                                                   ,--,  ,.-.
                                    ,                   \,       '-,-`,'-.' | ._
@@ -172,22 +172,18 @@ while (loop):
                       (   ,``-     \/|         \-A.A-`|     /
                      ,>,_ )_,..(    )\          -,,_-`  _--`
                     (_ \|`   _,/_  /  \_            ,--`
-                     \( `   <.,../`     `-.._   _,-`
-
-        ''' + textColor.WARNING + '''
+                     \( `   <.,../`     `-.._   _,-`    ''' + textColor.WARNING + '''
 
 ~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~                                                                                                                       
         ''')
-        print(textColor.RESET + 
-        '''
+        print(textColor.RESET + '''
                 Welcome to the Unnamed Fiefdom Game!
 
                 This is a python programming project and multiplayer war game based on the classic
                 BBS door games of the 80s and 90s. In much the same way, this system uses a central
                 server to host the game to multiple users, who access it using a terminal emulator.
 
-                See more info at github.com/Sheeves11/UnnamedFiefdomGame
-        ''')
+                See more info at github.com/Sheeves11/UnnamedFiefdomGame ''')
         print('\n')
         userFife = Fifedom()        
         username = input("                Enter your username (Note that usernames are not validated at the moment): ")
