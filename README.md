@@ -6,8 +6,12 @@ other text-based war games, like Kings of Chaos.
 
 All you need to play is a browser! All you need to host the game is a basic Ubuntu Server installation.
 
+Host your own server or play on our official website: http://unnamedfiefdomgame.com/
 
-![snip](https://user-images.githubusercontent.com/3498355/144886504-573dd8b0-dde5-489b-a229-36c5d0cf5ee2.PNG)
+Please note that this game is in the super pre-alpha testing phase right now. More updates and features to 
+come soon!
+
+<img width="786" alt="Screenshot 2021-12-08 220747" src="https://user-images.githubusercontent.com/3498355/145333132-96f78834-6f90-42f2-9365-f1158559138b.png">
 
 ---------------------------------------------------------------------------------------------------------------
 
@@ -25,8 +29,11 @@ Your goal is to control as many fiefdoms as you can manage without spreading you
 Your home stronghold will never fall, but any conquered fiefdoms can be taken by opposing players. Make sure you can defend the
 territory you claim!
 
-Your Fiefdom consists of soldiers and workers. The workers earn income and the soldiers both fight and defend your fiefdoms.
-Each worker produces 1 coin per hour. These coins will be used to purchace various upgrades and to recruit new fighters.
+Each claimed fiefdom will generate 100 gold per hour. That gold can be spent on defense and attack upgrades as well as
+additional soldiers.
+
+Upgrade your conqured fiefdoms to keep them safe! Be careful though. Any upgraded fiefdom can still be taken, and 
+your upgrades will transfer to the new ruler.
 
 ---------------------------------------------------------------------------------------------------------------
 
@@ -38,13 +45,19 @@ before running the game.
 More information about goTTY can be had here: https://github.com/yudai/gotty
 
 
-Start the game using the following command:
 
-"gotty -w python3 test.py"
 
-In your player's browser, connect using the server's IP address and the default port 8080. For example:
+To run the game, first start up the backend with the following command:
 
-http://10.4.40.15:8080
+python3 fiefdombackend.py &
+
+Then, start the frontend and web server with this command:
+
+gotty -w -p 80 python3 test.py
+
+In your player's browser, connect using the server's IP address. For example:
+
+http://10.4.40.15
 
 -----------------------------------------------------------------------------------------------------------------
 
