@@ -55,7 +55,67 @@ class textColor:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
+#define some artwork functions
+def art1():
+    print('''
+                        ______
+                       /     /\ 
+                      /     /  \ 
+                     /_____/----\_    (  
+                    "     "          ).  
+                   _ ___          o (:') o   
+                  (@))_))        o ~/~~\~ o   
+                                  o  o  o
+    ''')
 
+
+def art2():
+    print('''
+                                )
+                              _(
+                          ___|_|_________
+                         /___|_|_________\ 
+                    ()  /_________________\ 
+                `'.()))/___________________\ '-.'`'.
+               .,'(())()   ____     ____  |,.'     '-.
+                  )(()))  |)~~(|   |)~~(| |. '-. ()`'.
+                 ()()(()) ||__||   ||__|| | `'.,(())
+                ())()(()))________________|___ ()))()
+                ()((())()))| | | | | | | | | | (()()))
+               ()))(()()())|_|_|_|_|_|_|_|_|_|)(()(()
+               (()((())(()-------------------|(())(())
+               ~^~ ^" ^"  ^~^   ^"   ~^~    ^~^~(()(()
+               ^"     ^~^   ~^~   ^"    ^~^   ~~^~""^
+    ''')
+
+def art3():
+    print('''
+                 ^       /\             /\   ~!~
+                    ^   (())           (())
+             ^         /(())\         /(())\      ~!~
+                      (((())))       (((())))
+                      |^|^^|^|_______|^|^^|^|
+                  /\   |^^^^|-_-_-_-_-|^^^^|   /\ 
+                 (())  | "" |+_+_+_+_+| "" |  (())
+                ((())) |    |[X]_+_[X]|    | ((()))
+               (((())))|    |+_+_+_+_+|    |(((())))
+               |^|^^|^||____|-_-_-_-_-|____||^|^^|^|
+                |^^^^|_-_-_-_-_-_-_-_-_-_-_-_|^^^^|
+            ~^~~| "" |_-_-_-_-_-_-_-_-_-_-_-_| "" |~~
+            ~~  |    |_+_+_+_+_+_+_+_+_+_+_+_|    | ~^~
+             ~^^|    |_+[X]+_[X]_+_[X]_+[X]+_|    |~~^
+                |    |_+_+_+_+_+/l\+_+_+_+_+_|    |
+                |    |_-_-_-_-_|:::|_-_-_-_-_|    |
+                |____|_+_+_+_+_|:::|_+_+_+_+_|____|
+            @@@@@@@@@@@@@@@@@@@@"""@@@@@@@@@@@@@@@@@@@@
+    ''')
+
+def art4():
+    print('''
+
+
+
+    ''')
 
 #the fifedom class holds variables that define a player's stats
 class Fifedom:
@@ -197,11 +257,12 @@ while (loop):
                 os.system('clear')
                 header()
                 print('\n\n')
-                print('Welcome, new user!')
-                print('Creating new account...')
+                print('Welcome! To create your account, please enter your password. \nIf this was a mistake, refresh the page!')
+                print('\nUsername: ' + username)
                 password = "default"
                 password = input('Enter your password: ')
                 f.write(password)
+                print('Creating new account...')
                 time.sleep(1)
                 print('Logging in as: ' + username)
                 time.sleep(1)
@@ -242,8 +303,8 @@ while (loop):
 
         header()
         print("\n")
-        print(textColor.WARNING + username + "'s Stronghold" + textColor.RESET)
-        print("\n\n")
+        print('     ' + textColor.WARNING + username + "'s Stronghold" + textColor.RESET)
+        print("\n")
         
         userFife.name = username
         userFife.read()
@@ -255,35 +316,43 @@ while (loop):
             userFife.home = 'True'
             userFife.write()
 
-        print('On a hilltop overlooking endless rolling fields, you see the only home you have ever known.')
-        print('The Fiefdom is home to ' + str(userFife.defenders) + ' highly skilled warriors, and dozens of loyal citizens.')
-        print('\nDo not let them down')
-        print('\n\nWithin your coffers, you have ' + str(userFife.gold) + ' gold.')
-        print('Defense type: ' + str(userFife.defType))
-        print('Offensive type: ' + str(userFife.attType))
-        print('\n\n\n\n')
-        print('''\
-
-
-       _   |~  _             
-      [_]--'--[_]
-      |'|""'""|'|           
-      | | /^\ | |
-   ---|_|_|I|_|_|---
-         /   \ 
+        print('     On a hilltop overlooking endless rolling fields, you see the only home you have ever known.')
+        print('     The Fiefdom is home to ' + textColor.WARNING +  str(userFife.defenders) + textColor.RESET + ' highly skilled warriors, and dozens of loyal citizens.')
+        print('\n     Do not let them down')
+        print('\n     Within your coffers, you have ' + textColor.WARNING + str(userFife.gold) + textColor.RESET + ' gold.')
+        #print('Defense type: ' + str(userFife.defType))
+        print('     Your army of ' + textColor.WARNING + str(userFife.attType) + textColor.RESET + ' stands ready.')
+        print('\n')
+        print('''
+                                            |>>>                        |>>>
+                                            |                           |
+                                        _  _|_  _                   _  _|_  _
+                                       | |_| |_| |                 | |_| |_| |
+                                       \  .      /                 \ .    .  /
+                                        \    ,  /                   \    .  /
+                                         | .   |_   _   _   _   _   _| ,   |
+                                         |    .| |_| |_| |_| |_| |_| |  .  |
+                                         | ,   | .    .     .      . |    .|
+                                         |   . |  .     . .   .  ,   |.    |
+                             ___----_____| .   |.   ,  _______   .   |   , |---~_____
+                        _---~            |     |  .   /+++++++\    . | .   |         ~---_
+                                         |.    | .    |+++++++| .    |   . |              ~-_
+                                      __ |   . |   ,  |+++++++|.  . _|__   |                 ~-_
+                             ____--`~    '--~~__ .    |++++ __|----~    ~`---,              ___^~-__
+                        -~--~                   ~---__|,--~'                  ~~----_____-~'   `~----~
 
                 ''')
 
-        print("Avalible Commands:")
-        print('-------------------------------------')
-        print('{1}: View Nearby Fiefdoms')
-        print('{2}: About')
-        print('{3}: Upgrade Defense')
-        print('{4}: Upgrade Attack')
-        print('{5}: Hire Mercenaries')
-        print('-------------------------------------')
+        print("     Avalible Commands:")
+        print('     -------------------------------------')
+        print('     {1}: View Nearby Fiefdoms')
+        print('     {2}: About')
+        #print('{3}: Upgrade Defense')
+        print('     {3}: Upgrade Attack')
+        print('     {4}: Hire Mercenaries')
+        print('     -------------------------------------')
         print('\n')
-        command = input("Enter your command: ")
+        command = input("     Enter your command: ")
         
         if command == "1":
             screen = "attack"
@@ -294,13 +363,13 @@ while (loop):
         if command == '2':
             screen = 'about'
 
-        if command == '3':
-            screen = 'upgradeDef'
+        #if command == '3':
+        #    screen = 'upgradeDef'
 
-        if command == '4':
+        if command == '3':
             screen = 'upgradeFifeAtt'
 
-        if command == '5':
+        if command == '4':
             screen = 'mercs'
 
 
@@ -337,12 +406,12 @@ while (loop):
 
 
         print('\n\n\n\n\n\n\n\n\n\n')
-        print("Avalible Commands:")
-        print('-------------------------------------')
-        print('{1}: Return to Stronghold')
-        print('-------------------------------------')
+        print("     Avalible Commands:")
+        print('     -------------------------------------')
+        print('     {1}: Return to Stronghold')
+        print('     -------------------------------------')
         print('\n')
-        command = input("Enter your command: ")
+        command = input("     Enter your command: ")
         
         if command == "1":
             screen = "stronghold"
@@ -360,42 +429,42 @@ while (loop):
         attUpgradeCost = 0
         
         if userFife.attLevel == str('0'):
-            attTypeNext = 'Sharpened Pitchforks'
+            attTypeNext = 'angry villagers with sharpened pitchforks'
             attUpgradeCost = 500
                        
         if userFife.attLevel == str('1'):
-            attTypeNext = 'Longbow Archers'
+            attTypeNext = 'semi-trained longbow archers'
             attUpgradeCost = 1500
         
         if userFife.attLevel == str('2'):
-            attTypeNext = 'Military Training'
+            attTypeNext = 'military recruits'
             attUpgradeCost = 3000
         
         if userFife.attLevel == str('3'):
-            attTypeNext = 'Flaming Arrows'
+            attTypeNext = 'fairly well-trained archers with flaming arrows'
             attUpgradeCost = 5000
         
         if userFife.attLevel == str('4'):
-            attTypeNext = 'Trebuchets'
+            attTypeNext = 'drunks with trebuchets'
             attUpgradeCost = 10000
         
         if userFife.attLevel == str('5'):
-            attTypeNext = 'Biological Warfare'
+            attTypeNext = 'scientists who are experiementing with biological warfare'
             attUpgradeCost = 20000
 
         if userFife.attLevel == str('6'):
-            attTypeNext = 'Guns'
+            attTypeNext = 'peasents with Guns'
             attUpgradeCost = 40000
         
+        print('\n\n')
+        print('     Your current army is made of ' + userFife.attType)
+        print('     Would you like to upgrade to ' + attTypeNext + ' for ' + str(attUpgradeCost) + ' gold?')
 
-        print('Your current attack style is: ' + userFife.attType)
-        print('Would you like to upgrade to ' + attTypeNext + ' for ' + str(attUpgradeCost) + ' gold?')
 
-
-        upgradeInput = input('y/n?')
+        upgradeInput = input('\n\n     Confirm Upgrade (y/n?): ')
 
         if upgradeInput == 'y' and int(userFife.gold) >= attUpgradeCost:
-            print("Upgrade Complete!")
+            print("     Upgrade Complete!")
             userFife.attType = attTypeNext
             userFife.attLevel = str(int(userFife.attLevel) + 1)
             userFife.gold = str(int(userFife.gold) - attUpgradeCost)
@@ -404,21 +473,18 @@ while (loop):
 
 
         elif upgradeInput == 'y' and int(userFife.gold) < attUpgradeCost:
-            print("You need more gold first!")
+            print('\n')
+            print("     You need more gold first!\n\n\n\n")
 
         elif upgradeInput == 'n':
-            print("No changes made.")
+            print('\n')
+            print("     No changes made.")
 
         print('\n\n\n\n\n\n\n\n\n\n')
-        print("Avalible Commands:")
-        print('-------------------------------------')
-        print('{1}: Return to Stronghold')
-        print('-------------------------------------')
-        print('\n')
-        command = input("Enter your command: ")
+        command = input("     Press Enter")
         
-        if command == "1":
-            screen = "stronghold"
+
+        screen = "stronghold"
 
             
 
@@ -487,19 +553,13 @@ while (loop):
             print("No changes made.")
 
         print('\n\n\n\n\n\n\n\n\n\n')
-        print("Avalible Commands:")
-        print('-------------------------------------')
-        print('{1}: Return to Stronghold')
-        print('-------------------------------------')
-        print('\n')
-        command = input("Enter your command: ")
+        command = input("     Press Enter ")
         
-        if command == "1":
-            screen = "stronghold"
-
+        screen = "attack"
             
-            
+    '''            
 #This screen is for upgrading your home stronghold's defenses
+#Not currently in use
 #------------------------------------------------------------------------------
     if screen == "upgradeDef":
         os.system("clear")
@@ -533,14 +593,8 @@ while (loop):
             defTypeNext = 'Drawbridge'
             defUpgradeCost = 40000
 
-
-
-
-
-
         print('Your current defense style is: ' + userFife.defType)
         print('Would you like to upgrade to ' + defTypeNext + ' for ' + str(defUpgradeCost) + ' gold?')
-
 
         upgradeInput = input('y/n?')
 
@@ -558,7 +612,6 @@ while (loop):
         elif upgradeInput == 'n':
             print("No changes made.")
 
-
         print('\n\n\n\n\n\n\n\n\n\n')
         print("Avalible Commands:")
         print('-------------------------------------')
@@ -569,7 +622,7 @@ while (loop):
         
         if command == "1":
             screen = "stronghold"
-
+    '''
 
 
 #This is the about page for the game. Keep it updated
@@ -583,37 +636,37 @@ while (loop):
         print('''
      
        
-Intro:
-        
-Unnamed Fiefdom Game is a python programming project by Mike Quain (mquain@uark.edu)
-The goal was to take on a project that was big enough to be challenging, but small enough to stay interesting.
-This game looks simple, but it taught me the basics of reading and writing to a database, data persistance, 
-and multi-user tools.
+      Intro:
+                
+      Unnamed Fiefdom Game is a python programming project by Mike Quain (mquain@uark.edu)
+      The goal was to take on a project that was big enough to be challenging, but small enough to stay interesting.
+      This game looks simple, but it taught me the basics of reading and writing to a database, data persistance, 
+      and multi-user tools.
 
 
-How to play:
+      How to play:
 
-Your goal is to control as many fiefdoms as you can manage without spreading your army too thin and leaving 
-yourself open to attack! Your home stronghold will never fall, but any conquered fiefdoms can be taken by 
-opposing players. Make sure you candefend the territory you claim!
+      Your goal is to control as many fiefdoms as you can manage without spreading your army too thin and leaving 
+      yourself open to attack! Your home stronghold will never fall, but any conquered fiefdoms can be taken by 
+      opposing players. Make sure you can defend the territory you claim!
 
-Each claimed fiefdom will generate 100 gold per hour. That gold can be spent on defense and attack upgrades
-as well as additional soldiers.
+      Each claimed fiefdom will generate 100 gold per hour. That gold can be spent on defense and attack upgrades
+      as well as additional soldiers.
 
-Upgrade your conqured fiefdoms to keep them safe! Be careful though. Any upgraded fiefdom can still be taken, 
-and your upgrades will transfer to the new ruler.
+      Upgrade your conqured fiefdoms to keep them safe! Be careful though. Any upgraded fiefdom can still be taken, 
+      and your upgrades will be transfered to the new ruler.
 
-Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
+      Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
 
         ''')
 
         print('\n\n\n\n\n')
-        print("Avalible Commands:")
-        print('-------------------------------------')
-        print('{1}: Return to Stronghold')
-        print('-------------------------------------')
+        print("      Avalible Commands:")
+        print('      -------------------------------------')
+        print('      {1}: Return to Stronghold')
+        print('      -------------------------------------')
         print('\n')
-        command = input("Enter your command: ")
+        command = input("      Enter your command: ")
         
         if command == "1":
             screen = "stronghold"
@@ -707,28 +760,42 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
         header()
         
         print("\n")
-        print('Now viewing the Fiefdom of ' + attackFife.name)
-        print('You rule this fiefdom')
+        print('     Now viewing the Fiefdom of ' + attackFife.name)
+        print('     You rule this fiefdom')
               
         time.sleep(1)
-        print('\nStatus Report:')
-        print(attackFife.name + ' has ' + attackFife.defenders + ' fighters.')
-        print(attackFife.name + ' has ' + attackFife.gold + ' gold.')
-        print(attackFife.name + ' has the following defense: ' + attackFife.defType)
-
-        print("\n\n\n\n\n\n\n\n\n")
-
-        print("Avalible Commands:")
-        print('-------------------------------------')
-        print('{1}: Return to stronghold')
-        print('{2}: View nearby fiefdoms')
-        print('{3}: Deploy additional forces')
-        print('{4}: Withdraw forces')
-        print('{5}: Withdraw gold')
-        print('{6}: Upgrade Defenses')
-        print('-------------------------------------')
         print('\n')
-        command = input("Enter your command: ")
+        print('     Status Report:')
+        print('     ' + attackFife.name + ' has ' + attackFife.defenders + ' fighters.')
+        print('     ' + attackFife.name + ' has ' + attackFife.gold + ' gold.')
+        print('     ' + attackFife.name + ' has the following defense: ' + attackFife.defType)
+
+        print("\n")
+
+        if attackFife.defLevel == str(0):
+            art1()
+
+        if attackFife.defLevel == str(1):
+            art2()
+        
+        if attackFife.defLevel == str(2):
+            art3()
+
+        if attackFife.defLevel == str(3):
+            art4()
+        
+        print('\n')
+        print("     Avalible Commands:")
+        print('     -------------------------------------')
+        print('     {1}: Return to stronghold')
+        print('     {2}: View nearby fiefdoms')
+        print('     {3}: Deploy additional forces')
+        print('     {4}: Withdraw forces')
+        print('     {5}: Withdraw gold')
+        print('     {6}: Upgrade Defenses')
+        print('     -------------------------------------')
+        print('\n')
+        command = input("     Enter your command: ")
 
         if command == "1":
             screen = "stronghold"
@@ -767,22 +834,6 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
         print(attackFife.name + ' has ' + attackFife.gold + ' gold.')
         time.sleep(1)
         print('\n')
-        '''
-        withdrawNum = input('Enter the amount of gold you would like to return home: ')
-        time.sleep(1)
-        
-        if int(withdrawNum) < 0:
-            os.system("clear")
-            print("You cannot send home a negative number of gold. \n\nThat doesn't even make sense.")
-            time.sleep(2)
-            screen = 'homeDetails'
-
-        if (int(attackFife.gold) < int(withdrawNum)) and int(withdrawNum) > 0:
-            os.system("clear")
-            print("You do not have enough gold for that")
-            time.sleep(2)
-            screen = 'homeDetails'
-        '''
 
         print('Sending ' + str(attackFife.gold) + ' gold back home')
         time.sleep(1)
@@ -925,15 +976,30 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
         header()
         
         print("\n\n")
-        print('Now viewing the Fiefdom of ' + attackFife.name)
-        print('This Fiefdome is ruled by ' + attackFife.ruler)
+        print('Now viewing the fiefdom of ' + attackFife.name)
+        print('This fiefdom is ruled by ' + attackFife.ruler)
         print('-------------------------------------------------------------------------')
         print('\nYour scouts return early in the morning, bringing back reports of the enemy fiefdom.')
         print(attackFife.name + ' looks to have ' + attackFife.defenders + ' fighters.')
         print('Defense Type: ' + attackFife.defType)
         print('-------------------------------------------------------------------------')
-        print("\n\n\n\n\n\n\n\n\n")
         
+        print("\n\n")
+        
+        if attackFife.defLevel == str(0):
+            art1()
+
+        if attackFife.defLevel == str(1):
+            art2()
+        
+        if attackFife.defLevel == str(2):
+            art3()
+
+        if attackFife.defLevel == str(3):
+            art4()
+
+        print("\n\n")
+
         print("Avalible Commands:")
         print('-------------------------------------')
         print('{1}: Return to stronghold')
