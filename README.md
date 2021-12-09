@@ -11,8 +11,7 @@ Host your own server or play on our official website: http://unnamedfiefdomgame.
 Please note that this game is in the super pre-alpha testing phase right now. More updates and features to 
 come soon!
 
-
-![snip](https://user-images.githubusercontent.com/3498355/144886504-573dd8b0-dde5-489b-a229-36c5d0cf5ee2.PNG)
+<img width="786" alt="Screenshot 2021-12-08 220747" src="https://user-images.githubusercontent.com/3498355/145333132-96f78834-6f90-42f2-9365-f1158559138b.png">
 
 ---------------------------------------------------------------------------------------------------------------
 
