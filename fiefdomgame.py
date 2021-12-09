@@ -120,7 +120,7 @@ class Fifedom:
 
         except:
             self.write()
-            print('file read fail, creating new fife file for current user')
+            #print('file read fail, creating new fife file for current user')
                     
 
 
@@ -150,7 +150,7 @@ server to host the game to multiple users, who access it using a terminal emulat
 See more info at github.com/Sheeves11/UnnamedFiefdomGame
         ''')
         print('\n\n')
-        
+        userFife = Fifedom()        
         username = input("Enter your username\n(Note that usernames are not validated at the moment): ")
         currentUsername = username
         
