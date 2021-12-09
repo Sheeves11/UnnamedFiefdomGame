@@ -30,10 +30,11 @@ os.system("clear")
 #header() should be called on every page
 def header():
     print('''
-|----------------------------------------------------------------------------------|
-|------------------------------UNNAMED FIEFDOM GAME--------------------------------|
-|----------------------------------------------------------------------------------|
-    ''')
+-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=--=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-
+                                             UNNAMED FIEFDOM GAME
+-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=--=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-'''
+    + textColor.WARNING + '                                    Announcement: Season 1 will begin on December 20th, 2021!'
+    + textColor.RESET)
 
 #this is the d20 roll function
 def roll(mod):
@@ -140,7 +141,6 @@ while (loop):
         os.system("clear")
 #        header()
         print(textColor.WARNING + '''
-            
  _    _                                      _   ______ _       __    _                    _____                      
 | |  | |                                    | | |  ____(_)     / _|  | |                  / ____|                     
 | |  | |_ __  _ __   __ _ _ __ ___   ___  __| | | |__   _  ___| |_ __| | ___  _ __ ___   | |  __  __ _ _ __ ___   ___ 
@@ -150,46 +150,33 @@ while (loop):
                                                                                                                        
 ~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~                                                                                                                       
         ''' + textColor.RESET + '''
-
-                                                      /|
-                                                     |\|
-                                                     |||
-                                                     |||
-                                                     |||
-                                                     |||
-                                                     |||
-                                                     |||
-                                                  ~-[{o}]-~
-                                                     |/|
-                                                     |/|
-                             ///~`     |||_          `0'         =||||         . .
-                            ,  |='  ,))\_| ~-_                    _)  \      _/_/|
-                           / ,' ,;((((((    ~ \                  `~~~\-~-_ /~ (_/|
-                         /' -~/~)))))))'\_   _/'                      \_  /'  D   |
-                        (       (((((( ~-/ ~-/                          ~-;  /    \--_
-                         ~~--|   ))''    ')  `                            `~~\_    \   )
-                             :        (_  ~\           ,                    /~~-     ./
-                              \        \_   )--__  /(_/)                   |    )    )|
-                    ___       |_     \__/~-__    ~~   ,'      /,_;,   __--(   _/      |
-                  //~~\`\    /' ~~~----|     ~~~~~~~~'        \-  ((~~    __-~        |
-                ((()   `\`\_(_     _-~~-\                      ``~~ ~~~~~~   \_      /
-                 )))     ~----'   /      \                                   )       )
-                  (         ;`~--'        :                                _-    ,;;(
-                            |    `\       |                             _-~    ,;;;;)
-                            |    /'`\     ;                          _-~          _/
-                           /~   /    |    )                         /;;;''  ,;;:-~
-                          |    /     / | /                         |;;'   ,''
-                          /   /     |   \|                         |   ,;(   
-                        _/  /'       \  \_)                   .---__\_    \,--._______
-                       ( )|'         (~-_|                   (;;'  ;;;~~~/' `;;|  `;;;
-                        ) `\_         |-_;;--__               ~~~----__/'    /'_______/
-                        `----'       (   `~--_ ~~~;;------------~~~~~ ;;;'_/'
-                                     `~~~~~~~~'~~~-----....___;;;____---~~
+                                                  ,--,  ,.-.
+                                   ,                   \,       '-,-`,'-.' | ._
+                                  /|           \    ,   |\         }  )/  / `-,',
+                                  [ ,          |\  /|   | |        /  \|  |/`  ,`
+                                  | |       ,.`  `,` `, | |  _,...(   (      .',
+                                  \  \  __ ,-` `  ,  , `/ |,'      Y     (   /_L|
+                                   \  \_\,``,   ` , ,  /  |         )         _,/
+                                    \  '  `  ,_ _`_,-,<._.<        /         /
+                                     ', `>.,`  `  `   ,., |_      |         /
+                                       \/`  `,   `   ,`  | /__,.-`    _,   `|
+                                   -,-..\  _  \  `  /  ,  / `._) _,-\`       |
+                                    \_,,.) /\    ` /  / ) (-,, ``    ,        |
+                                   ,` )  | \_\       '-`  |  `(               |
+                                  /  /```(   , --, ,' \   |`<`    ,            |
+                                 /  /_,--`\   <\  V /> ,` )<_/)  | \      _____)
+                           ,-, ,`   `   (_,\ \    |   /) / __/  /   `----`
+                          (-, \           ) \ ('_.-._)/ /,`    /
+                          | /  `          `/    V   V, /`     /
+                       ,--\(        ,     <_/`       ||      /
+                      (   ,``-     \/|         \-A.A-`|     /
+                     ,>,_ )_,..(    )\          -,,_-`  _--`
+                    (_ \|`   _,/_  /  \_            ,--`
+                     \( `   <.,../`     `-.._   _,-`
 
         ''' + textColor.WARNING + '''
 
 ~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~                                                                                                                       
-
         ''')
         print(textColor.RESET + 
         '''
@@ -201,7 +188,7 @@ while (loop):
 
                 See more info at github.com/Sheeves11/UnnamedFiefdomGame
         ''')
-        print('\n\n')
+        print('\n')
         userFife = Fifedom()        
         username = input("                Enter your username (Note that usernames are not validated at the moment): ")
         currentUsername = username
@@ -215,8 +202,8 @@ while (loop):
         except:
             time.sleep(1)
  
-        print('\n\n')
-        print("                 Logging in as: " + username)
+        print('\n')
+        print("                Logging in as: " + username)
 
         time.sleep(2)
         screen = "stronghold"
@@ -292,7 +279,7 @@ while (loop):
             screen = 'upgradeDef'
 
         if command == '4':
-            screen = 'upgradeAtt'
+            screen = 'upgradeFifeAtt'
 
         if command == '5':
             screen = 'mercs'
@@ -320,7 +307,7 @@ while (loop):
         elif int(upgradeInput) < 0:
             print("You can't hire a negative number of soldiers")
 
-        elif (int(userFife.gold) // int(upgradeInput) > mercCost): 
+        elif (int(upgradeInput) * mercCost) <=  int(userFife.gold): 
             userFife.defenders = str(int(userFife.defenders) + int(upgradeInput))
             userFife.gold = str(int(userFife.gold) - (mercCost * int(upgradeInput)))
             userFife.write()
@@ -343,6 +330,78 @@ while (loop):
 
             
 
+#This is the screen for updating a user's attack power.
+#----------------------------------------------------------------------------------
+    if screen == "upgradeFifeAtt":
+        os.system("clear")
+
+        header()
+        
+        attTypeNext = 'undefined'
+        attUpgradeCost = 0
+        
+        if userFife.attLevel == str('0'):
+            attTypeNext = 'Sharpened Pitchforks'
+            attUpgradeCost = 500
+                       
+        if userFife.attLevel == str('1'):
+            attTypeNext = 'Longbow Archers'
+            attUpgradeCost = 1500
+        
+        if userFife.attLevel == str('2'):
+            attTypeNext = 'Military Training'
+            attUpgradeCost = 3000
+        
+        if userFife.attLevel == str('3'):
+            attTypeNext = 'Flaming Arrows'
+            attUpgradeCost = 5000
+        
+        if userFife.attLevel == str('4'):
+            attTypeNext = 'Trebuchets'
+            attUpgradeCost = 10000
+        
+        if userFife.attLevel == str('5'):
+            attTypeNext = 'Biological Warfare'
+            attUpgradeCost = 20000
+
+        if userFife.attLevel == str('6'):
+            attTypeNext = 'Guns'
+            attUpgradeCost = 40000
+        
+
+        print('Your current attack style is: ' + userFife.attType)
+        print('Would you like to upgrade to ' + attTypeNext + ' for ' + str(attUpgradeCost) + ' gold?')
+
+
+        upgradeInput = input('y/n?')
+
+        if upgradeInput == 'y' and int(userFife.gold) >= attUpgradeCost:
+            print("Upgrade Complete!")
+            userFife.attType = attTypeNext
+            userFife.attLevel = str(int(userFife.attLevel) + 1)
+            userFife.gold = str(int(userFife.gold) - attUpgradeCost)
+            userFife.write()
+            userFife.read()
+
+
+        elif upgradeInput == 'y' and int(userFife.gold) < attUpgradeCost:
+            print("You need more gold first!")
+
+        elif upgradeInput == 'n':
+            print("No changes made.")
+
+        print('\n\n\n\n\n\n\n\n\n\n')
+        print("Avalible Commands:")
+        print('-------------------------------------')
+        print('{1}: Return to Stronghold')
+        print('-------------------------------------')
+        print('\n')
+        command = input("Enter your command: ")
+        
+        if command == "1":
+            screen = "stronghold"
+
+            
 
 
 
@@ -500,30 +559,36 @@ while (loop):
         os.system("clear")
 
         header()
-        print('\n\n\n\n\n\n\n\n\n')
+        print('\n\n')
 
         print('''
-        
+     
+       
 Intro:
         
 Unnamed Fiefdom Game is a python programming project by Mike Quain (mquain@uark.edu)
 The goal was to take on a project that was big enough to be challenging, but small enough to stay interesting.
-This game looks simple, but it taught me the basics of reading and writing to a database, data persistance, and multi-user tools.
+This game looks simple, but it taught me the basics of reading and writing to a database, data persistance, 
+and multi-user tools.
+
 
 How to play:
 
-Your goal is to control as many fiefdoms as you can manage without spreading your army too thin and leaving yourself open to attack!
-Your home stronghold will never fall, but any conquered fifedoms can be taken by opposing players. Make sure you can defend the
-territory you claim!
+Your goal is to control as many fiefdoms as you can manage without spreading your army too thin and leaving 
+yourself open to attack! Your home stronghold will never fall, but any conquered fiefdoms can be taken by 
+opposing players. Make sure you candefend the territory you claim!
 
-Your fiefdom consists of soldiers and workers. The workers earn income and the soldiers both fight and defend your fiefdoms.
-Each worker produces 1 coin per hour. These coins will be used to purchace various upgrades and to recruit new fighters.
+Each claimed fiefdom will generate 100 gold per hour. That gold can be spent on defense and attack upgrades
+as well as additional soldiers.
+
+Upgrade your conqured fiefdoms to keep them safe! Be careful though. Any upgraded fiefdom can still be taken, 
+and your upgrades will transfer to the new ruler.
 
 Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
 
         ''')
 
-        print('\n\n\n\n\n\n\n\n\n\n')
+        print('\n\n\n\n\n')
         print("Avalible Commands:")
         print('-------------------------------------')
         print('{1}: Return to Stronghold')
@@ -679,10 +744,11 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
         print("\n")
         print('Now viewing the Fiefdom of ' + attackFife.name)
         print('\n')
-        time.sleep(1)
+        time.sleep(0)
         print(attackFife.name + ' has ' + attackFife.gold + ' gold.')
         time.sleep(1)
         print('\n')
+        '''
         withdrawNum = input('Enter the amount of gold you would like to return home: ')
         time.sleep(1)
         
@@ -697,29 +763,18 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
             print("You do not have enough gold for that")
             time.sleep(2)
             screen = 'homeDetails'
+        '''
 
-        if (int(attackFife.gold) >= int(withdrawNum)) and int(withdrawNum) > 0:
-            print('Sending ' + str(withdrawNum) + ' gold back home')
-        
-            attackFife.gold = str(int(attackFife.gold) - int(withdrawNum))
-            attackFife.write()
-            attackFife.read()
+        print('Sending ' + str(attackFife.gold) + ' gold back home')
+        time.sleep(1)
+        userFife.gold = str(int(userFife.gold) + int(attackFife.gold))
+        attackFife.gold = str(0)
+        attackFife.write()
+        attackFife.read()
+        userFife.write()
+        userFife.read()
 
-            userFife.gold = str(int(userFife.gold) + int(withdrawNum))
-            userFife.write()
-            userFife.read()
-
-            print("\n\n\n\n\n\n\n\n\n")
-
-            print("Avalible Commands:")
-            print('-------------------------------------')
-            print('{1}: Return to stronghold')
-            print('-------------------------------------')
-            print('\n')
-            command = input("Enter your command: ")
-        
-            if command == "1":
-                screen = "stronghold"
+        screen = "attack"
 
 #The deploy screen allows players to deploy defenders to a Fifedom that they 
 #currently control.
@@ -918,8 +973,8 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
             
             defenseLosses = 0
             attackLosses = 0
-            attackMod = 0
-            defenseMod = 0
+            attackMod = int(userFife.attLevel)
+            defenseMod = int(attackFife.defLevel)
             
             for i in range(3):
                 
@@ -960,6 +1015,14 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
 
                 userFife.defenders = attackers
                 userFife.write()
+                
+                userFife.gold = str(int(userFife.gold) + int(attackFife.gold))
+                print('You now have a total of ' + str(userFife.gold) + ' gold!')
+                attackFife.gold = str('0')
+
+                userFife.write()
+                attackFife.write()
+
 
             #if the other player wins
             if attackers <= defenders:
@@ -972,15 +1035,10 @@ Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
                 userFife.defenders = attackers
                 userFife.write()
 
-            print("\n\n\n\n\n\n\n\n\n")
-            print("Type leave to return to your stronghold: ")
-            command = input("Enter your command: ")
-
-            if command == "leave":
-                screen = "stronghold"
-
-            if command == "attack":
-                screen = "attack"
+            
+            time.sleep(2)
+            nothing = input('Continue:')
+            screen = 'attack'
 
 #This is a "secret" page that you can use to create default fifedoms
 #to seed your installation with land that can be taken. 
