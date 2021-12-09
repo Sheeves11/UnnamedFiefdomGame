@@ -138,20 +138,72 @@ while (loop):
     # - Add user authentication, preferably in a secure way
     if screen == "login":
         os.system("clear")
-        header()
-        print("\n\n")
-        print('''
-Welcome to the Unnamed Fiefdom Game!
+#        header()
+        print(textColor.WARNING + '''
+            
+ _    _                                      _   ______ _       __    _                    _____                      
+| |  | |                                    | | |  ____(_)     / _|  | |                  / ____|                     
+| |  | |_ __  _ __   __ _ _ __ ___   ___  __| | | |__   _  ___| |_ __| | ___  _ __ ___   | |  __  __ _ _ __ ___   ___ 
+| |  | | '_ \| '_ \ / _` | '_ ` _ \ / _ \/ _` | |  __| | |/ _ \  _/ _` |/ _ \| '_ ` _ \  | | |_ |/ _` | '_ ` _ \ / _ 
+| |__| | | | | | | | (_| | | | | | |  __/ (_| | | |    | |  __/ || (_| | (_) | | | | | | | |__| | (_| | | | | | |  __/
+ \____/|_| |_|_| |_|\__,_|_| |_| |_|\___|\__,_| |_|    |_|\___|_| \__,_|\___/|_| |_| |_|  \_____|\__,_|_| |_| |_|\___|
+                                                                                                                       
+~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~                                                                                                                       
+        ''' + textColor.RESET + '''
 
-This is a python programming project and multiplayer war game based on the classic
-BBS door games of the 80s and 90s. In much the same way, this system uses a central
-server to host the game to multiple users, who access it using a terminal emulator.
+                                                      /|
+                                                     |\|
+                                                     |||
+                                                     |||
+                                                     |||
+                                                     |||
+                                                     |||
+                                                     |||
+                                                  ~-[{o}]-~
+                                                     |/|
+                                                     |/|
+                             ///~`     |||_          `0'         =||||         . .
+                            ,  |='  ,))\_| ~-_                    _)  \      _/_/|
+                           / ,' ,;((((((    ~ \                  `~~~\-~-_ /~ (_/|
+                         /' -~/~)))))))'\_   _/'                      \_  /'  D   |
+                        (       (((((( ~-/ ~-/                          ~-;  /    \--_
+                         ~~--|   ))''    ')  `                            `~~\_    \   )
+                             :        (_  ~\           ,                    /~~-     ./
+                              \        \_   )--__  /(_/)                   |    )    )|
+                    ___       |_     \__/~-__    ~~   ,'      /,_;,   __--(   _/      |
+                  //~~\`\    /' ~~~----|     ~~~~~~~~'        \-  ((~~    __-~        |
+                ((()   `\`\_(_     _-~~-\                      ``~~ ~~~~~~   \_      /
+                 )))     ~----'   /      \                                   )       )
+                  (         ;`~--'        :                                _-    ,;;(
+                            |    `\       |                             _-~    ,;;;;)
+                            |    /'`\     ;                          _-~          _/
+                           /~   /    |    )                         /;;;''  ,;;:-~
+                          |    /     / | /                         |;;'   ,''
+                          /   /     |   \|                         |   ,;(   
+                        _/  /'       \  \_)                   .---__\_    \,--._______
+                       ( )|'         (~-_|                   (;;'  ;;;~~~/' `;;|  `;;;
+                        ) `\_         |-_;;--__               ~~~----__/'    /'_______/
+                        `----'       (   `~--_ ~~~;;------------~~~~~ ;;;'_/'
+                                     `~~~~~~~~'~~~-----....___;;;____---~~
 
-See more info at github.com/Sheeves11/UnnamedFiefdomGame
+        ''' + textColor.WARNING + '''
+
+~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~                                                                                                                       
+
+        ''')
+        print(textColor.RESET + 
+        '''
+                Welcome to the Unnamed Fiefdom Game!
+
+                This is a python programming project and multiplayer war game based on the classic
+                BBS door games of the 80s and 90s. In much the same way, this system uses a central
+                server to host the game to multiple users, who access it using a terminal emulator.
+
+                See more info at github.com/Sheeves11/UnnamedFiefdomGame
         ''')
         print('\n\n')
         userFife = Fifedom()        
-        username = input("Enter your username\n(Note that usernames are not validated at the moment): ")
+        username = input("                Enter your username (Note that usernames are not validated at the moment): ")
         currentUsername = username
         
         #if "username.txt" does not exist, create it. The file only contains a name for now.
@@ -164,7 +216,7 @@ See more info at github.com/Sheeves11/UnnamedFiefdomGame
             time.sleep(1)
  
         print('\n\n')
-        print("Logging in as: " + username)
+        print("                 Logging in as: " + username)
 
         time.sleep(2)
         screen = "stronghold"
