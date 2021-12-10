@@ -2,7 +2,6 @@ import os
 import time
 import random
 
-
 '''
 
 Welcome to the Unnamed Fiefdom Game!
@@ -14,9 +13,6 @@ More info can be found at
 github.com/Sheeves11/UnnamedFiefdomGame
 
 '''
-
-
-
 
 #global variables
 loop = True
@@ -112,7 +108,70 @@ def art3():
 
 def art4():
     print('''
-
+                                  |>>>
+                                  |
+                    |>>>      _  _|_  _         |>>>
+                    |        |;| |;| |;|        |
+                _  _|_  _    \\.    .  /    _  _|_  _
+               |;|_|;|_|;|    \\:. ,  /    |;|_|;|_|;|
+               \\..      /    ||;   . |    \\.    .  /
+                \\.  ,  /     ||:  .  |     \\:  .  /
+                 ||:   |_   _ ||_ . _ | _   _||:   |
+                 ||:  .|||_|;|_|;|_|;|_|;|_|;||:.  |
+                 ||:   ||.    .     .      . ||:  .|
+                 ||: . || .     . .   .  ,   ||:   |       \,/
+                 ||:   ||:  ,  _______   .   ||: , |            /`\
+                 ||:   || .   /+++++++\    . ||:   |
+                 ||:   ||.    |+++++++| .    ||: . |
+              __ ||: . ||: ,  |+++++++|.  . _||_   |
+     ____--`~    '--~~__|.    |+++++__|----~    ~`---,              ___
+-~--~                   ~---__|,--~'                  ~~----_____-~'   `~----~~
+    ''')
+    
+    
+def art5():
+    print('''
+                                 |--__
+                                 |
+                                 X
+                        |-___   / \       |--__
+                        |      =====      |
+                        X      | .:|      X
+                       / \     | O |     / \
+                      =====   |:  . |   =====
+                      |.: |__| .   : |__| :.|
+                      |  :|. :  ...   : |.  |
+              __   __W| .    .  ||| .      :|W__  --
+            -- __  W  WWWW______"""______WWWW   W -----  --
+        -  -     ___  ---    ____     ____----       --__  -
+            --__    --    --__     -___        __-   _
+     ''')
+    
+    
+def art6():
+    print('''
+                  ^                 
+                 / \                                                      
+            ^   _|.|_   ^          
+          _|I|  |I .|  |.|_        
+          \II||~~| |~~||  /        
+           ~\~|~~~~~~~|~/~        
+             \|II I ..|/           
+        /\    |II.    |    /\      
+       /  \  _|III .  |_  /  \     
+       |-~| /(|I.I I  |)\ |~-|     
+     _/(I | +-----------+ |. )\_  
+     \~-----/____-~-____\-----~/   
+      |I.III|  /(===)\  |  .. |   
+      /~~~-----_________---~~~\   
+     `##########!\-#####%!!!!!| |\  
+    _/###########!!\~~-_##%!!!\_/|
+    \##############!!!!!/~~-_%!!!!\
+  ~)######################!!!!!/~~--\_\       
+    ''')
+    
+    art7():
+    print('''
 
 
     ''')
@@ -180,10 +239,7 @@ class Fifedom:
                 self.attType = f.readline().strip()
 
         except:
-            self.write()
-            #print('file read fail, creating new fife file for current user')
-                    
-
+            self.write()          
 
 #create some default objects that we'll write over later
 attackFife = Fifedom()
@@ -196,10 +252,9 @@ while (loop):
     #The login page takes a username, puts it into memory, and sends you to the
     #stronghold page. It also contains a small intro snippet
     #TO DO:
-    # - Add user authentication, preferably in a secure way
+    # - Add password encryption
     if screen == "login":
         os.system("clear")
-#        header()
         print(textColor.WARNING + '''
  _    _                                      _   ______ _       __    _                    _____                      
 | |  | |                                    | | |  ____(_)     / _|  | |                  / ____|                     
@@ -381,11 +436,9 @@ while (loop):
 
         header()
         
-
         mercCost = 10
         print('You currently have ' + userFife.defenders + ' soldiers and ' +  userFife.gold + ' gold.')
         print('You can hire mercinaries for ' + str(mercCost) + ' gold each?')
-
 
         upgradeInput = input('\nHow many mercinaries would you like to hire?\n')
 
@@ -404,7 +457,6 @@ while (loop):
         else:
             print("You need more gold first!")
 
-
         print('\n\n\n\n\n\n\n\n\n\n')
         print("     Avalible Commands:")
         print('     -------------------------------------')
@@ -415,8 +467,6 @@ while (loop):
         
         if command == "1":
             screen = "stronghold"
-
-            
 
 #This is the screen for updating a user's attack power.
 #----------------------------------------------------------------------------------
@@ -514,19 +564,19 @@ while (loop):
             defUpgradeCost = 1500
                
         if attackFife.defLevel == str('2'):
-            defTypeNext = 'Ditch Spikes'
+            defTypeNext = 'Tall Towers'
             defUpgradeCost = 5000
        
         if attackFife.defLevel == str('3'):
-            defTypeNext = 'Moat'
+            defTypeNext = 'In a Lake'
             defUpgradeCost = 10000
 
         if attackFife.defLevel == str('4'):
-            defTypeNext = 'Alligators in the Moat'
+            defTypeNext = 'On Top of a Mountain'
             defUpgradeCost = 20000
 
         if attackFife.defLevel == str('5'):
-            defTypeNext = 'Drawbridge'
+            defTypeNext = 'Boiling Oil'
             defUpgradeCost = 40000
 
         print('Your current defense style is: ' + attackFife.defType)
@@ -783,6 +833,16 @@ while (loop):
 
         if attackFife.defLevel == str(3):
             art4()
+
+        if attackFife.defLevel == str(4):
+            art5()
+            
+        if attackFife.defLevel == str(5):
+            art6()
+                        
+        if attackFife.defLevel == str(6):
+            art7()
+        
         
         print('\n')
         print("     Avalible Commands:")
@@ -997,6 +1057,15 @@ while (loop):
 
         if attackFife.defLevel == str(3):
             art4()
+
+        if attackFife.defLevel == str(4):
+            art5()
+            
+        if attackFife.defLevel == str(5):
+            art6()
+                        
+        if attackFife.defLevel == str(6):
+            art7()
 
         print("\n\n")
 
