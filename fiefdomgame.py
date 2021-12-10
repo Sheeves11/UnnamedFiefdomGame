@@ -181,7 +181,7 @@ class Fifedom:
     name = 'Default Fiefdom'
     ruler = 'Unclaimed'
     home = False
-    defenders = 25
+    defenders = 100
     gold = 500
     defLevel = 0
     defType = "Open Camp"
