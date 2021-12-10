@@ -401,10 +401,11 @@ while (loop):
         print("     Avalible Commands:")
         print('     -------------------------------------')
         print('     {1}: View Nearby Fiefdoms')
-        print('     {2}: About')
+        print('     {2}: Hire Mercenaries')
         #print('{3}: Upgrade Defense')
         print('     {3}: Upgrade Attack')
-        print('     {4}: Hire Mercenaries')
+        print('     {4}: About')
+        print('     {5}: Upcoming Features')
         print('     -------------------------------------')
         print('\n')
         command = input("     Enter your command: ")
@@ -416,18 +417,16 @@ while (loop):
             screen = 'createDefaults'
 
         if command == '2':
-            screen = 'about'
-
-        #if command == '3':
-        #    screen = 'upgradeDef'
-
+            screen = 'mercs'
+            
         if command == '3':
             screen = 'upgradeFifeAtt'
 
         if command == '4':
-            screen = 'mercs'
-
-
+            screen = 'about'
+            
+        if command == '5':
+            screen = 'features'
 
 #This is the screen for purchacing soldiers
 #----------------------------------------------------------------------------------
@@ -532,17 +531,7 @@ while (loop):
 
         print('\n\n\n\n\n\n\n\n\n\n')
         command = input("     Press Enter")
-        
-
         screen = "stronghold"
-
-            
-
-
-
-
-
-
 
 #This is the screen for updating a fief's defenses. Note: there are two screens
 #like this. One for fiefs and one for player strongholds.
@@ -707,6 +696,47 @@ while (loop):
       and your upgrades will be transfered to the new ruler.
 
       Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
+
+        ''')
+
+        print('\n\n\n\n\n')
+        print("      Avalible Commands:")
+        print('      -------------------------------------')
+        print('      {1}: Return to Stronghold')
+        print('      -------------------------------------')
+        print('\n')
+        command = input("      Enter your command: ")
+        
+        if command == "1":
+            screen = "stronghold"
+            
+#This is the features page for the game. Keep it updated
+#------------------------------------------------------------------------------
+    if screen == "features":
+        os.system("clear")
+
+        header()
+        print('\n\n')
+
+        print('''
+     
+       
+      Current Status:
+                
+      The game is currently in the the pre-release stage of development and new features are being added on a 
+      daily basis! Make sure you check back often to see what's new!
+
+      Upcoming Features:
+
+      {Weather Events} - Weather events and patterns will affect your fiefdom's performance. Rain could cost you
+                         your advantage in battle, or a drought could hurt your gold production! Something as
+                         simple as waiting for a clear sunset could give you the advantage in an attack where
+                         the sun is in your opponent's eyes.     
+      
+      {Market Investments} - Invest your gold in the markets! Prices will rise and fall as the season moves along.
+                             Ride the charts on your way to the top.
+
+      Thanks for playing! Submit your suggestions github.com/Sheeves11/UntitledFiefdomGame
 
         ''')
 
