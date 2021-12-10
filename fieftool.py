@@ -8,6 +8,8 @@ This game was designed and written by
 Mike Quain of the University of Arkansas
 More info can be found at
 github.com/Sheeves11/UnnamedFiefdomGame
+
+fieftool.py is a tool for adding new fiefs to the game. Just enter the name of the fiefdom and hit enter. You're done!
 '''
 
 #global variables
