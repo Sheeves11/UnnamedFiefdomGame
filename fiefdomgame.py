@@ -386,10 +386,10 @@ while (loop):
         productionCalc = 0
         maxProductionSoldiers = (int(userFife.goldMod) * 500)
         if int(userFife.defenders) > maxProductionSoldiers:
-            productionCalc = ((goldOutput * int(attackFife.goldMod)) + (int(maxProductionSoldiers) * int(attackFife.goldMod)))
+            productionCalc = ((goldOutput * int(userFife.goldMod)) + (int(maxProductionSoldiers) * int(userFife.goldMod)))
 
         else: 
-            productionCalc = ((goldOutput * int(attackFife.goldMod)) + (int(userFife.defenders) * int(attackFife.goldMod)))
+            productionCalc = ((goldOutput * int(userFife.goldMod)) + (int(userFife.defenders) * int(userFife.goldMod)))
 
         if userFife.home != 'True':
             userFife.home = 'True'
@@ -938,7 +938,7 @@ while (loop):
             productionCalc = ((goldOutput * int(attackFife.goldMod)) + (int(maxProductionSoldiers) * int(attackFife.goldMod)))
 
         else: 
-            productionCalc = ((goldOutput * int(attackFife.goldMod)) + (int(userFife.defenders) * int(attackFife.goldMod)))
+            productionCalc = ((goldOutput * int(attackFife.goldMod)) + (int(attackFife.defenders) * int(attackFife.goldMod)))
     
         print("\n")
         print('     You rule the fiefdom of ' + attackFife.name)
