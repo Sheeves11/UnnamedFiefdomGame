@@ -933,8 +933,12 @@ while (loop):
         attackFife.read()
         
         productionCalc = 0
+<<<<<<< HEAD
         maxProductionSoldiers = (int(userFife.goldMod) * 500)
         
+=======
+        maxProductionSoldiers = (int(attackFife.goldMod) * 500)
+>>>>>>> refs/remotes/origin/master
         if int(attackFife.defenders) > maxProductionSoldiers:
             productionCalc = ((goldOutput * int(attackFife.goldMod)) + (int(maxProductionSoldiers) * int(attackFife.goldMod)))
 
