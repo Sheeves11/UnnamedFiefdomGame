@@ -20,6 +20,11 @@ screen = "login"
 currentUsername = 'default'
 tempName = {}
 
+#hourly production values
+#these should be changed to match the values in fiefdombackend.py
+goldOutput = 100
+defenderOutput = 3
+
 #initial screen clear
 os.system("clear")
 
@@ -187,6 +192,9 @@ class Fifedom:
     defType = "Open Camp"
     attLevel = 0
     attType = "Angry Mob"
+    goldMod = '1'
+    defenderMod = '1'
+    farmType = "Dirt Patch"
 
     #take the current fifedom and write it to the /fifes directory
     def write(self):
@@ -205,6 +213,9 @@ class Fifedom:
                 f.write(str(self.defType) + '\n')
                 f.write(str(self.attLevel) + '\n')
                 f.write(str(self.attType) + '\n')
+                f.write(str(self.goldMod) + '\n')
+                f.write(str(self.defenderMod) + '\n')
+                f.write(str(self.farmType) + '\n')
         except:
             pass
 
@@ -220,6 +231,9 @@ class Fifedom:
                 f.write(str(self.defType) + '\n')
                 f.write(str(self.attLevel) + '\n')
                 f.write(str(self.attType) + '\n')
+                f.write(str(self.goldMod) + '\n')
+                f.write(str(self.defenderMod) + '\n')
+                f.write(str(self.farmType) + '\n')
         except:
             pass
 
@@ -237,7 +251,9 @@ class Fifedom:
                 self.defType = f.readline().strip()
                 self.attLevel = f.readline().strip()
                 self.attType = f.readline().strip()
-
+                self.goldMod = f.readline().strip()
+                self.defenderMod = f.readline().strip()
+                self.farmType = f.readline().strip()
         except:
             self.write()          
 
@@ -532,6 +548,73 @@ while (loop):
         print('\n\n\n\n\n\n\n\n\n\n')
         command = input("     Press Enter")
         screen = "stronghold"
+
+#This is the screen for updating a fief's farm/gold production.
+#----------------------------------------------------------------------------------
+    if screen == "farm":
+        os.system("clear")
+
+        header()
+        
+        farmTypeNext = 'undefined'
+        farmUpgradeCost = 0
+        
+        if attackFife.goldMod == str('1'):
+            farmTypeNext = 'Watering Cans'
+            farmUpgradeCost = 500
+                
+        if attackFife.goldMod == str('2'):
+            farmTypeNext = 'Wheelbarrows'
+            farmUpgradeCost = 1500
+               
+        if attackFife.goldMod == str('3'):
+            farmTypeNext = 'Fertilizer'
+            farmUpgradeCost = 5000
+       
+        if attackFife.goldMod == str('4'):
+            farmTypeNext = 'Horse Plows'
+            farmUpgradeCost = 10000
+
+        if attackFife.goldMod == str('5'):
+            farmTypeNext = 'Crop Rotation'
+            farmUpgradeCost = 20000
+
+        if attackFife.goldMod == str('6'):
+            farmTypeNext = 'Artificial Selection'
+            farmUpgradeCost = 40000
+
+        print('\n    Your fiefdom\'s gold output is currently: ' + str((int(attackFife.goldMod) * goldOutput)) + ' per hour.')
+        print('    Would you like to upgrade to ' + farmTypeNext + ' for ' + str(farmUpgradeCost) + ' gold?')
+
+
+        upgradeInput = input('\n    y/n: ')
+
+        if upgradeInput == 'y' and int(userFife.gold) >= farmUpgradeCost:
+            print("\n    Upgrade Complete!")
+            attackFife.farmType = farmTypeNext
+            attackFife.goldMod = str(int(attackFife.goldMod) + 1)
+            userFife.gold = str(int(userFife.gold) - farmUpgradeCost)
+            attackFife.write()
+            attackFife.read()
+            userFife.write()
+            userFife.read()
+            screen = 'attack'
+
+        elif upgradeInput == 'y' and int(userFife.gold) < farmUpgradeCost:
+            print("\n    You need more gold first!")
+
+        elif upgradeInput == 'n':
+            print("\n    No changes made.")
+
+        print('\n\n\n\n\n\n\n\n\n\n')
+        command = input("     Press Enter ")
+        screen = 'attack' 
+
+
+
+
+
+
 
 #This is the screen for updating a fief's defenses. Note: there are two screens
 #like this. One for fiefs and one for player strongholds.
@@ -838,18 +921,17 @@ while (loop):
     if screen == "homeDetails":
         os.system("clear") 
         header()
-        
+       
+        attackFife.read()
         print("\n")
-        print('     Now viewing the Fiefdom of ' + attackFife.name)
-        print('     You rule this fiefdom')
-              
-        time.sleep(1)
+        print('     You rule the fiefdom of ' + attackFife.name)
+                      
         print('\n')
         print('     Status Report:')
-        print('     ' + attackFife.name + ' has ' + attackFife.defenders + ' fighters.')
-        print('     ' + attackFife.name + ' has ' + attackFife.gold + ' gold.')
-        print('     ' + attackFife.name + ' has the following defense: ' + attackFife.defType)
-
+        print('\n     ' + 'Defenders: ' + attackFife.defenders + '\n     Gold: ' + attackFife.gold + ' gold.')
+        print('     ' + 'Defensive Strategy: ' + attackFife.defType)
+        print('     ' + 'Production: ' + str((goldOutput * int(attackFife.goldMod)) + (int(attackFife.defenders) * int(attackFife.goldMod))) + ' gold and ' + 
+                str(defenderOutput * int(attackFife.defenderMod)) + ' soldiers per hour.')
         print("\n")
 
         if attackFife.defLevel == str(0):
@@ -882,7 +964,9 @@ while (loop):
         print('     {3}: Deploy additional forces')
         print('     {4}: Withdraw forces')
         print('     {5}: Withdraw gold')
-        print('     {6}: Upgrade Defenses')
+        print('     {6}: Upgrade defenses')
+        print('     {7}: Upgrade farms')
+        print('     {8): Upgrade training')
         print('     -------------------------------------')
         print('\n')
         command = input("     Enter your command: ")
@@ -904,6 +988,9 @@ while (loop):
 
         if command == '6':
             screen = 'upgradeFifeDef'
+
+        if command == '7':
+            screen = 'farm'
 
 
 #The withdraw gold screen allows players to withdraw gold from a ruled fiefdom

@@ -28,6 +28,8 @@ class Fifedom:
     defType = "Open Camp"
     attLevel = 0
     attType = "Angry Mob"
+    goldMod = 0
+    defenderMod = 0
 
     #take the current fifedom and write it to the /fifes directory
     def write(self):
@@ -46,6 +48,9 @@ class Fifedom:
                 f.write(str(self.defType) + '\n')
                 f.write(str(self.attLevel) + '\n')
                 f.write(str(self.attType) + '\n')
+                f.write(str(self.goldMod) + '\n')
+                f.write(str(self.defenderMod) + '\n')
+                f.write(str(self.farmType) + '\n')
         except:
             pass
 
@@ -61,6 +66,9 @@ class Fifedom:
                 f.write(str(self.defType) + '\n')
                 f.write(str(self.attLevel) + '\n')
                 f.write(str(self.attType) + '\n')
+                f.write(str(self.goldMod) + '\n')
+                f.write(str(self.defenderMod) + '\n')
+                f.write(str(self.farmType) + '\n')
         except:
             pass
 
@@ -78,7 +86,9 @@ class Fifedom:
                 self.defType = f.readline().strip()
                 self.attLevel = f.readline().strip()
                 self.attType = f.readline().strip()
-
+                self.goldMod = f.readline().strip()
+                self.defenderMod = f.readline().strip()
+                self.farmType = f.readline().strip()
         except:
             self.write()
             print('file read fail, creating new fife file for current user')
@@ -103,12 +113,14 @@ while (loop):
                 tempName = filename[:-4]
                 tempName = Fifedom()
                 tempName.name = filename[:-4]
+                tempName.defenderMod = '0'
+                tempName.defenderMod = '0' 
                 tempName.read()
-
+                
                 print(str(tempName.name + ' currently has ' + str(tempName.defenders) + ' defenders.'))
                 if tempName.ruler != 'Unclaimed':
-                    tempName.defenders = str(int(tempName.defenders) + defendersPer)
-                    tempName.gold = str(int(tempName.gold) + goldPer)
+                    tempName.defenders = str(int(tempName.defenders) + (defendersPer * int(tempName.defenderMod)))
+                    tempName.gold = str(int(tempName.gold) + ((goldPer * int(tempName.goldMod)) + (int(tempName.defenders) * int(tempName.goldMod))))
                     tempName.write()
     
     
