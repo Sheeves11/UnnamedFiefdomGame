@@ -384,10 +384,13 @@ while (loop):
         userFife.write()
 
         productionCalc = 0
-        maxProductionSoldiers = int(userFife.goldMod) * 500
+        maxProductionSoldiers = (int(userFife.goldMod) * 500)
         if int(userFife.defenders) > maxProductionSoldiers:
-            productionCalc = (goldOutput * int(attackFife.goldMod)) + (int(maxProductionSoldiers) * int(attackFife.goldMod))
-        
+            productionCalc = ((goldOutput * int(attackFife.goldMod)) + (int(maxProductionSoldiers) * int(attackFife.goldMod)))
+
+        else: 
+            productionCalc = ((goldOutput * int(attackFife.goldMod)) + (int(userFife.defenders) * int(attackFife.goldMod)))
+
         if userFife.home != 'True':
             userFife.home = 'True'
             userFife.write()
@@ -396,8 +399,7 @@ while (loop):
         print('     The Fiefdom is home to ' + textColor.WARNING +  str(userFife.defenders) + textColor.RESET + ' highly skilled warriors, and dozens of loyal citizens.')
         print('\n     Do not let them down')
         print('\n     Within your coffers, you have ' + textColor.WARNING + str(userFife.gold) + textColor.RESET + ' gold.')
-         print('     ' + 'Production: ' + productionCalc + ' gold and ' +
-                str(defenderOutput * int(attackFife.defenderMod)) + ' soldiers per hour.')
+        print('     ' + 'Production: ' + str(productionCalc) + ' gold and ' + str((int(defenderOutput) * int(attackFife.defenderMod))) + ' soldiers per hour.')
         print('     Your army of ' + textColor.WARNING + str(userFife.attType) + textColor.RESET + ' stands ready.')
         print('\n')
         print('''
