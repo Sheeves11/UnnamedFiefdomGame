@@ -931,6 +931,15 @@ while (loop):
         header()
        
         attackFife.read()
+        
+        productionCalc = 0
+        maxProductionSoldiers = (int(userFife.goldMod) * 500)
+        if int(userFife.defenders) > maxProductionSoldiers:
+            productionCalc = ((goldOutput * int(attackFife.goldMod)) + (int(maxProductionSoldiers) * int(attackFife.goldMod)))
+
+        else: 
+            productionCalc = ((goldOutput * int(attackFife.goldMod)) + (int(userFife.defenders) * int(attackFife.goldMod)))
+    
         print("\n")
         print('     You rule the fiefdom of ' + attackFife.name)
                       
@@ -938,8 +947,7 @@ while (loop):
         print('     Status Report:')
         print('\n     ' + 'Defenders: ' + attackFife.defenders + '\n     Gold: ' + attackFife.gold + ' gold.')
         print('     ' + 'Defensive Strategy: ' + attackFife.defType)
-        print('     ' + 'Production: ' + str((goldOutput * int(attackFife.goldMod)) + (int(attackFife.defenders) * int(attackFife.goldMod))) + ' gold and ' + 
-                str(defenderOutput * int(attackFife.defenderMod)) + ' soldiers per hour.')
+        print('     ' + 'Production: ' + str(productionCalc) + ' gold and ' + str(defenderOutput * int(attackFife.defenderMod)) + ' soldiers per hour.')
         print("\n")
 
         if attackFife.defLevel == str(0):
