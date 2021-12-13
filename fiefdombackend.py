@@ -117,10 +117,19 @@ while (loop):
                 tempName.defenderMod = '0' 
                 tempName.read()
                 
+                productionCalc = 0
+                maxProductionSoldiers = (int(tempName.goldMod) * 500)
+                    if int(tempName.defenders) > maxProductionSoldiers:
+                        productionCalc = ((goldOutput * int(tempName.goldMod)) + (int(maxProductionSoldiers) * int(tempName.goldMod)))
+
+                    else: 
+                        productionCalc = ((goldOutput * int(tempName.goldMod)) + (int(tempName.defenders) * int(tempName.goldMod)))
+                
+                
                 print(str(tempName.name + ' currently has ' + str(tempName.defenders) + ' defenders.'))
                 if tempName.ruler != 'Unclaimed':
                     tempName.defenders = str(int(tempName.defenders) + (defendersPer * int(tempName.defenderMod)))
-                    tempName.gold = str(int(tempName.gold) + ((goldPer * int(tempName.goldMod)) + (int(tempName.defenders) * int(tempName.goldMod))))
+                    tempName.gold = str(int(tempName.gold) + int(productionCalc))
                     tempName.write()
     
     
