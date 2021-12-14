@@ -687,74 +687,6 @@ while (loop):
         
         screen = "attack"
             
-    '''            
-#This screen is for upgrading your home stronghold's defenses
-#Not currently in use
-#------------------------------------------------------------------------------
-    if screen == "upgradeDef":
-        os.system("clear")
-
-        header()
-        
-        defTypeNext = 'undefined'
-        defUpgradeCost = 0
-        
-        if userFife.defLevel == str('0'):
-            defTypeNext = 'Wooden Fences'
-            defUpgradeCost = 500
-                
-        if userFife.defLevel == str('1'):
-            defTypeNext = 'Really Deep Ditches'
-            defUpgradeCost = 1500
-               
-        if userFife.defLevel == str('2'):
-            defTypeNext = 'Ditch Spikes'
-            defUpgradeCost = 5000
-       
-        if userFife.defLevel == str('3'):
-            defTypeNext = 'Moat'
-            defUpgradeCost = 10000
-
-        if userFife.defLevel == str('4'):
-            defTypeNext = 'Alligators in the Moat'
-            defUpgradeCost = 20000
-
-        if userFife.defLevel == str('5'):
-            defTypeNext = 'Drawbridge'
-            defUpgradeCost = 40000
-
-        print('Your current defense style is: ' + userFife.defType)
-        print('Would you like to upgrade to ' + defTypeNext + ' for ' + str(defUpgradeCost) + ' gold?')
-
-        upgradeInput = input('y/n?')
-
-        if upgradeInput == 'y' and int(userFife.gold) >= defUpgradeCost:
-            print("Upgrade Complete!")
-            userFife.defType = defTypeNext
-            userFife.defLevel = str(int(userFife.defLevel) + 1)
-            userFife.gold = str(int(userFife.gold) - defUpgradeCost)
-            userFife.write()
-            userFife.read()
-
-        elif upgradeInput == 'y' and int(userFife.gold) < defUpgradeCost:
-            print("You need more gold first!")
-
-        elif upgradeInput == 'n':
-            print("No changes made.")
-
-        print('\n\n\n\n\n\n\n\n\n\n')
-        print("Avalible Commands:")
-        print('-------------------------------------')
-        print('{1}: Return to Stronghold')
-        print('-------------------------------------')
-        print('\n')
-        command = input("Enter your command: ")
-        
-        if command == "1":
-            screen = "stronghold"
-    '''
-
-
 #This is the about page for the game. Keep it updated
 #------------------------------------------------------------------------------
     if screen == "about":
@@ -870,19 +802,21 @@ while (loop):
 
                 if tempName.home == "True" and tempName.ruler != userFife.name:
                     homeStatus = "Home Stronghold"
-                    print (textColor.WARNING + 'The Stronghold of ' +  tempName.name + ' || Defenders: ' + tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
+                    print (textColor.WARNING + 'The Stronghold of ' +  tempName.name + ' || Defenders: ' + 
+                            tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
 
                 if tempName.home != 'True' and tempName.ruler != userFife.name:
-                    print (textColor.YELLOW + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
+                    print (textColor.YELLOW + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + 
+                            tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
                 
                 if tempName.home == "True" and tempName.ruler == userFife.name: 
-                    print (textColor.GREEN + 'The Stronghold of ' + tempName.name + ' || Defenders: ' + tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
+                    print (textColor.GREEN + 'The Stronghold of ' + tempName.name + ' || Defenders: ' + 
+                            tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
                 
                 if tempName.home != "True" and tempName.ruler == userFife.name: 
-                    print (textColor.CYAN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
+                    print (textColor.CYAN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + 
+                            tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
                 
-                #print (' ')
-
         print("\nAvalible Commands:")
         print('-------------------------------------')
         print('{1}: Return to stronghold')
@@ -929,11 +863,9 @@ while (loop):
     if screen == "homeDetails":
         os.system("clear") 
         header()
-       
         attackFife.read()
         
         productionCalc = 0
-  
 
         maxProductionSoldiers = (int(attackFife.goldMod) * 500)
 
@@ -945,12 +877,12 @@ while (loop):
     
         print("\n")
         print('     You rule the fiefdom of ' + attackFife.name)
-                      
         print('\n')
         print('     Status Report:')
         print('\n     ' + 'Defenders: ' + attackFife.defenders + '\n     Gold: ' + attackFife.gold + ' gold.')
         print('     ' + 'Defensive Strategy: ' + attackFife.defType)
-        print('     ' + 'Production: ' + str(productionCalc) + ' gold and ' + str(defenderOutput * int(attackFife.defenderMod)) + ' soldiers per hour.')
+        print('     ' + 'Production: ' + str(productionCalc) + ' gold and ' + str(defenderOutput * int(attackFife.defenderMod))
+                + ' soldiers per hour.')
         print("\n")
 
         if attackFife.defLevel == str(0):
@@ -1020,7 +952,6 @@ while (loop):
 #------------------------------------------------------------------------------
     if screen == 'withdrawGold':
         os.system("clear")
-        
         header()
         
         print("\n")
@@ -1352,3 +1283,72 @@ while (loop):
         print('Seeding Complete')
 
         screen = input("Enter your command: ")
+
+
+
+    '''            
+#This screen is for upgrading your home stronghold's defenses
+#Not currently in use
+#------------------------------------------------------------------------------
+    if screen == "upgradeDef":
+        os.system("clear")
+
+        header()
+        
+        defTypeNext = 'undefined'
+        defUpgradeCost = 0
+        
+        if userFife.defLevel == str('0'):
+            defTypeNext = 'Wooden Fences'
+            defUpgradeCost = 500
+                
+        if userFife.defLevel == str('1'):
+            defTypeNext = 'Really Deep Ditches'
+            defUpgradeCost = 1500
+               
+        if userFife.defLevel == str('2'):
+            defTypeNext = 'Ditch Spikes'
+            defUpgradeCost = 5000
+       
+        if userFife.defLevel == str('3'):
+            defTypeNext = 'Moat'
+            defUpgradeCost = 10000
+
+        if userFife.defLevel == str('4'):
+            defTypeNext = 'Alligators in the Moat'
+            defUpgradeCost = 20000
+
+        if userFife.defLevel == str('5'):
+            defTypeNext = 'Drawbridge'
+            defUpgradeCost = 40000
+
+        print('Your current defense style is: ' + userFife.defType)
+        print('Would you like to upgrade to ' + defTypeNext + ' for ' + str(defUpgradeCost) + ' gold?')
+
+        upgradeInput = input('y/n?')
+
+        if upgradeInput == 'y' and int(userFife.gold) >= defUpgradeCost:
+            print("Upgrade Complete!")
+            userFife.defType = defTypeNext
+            userFife.defLevel = str(int(userFife.defLevel) + 1)
+            userFife.gold = str(int(userFife.gold) - defUpgradeCost)
+            userFife.write()
+            userFife.read()
+
+        elif upgradeInput == 'y' and int(userFife.gold) < defUpgradeCost:
+            print("You need more gold first!")
+
+        elif upgradeInput == 'n':
+            print("No changes made.")
+
+        print('\n\n\n\n\n\n\n\n\n\n')
+        print("Avalible Commands:")
+        print('-------------------------------------')
+        print('{1}: Return to Stronghold')
+        print('-------------------------------------')
+        print('\n')
+        command = input("Enter your command: ")
+        
+        if command == "1":
+            screen = "stronghold"
+    '''
