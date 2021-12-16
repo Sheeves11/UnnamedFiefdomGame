@@ -117,15 +117,15 @@ def art4():
                                   |
                     |>>>      _  _|_  _         |>>>
                     |        |;| |;| |;|        |
-                _  _|_  _    \\.    .  /    _  _|_  _
-               |;|_|;|_|;|    \\:. ,  /    |;|_|;|_|;|
-               \\..      /    ||;   . |    \\.    .  /
-                \\.  ,  /     ||:  .  |     \\:  .  /
+                _  _|_  _    \ .    .  /    _  _|_  _
+               |;|_|;|_|;|    \ :. ,  /    |;|_|;|_|;|
+               \ ..      /    ||;   . |    \ .    .  /
+                \ .  ,  /     ||:  .  |     \ :  .  /
                  ||:   |_   _ ||_ . _ | _   _||:   |
                  ||:  .|||_|;|_|;|_|;|_|;|_|;||:.  |
                  ||:   ||.    .     .      . ||:  .|
                  ||: . || .     . .   .  ,   ||:   |       \,/
-                 ||:   ||:  ,  _______   .   ||: , |            /`\
+                 ||:   ||:  ,  _______   .   ||: , |            /`\ 
                  ||:   || .   /+++++++\    . ||:   |
                  ||:   ||.    |+++++++| .    ||: . |
               __ ||: . ||: ,  |+++++++|.  . _||_   |
@@ -142,7 +142,7 @@ def art5():
                         |-___   / \       |--__
                         |      =====      |
                         X      | .:|      X
-                       / \     | O |     / \
+                       / \     | O |     / \ 
                       =====   |:  . |   =====
                       |.: |__| .   : |__| :.|
                       |  :|. :  ...   : |.  |
@@ -171,7 +171,7 @@ def art6():
       /~~~-----_________---~~~\   
      `##########!\-#####%!!!!!| |\  
     _/###########!!\~~-_##%!!!\_/|
-    \##############!!!!!/~~-_%!!!!\
+    \##############!!!!!/~~-_%!!!!\ 
   ~)######################!!!!!/~~--\_\       
     ''')
     
@@ -430,6 +430,7 @@ while (loop):
         print('     {3}: Upgrade Attack')
         print('     {4}: About')
         print('     {5}: Upcoming Features')
+        print('     {6}: Message Board')
         print('     -------------------------------------')
         print('\n')
         command = input("     Enter your command: ")
@@ -451,6 +452,52 @@ while (loop):
             
         if command == '5':
             screen = 'features'
+
+        if command == '6':
+            screen = 'board'
+
+#This is the screen for the message board.
+#----------------------------------------------------------------------------------
+    if screen == "board":
+        os.system("clear")
+
+        header()
+
+        print('\n    Welcome to the message board! Keep it friendly :)')
+        print('\n    --------------------------------------------------------------------------------------\n')
+
+        #print off recent messages
+        #dump the last 16 lines of log.txt to the screen
+        with open('chatlog.log', "r") as logfile:
+            lines = logfile.readlines()
+            last_lines = lines[-30:]
+            last_lines = [line[:-1] for line in last_lines]
+            for i in last_lines:
+                print ('    ' + i)
+
+
+
+        print('\n    --------------------------------------------------------------------------------------\n\n')
+        tempMessage = input("    Type your message here or type \"leave\" to visit your stronghold:\n\n    ")
+        if tempMessage == 'leave':
+            screen = 'stronghold'
+
+        elif tempMessage == 'truncate chat':
+            log = open("chatlog.log", "r+")
+            log.truncate(0)
+            log.close()
+        else:
+            #add tempMessage to the chat log
+            
+            with open('chatlog.log', 'a') as log:
+                log.write(userFife.name + ': ' + str(tempMessage) + '\n')
+
+            #refresh this page
+            screen = 'board'
+            
+
+
+
 
 #This is the screen for purchacing soldiers
 #----------------------------------------------------------------------------------
