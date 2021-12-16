@@ -119,11 +119,11 @@ while (loop):
                 
                 productionCalc = 0
                 maxProductionSoldiers = (int(tempName.goldMod) * 500)
-                    if int(tempName.defenders) > maxProductionSoldiers:
-                        productionCalc = ((goldOutput * int(tempName.goldMod)) + (int(maxProductionSoldiers) * int(tempName.goldMod)))
+                if int(tempName.defenders) > maxProductionSoldiers:
+                    productionCalc = ((goldPer * int(tempName.goldMod)) + (int(maxProductionSoldiers) * int(tempName.goldMod)))
 
-                    else: 
-                        productionCalc = ((goldOutput * int(tempName.goldMod)) + (int(tempName.defenders) * int(tempName.goldMod)))
+                else:
+                    productionCalc = ((goldPer * int(tempName.goldMod)) + (int(tempName.defenders) * int(tempName.goldMod)))
                 
                 
                 print(str(tempName.name + ' currently has ' + str(tempName.defenders) + ' defenders.'))
