@@ -1,6 +1,7 @@
 import os
 import time
 import random
+import classes
 
 '''
 Welcome to the Unnamed Fiefdom Game!
@@ -20,80 +21,6 @@ tempName = {}
 
 #initial screen clear
 os.system("clear")
-
-#header() should be called on every page
-def header():
-    print('''
--=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=--=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-
-                                             UNNAMED FIEFDOM GAME
--=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=--=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-'''
-    + textColor.WARNING + '\n                          Announcement: Season 1 will begin on December 20th, 2021!'
-    + textColor.RESET)
-
-#the fifedom class holds variables that define a player's stats
-class Fifedom:
-    name = 'Default Fiefdom'
-    ruler = 'Unclaimed'
-    home = False
-    defenders = 100
-    gold = 500
-    defLevel = 0
-    defType = "Open Camp"
-    attLevel = 0
-    attType = "Angry Mob"
-
-    #take the current fifedom and write it to the /fifes directory
-    def write(self):
-        fifeFile = 'fifes/' + self.name + '.txt'
-        
-        #this part creates a file if it isn't made yet        
-        try:
-            with open(fifeFile, 'x') as f:
-
-                f.write(self.name + '\n')
-                f.write(self.ruler + '\n')
-                f.write(str(self.home) + '\n')
-                f.write(str(self.defenders) + '\n')
-                f.write(str(self.gold) + '\n')
-                f.write(str(self.defLevel) + '\n')
-                f.write(str(self.defType) + '\n')
-                f.write(str(self.attLevel) + '\n')
-                f.write(str(self.attType) + '\n')
-        except:
-            pass
-
-        #write the class variables down line by line in the text file
-        try:
-            with open(fifeFile, 'w') as f:
-                f.write(self.name + '\n')
-                f.write(self.ruler + '\n')
-                f.write(str(self.home) + '\n')
-                f.write(str(self.defenders) + '\n')
-                f.write(str(self.gold) + '\n')
-                f.write(str(self.defLevel) + '\n')
-                f.write(str(self.defType) + '\n')
-                f.write(str(self.attLevel) + '\n')
-                f.write(str(self.attType) + '\n')
-        except:
-            pass
-
-    #read class variables line by line
-    def read(self):
-        fifeFile = 'fifes/' + self.name + '.txt'
-        try:
-            with open(fifeFile, 'r') as f:
-                self.name = f.readline().strip()
-                self.ruler = f.readline().strip()
-                self.home = f.readline().strip()
-                self.defenders = f.readline().strip()
-                self.gold = f.readline().strip()
-                self.defLevel = f.readline().strip()
-                self.defType = f.readline().strip()
-                self.attLevel = f.readline().strip()
-                self.attType = f.readline().strip()
-
-        except:
-            self.write()          
 
 #create some default objects that we'll write over later
 attackFife = Fifedom()
