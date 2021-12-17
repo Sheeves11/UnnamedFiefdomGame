@@ -92,7 +92,7 @@ while (loop):
         username = input("                Enter your username (Note that passwords are not encrypted (yet): ")
         currentUsername = username
         
-        #if "username.txt" does not exist, create it. The file only contains a name for now.
+        #if "username.txt" does not exist, create it. The file only contains a name and password for now.
         try:
             usernameFile = username + ".txt"
             with open(usernameFile, 'x') as f:
@@ -203,6 +203,7 @@ while (loop):
         print('     {4}: About')
         print('     {5}: Upcoming Features')
         print('     {6}: Message Board')
+        print('     {7}: View Past Winners')
         print('     -------------------------------------')
         print('\n')
         command = input("     Enter your command: ")
@@ -227,6 +228,9 @@ while (loop):
 
         if command == '6':
             screen = 'board'
+            
+        if command == '7':
+            screen == 'pastWinners'
 
 #This is the screen for the message board.
 #----------------------------------------------------------------------------------
@@ -267,10 +271,21 @@ while (loop):
             #refresh this page
             screen = 'board'
             
+# This is the screen for displaying past winners. Update whenever we have a new winner
+#----------------------------------------------------------------------------------
+    if screen == "pastWinners":
+        os.system("clear")
 
+        header()
 
+        print('\n    These are your honorable past winners of Unnamed Fiefdom Game')
+        print('\n    --------------------------------------------------------------------------------------\n')
+        print('\n    Pre-Release (12/20/21): Steelwing\n')
+        print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
 
-
+        tempInput = input('    Press Enter To Return To Stronghold\n    ')
+        screen = 'board'
+ 
 #This is the screen for purchacing soldiers
 #----------------------------------------------------------------------------------
     if screen == "mercs":
