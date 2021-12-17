@@ -269,7 +269,7 @@ while (loop):
                 log.write(userFife.name + ': ' + str(tempMessage) + '\n')
 
             #refresh this page
-            screen = 'board'
+            screen = 'stronghold'
             
 # This is the screen for displaying past winners. Update whenever we have a new winner
 #----------------------------------------------------------------------------------
