@@ -36,14 +36,15 @@ while (loop):
     # - Add password encryption
     if screen == "login":
         os.system("clear")
-        print('Welcome to the fief creation tool.')
-        newFife = input('Enter the name of your new fief: ')
+        header()
+        print('    Welcome to the fief creation tool.')
+        newFife = input('\n    Enter the name of your new fief: ')
         currentFife = Fifedom()
         currentFife.name = newFife
         currentFife.defenders = random.randint(10, 100)
         currentFife.gold = random.randint(500, 3100)
         currentFife.write()
-        print('Fief write complete.')
-        throwAway = input('Press Enter to Continue')
+        print('\n    Fief write complete.')
+        throwAway = input('\n    Press Enter to Continue\n    ')
         screen = 'login'
        
