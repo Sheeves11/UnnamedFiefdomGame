@@ -230,7 +230,7 @@ while (loop):
             screen = 'board'
             
         if command == '7':
-            screen == 'pastWinners'
+            screen = 'pastWinners'
 
 #This is the screen for the message board.
 #----------------------------------------------------------------------------------
