@@ -1,3 +1,7 @@
+import os
+import time
+import random
+
 #header() should be called on every page
 def header():
     print('''
