@@ -1,7 +1,7 @@
 import os
 import time
 import random
-import classes
+from classes import *
 
 '''
 Welcome to the Unnamed Fiefdom Game!

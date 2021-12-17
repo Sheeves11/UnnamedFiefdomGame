@@ -1,7 +1,7 @@
 import time
 import os
 import random
-import classes
+from classes import *
 
 #global variables for quick game balance adjustments
 goldPer = 100
