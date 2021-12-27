@@ -208,11 +208,8 @@ while (loop):
         print('\n')
         command = input("     Enter your command: ")
         
-        if command == "1":
-            screen = "attack"
-
-        if command == 'defaults':
-            screen = 'createDefaults'
+        if command == '1':
+            screen = 'attack'
 
         if command == '2':
             screen = 'mercs'
@@ -231,6 +228,12 @@ while (loop):
             
         if command == '7':
             screen = 'pastWinners'
+
+        if command == 'defaults':
+            screen = 'createDefaults'
+
+        if command == 'bigmoney':
+            screen = 'devTestAddGold'
 
 #This is the screen for the message board.
 #----------------------------------------------------------------------------------
@@ -336,59 +339,67 @@ while (loop):
         attUpgradeCost = 0
         
         if userFife.attLevel == str('0'):
-            attTypeNext = 'angry villagers with sharpened pitchforks'
+            attTypeNext = 'Angry Villagers with Sharpened Pitchforks'
             attUpgradeCost = 500
                        
         if userFife.attLevel == str('1'):
-            attTypeNext = 'semi-trained longbow archers'
+            attTypeNext = 'Semi-trained Longbow Archers'
             attUpgradeCost = 1500
         
         if userFife.attLevel == str('2'):
-            attTypeNext = 'military recruits'
+            attTypeNext = 'Military Recruits'
             attUpgradeCost = 3000
         
         if userFife.attLevel == str('3'):
-            attTypeNext = 'fairly well-trained archers with flaming arrows'
+            attTypeNext = 'Fairly Well-trained Archers with Flaming Arrows'
             attUpgradeCost = 5000
         
         if userFife.attLevel == str('4'):
-            attTypeNext = 'drunks with trebuchets'
+            attTypeNext = 'Drunks with Trebuchets'
             attUpgradeCost = 10000
         
         if userFife.attLevel == str('5'):
-            attTypeNext = 'scientists who are experiementing with biological warfare'
+            attTypeNext = 'Scientists who are Experiementing with Biological Warfare'
             attUpgradeCost = 20000
 
         if userFife.attLevel == str('6'):
-            attTypeNext = 'peasents with Guns'
+            attTypeNext = 'Peasents with Guns'
             attUpgradeCost = 40000
         
-        print('\n\n')
-        print('     Your current army is made of ' + userFife.attType)
-        print('     Would you like to upgrade to ' + attTypeNext + ' for ' + str(attUpgradeCost) + ' gold?')
+        if userFife.attLevel == str('7'):
+            print('\n\n')
+            print('     Your current army is made of ' + userFife.attType)
+            print('     This is currently the highest attack level!')
+            print('\n\n\n\n\n\n\n\n\n\n')
+            command = input("     Press Enter")
+
+        else:
+            print('\n\n')
+            print('     Your current army is made of ' + userFife.attType)
+            print('     Would you like to upgrade to ' + attTypeNext + ' for ' + str(attUpgradeCost) + ' gold?')
+
+            upgradeInput = input('\n\n     Confirm Upgrade (y/n?): ')
+
+            if upgradeInput == 'y' and int(userFife.gold) >= attUpgradeCost:
+                print("     Upgrade Complete!")
+                userFife.attType = attTypeNext
+                userFife.attLevel = str(int(userFife.attLevel) + 1)
+                userFife.gold = str(int(userFife.gold) - attUpgradeCost)
+                userFife.write()
+                userFife.read()
 
 
-        upgradeInput = input('\n\n     Confirm Upgrade (y/n?): ')
+            elif upgradeInput == 'y' and int(userFife.gold) < attUpgradeCost:
+                print('\n')
+                print("     You need more gold first!\n\n\n\n")
 
-        if upgradeInput == 'y' and int(userFife.gold) >= attUpgradeCost:
-            print("     Upgrade Complete!")
-            userFife.attType = attTypeNext
-            userFife.attLevel = str(int(userFife.attLevel) + 1)
-            userFife.gold = str(int(userFife.gold) - attUpgradeCost)
-            userFife.write()
-            userFife.read()
+            elif upgradeInput == 'n':
+                print('\n')
+                print("     No changes made.")
 
+            print('\n\n\n\n\n\n\n\n\n\n')
+            command = input("     Press Enter")
 
-        elif upgradeInput == 'y' and int(userFife.gold) < attUpgradeCost:
-            print('\n')
-            print("     You need more gold first!\n\n\n\n")
-
-        elif upgradeInput == 'n':
-            print('\n')
-            print("     No changes made.")
-
-        print('\n\n\n\n\n\n\n\n\n\n')
-        command = input("     Press Enter")
         screen = "stronghold"
 
 #This is the screen for updating a fief's farm/gold production.
@@ -425,31 +436,39 @@ while (loop):
             farmTypeNext = 'Artificial Selection'
             farmUpgradeCost = 40000
 
-        print('\n    Your fiefdom\'s gold output is currently: ' + str((int(attackFife.goldMod) * goldOutput)) + ' per hour.')
-        print('    Would you like to upgrade to ' + farmTypeNext + ' for ' + str(farmUpgradeCost) + ' gold?')
+        if attackFife.goldMod == str('7'):
+            print('\n    Your fiefdom\'s gold output is currently: ' + str((int(attackFife.goldMod) * goldOutput)) + ' per hour.')
+            print('   This is currently the highest gold output!')
 
+            print('\n\n\n\n\n\n\n\n\n\n')
+            command = input("     Press Enter ")
 
-        upgradeInput = input('\n    y/n: ')
+        else:
+            print('\n    Your fiefdom\'s gold output is currently: ' + str((int(attackFife.goldMod) * goldOutput)) + ' per hour.')
+            print('    Would you like to upgrade to ' + farmTypeNext + ' for ' + str(farmUpgradeCost) + ' gold?')
 
-        if upgradeInput == 'y' and int(userFife.gold) >= farmUpgradeCost:
-            print("\n    Upgrade Complete!")
-            attackFife.farmType = farmTypeNext
-            attackFife.goldMod = str(int(attackFife.goldMod) + 1)
-            userFife.gold = str(int(userFife.gold) - farmUpgradeCost)
-            attackFife.write()
-            attackFife.read()
-            userFife.write()
-            userFife.read()
-            screen = 'attack'
+            upgradeInput = input('\n    y/n: ')
 
-        elif upgradeInput == 'y' and int(userFife.gold) < farmUpgradeCost:
-            print("\n    You need more gold first!")
+            if upgradeInput == 'y' and int(userFife.gold) >= farmUpgradeCost:
+                print("\n    Upgrade Complete!")
+                attackFife.farmType = farmTypeNext
+                attackFife.goldMod = str(int(attackFife.goldMod) + 1)
+                userFife.gold = str(int(userFife.gold) - farmUpgradeCost)
+                attackFife.write()
+                attackFife.read()
+                userFife.write()
+                userFife.read()
+                screen = 'attack'
 
-        elif upgradeInput == 'n':
-            print("\n    No changes made.")
+            elif upgradeInput == 'y' and int(userFife.gold) < farmUpgradeCost:
+                print("\n    You need more gold first!")
 
-        print('\n\n\n\n\n\n\n\n\n\n')
-        command = input("     Press Enter ")
+            elif upgradeInput == 'n':
+                print("\n    No changes made.")
+
+            print('\n\n\n\n\n\n\n\n\n\n')
+            command = input("     Press Enter ")
+
         screen = 'attack' 
 
 
@@ -493,31 +512,37 @@ while (loop):
             defTypeNext = 'Boiling Oil'
             defUpgradeCost = 40000
 
-        print('Your current defense style is: ' + attackFife.defType)
-        print('Would you like to upgrade to ' + defTypeNext + ' for ' + str(defUpgradeCost) + ' gold?')
+        if attackFife.defLevel == str('6'):
+            print('     Your current defense style is: ' + attackFife.defType)
+            print('     This is currently the best defense style!')
+            print('\n\n\n\n\n\n\n\n\n\n')
+            command = input("     Press Enter ")
+        else:
+            print('Your current defense style is: ' + attackFife.defType)
+            print('Would you like to upgrade to ' + defTypeNext + ' for ' + str(defUpgradeCost) + ' gold?')
 
 
-        upgradeInput = input('y/n?')
+            upgradeInput = input('y/n?')
 
-        if upgradeInput == 'y' and int(userFife.gold) >= defUpgradeCost:
-            print("Upgrade Complete!")
-            attackFife.defType = defTypeNext
-            attackFife.defLevel = str(int(attackFife.defLevel) + 1)
-            userFife.gold = str(int(userFife.gold) - defUpgradeCost)
-            attackFife.write()
-            attackFife.read()
-            userFife.write()
-            userFife.read()
+            if upgradeInput == 'y' and int(userFife.gold) >= defUpgradeCost:
+                print("Upgrade Complete!")
+                attackFife.defType = defTypeNext
+                attackFife.defLevel = str(int(attackFife.defLevel) + 1)
+                userFife.gold = str(int(userFife.gold) - defUpgradeCost)
+                attackFife.write()
+                attackFife.read()
+                userFife.write()
+                userFife.read()
 
 
-        elif upgradeInput == 'y' and int(userFife.gold) < defUpgradeCost:
-            print("You need more gold first!")
+            elif upgradeInput == 'y' and int(userFife.gold) < defUpgradeCost:
+                print("You need more gold first!")
 
-        elif upgradeInput == 'n':
-            print("No changes made.")
+            elif upgradeInput == 'n':
+                print("No changes made.")
 
-        print('\n\n\n\n\n\n\n\n\n\n')
-        command = input("     Press Enter ")
+            print('\n\n\n\n\n\n\n\n\n\n')
+            command = input("     Press Enter ")
         
         screen = "attack"
             
@@ -1116,9 +1141,24 @@ while (loop):
         time.sleep(2)
         print('Seeding Complete')
 
-        screen = input("Enter your command: ")
+        screen = 'attack'
 
+#This is another "secret" page that can be used to add funds for testing purposes
+#
+#It should be taken out if you ever open this game up to many players
+#----------------------------------------------------------------------------------
+    if screen == "devTestAddGold":
 
+        os.system("clear")
+        print('Adding Funds!...')
+
+        userFife.gold = str(int(userFife.gold) + 1000000)
+        userFife.write()
+        
+        time.sleep(2)
+        print('...Funds Added!')
+
+        screen = 'stronghold'
 
     '''            
 #This screen is for upgrading your home stronghold's defenses

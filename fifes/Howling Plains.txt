@@ -1,8 +1,8 @@
-Stormgrove
+Howling Plains
 Unclaimed
 False
-16
-1479
+22
+1353
 0
 Open Camp
 0

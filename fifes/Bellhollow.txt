@@ -1,6 +1,12 @@
 Bellhollow
-Sheeves
+Unclaimed
 False
+22
+2056
+0
+Open Camp
+0
+Angry Mob
 1
-25
 1
+Dirt Patch

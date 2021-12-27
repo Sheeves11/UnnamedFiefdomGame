@@ -1,6 +1,12 @@
 Aegirs Hall
 Unclaimed
 False
-50
-25
+45
+2079
+0
+Open Camp
+0
+Angry Mob
 1
+1
+Dirt Patch

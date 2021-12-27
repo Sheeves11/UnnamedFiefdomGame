@@ -1,8 +1,8 @@
-Stormgrove
-Unclaimed
-False
-16
-1479
+devtest
+devtest
+True
+100
+50000000
 0
 Open Camp
 0

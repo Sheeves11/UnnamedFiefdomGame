@@ -1,6 +1,12 @@
 Emerald Cove
 Unclaimed
 False
-35
-25
+74
+1095
+0
+Open Camp
+0
+Angry Mob
 1
+1
+Dirt Patch
