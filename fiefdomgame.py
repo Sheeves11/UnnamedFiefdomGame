@@ -1141,7 +1141,7 @@ while (loop):
         time.sleep(2)
         print('Seeding Complete')
 
-        screen = 'stronghold'
+        screen = 'attack'
 
 #This is another "secret" page that can be used to add funds for testing purposes
 #
