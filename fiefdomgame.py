@@ -1153,7 +1153,8 @@ while (loop):
         print('Adding Funds!...')
 
         userFife.gold = str(int(userFife.gold) + 1000000)
-
+        userFife.write()
+        
         time.sleep(2)
         print('...Funds Added!')
 
