@@ -1,0 +1,12 @@
+devtest
+devtest
+True
+100
+50000000
+0
+Open Camp
+0
+Angry Mob
+1
+1
+Dirt Patch
