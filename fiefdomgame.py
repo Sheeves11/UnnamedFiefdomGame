@@ -1127,7 +1127,7 @@ while (loop):
         time.sleep(2)
         print('Seeding Complete')
 
-        screen = input("Enter your command: ")
+        screen = 'stronghold'
 
 #This is another "secret" page that can be used to add funds for testing purposes
 #
@@ -1138,12 +1138,12 @@ while (loop):
         os.system("clear")
         print('Adding Funds!...')
 
-        userFife.gold = userFife.gold + 1000000
+        userFife.gold = str(int(userFife.gold) + 1000000)
 
         time.sleep(2)
         print('...Funds Added!')
 
-        screen = input("Enter your command: ")
+        screen = 'stronghold'
 
     '''            
 #This screen is for upgrading your home stronghold's defenses
