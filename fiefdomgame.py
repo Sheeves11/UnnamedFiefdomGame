@@ -372,7 +372,6 @@ while (loop):
             print('     This is currently the highest attack level!')
             print('\n\n\n\n\n\n\n\n\n\n')
             command = input("     Press Enter")
-            screen = "stronghold"
 
         else:
             print('\n\n')
@@ -400,7 +399,8 @@ while (loop):
 
             print('\n\n\n\n\n\n\n\n\n\n')
             command = input("     Press Enter")
-            screen = "stronghold"
+
+        screen = "stronghold"
 
 #This is the screen for updating a fief's farm/gold production.
 #----------------------------------------------------------------------------------
@@ -436,31 +436,39 @@ while (loop):
             farmTypeNext = 'Artificial Selection'
             farmUpgradeCost = 40000
 
-        print('\n    Your fiefdom\'s gold output is currently: ' + str((int(attackFife.goldMod) * goldOutput)) + ' per hour.')
-        print('    Would you like to upgrade to ' + farmTypeNext + ' for ' + str(farmUpgradeCost) + ' gold?')
+        if attackFife.goldMod == str('7'):
+            print('\n    Your fiefdom\'s gold output is currently: ' + str((int(attackFife.goldMod) * goldOutput)) + ' per hour.')
+            print('   This is currently the highest gold output!')
 
+            print('\n\n\n\n\n\n\n\n\n\n')
+            command = input("     Press Enter ")
 
-        upgradeInput = input('\n    y/n: ')
+        else:
+            print('\n    Your fiefdom\'s gold output is currently: ' + str((int(attackFife.goldMod) * goldOutput)) + ' per hour.')
+            print('    Would you like to upgrade to ' + farmTypeNext + ' for ' + str(farmUpgradeCost) + ' gold?')
 
-        if upgradeInput == 'y' and int(userFife.gold) >= farmUpgradeCost:
-            print("\n    Upgrade Complete!")
-            attackFife.farmType = farmTypeNext
-            attackFife.goldMod = str(int(attackFife.goldMod) + 1)
-            userFife.gold = str(int(userFife.gold) - farmUpgradeCost)
-            attackFife.write()
-            attackFife.read()
-            userFife.write()
-            userFife.read()
-            screen = 'attack'
+            upgradeInput = input('\n    y/n: ')
 
-        elif upgradeInput == 'y' and int(userFife.gold) < farmUpgradeCost:
-            print("\n    You need more gold first!")
+            if upgradeInput == 'y' and int(userFife.gold) >= farmUpgradeCost:
+                print("\n    Upgrade Complete!")
+                attackFife.farmType = farmTypeNext
+                attackFife.goldMod = str(int(attackFife.goldMod) + 1)
+                userFife.gold = str(int(userFife.gold) - farmUpgradeCost)
+                attackFife.write()
+                attackFife.read()
+                userFife.write()
+                userFife.read()
+                screen = 'attack'
 
-        elif upgradeInput == 'n':
-            print("\n    No changes made.")
+            elif upgradeInput == 'y' and int(userFife.gold) < farmUpgradeCost:
+                print("\n    You need more gold first!")
 
-        print('\n\n\n\n\n\n\n\n\n\n')
-        command = input("     Press Enter ")
+            elif upgradeInput == 'n':
+                print("\n    No changes made.")
+
+            print('\n\n\n\n\n\n\n\n\n\n')
+            command = input("     Press Enter ")
+
         screen = 'attack' 
 
 
@@ -504,31 +512,37 @@ while (loop):
             defTypeNext = 'Boiling Oil'
             defUpgradeCost = 40000
 
-        print('Your current defense style is: ' + attackFife.defType)
-        print('Would you like to upgrade to ' + defTypeNext + ' for ' + str(defUpgradeCost) + ' gold?')
+        if attackFife.defLevel == str('6'):
+            print('     Your current defense style is: ' + attackFife.defType)
+            print('     This is currently the best defense style!')
+            print('\n\n\n\n\n\n\n\n\n\n')
+            command = input("     Press Enter ")
+        else:
+            print('Your current defense style is: ' + attackFife.defType)
+            print('Would you like to upgrade to ' + defTypeNext + ' for ' + str(defUpgradeCost) + ' gold?')
 
 
-        upgradeInput = input('y/n?')
+            upgradeInput = input('y/n?')
 
-        if upgradeInput == 'y' and int(userFife.gold) >= defUpgradeCost:
-            print("Upgrade Complete!")
-            attackFife.defType = defTypeNext
-            attackFife.defLevel = str(int(attackFife.defLevel) + 1)
-            userFife.gold = str(int(userFife.gold) - defUpgradeCost)
-            attackFife.write()
-            attackFife.read()
-            userFife.write()
-            userFife.read()
+            if upgradeInput == 'y' and int(userFife.gold) >= defUpgradeCost:
+                print("Upgrade Complete!")
+                attackFife.defType = defTypeNext
+                attackFife.defLevel = str(int(attackFife.defLevel) + 1)
+                userFife.gold = str(int(userFife.gold) - defUpgradeCost)
+                attackFife.write()
+                attackFife.read()
+                userFife.write()
+                userFife.read()
 
 
-        elif upgradeInput == 'y' and int(userFife.gold) < defUpgradeCost:
-            print("You need more gold first!")
+            elif upgradeInput == 'y' and int(userFife.gold) < defUpgradeCost:
+                print("You need more gold first!")
 
-        elif upgradeInput == 'n':
-            print("No changes made.")
+            elif upgradeInput == 'n':
+                print("No changes made.")
 
-        print('\n\n\n\n\n\n\n\n\n\n')
-        command = input("     Press Enter ")
+            print('\n\n\n\n\n\n\n\n\n\n')
+            command = input("     Press Enter ")
         
         screen = "attack"
             
