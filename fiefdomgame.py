@@ -20,6 +20,7 @@ loop = True
 screen = "login"
 currentUsername = 'default'
 tempName = {}
+userFiefCount = 0
 
 #hourly production values
 #these should be changed to match the values in fiefdombackend.py
@@ -30,8 +31,8 @@ defenderOutput = 3
 os.system("clear")
 
 #create some default objects that we'll write over later
-attackFife = Fifedom()
-userFife = Fifedom()
+attackFief = Fiefdom()
+userFief = Fiefdom()
 
 #this begins the main game loop
 #------------------------------------------------------------------------------
@@ -88,7 +89,7 @@ while (loop):
 
                 See more info at github.com/Sheeves11/UnnamedFiefdomGame ''')
         print('\n')
-        userFife = Fifedom()        
+        userFief = Fiefdom()        
         username = input("                Enter your username (Note that passwords are not encrypted (yet): ")
         currentUsername = username
         
@@ -132,14 +133,14 @@ while (loop):
                     screen = 'login'
 
 #The stronghold screen is homebase for players. The page also writes the current username
-#into the userFife object.
+#into the userFief object.
 #
 #Each player gets a "home" stronghold that can't be overrun. This page displays the stats
 #for that stronghold.
 #
 #TO DO:
 # - Flesh this out a little more. Make it prettier.
-# - Add a list of owned Fifedoms that aren't the home stronghold
+# - Add a list of owned Fiefdoms that aren't the home stronghold
 #------------------------------------------------------------------------------
     if screen == "stronghold":
         os.system("clear")
@@ -149,30 +150,30 @@ while (loop):
         print('     ' + textColor.WARNING + username + "'s Stronghold" + textColor.RESET)
         print("\n")
         
-        userFife.name = username
-        userFife.read()
-        userFife.ruler = username
-        userFife.defenders = str(userFife.defenders)
-        userFife.write()
+        userFief.name = username
+        userFief.read()
+        userFief.ruler = username
+        userFief.defenders = str(userFief.defenders)
+        userFief.write()
 
         productionCalc = 0
-        maxProductionSoldiers = (int(userFife.goldMod) * 500)
-        if int(userFife.defenders) > maxProductionSoldiers:
-            productionCalc = ((goldOutput * int(userFife.goldMod)) + (int(maxProductionSoldiers) * int(userFife.goldMod)))
+        maxProductionSoldiers = (int(userFief.goldMod) * 500)
+        if int(userFief.defenders) > maxProductionSoldiers:
+            productionCalc = ((goldOutput * int(userFief.goldMod)) + (int(maxProductionSoldiers) * int(userFief.goldMod)))
 
         else: 
-            productionCalc = ((goldOutput * int(userFife.goldMod)) + (int(userFife.defenders) * int(userFife.goldMod)))
+            productionCalc = ((goldOutput * int(userFief.goldMod)) + (int(userFief.defenders) * int(userFief.goldMod)))
 
-        if userFife.home != 'True':
-            userFife.home = 'True'
-            userFife.write()
+        if userFief.home != 'True':
+            userFief.home = 'True'
+            userFief.write()
 
         print('     On a hilltop overlooking endless rolling fields, you see the only home you have ever known.')
-        print('     The Fiefdom is home to ' + textColor.WARNING +  str(userFife.defenders) + textColor.RESET + ' highly skilled warriors, and dozens of loyal citizens.')
+        print('     The Fiefdom is home to ' + textColor.WARNING +  str(userFief.defenders) + textColor.RESET + ' highly skilled warriors, and dozens of loyal citizens.')
         print('\n     Do not let them down')
-        print('\n     Within your coffers, you have ' + textColor.WARNING + str(userFife.gold) + textColor.RESET + ' gold.')
-        print('     ' + 'Production: ' + str(productionCalc) + ' gold and ' + str((int(defenderOutput) * int(attackFife.defenderMod))) + ' soldiers per hour.')
-        print('     Your army of ' + textColor.WARNING + str(userFife.attType) + textColor.RESET + ' stands ready.')
+        print('\n     Within your coffers, you have ' + textColor.WARNING + str(userFief.gold) + textColor.RESET + ' gold.')
+        print('     ' + 'Production: ' + str(productionCalc) + ' gold and ' + str((int(defenderOutput) * int(attackFief.defenderMod))) + ' soldiers per hour.')
+        print('     Your army of ' + textColor.WARNING + str(userFief.attType) + textColor.RESET + ' stands ready.')
         print('\n')
         print('''
                                             |>>>                        |>>>
@@ -200,10 +201,11 @@ while (loop):
         print('     {2}: Hire Mercenaries')
         #print('{3}: Upgrade Defense')
         print('     {3}: Upgrade Attack')
-        print('     {4}: About')
-        print('     {5}: Upcoming Features')
-        print('     {6}: Message Board')
-        print('     {7}: View Past Winners')
+        print('     {4}: Garrison Soldiers')
+        print('     {5}: About')
+        print('     {6}: Upcoming Features')
+        print('     {7}: Message Board')
+        print('     {8}: View Past Winners')
         print('     -------------------------------------')
         print('\n')
         command = input("     Enter your command: ")
@@ -215,18 +217,21 @@ while (loop):
             screen = 'mercs'
             
         if command == '3':
-            screen = 'upgradeFifeAtt'
+            screen = 'upgradeFiefAtt'
 
         if command == '4':
+            screen = 'garrison'
+
+        if command == '5':
             screen = 'about'
             
-        if command == '5':
+        if command == '6':
             screen = 'features'
 
-        if command == '6':
+        if command == '7':
             screen = 'board'
             
-        if command == '7':
+        if command == '8':
             screen = 'pastWinners'
 
         if command == 'defaults':
@@ -266,7 +271,7 @@ while (loop):
         else:
             #add tempMessage to the chat log            
             with open('chatlog.log', 'a') as log:
-                log.write(userFife.name + ': ' + str(tempMessage) + '\n')
+                log.write(userFief.name + ': ' + str(tempMessage) + '\n')
 
             #refresh this page
             screen = 'stronghold'
@@ -292,7 +297,9 @@ while (loop):
         
         os.system("clear")
         header()
-        print('You currently have ' + userFife.defenders + ' soldiers and ' +  userFife.gold + ' gold.')
+
+        print('You currently have ' + userFief.defenders + ' soldiers and ' +  userFief.gold + ' gold.')
+
         print('You can hire mercinaries for ' + str(mercCost) + ' gold each?')
 
         upgradeInput = input('\nHow many mercinaries would you like to hire?\n')
@@ -303,11 +310,11 @@ while (loop):
         elif int(upgradeInput) < 0:
             print("You can't hire a negative number of soldiers")
 
-        elif (int(upgradeInput) * mercCost) <=  int(userFife.gold): 
-            userFife.defenders = str(int(userFife.defenders) + int(upgradeInput))
-            userFife.gold = str(int(userFife.gold) - (mercCost * int(upgradeInput)))
-            userFife.write()
-            userFife.read()
+        elif (int(upgradeInput) * mercCost) <=  int(userFief.gold): 
+            userFief.defenders = str(int(userFief.defenders) + int(upgradeInput))
+            userFief.gold = str(int(userFief.gold) - (mercCost * int(upgradeInput)))
+            userFief.write()
+            userFief.read()
 
         else:
             print("You need more gold first!")
@@ -323,66 +330,209 @@ while (loop):
         if command == "1":
             screen = "stronghold"
 
+#This is the screen for viewing users owned fiefs and for garrisoning soldiers
+#----------------------------------------------------------------------------------
+    if screen == "garrison":
+        os.system("clear")
+
+        header()
+
+        userFiefCount = 0
+
+        print('\n    Fiefs under your rule: \n')
+        for filename in os.listdir('fiefs'):
+            with open(os.path.join('fiefs', filename), 'r') as f:
+                
+                tempName = filename[:-4]
+                tempName = Fiefdom()
+                tempName.name = filename[:-4]
+                tempName.read()
+                
+                homeStatus = " "
+                
+                if tempName.home != "True" and tempName.ruler == userFief.name: 
+                    userFiefCount = userFiefCount + 1
+                    print (textColor.CYAN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + 
+                            tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
+
+        print('\n\n\n\n\n\n\n\n\n\n')
+        print("     Avalible Commands:")
+        print('     -------------------------------------')
+        print('     {1}: Select Soldiers to Garrison')
+        print('     {2}: Return to Stronghold')
+        print('     {3}: View Nearby Fiefdoms')
+        print('     -------------------------------------')
+        print('\n')
+        command = input("     Enter your command: ")
+
+        if command == "1":
+            screen = "garrisonSorter"
+        
+        if command == "2":
+            screen = "stronghold"
+
+        if command == "3":
+            screen = "attack"
+
+#This is the screen for distributing a user's soldiers evenly among fiefs they control
+#----------------------------------------------------------------------------------
+    if screen == "garrisonSorter":
+        os.system("clear")
+
+        header()
+
+        print("\n\n")
+        print('Currently Ruled Fiefs: ' + str(userFiefCount))
+        print('Current Number of Soldiers in Stronghold: ' + str(userFief.defenders))
+        print('\n')
+        time.sleep(1)
+        if userFiefCount == 0:
+            print('You control no fiefs you can distribute to! \n')
+            time.sleep(2)
+            screen = "garrison"
+        else:
+            withdrawNum = input('Enter the number of soldiers you would like to evenly distrubute among these ' + str(userFiefCount) + ' fiefs: ')
+            time.sleep(1)
+
+            try:
+                int(withdrawNum)
+            except:
+                withdrawNum = '0'
+
+            if int(withdrawNum) < 0:
+                os.system("clear")
+                print("You cannot distribute a negative number of soldiers. \n\nThat doesn't even make sense.")
+                time.sleep(2)
+                screen = 'garrison'
+
+            elif int(withdrawNum) == 0:
+                os.system("clear")
+                print("Cancelling request...")
+                time.sleep(1)
+                screen = 'garrison'
+
+            elif int(userFief.defenders) < int(withdrawNum):
+                os.system("clear")
+                print("You do not have enough soldiers for that.")
+                time.sleep(2)
+                screen = 'garrison'
+
+            elif int(withdrawNum) < userFiefCount:
+                os.system("clear")
+                print("You have more fiefs than soldiers you want to distribute!")
+                time.sleep(2)
+                screen = 'garrison'
+
+            else:
+                print('Garrisoning ' + str(withdrawNum) + ' soldiers across ' + str(userFiefCount) + ' Fiefs...')
+            
+                time.sleep(1)
+
+                benchedSoldiers = int(withdrawNum) % userFiefCount
+                outgoingSoldierGroups = round((int(withdrawNum) - benchedSoldiers)/userFiefCount)
+
+                if benchedSoldiers > 0:
+                    print(str(benchedSoldiers) + ' soldiers were held back to make even groups of ' + str(outgoingSoldierGroups) + '.')
+
+                print('\n')
+
+                for filename in os.listdir('fiefs'):
+                    with open(os.path.join('fiefs', filename), 'r') as f:
+                
+                        tempName = filename[:-4]
+                        tempName = Fiefdom()
+                        tempName.name = filename[:-4]
+                        tempName.read()
+                
+                        homeStatus = " "
+                
+                        if tempName.home != "True" and tempName.ruler == userFief.name:
+                            print(tempName.name + ' had ' + str(tempName.defenders) + ' soldier(s).')
+                            time.sleep(0.3)
+                            tempName.defenders = str(int(tempName.defenders) + outgoingSoldierGroups)
+                            tempName.write()
+                            tempName.read()
+                            print(tempName.name + ' now has ' + str(tempName.defenders) + ' soldiers! \n')
+                            time.sleep(0.3)
+
+                userFief.defenders = int(userFief.defenders) - int(withdrawNum) + benchedSoldiers
+                userFief.write()
+                userFief.read()
+                print('\nNumber of Soldiers Remaining in Stronghold: ' + str(userFief.defenders))
+
+                print("\n\n\n\n\n\n\n\n\n")
+
+                print("Avalible Commands:")
+                print('-------------------------------------')
+                print('{1}: Return to stronghold')
+                print('-------------------------------------')
+                print('\n')
+                command = input("Enter your command: ")
+        
+                if command == "1":
+                    screen = "stronghold"
+
 #This is the screen for updating a user's attack power.
 #----------------------------------------------------------------------------------
-    if screen == "upgradeFifeAtt":
+    if screen == "upgradeFiefAtt":
+        os.system("clear")
+        header()
+        
         attTypeNext = 'undefined'
         attUpgradeCost = 0
         
-        os.system("clear")
-        header()
-               
-        if userFife.attLevel == str('0'):
+        if userFief.attLevel == str('0'):
             attTypeNext = 'Angry Villagers with Sharpened Pitchforks'
             attUpgradeCost = 500
                        
-        if userFife.attLevel == str('1'):
+        if userFief.attLevel == str('1'):
             attTypeNext = 'Semi-trained Longbow Archers'
             attUpgradeCost = 1500
         
-        if userFife.attLevel == str('2'):
+        if userFief.attLevel == str('2'):
             attTypeNext = 'Military Recruits'
             attUpgradeCost = 3000
         
-        if userFife.attLevel == str('3'):
+        if userFief.attLevel == str('3'):
             attTypeNext = 'Fairly Well-trained Archers with Flaming Arrows'
             attUpgradeCost = 5000
         
-        if userFife.attLevel == str('4'):
+        if userFief.attLevel == str('4'):
             attTypeNext = 'Drunks with Trebuchets'
             attUpgradeCost = 10000
         
-        if userFife.attLevel == str('5'):
+        if userFief.attLevel == str('5'):
             attTypeNext = 'Scientists who are Experiementing with Biological Warfare'
             attUpgradeCost = 20000
 
-        if userFife.attLevel == str('6'):
+        if userFief.attLevel == str('6'):
             attTypeNext = 'Peasents with Guns'
             attUpgradeCost = 40000
         
-        if userFife.attLevel == str('7'):
+        if userFief.attLevel == str('7'):
             print('\n\n')
-            print('     Your current army is made of ' + userFife.attType)
+            print('     Your current army is made of ' + userFief.attType)
             print('     This is currently the highest attack level!')
             print('\n\n\n\n\n\n\n\n\n\n')
             command = input("     Press Enter")
 
         else:
             print('\n\n')
-            print('     Your current army is made of ' + userFife.attType)
+            print('     Your current army is made of ' + userFief.attType)
             print('     Would you like to upgrade to ' + attTypeNext + ' for ' + str(attUpgradeCost) + ' gold?')
 
             upgradeInput = input('\n\n     Confirm Upgrade (y/n?): ')
 
-            if upgradeInput == 'y' and int(userFife.gold) >= attUpgradeCost:
+            if upgradeInput == 'y' and int(userFief.gold) >= attUpgradeCost:
                 print("     Upgrade Complete!")
-                userFife.attType = attTypeNext
-                userFife.attLevel = str(int(userFife.attLevel) + 1)
-                userFife.gold = str(int(userFife.gold) - attUpgradeCost)
-                userFife.write()
-                userFife.read()
+                userFief.attType = attTypeNext
+                userFief.attLevel = str(int(userFief.attLevel) + 1)
+                userFief.gold = str(int(userFief.gold) - attUpgradeCost)
+                userFief.write()
+                userFief.read()
 
-            elif upgradeInput == 'y' and int(userFife.gold) < attUpgradeCost:
+            elif upgradeInput == 'y' and int(userFief.gold) < attUpgradeCost:
+
                 print('\n')
                 print("     You need more gold first!\n\n\n\n")
 
@@ -401,59 +551,58 @@ while (loop):
         #these variables define the next upgrade level and the cost of that level
         farmTypeNext = 'undefined'
         farmUpgradeCost = 0
-        
         os.system("clear")
         header()
-                
-        if attackFife.goldMod == str('1'):
+        
+        if attackFief.goldMod == str('1'):
             farmTypeNext = 'Watering Cans'
             farmUpgradeCost = 500
                 
-        if attackFife.goldMod == str('2'):
+        if attackFief.goldMod == str('2'):
             farmTypeNext = 'Wheelbarrows'
             farmUpgradeCost = 1500
                
-        if attackFife.goldMod == str('3'):
+        if attackFief.goldMod == str('3'):
             farmTypeNext = 'Fertilizer'
             farmUpgradeCost = 5000
        
-        if attackFife.goldMod == str('4'):
+        if attackFief.goldMod == str('4'):
             farmTypeNext = 'Horse Plows'
             farmUpgradeCost = 10000
 
-        if attackFife.goldMod == str('5'):
+        if attackFief.goldMod == str('5'):
             farmTypeNext = 'Crop Rotation'
             farmUpgradeCost = 20000
 
-        if attackFife.goldMod == str('6'):
+        if attackFief.goldMod == str('6'):
             farmTypeNext = 'Artificial Selection'
             farmUpgradeCost = 40000
 
-        if attackFife.goldMod == str('7'):
-            print('\n    Your fiefdom\'s gold output is currently: ' + str((int(attackFife.goldMod) * goldOutput)) + ' per hour.')
+        if attackFief.goldMod == str('7'):
+            print('\n    Your fiefdom\'s gold output is currently: ' + str((int(attackFief.goldMod) * goldOutput)) + ' per hour.')
             print('   This is currently the highest gold output!')
 
             print('\n\n\n\n\n\n\n\n\n\n')
             command = input("     Press Enter ")
 
         else:
-            print('\n    Your fiefdom\'s gold output is currently: ' + str((int(attackFife.goldMod) * goldOutput)) + ' per hour.')
+            print('\n    Your fiefdom\'s gold output is currently: ' + str((int(attackFief.goldMod) * goldOutput)) + ' per hour.')
             print('    Would you like to upgrade to ' + farmTypeNext + ' for ' + str(farmUpgradeCost) + ' gold?')
 
             upgradeInput = input('\n    y/n: ')
 
-            if upgradeInput == 'y' and int(userFife.gold) >= farmUpgradeCost:
+            if upgradeInput == 'y' and int(userFief.gold) >= farmUpgradeCost:
                 print("\n    Upgrade Complete!")
-                attackFife.farmType = farmTypeNext
-                attackFife.goldMod = str(int(attackFife.goldMod) + 1)
-                userFife.gold = str(int(userFife.gold) - farmUpgradeCost)
-                attackFife.write()
-                attackFife.read()
-                userFife.write()
-                userFife.read()
+                attackFief.farmType = farmTypeNext
+                attackFief.goldMod = str(int(attackFief.goldMod) + 1)
+                userFief.gold = str(int(userFief.gold) - farmUpgradeCost)
+                attackFief.write()
+                attackFief.read()
+                userFief.write()
+                userFief.read()
                 screen = 'attack'
 
-            elif upgradeInput == 'y' and int(userFife.gold) < farmUpgradeCost:
+            elif upgradeInput == 'y' and int(userFief.gold) < farmUpgradeCost:
                 print("\n    You need more gold first!")
 
             elif upgradeInput == 'n':
@@ -467,7 +616,7 @@ while (loop):
 #This is the screen for updating a fief's defenses. Note: there are two screens
 #like this. One for fiefs and one for player strongholds.
 #----------------------------------------------------------------------------------
-    if screen == "upgradeFifeDef":
+    if screen == "upgradeFiefDef":
         os.system("clear")
 
         header()
@@ -475,52 +624,53 @@ while (loop):
         defTypeNext = 'undefined'
         defUpgradeCost = 0
         
-        if attackFife.defLevel == str('0'):
+        if attackFief.defLevel == str('0'):
             defTypeNext = 'Wooden Fences'
             defUpgradeCost = 500
                 
-        if attackFife.defLevel == str('1'):
+        if attackFief.defLevel == str('1'):
             defTypeNext = 'Really Deep Ditches'
             defUpgradeCost = 1500
                
-        if attackFife.defLevel == str('2'):
+        if attackFief.defLevel == str('2'):
             defTypeNext = 'Tall Towers'
             defUpgradeCost = 5000
        
-        if attackFife.defLevel == str('3'):
+        if attackFief.defLevel == str('3'):
             defTypeNext = 'In a Lake'
             defUpgradeCost = 10000
 
-        if attackFife.defLevel == str('4'):
+        if attackFief.defLevel == str('4'):
             defTypeNext = 'On Top of a Mountain'
             defUpgradeCost = 20000
 
-        if attackFife.defLevel == str('5'):
+        if attackFief.defLevel == str('5'):
             defTypeNext = 'Boiling Oil'
             defUpgradeCost = 40000
 
-        if attackFife.defLevel == str('6'):
-            print('     Your current defense style is: ' + attackFife.defType)
+        if attackFief.defLevel == str('6'):
+            print('     Your current defense style is: ' + attackFief.defType)
             print('     This is currently the best defense style!')
             print('\n\n\n\n\n\n\n\n\n\n')
             command = input("     Press Enter ")
         else:
-            print('Your current defense style is: ' + attackFife.defType)
+            print('Your current defense style is: ' + attackFief.defType)
             print('Would you like to upgrade to ' + defTypeNext + ' for ' + str(defUpgradeCost) + ' gold?')
 
             upgradeInput = input('y/n?')
 
-            if upgradeInput == 'y' and int(userFife.gold) >= defUpgradeCost:
+            if upgradeInput == 'y' and int(userFief.gold) >= defUpgradeCost:
                 print("Upgrade Complete!")
-                attackFife.defType = defTypeNext
-                attackFife.defLevel = str(int(attackFife.defLevel) + 1)
-                userFife.gold = str(int(userFife.gold) - defUpgradeCost)
-                attackFife.write()
-                attackFife.read()
-                userFife.write()
-                userFife.read()
+                attackFief.defType = defTypeNext
+                attackFief.defLevel = str(int(attackFief.defLevel) + 1)
+                userFief.gold = str(int(userFief.gold) - defUpgradeCost)
+                attackFief.write()
+                attackFief.read()
+                userFief.write()
+                userFief.read()
 
-            elif upgradeInput == 'y' and int(userFife.gold) < defUpgradeCost:
+            elif upgradeInput == 'y' and int(userFief.gold) < defUpgradeCost:
+
                 print("You need more gold first!")
 
             elif upgradeInput == 'n':
@@ -618,12 +768,16 @@ while (loop):
         if command == "1":
             screen = "stronghold"
 
-#The attack page contains a list of fifedoms generated from the /fifes directory
+#The attack page contains a list of Fiefdoms generated from the /fiefs directory
 #
 #To Do
 # - add some sort of "next page" function so that the printout won't scroll
 #   off the page as more players join.
 # - add some sort of sorting on the list. 
+# - SW: This needs to be updated, as I'm not sure what happens if your username is '1', for example.
+#       As I started setting up the "caps doesn't matter" stuff, I ran into a problem.
+#       The file and username schema would also need to be lowercase for this to work.
+#       I will come back to this later.
 #-------------------------------------------------------------------------------
     if screen == "attack":
         os.system("clear")
@@ -633,60 +787,65 @@ while (loop):
         print("------------------------------------------------------------------\n")
         
         #loop through each file in the /fifes/ directory and print off their details in a list
-        for filename in os.listdir('fifes'):
-            with open(os.path.join('fifes', filename), 'r') as f:
-                
+        for filename in os.listdir('fiefs'):
+            with open(os.path.join('fiefs', filename), 'r') as f:
+            
                 tempName = filename[:-4]
-                tempName = Fifedom()
+                tempName = Fiefdom()
                 tempName.name = filename[:-4]
                 tempName.read()
                 
                 homeStatus = " "
 
-                if tempName.home == "True" and tempName.ruler != userFife.name:
+                if tempName.home == "True" and tempName.ruler != userFief.name:
                     homeStatus = "Home Stronghold"
                     print (textColor.WARNING + 'The Stronghold of ' +  tempName.name + ' || Defenders: ' + 
                             tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
 
-                if tempName.home != 'True' and tempName.ruler != userFife.name:
+                if tempName.home != 'True' and tempName.ruler != userFief.name:
                     print (textColor.YELLOW + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + 
                             tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
                 
-                if tempName.home == "True" and tempName.ruler == userFife.name: 
+                if tempName.home == "True" and tempName.ruler == userFief.name: 
                     print (textColor.GREEN + 'The Stronghold of ' + tempName.name + ' || Defenders: ' + 
                             tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
                 
-                if tempName.home != "True" and tempName.ruler == userFife.name: 
+                if tempName.home != "True" and tempName.ruler == userFief.name: 
                     print (textColor.CYAN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + 
                             tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
-                
+
         print("\nAvalible Commands:")
         print('-------------------------------------')
-        print('{1}: Return to stronghold')
+        print('{1}: Return to Stronghold')
+        print('{2}: Garrison Soldiers')
         print('{Enter fiefdom name or stronghold owner}: View Fiefdom Details') 
         print('-------------------------------------')
         print('\n')
         command = input("Enter your command: ")
-        
+        #command = command.lower() #This won't work until file-naming schema is changed!
+
         if str(command) == '1':
             screen = "stronghold"
+
+        if str(command) == '2':
+            screen = "garrison"
         
         if str(command) != '1':
             #search for file to open. If there, initialize it and load data
             #then, switch to a details screen
 
-            fileFife = 'fifes/' + command + '.txt'
-            print (fileFife + 'loading is happening')
+            fileFief = 'fiefs/' + command + '.txt'
+            print (fileFief + 'loading is happening')
             try:
-                with open(fileFife, 'r') as f:
-                    attackFife.name = f.readline().strip()
-                    attackFife.read()
+                with open(fileFief, 'r') as f:
+                    attackFief.name = f.readline().strip()
+                    attackFief.read()
                     
-                    if str(attackFife.ruler) == str(userFife.ruler):
+                    if str(attackFief.ruler) == str(userFief.ruler):
                         screen = 'homeDetails'
-                    if str(attackFife.home) == 'True':
+                    if str(attackFief.home) == 'True':
                         screen = 'stronghold'
-                    if str(attackFife.ruler) != str(userFife.ruler):
+                    if str(attackFief.ruler) != str(userFief.ruler):
                         screen = "details"
 
             except:
@@ -694,7 +853,7 @@ while (loop):
 
         os.system('clear')
 
-#The homeDetails page gets called when a user tries to view their own Fifedom
+#The homeDetails page gets called when a user tries to view their own Fiefdom
 #From this page, they'll be able to add and withdraw troops, make upgrades,
 #etc
 #
@@ -706,47 +865,47 @@ while (loop):
     if screen == "homeDetails":
         os.system("clear") 
         header()
-        attackFife.read()
+        attackFief.read()
         
         productionCalc = 0
 
-        maxProductionSoldiers = (int(attackFife.goldMod) * 500)
+        maxProductionSoldiers = (int(attackFief.goldMod) * 500)
 
-        if int(attackFife.defenders) > maxProductionSoldiers:
-            productionCalc = ((goldOutput * int(attackFife.goldMod)) + (int(maxProductionSoldiers) * int(attackFife.goldMod)))
+        if int(attackFief.defenders) > maxProductionSoldiers:
+            productionCalc = ((goldOutput * int(attackFief.goldMod)) + (int(maxProductionSoldiers) * int(attackFief.goldMod)))
 
         else: 
-            productionCalc = ((goldOutput * int(attackFife.goldMod)) + (int(attackFife.defenders) * int(attackFife.goldMod)))
+            productionCalc = ((goldOutput * int(attackFief.goldMod)) + (int(attackFief.defenders) * int(attackFief.goldMod)))
     
         print("\n")
-        print('     You rule the fiefdom of ' + attackFife.name)
+        print('     You rule the fiefdom of ' + attackFief.name)
         print('\n')
         print('     Status Report:')
-        print('\n     ' + 'Defenders: ' + attackFife.defenders + '\n     Gold: ' + attackFife.gold + ' gold.')
-        print('     ' + 'Defensive Strategy: ' + attackFife.defType)
-        print('     ' + 'Production: ' + str(productionCalc) + ' gold and ' + str(defenderOutput * int(attackFife.defenderMod))
+        print('\n     ' + 'Defenders: ' + attackFief.defenders + '\n     Gold: ' + attackFief.gold + ' gold.')
+        print('     ' + 'Defensive Strategy: ' + attackFief.defType)
+        print('     ' + 'Production: ' + str(productionCalc) + ' gold and ' + str(defenderOutput * int(attackFief.defenderMod))
                 + ' soldiers per hour.')
         print("\n")
 
-        if attackFife.defLevel == str(0):
+        if attackFief.defLevel == str(0):
             art1()
 
-        if attackFife.defLevel == str(1):
+        if attackFief.defLevel == str(1):
             art2()
         
-        if attackFife.defLevel == str(2):
+        if attackFief.defLevel == str(2):
             art3()
 
-        if attackFife.defLevel == str(3):
+        if attackFief.defLevel == str(3):
             art4()
 
-        if attackFife.defLevel == str(4):
+        if attackFief.defLevel == str(4):
             art5()
             
-        if attackFife.defLevel == str(5):
+        if attackFief.defLevel == str(5):
             art6()
                         
-        if attackFife.defLevel == str(6):
+        if attackFief.defLevel == str(6):
             art7()
                 
         print('\n')
@@ -780,7 +939,7 @@ while (loop):
             screen = 'withdrawGold'
 
         if command == '6':
-            screen = 'upgradeFifeDef'
+            screen = 'upgradeFiefDef'
 
         if command == '7':
             screen = 'farm'
@@ -796,29 +955,29 @@ while (loop):
         header()
         
         print("\n")
-        print('Now viewing the Fiefdom of ' + attackFife.name)
+        print('Now viewing the Fiefdom of ' + attackFief.name)
         print('\n')
         time.sleep(0)
-        print(attackFife.name + ' has ' + attackFife.gold + ' gold.')
+        print(attackFief.name + ' has ' + attackFief.gold + ' gold.')
         time.sleep(1)
         print('\n')
 
-        print('Sending ' + str(attackFife.gold) + ' gold back home')
+        print('Sending ' + str(attackFief.gold) + ' gold back home')
         time.sleep(1)
-        userFife.gold = str(int(userFife.gold) + int(attackFife.gold))
-        attackFife.gold = str(0)
-        attackFife.write()
-        attackFife.read()
-        userFife.write()
-        userFife.read()
+        userFief.gold = str(int(userFief.gold) + int(attackFief.gold))
+        attackFief.gold = str(0)
+        attackFief.write()
+        attackFief.read()
+        userFief.write()
+        userFief.read()
 
         screen = "attack"
 
-#The deploy screen allows players to deploy defenders to a Fifedom that they 
+#The deploy screen allows players to deploy defenders to a Fiefdom that they 
 #currently control.
 #
 #To Do
-# - add a "withdraw" page for pulling troops out of a Fifedom
+# - add a "withdraw" page for pulling troops out of a Fiefdom
 # - verify that the player has the troops avalible for deployment
 # - prevent negative numbers
 #------------------------------------------------------------------------------
@@ -828,16 +987,16 @@ while (loop):
         header()
         
         print("\n\n")
-        print('Now viewing the Fiefdom of ' + attackFife.name)
+        print('Now viewing the Fiefdom of ' + attackFief.name)
         print('\n\n')
         time.sleep(1)
-        print(attackFife.name + ' has ' + attackFife.defenders + ' fighters.')
+        print(attackFief.name + ' has ' + attackFief.defenders + ' fighters.')
         time.sleep(1)
-        print('You have ' + str(userFife.defenders) + ' ready to deploy.\n\n')
+        print('You have ' + str(userFief.defenders) + ' ready to deploy.\n\n')
         deployNum = input('Enter the number of soldiers you would like to deploy: ')
         time.sleep(1)
 
-        print(deployNum + ' : deploynum || userFife.defenders : ' + userFife.defenders)
+        print(deployNum + ' : deploynum || userFief.defenders : ' + userFief.defenders)
         
         if int(deployNum) < 0:
             os.system("clear")
@@ -845,23 +1004,23 @@ while (loop):
             time.sleep(2)
             screen = 'homeDetails'
 
-        if (int(userFife.defenders) < int(deployNum)) and int(deployNum) > 0:
+        if (int(userFief.defenders) < int(deployNum)) and int(deployNum) > 0:
             os.system("clear")
             print("You do not have enough soldiers for that")
             time.sleep(2)
             screen = 'homeDetails'
 
-        if (int(userFife.defenders) >= int(deployNum)) and int(deployNum) > 0:
-            print('Deploying ' + str(deployNum) + ' soldiers to ' + str(attackFife.name))
+        if (int(userFief.defenders) >= int(deployNum)) and int(deployNum) > 0:
+            print('Deploying ' + str(deployNum) + ' soldiers to ' + str(attackFief.name))
         
-            attackFife.defenders = str(int(attackFife.defenders) + int(deployNum))
-            attackFife.write()
-            attackFife.read()
+            attackFief.defenders = str(int(attackFief.defenders) + int(deployNum))
+            attackFief.write()
+            attackFief.read()
 
-            userFife.defenders = str(int(userFife.defenders) - int(deployNum))
-            userFife.write()
-            userFife.read()
-            attackFife.read()
+            userFief.defenders = str(int(userFief.defenders) - int(deployNum))
+            userFief.write()
+            userFief.read()
+            attackFief.read()
 
             print("\n\n\n\n\n\n\n\n\n")
 
@@ -886,10 +1045,10 @@ while (loop):
         os.system("clear")
         header()
         print("\n\n")
-        print('Now viewing the Fiefdom of ' + attackFife.name)
+        print('Now viewing the Fiefdom of ' + attackFief.name)
         print('\n\n')
         time.sleep(1)
-        print(attackFife.name + ' has ' + attackFife.defenders + ' fighters.')
+        print(attackFief.name + ' has ' + attackFief.defenders + ' fighters.')
         time.sleep(1)
         print('\n')
         
@@ -902,22 +1061,22 @@ while (loop):
             time.sleep(2)
             screen = 'homeDetails'
 
-        if (int(attackFife.defenders) < int(withdrawNum)) and int(withdrawNum) > 0:
+        if (int(attackFief.defenders) < int(withdrawNum)) and int(withdrawNum) > 0:
             os.system("clear")
             print("You do not have enough soldiers for that")
             time.sleep(2)
             screen = 'homeDetails'
 
-        if (int(attackFife.defenders) >= int(withdrawNum)) and int(withdrawNum) > 0:
+        if (int(attackFief.defenders) >= int(withdrawNum)) and int(withdrawNum) > 0:
             print('Returning ' + str(withdrawNum) + ' soldiers back home')
         
-            attackFife.defenders = str(int(attackFife.defenders) - int(withdrawNum))
-            attackFife.write()
-            attackFife.read()
+            attackFief.defenders = str(int(attackFief.defenders) - int(withdrawNum))
+            attackFief.write()
+            attackFief.read()
 
-            userFife.defenders = str(int(userFife.defenders) + int(withdrawNum))
-            userFife.write()
-            userFife.read()
+            userFief.defenders = str(int(userFief.defenders) + int(withdrawNum))
+            userFief.write()
+            userFief.read()
 
             print("\n\n\n\n\n\n\n\n\n")
 
@@ -931,7 +1090,7 @@ while (loop):
             if command == "1":
                 screen = "stronghold"
 
-#This is the details page for enemy fifedoms
+#This is the details page for enemy Fiefdoms
 #
 #To Do
 # - Make it prettier
@@ -943,35 +1102,35 @@ while (loop):
         header()
         
         print("\n\n")
-        print('Now viewing the fiefdom of ' + attackFife.name)
-        print('This fiefdom is ruled by ' + attackFife.ruler)
+        print('Now viewing the fiefdom of ' + attackFief.name)
+        print('This fiefdom is ruled by ' + attackFief.ruler)
         print('-------------------------------------------------------------------------')
         print('\nYour scouts return early in the morning, bringing back reports of the enemy fiefdom.')
-        print(attackFife.name + ' looks to have ' + attackFife.defenders + ' fighters.')
-        print('Defense Type: ' + attackFife.defType)
+        print(attackFief.name + ' looks to have ' + attackFief.defenders + ' fighters.')
+        print('Defense Type: ' + attackFief.defType)
         print('-------------------------------------------------------------------------')
         
         print("\n\n")
         
-        if attackFife.defLevel == str(0):
+        if attackFief.defLevel == str(0):
             art1()
 
-        if attackFife.defLevel == str(1):
+        if attackFief.defLevel == str(1):
             art2()
         
-        if attackFife.defLevel == str(2):
+        if attackFief.defLevel == str(2):
             art3()
 
-        if attackFife.defLevel == str(3):
+        if attackFief.defLevel == str(3):
             art4()
 
-        if attackFife.defLevel == str(4):
+        if attackFief.defLevel == str(4):
             art5()
             
-        if attackFife.defLevel == str(5):
+        if attackFief.defLevel == str(5):
             art6()
                         
-        if attackFife.defLevel == str(6):
+        if attackFief.defLevel == str(6):
             art7()
 
         print("\n\n")
@@ -995,7 +1154,7 @@ while (loop):
         if command == "3":
             screen = 'battle'
 
-#The "battle" page simulates a battle between two fifedoms. This is currently the most
+#The "battle" page simulates a battle between two Fiefdoms. This is currently the most
 #complicated page and could use some cleaning up.
 #
 #To Do
@@ -1015,27 +1174,27 @@ while (loop):
         #This if statement prevents players from attacking a player's home stronghold
         #Eventually this will be replaced with a formula that allows you to attack
         #for gold
-        if attackFife.home == 'True':
+        if attackFief.home == 'True':
             os.system('clear')
             print('You are unable to claim a player\'s home stronghold')
             time.sleep(3)
             screen = 'stronghold'
 
         #this is where the battle logic happens!
-        if attackFife.home == 'False':
-            print('\n\nThis battle is between ' + attackFife.name + ' and ' + userFife.name)
+        if attackFief.home == 'False':
+            print('\n\nThis battle is between ' + attackFief.name + ' and ' + userFief.name)
             print('\n\nSimulating Battle...')
             time.sleep(1)
             print('\n...\n')
             time.sleep(1)
 
-            attackers = int(userFife.defenders)
-            defenders = int(attackFife.defenders)
+            attackers = int(userFief.defenders)
+            defenders = int(attackFief.defenders)
             
             defenseLosses = 0
             attackLosses = 0
-            attackMod = int(userFife.attLevel)
-            defenseMod = int(attackFife.defLevel)
+            attackMod = int(userFief.attLevel)
+            defenseMod = int(attackFief.defLevel)
             
             for i in range(3):
                 
@@ -1058,8 +1217,8 @@ while (loop):
             print('-----------------------------Battle Results-----------------------------------')
             print('------------------------------------------------------------------------------')
             print('\n')
-            print(userFife.ruler + ' lost ' + str(attackLosses) + ' soldiers')
-            print(attackFife.ruler + ' lost ' + str(defenseLosses) + ' soldiers')
+            print(userFief.ruler + ' lost ' + str(attackLosses) + ' soldiers')
+            print(attackFief.ruler + ' lost ' + str(defenseLosses) + ' soldiers')
             print('\n')
             print('------------------------------------------------------------------------------')
             print('------------------------------------------------------------------------------')
@@ -1068,39 +1227,39 @@ while (loop):
             #if the current player wins
             if attackers > defenders:
                 print('After a hard fought battle, your weary forces remain standing')
-                print('You are the new ruler of ' + attackFife.name)
+                print('You are the new ruler of ' + attackFief.name)
                 
-                attackFife.defenders = defenders
-                attackFife.ruler = userFife.ruler
-                attackFife.write()
+                attackFief.defenders = defenders
+                attackFief.ruler = userFief.ruler
+                attackFief.write()
 
-                userFife.defenders = attackers
-                userFife.write()
+                userFief.defenders = attackers
+                userFief.write()
                 
-                userFife.gold = str(int(userFife.gold) + int(attackFife.gold))
-                print('You now have a total of ' + str(userFife.gold) + ' gold!')
-                attackFife.gold = str('0')
+                userFief.gold = str(int(userFief.gold) + int(attackFief.gold))
+                print('You now have a total of ' + str(userFief.gold) + ' gold!')
+                attackFief.gold = str('0')
 
-                userFife.write()
-                attackFife.write()
+                userFief.write()
+                attackFief.write()
 
             #if the other player wins
             if attackers <= defenders:
-                print('Although your soldiers fought valiantly, they were unable to overcome ' + attackFife.ruler + '\'s forces')
+                print('Although your soldiers fought valiantly, they were unable to overcome ' + attackFief.ruler + '\'s forces')
                 print('Your forces, now many fewer in number, begin the long march home.')
 
-                attackFife.defenders = defenders
-                attackFife.write()
+                attackFief.defenders = defenders
+                attackFief.write()
 
-                userFife.defenders = attackers
-                userFife.write()
+                userFief.defenders = attackers
+                userFief.write()
 
             
-            time.sleep(2)
+            time.sleep(1)
             nothing = input('Continue:')
             screen = 'attack'
 
-#This is a "secret" page that you can use to create default fifedoms
+#This is a "secret" page that you can use to create default Fiefdoms
 #to seed your installation with land that can be taken. 
 #
 #It should be taken out if you ever open this game up to many players
@@ -1112,11 +1271,11 @@ while (loop):
             
         names = ['Razor Hills', 'Forest of Fado', 'Emerald Cove', 'Stormgrove', 'Aegirs Hall', 'Ashen Grove', 'Bellhollow', 'Howling Plains', 'Jade Hill', 'Knoblands', 'Kestrel Keep', 'Direbrook', 'Greystone']
         for x in names:
-            currentFife = Fifedom()
-            currentFife.name = x
-            currentFife.defenders = random.randint(10, 100)
-            currentFife.gold = random.randint(500, 3100)
-            currentFife.write()
+            currentFief = Fiefdom()
+            currentFief.name = x
+            currentFief.defenders = random.randint(10, 100)
+            currentFief.gold = random.randint(500, 3100)
+            currentFief.write()
 
         time.sleep(2)
         print('Seeding Complete')
@@ -1132,8 +1291,8 @@ while (loop):
         os.system("clear")
         print('Adding Funds!...')
 
-        userFife.gold = str(int(userFife.gold) + 1000000)
-        userFife.write()
+        userFief.gold = str(int(userFief.gold) + 1000000)
+        userFief.write()
         
         time.sleep(2)
         print('...Funds Added!')
@@ -1152,44 +1311,44 @@ while (loop):
         defTypeNext = 'undefined'
         defUpgradeCost = 0
         
-        if userFife.defLevel == str('0'):
+        if userFief.defLevel == str('0'):
             defTypeNext = 'Wooden Fences'
             defUpgradeCost = 500
                 
-        if userFife.defLevel == str('1'):
+        if userFief.defLevel == str('1'):
             defTypeNext = 'Really Deep Ditches'
             defUpgradeCost = 1500
                
-        if userFife.defLevel == str('2'):
+        if userFief.defLevel == str('2'):
             defTypeNext = 'Ditch Spikes'
             defUpgradeCost = 5000
        
-        if userFife.defLevel == str('3'):
+        if userFief.defLevel == str('3'):
             defTypeNext = 'Moat'
             defUpgradeCost = 10000
 
-        if userFife.defLevel == str('4'):
+        if userFief.defLevel == str('4'):
             defTypeNext = 'Alligators in the Moat'
             defUpgradeCost = 20000
 
-        if userFife.defLevel == str('5'):
+        if userFief.defLevel == str('5'):
             defTypeNext = 'Drawbridge'
             defUpgradeCost = 40000
 
-        print('Your current defense style is: ' + userFife.defType)
+        print('Your current defense style is: ' + userFief.defType)
         print('Would you like to upgrade to ' + defTypeNext + ' for ' + str(defUpgradeCost) + ' gold?')
 
         upgradeInput = input('y/n?')
 
-        if upgradeInput == 'y' and int(userFife.gold) >= defUpgradeCost:
+        if upgradeInput == 'y' and int(userFief.gold) >= defUpgradeCost:
             print("Upgrade Complete!")
-            userFife.defType = defTypeNext
-            userFife.defLevel = str(int(userFife.defLevel) + 1)
-            userFife.gold = str(int(userFife.gold) - defUpgradeCost)
-            userFife.write()
-            userFife.read()
+            userFief.defType = defTypeNext
+            userFief.defLevel = str(int(userFief.defLevel) + 1)
+            userFief.gold = str(int(userFief.gold) - defUpgradeCost)
+            userFief.write()
+            userFief.read()
 
-        elif upgradeInput == 'y' and int(userFife.gold) < defUpgradeCost:
+        elif upgradeInput == 'y' and int(userFief.gold) < defUpgradeCost:
             print("You need more gold first!")
 
         elif upgradeInput == 'n':

@@ -181,8 +181,8 @@ def art7():
       ' ~' ~ '  '~ ~ =-==-=-= ~ ~ '   ~  ~  '   '
     ''')
 
-#the fifedom class holds variables that define a player's stats
-class Fifedom:
+#the fiefdom class holds variables that define a player's stats
+class Fiefdom:
     name = 'Default Fiefdom'
     ruler = 'Unclaimed'
     home = False
@@ -196,13 +196,13 @@ class Fifedom:
     defenderMod = '1'
     farmType = "Dirt Patch"
 
-    #take the current fifedom and write it to the /fifes directory
+    #take the current fiefdom and write it to the /fiefs directory
     def write(self):
-        fifeFile = 'fifes/' + self.name + '.txt'
+        fiefFile = 'fiefs/' + self.name + '.txt'
         
         #this part creates a file if it isn't made yet        
         try:
-            with open(fifeFile, 'x') as f:
+            with open(fiefFile, 'x') as f:
 
                 f.write(self.name + '\n')
                 f.write(self.ruler + '\n')
@@ -221,7 +221,7 @@ class Fifedom:
 
         #write the class variables down line by line in the text file
         try:
-            with open(fifeFile, 'w') as f:
+            with open(fiefFile, 'w') as f:
                 f.write(self.name + '\n')
                 f.write(self.ruler + '\n')
                 f.write(str(self.home) + '\n')
@@ -239,9 +239,9 @@ class Fifedom:
 
     #read class variables line by line
     def read(self):
-        fifeFile = 'fifes/' + self.name + '.txt'
+        fiefFile = 'fiefs/' + self.name + '.txt'
         try:
-            with open(fifeFile, 'r') as f:
+            with open(fiefFile, 'r') as f:
                 self.name = f.readline().strip()
                 self.ruler = f.readline().strip()
                 self.home = f.readline().strip()

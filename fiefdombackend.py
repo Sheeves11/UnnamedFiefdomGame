@@ -14,14 +14,14 @@ interval = 3600
 #this is the backend to the Untitled Fiefdom Game. This is run alongside the user sessions.
 #the purpose of the backend is to increment gold, worker, and soldier totals.
 
-#the fifedom class holds variables that define a player's stats
+#the fiefdom class holds variables that define a player's stats
 
 
 os.system('clear')
 
 loop = True
 
-currentFife = Fifedom()
+currentFief = Fiefdom()
 
 while (loop):
     
@@ -29,11 +29,11 @@ while (loop):
     print('Incrementing soldier totals')
     print('--------------------------------------------------------\n')
   
-    for filename in os.listdir('fifes'):
-            with open(os.path.join('fifes', filename), 'r') as f:
+    for filename in os.listdir('fiefs'):
+            with open(os.path.join('fiefs', filename), 'r') as f:
                 
                 tempName = filename[:-4]
-                tempName = Fifedom()
+                tempName = Fiefdom()
                 tempName.name = filename[:-4]
                 tempName.defenderMod = '0'
                 tempName.defenderMod = '0' 
