@@ -351,8 +351,6 @@ while (loop):
                 tempName.name = filename[:-4]
                 tempName.read()
                 
-                homeStatus = " "
-                
                 if tempName.home != "True" and tempName.ruler == userFief.name: 
                     userFiefCount = userFiefCount + 1
                     print (textColor.CYAN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + 
@@ -920,6 +918,28 @@ while (loop):
                         
         if attackFief.defLevel == str(6):
             art7()
+
+
+        if attackFief.goldMod == str(1):
+            art_farm1()
+
+        if attackFief.goldMod == str(2):
+            art_farm2()
+        
+        if attackFief.goldMod == str(3):
+            art_farm3()
+
+        if attackFief.goldMod == str(4):
+            art_farm4()
+
+        if attackFief.goldMod == str(5):
+            art_farm5()
+            
+        if attackFief.goldMod == str(6):
+            art_farm6()
+                        
+        if attackFief.goldMod == str(7):
+            art_farm7()
         
         
         print('\n')
@@ -1148,6 +1168,28 @@ while (loop):
                         
         if attackFief.defLevel == str(6):
             art7()
+
+
+        if attackFief.goldMod == str(1):
+            art_farm1()
+
+        if attackFief.goldMod == str(2):
+            art_farm2()
+        
+        if attackFief.goldMod == str(3):
+            art_farm3()
+
+        if attackFief.goldMod == str(4):
+            art_farm4()
+
+        if attackFief.goldMod == str(5):
+            art_farm5()
+            
+        if attackFief.goldMod == str(6):
+            art_farm6()
+                        
+        if attackFief.goldMod == str(7):
+            art_farm7()
 
         print("\n\n")
 
