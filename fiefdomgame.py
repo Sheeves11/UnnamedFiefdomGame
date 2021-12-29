@@ -422,7 +422,7 @@ while (loop):
                 time.sleep(1)
 
                 benchedSoldiers = int(withdrawNum) % userFiefCount
-                outgoingSoldierGroups = (int(withdrawNum) - benchedSoldiers)/userFiefCount
+                outgoingSoldierGroups = round((int(withdrawNum) - benchedSoldiers)/userFiefCount)
 
                 print(str(benchedSoldiers) + ' soldiers were held back to make even groups of ' + str(outgoingSoldierGroups) + '.')
 
@@ -437,7 +437,7 @@ while (loop):
                         homeStatus = " "
                 
                         if tempName.home != "True" and tempName.ruler == userFief.name:
-                            print(tempName.name + ' had ' + str(tempName.defenders) + ' soldiers. \n')
+                            print(tempName.name + ' had ' + str(tempName.defenders) + ' soldier(s).')
                             tempName.defenders = str(int(tempName.defenders) + outgoingSoldierGroups)
                             tempName.write()
                             tempName.read()
