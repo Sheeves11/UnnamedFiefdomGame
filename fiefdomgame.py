@@ -387,7 +387,7 @@ while (loop):
         print("\n\n")
         print('Currently Ruled Fiefs: ' + str(userFiefCount))
         print('\n')
-        print('Current Number of Soldiers in Stronghold: ' + userFief.defenders)
+        print('Current Number of Soldiers in Stronghold: ' + str(userFief.defenders))
         print('\n\n')
         time.sleep(1)
         if userFiefCount == 0:
@@ -437,11 +437,11 @@ while (loop):
                         homeStatus = " "
                 
                         if tempName.home != "True" and tempName.ruler == userFief.name:
-                            print(tempName.name + ' had ' + tempName.defenders + ' soldiers. \n')
+                            print(tempName.name + ' had ' + str(tempName.defenders) + ' soldiers. \n')
                             tempName.defenders = str(int(tempName.defenders) + outgoingSoldierGroups)
                             tempName.write()
                             tempName.read()
-                            print(tempName.name + ' now has ' + tempName.defenders + ' soldiers! \n')
+                            print(tempName.name + ' now has ' + str(tempName.defenders) + ' soldiers! \n')
 
                 userFief.defenders = str(userFief.defenders) - int(withdrawNum) + benchedSoldiers
                 userFief.write()
