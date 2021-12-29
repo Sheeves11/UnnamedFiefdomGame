@@ -386,22 +386,24 @@ while (loop):
 
         print("\n\n")
         print('Currently Ruled Fiefs: ' + str(userFiefCount))
-        print('\n')
         print('Current Number of Soldiers in Stronghold: ' + str(userFief.defenders))
         print('\n\n')
         time.sleep(1)
         if userFiefCount == 0:
             print('You control no fiefs you can distribute to! \n')
-            time.sleep(1)
+            time.sleep(2)
             screen = "garrison"
         else:
             withdrawNum = input('Enter the number of soldiers you would like to evenly distrubute among these ' + str(userFiefCount) + ' fiefs: ')
             time.sleep(1)
-        
+
+            if withdrawNum == "":
+                withdrawNum = '0'
+
             if int(withdrawNum) < 0:
                 os.system("clear")
                 print("You cannot distribute a negative number of soldiers. \n\nThat doesn't even make sense.")
-                time.sleep(1)
+                time.sleep(2)
                 screen = 'garrison'
 
             elif int(withdrawNum) == 0:
@@ -413,13 +415,13 @@ while (loop):
             elif int(userFief.defenders) < int(withdrawNum):
                 os.system("clear")
                 print("You do not have enough soldiers for that.")
-                time.sleep(1)
+                time.sleep(2)
                 screen = 'garrison'
 
             elif int(withdrawNum) < userFiefCount:
                 os.system("clear")
                 print("You have more fiefs than soldiers you want to distribute!")
-                time.sleep(1)
+                time.sleep(2)
                 screen = 'garrison'
 
             else:
@@ -452,7 +454,8 @@ while (loop):
                 userFief.defenders = int(userFief.defenders) - int(withdrawNum) + benchedSoldiers
                 userFief.write()
                 userFief.read()
-
+                print('\n')
+                print('Number of Soldiers Remaining in Stronghold: ' + str(userFief.defenders))
 
                 print("\n\n\n\n\n\n\n\n\n")
 
