@@ -390,70 +390,75 @@ while (loop):
         print('Current Number of Soldiers in Stronghold: ' + userFief.defenders)
         print('\n\n')
         time.sleep(1)
-        withdrawNum = input('Enter the number of soldiers you would like to evenly distrubute among these ' + str(userFiefCount) + ' fiefs: ')
-        time.sleep(1)
-        
-        if int(withdrawNum) < 0:
-            os.system("clear")
-            print("You cannot distribute a negative number of soldiers. \n\nThat doesn't even make sense.")
-            time.sleep(2)
-            screen = 'garrison'
-
-        if (int(userFief.defenders) < int(withdrawNum)) and int(withdrawNum) > 0:
-            os.system("clear")
-            print("You do not have enough soldiers for that.")
-            time.sleep(2)
-            screen = 'garrison'
-
-        if (int(userFief.defenders) >= int(withdrawNum)) and int(withdrawNum) > 0 and int(withdrawNum) < userFiefCount:
-            os.system("clear")
-            print("You have more fiefs than soldiers you want to distribute!")
-            time.sleep(2)
-            screen = 'garrison'
-
-        if (int(userFief.defenders) >= int(withdrawNum)) and int(withdrawNum) > 0:
-            print('Garrisoning ' + str(withdrawNum) + ' soldiers across ' + str(userFiefCount) + ' Fiefs...')
-            
+        if userFiefCount == 0:
+            print('You control no fiefs you can distribute to! \n')
             time.sleep(1)
-
-            benchedSoldiers = int(withdrawNum) % userFiefCount
-            outgoingSoldierGroups = (int(withdrawNum) - benchedSoldiers)/userFiefCount
-
-            print(str(benchedSoldiers) + ' soldiers were held back to make even groups of ' + str(outgoingSoldierGroupsunt) + '.')
-
-            for filename in os.listdir('fiefs'):
-                with open(os.path.join('fiefs', filename), 'r') as f:
-                
-                    tempName = filename[:-4]
-                    tempName = Fiefdom()
-                    tempName.name = filename[:-4]
-                    tempName.read()
-                
-                    homeStatus = " "
-                
-                    if tempName.home != "True" and tempName.ruler == userFief.name:
-                        print(tempName.name + ' had ' + tempName.defenders + ' soldiers. \n')
-                        tempName.defenders = str(int(tempName.defenders) + outgoingSoldierGroups)
-                        tempName.write()
-                        tempName.read()
-                        print(tempName.name + ' now has ' + tempName.defenders + ' soldiers! \n')
-
-            userFief.defenders = str(userFief.defenders) - int(withdrawNum) + benchedSoldiers
-            userFief.write()
-            userFief.read()
-
-
-            print("\n\n\n\n\n\n\n\n\n")
-
-            print("Avalible Commands:")
-            print('-------------------------------------')
-            print('{1}: Return to stronghold')
-            print('-------------------------------------')
-            print('\n')
-            command = input("Enter your command: ")
+            screen = "garrison"
+        else:
+            withdrawNum = input('Enter the number of soldiers you would like to evenly distrubute among these ' + str(userFiefCount) + ' fiefs: ')
+            time.sleep(1)
         
-            if command == "1":
-                screen = "stronghold"
+            if int(withdrawNum) < 0:
+                os.system("clear")
+                print("You cannot distribute a negative number of soldiers. \n\nThat doesn't even make sense.")
+                time.sleep(2)
+                screen = 'garrison'
+
+            if (int(userFief.defenders) < int(withdrawNum)) and int(withdrawNum) > 0:
+                os.system("clear")
+                print("You do not have enough soldiers for that.")
+                time.sleep(2)
+                screen = 'garrison'
+
+            if (int(userFief.defenders) >= int(withdrawNum)) and int(withdrawNum) > 0 and int(withdrawNum) < userFiefCount:
+                os.system("clear")
+                print("You have more fiefs than soldiers you want to distribute!")
+                time.sleep(2)
+                screen = 'garrison'
+
+            if (int(userFief.defenders) >= int(withdrawNum)) and int(withdrawNum) > 0:
+                print('Garrisoning ' + str(withdrawNum) + ' soldiers across ' + str(userFiefCount) + ' Fiefs...')
+            
+                time.sleep(1)
+
+                benchedSoldiers = int(withdrawNum) % userFiefCount
+                outgoingSoldierGroups = (int(withdrawNum) - benchedSoldiers)/userFiefCount
+
+                print(str(benchedSoldiers) + ' soldiers were held back to make even groups of ' + str(outgoingSoldierGroups) + '.')
+
+                for filename in os.listdir('fiefs'):
+                    with open(os.path.join('fiefs', filename), 'r') as f:
+                
+                        tempName = filename[:-4]
+                        tempName = Fiefdom()
+                        tempName.name = filename[:-4]
+                        tempName.read()
+                
+                        homeStatus = " "
+                
+                        if tempName.home != "True" and tempName.ruler == userFief.name:
+                            print(tempName.name + ' had ' + tempName.defenders + ' soldiers. \n')
+                            tempName.defenders = str(int(tempName.defenders) + outgoingSoldierGroups)
+                            tempName.write()
+                            tempName.read()
+                            print(tempName.name + ' now has ' + tempName.defenders + ' soldiers! \n')
+
+                userFief.defenders = str(userFief.defenders) - int(withdrawNum) + benchedSoldiers
+                userFief.write()
+                userFief.read()
+
+
+                print("\n\n\n\n\n\n\n\n\n")
+
+                print("Avalible Commands:")
+                print('-------------------------------------')
+                print('{1}: Return to stronghold')
+                print('-------------------------------------')
+                print('\n')
+                command = input("Enter your command: ")
+        
+                if command == "1":
+                    screen = "stronghold"
 
 #This is the screen for updating a user's attack power.
 #----------------------------------------------------------------------------------
