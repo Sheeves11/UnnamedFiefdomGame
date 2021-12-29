@@ -800,7 +800,7 @@ while (loop):
                 if tempName.home != "True" and tempName.ruler == userFief.name: 
                     print (textColor.CYAN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + 
                             tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
-
+        print("\n")
         print("Nearby Strongholds: ")
         print("------------------------------------------------------------------\n")
 
