@@ -1270,7 +1270,7 @@ while (loop):
                 userFief.write()
 
             
-            time.sleep(2)
+            time.sleep(1)
             nothing = input('Continue:')
             screen = 'attack'
 
