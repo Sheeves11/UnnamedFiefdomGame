@@ -23,8 +23,8 @@ tempName = {}
 os.system("clear")
 
 #create some default objects that we'll write over later
-attackFife = Fifedom()
-userFife = Fifedom()
+attackFief = Fiefdom()
+userFief = Fiefdom()
 
 #this begins the main game loop
 #------------------------------------------------------------------------------
@@ -38,12 +38,12 @@ while (loop):
         os.system("clear")
         header()
         print('    Welcome to the fief creation tool.')
-        newFife = input('\n    Enter the name of your new fief: ')
-        currentFife = Fifedom()
-        currentFife.name = newFife
-        currentFife.defenders = random.randint(10, 100)
-        currentFife.gold = random.randint(500, 3100)
-        currentFife.write()
+        newFief = input('\n    Enter the name of your new fief: ')
+        currentFief = Fiefdom()
+        currentFief.name = newFief
+        currentFief.defenders = random.randint(10, 100)
+        currentFief.gold = random.randint(500, 3100)
+        currentFief.write()
         print('\n    Fief write complete.')
         throwAway = input('\n    Press Enter to Continue\n    ')
         screen = 'login'
