@@ -401,22 +401,28 @@ while (loop):
             if int(withdrawNum) < 0:
                 os.system("clear")
                 print("You cannot distribute a negative number of soldiers. \n\nThat doesn't even make sense.")
-                time.sleep(2)
+                time.sleep(1)
                 screen = 'garrison'
 
-            if (int(userFief.defenders) < int(withdrawNum)) and int(withdrawNum) > 0:
+            elif int(withdrawNum) == 0:
+                os.system("clear")
+                print("Cancelling request...")
+                time.sleep(1)
+                screen = 'garrison'
+
+            elif int(userFief.defenders) < int(withdrawNum):
                 os.system("clear")
                 print("You do not have enough soldiers for that.")
-                time.sleep(2)
+                time.sleep(1)
                 screen = 'garrison'
 
-            if (int(userFief.defenders) >= int(withdrawNum)) and int(withdrawNum) > 0 and int(withdrawNum) < userFiefCount:
+            elif int(withdrawNum) < userFiefCount:
                 os.system("clear")
                 print("You have more fiefs than soldiers you want to distribute!")
-                time.sleep(2)
+                time.sleep(1)
                 screen = 'garrison'
 
-            if (int(userFief.defenders) >= int(withdrawNum)) and int(withdrawNum) > 0:
+            else:
                 print('Garrisoning ' + str(withdrawNum) + ' soldiers across ' + str(userFiefCount) + ' Fiefs...')
             
                 time.sleep(1)
