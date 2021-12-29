@@ -343,8 +343,8 @@ while (loop):
         userFiefCount = 0
 
         print('\n    Fiefs under your rule: \n')
-        for filename in os.listdir('Fiefs'):
-            with open(os.path.join('Fiefs', filename), 'r') as f:
+        for filename in os.listdir('fiefs'):
+            with open(os.path.join('fiefs', filename), 'r') as f:
                 
                 tempName = filename[:-4]
                 tempName = Fiefdom()
@@ -421,8 +421,8 @@ while (loop):
 
             print(str(benchedSoldiers) + ' soldiers were held back to make even groups of ' + str(outgoingSoldierGroupsunt) + '.')
 
-            for filename in os.listdir('Fiefs'):
-                with open(os.path.join('Fiefs', filename), 'r') as f:
+            for filename in os.listdir('fiefs'):
+                with open(os.path.join('fiefs', filename), 'r') as f:
                 
                     tempName = filename[:-4]
                     tempName = Fiefdom()
@@ -760,7 +760,7 @@ while (loop):
         if command == "1":
             screen = "stronghold"
 
-#The attack page contains a list of Fiefdoms generated from the /Fiefs directory
+#The attack page contains a list of Fiefdoms generated from the /fiefs directory
 #
 #To Do
 # - add some sort of "next page" function so that the printout won't scroll
@@ -780,8 +780,8 @@ while (loop):
         print("Nearby Fiefdoms: ")
         print("------------------------------------------------------------------\n")
         
-        for filename in os.listdir('Fiefs'):
-            with open(os.path.join('Fiefs', filename), 'r') as f:
+        for filename in os.listdir('fiefs'):
+            with open(os.path.join('fiefs', filename), 'r') as f:
                 
                 tempName = filename[:-4]
                 tempName = Fiefdom()
@@ -827,7 +827,7 @@ while (loop):
             #search for file to open. If there, initialize it and load data
             #then, switch to a details screen
 
-            fileFief = 'Fiefs/' + command + '.txt'
+            fileFief = 'fiefs/' + command + '.txt'
             print (fileFief + 'loading is happening')
             try:
                 with open(fileFief, 'r') as f:
