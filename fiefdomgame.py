@@ -20,6 +20,7 @@ loop = True
 screen = "login"
 currentUsername = 'default'
 tempName = {}
+userFiefCount = 0
 
 #hourly production values
 #these should be changed to match the values in fiefdombackend.py
@@ -200,10 +201,11 @@ while (loop):
         print('     {2}: Hire Mercenaries')
         #print('{3}: Upgrade Defense')
         print('     {3}: Upgrade Attack')
-        print('     {4}: About')
-        print('     {5}: Upcoming Features')
-        print('     {6}: Message Board')
-        print('     {7}: View Past Winners')
+        print('     {4}: Garrison Soldiers')
+        print('     {5}: About')
+        print('     {6}: Upcoming Features')
+        print('     {7}: Message Board')
+        print('     {8}: View Past Winners')
         print('     -------------------------------------')
         print('\n')
         command = input("     Enter your command: ")
@@ -218,15 +220,18 @@ while (loop):
             screen = 'upgradeFifeAtt'
 
         if command == '4':
+            screen = 'garrison'
+
+        if command == '5':
             screen = 'about'
             
-        if command == '5':
+        if command == '6':
             screen = 'features'
 
-        if command == '6':
+        if command == '7':
             screen = 'board'
             
-        if command == '7':
+        if command == '8':
             screen = 'pastWinners'
 
         if command == 'defaults':
@@ -327,6 +332,128 @@ while (loop):
         
         if command == "1":
             screen = "stronghold"
+
+#This is the screen for viewing users owned fiefs and for garrisoning soldiers
+#----------------------------------------------------------------------------------
+    if screen == "garrison":
+        os.system("clear")
+
+        header()
+
+        userFiefCount = 0
+
+        print('\n    Fifes under your rule: \n')
+        for filename in os.listdir('fifes'):
+            with open(os.path.join('fifes', filename), 'r') as f:
+                
+                tempName = filename[:-4]
+                tempName = Fifedom()
+                tempName.name = filename[:-4]
+                tempName.read()
+                
+                homeStatus = " "
+                
+                if tempName.home != "True" and tempName.ruler == userFife.name: 
+                    userFiefCount++
+                    print (textColor.CYAN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + 
+                            tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
+
+        print('\n\n\n\n\n\n\n\n\n\n')
+        print("     Avalible Commands:")
+        print('     -------------------------------------')
+        print('     {1}: Select Soldiers to Garrison')
+        print('     {2}: Return to Stronghold')
+        print('     {3}: View Nearby Fiefdoms')
+        print('     -------------------------------------')
+        print('\n')
+        command = input("     Enter your command: ")
+
+        if command == "1":
+            screen = "garrisonSorter"
+        
+        if command == "2":
+            screen = "stronghold"
+
+        if command == "3":
+            screen = "attack"
+
+#This is the screen for distributing a user's soldiers evenly among fiefs they control
+#----------------------------------------------------------------------------------
+    if screen == "garrisonSorter":
+        os.system("clear")
+
+        header()
+
+        print("\n\n")
+        print('Currently Ruled Fiefs: ' + str(userFiefCount))
+        print('\n')
+        print('Current Number of Soldiers in Stronghold: ' + userFief.defenders)
+        print('\n\n')
+        time.sleep(1)
+        withdrawNum = input('Enter the number of soldiers you would like to evenly distrubute among these ' + str(userFiefCount) + ' fiefs: ')
+        time.sleep(1)
+        
+        if int(withdrawNum) < 0:
+            os.system("clear")
+            print("You cannot distribute a negative number of soldiers. \n\nThat doesn't even make sense.")
+            time.sleep(2)
+            screen = 'garrison'
+
+        if (int(userFief.defenders) < int(withdrawNum)) and int(withdrawNum) > 0:
+            os.system("clear")
+            print("You do not have enough soldiers for that.")
+            time.sleep(2)
+            screen = 'garrison'
+
+        if (int(userFief.defenders) >= int(withdrawNum)) and int(withdrawNum) > 0 and int(withdrawNum) < userFiefCount:
+            os.system("clear")
+            print("You have more fiefs than soldiers you want to distribute!")
+            time.sleep(2)
+            screen = 'garrison'
+
+        if (int(userFief.defenders) >= int(withdrawNum)) and int(withdrawNum) > 0:
+            print('Garrisoning ' + str(withdrawNum) + ' soldiers across ' + str(userFiefCount) + ' fiefs...')
+            
+            time.sleep(1)
+
+            benchedSoldiers = int(withdrawNum) % userFiefCount
+            outgoingSoldierGroups = (int(withdrawNum) - benchedSoldiers)/userFiefCount
+
+            print(str(benchedSoldiers) + ' soldiers were held back to make even groups of ' + str(userFiefCooutgoingSoldierGroupsunt) + '.')
+
+            for filename in os.listdir('fifes'):
+            with open(os.path.join('fifes', filename), 'r') as f:
+                
+                tempName = filename[:-4]
+                tempName = Fifedom()
+                tempName.name = filename[:-4]
+                tempName.read()
+                
+                homeStatus = " "
+                
+                if tempName.home != "True" and tempName.ruler == userFife.name:
+                    print(tempName.name + ' had ' + tempName.defenders + ' soldiers. \n')
+                    tempName.defenders = str(int(tempName.defenders) + outgoingSoldierGroups)
+                    tempName.write()
+                    tempName.read()
+                    print(tempName.name + ' now has ' + tempName.defenders + ' soldiers! \n')
+
+            userFief.defenders = str(userFief.defenders) - int(withdrawNum) + benchedSoldiers
+            userFife.write()
+            userFife.read()
+
+
+            print("\n\n\n\n\n\n\n\n\n")
+
+            print("Avalible Commands:")
+            print('-------------------------------------')
+            print('{1}: Return to stronghold')
+            print('-------------------------------------')
+            print('\n')
+            command = input("Enter your command: ")
+        
+            if command == "1":
+                screen = "stronghold"
 
 #This is the screen for updating a user's attack power.
 #----------------------------------------------------------------------------------
@@ -639,6 +766,10 @@ while (loop):
 # - add some sort of "next page" function so that the printout won't scroll
 #   off the page as more players join.
 # - add some sort of sorting on the list. 
+# - SW: This needs to be updated, as I'm not sure what happens if your username is '1', for example.
+#       As I started setting up the "caps doesn't matter" stuff, I ran into a problem.
+#       The file and username schema would also need to be lowercase for this to work.
+#       I will come back to this later.
 #-------------------------------------------------------------------------------
     if screen == "attack":
         os.system("clear")
@@ -675,17 +806,22 @@ while (loop):
                 if tempName.home != "True" and tempName.ruler == userFife.name: 
                     print (textColor.CYAN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + 
                             tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
-                
+
         print("\nAvalible Commands:")
         print('-------------------------------------')
-        print('{1}: Return to stronghold')
+        print('{1}: Return to Stronghold')
+        print('{2}: Garrison Soldiers')
         print('{Enter fiefdom name or stronghold owner}: View Fiefdom Details') 
         print('-------------------------------------')
         print('\n')
         command = input("Enter your command: ")
-        
+        #command = command.lower() #This won't work until file-naming schema is changed!
+
         if str(command) == '1':
             screen = "stronghold"
+
+        if str(command) == '2':
+            screen = "garrison"
         
         if str(command) != '1':
             #search for file to open. If there, initialize it and load data
