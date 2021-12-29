@@ -443,7 +443,7 @@ while (loop):
                             tempName.read()
                             print(tempName.name + ' now has ' + str(tempName.defenders) + ' soldiers! \n')
 
-                userFief.defenders = str(userFief.defenders) - int(withdrawNum) + benchedSoldiers
+                userFief.defenders = int(userFief.defenders) - int(withdrawNum) + benchedSoldiers
                 userFief.write()
                 userFief.read()
 
