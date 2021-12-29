@@ -354,7 +354,7 @@ while (loop):
                 homeStatus = " "
                 
                 if tempName.home != "True" and tempName.ruler == userFife.name: 
-                    userFiefCount++
+                    userFiefCount = userFiefCount + 1
                     print (textColor.CYAN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + 
                             tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
 
