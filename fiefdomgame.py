@@ -251,15 +251,13 @@ while (loop):
         print('\n    --------------------------------------------------------------------------------------\n')
 
         #print off recent messages
-        #dump the last 16 lines of log.txt to the screen
+        #dump the last 30 lines of chatlog.log to the screen
         with open('chatlog.log', "r") as logfile:
             lines = logfile.readlines()
             last_lines = lines[-30:]
             last_lines = [line[:-1] for line in last_lines]
             for i in last_lines:
                 print ('    ' + i)
-
-
 
         print('\n    --------------------------------------------------------------------------------------\n\n')
         tempMessage = input("    Type your message here or type \"leave\" to visit your stronghold:\n\n    ")
@@ -271,21 +269,18 @@ while (loop):
             log.truncate(0)
             log.close()
         else:
-            #add tempMessage to the chat log
-            
+            #add tempMessage to the chat log            
             with open('chatlog.log', 'a') as log:
                 log.write(userFief.name + ': ' + str(tempMessage) + '\n')
 
             #refresh this page
             screen = 'stronghold'
             
-# This is the screen for displaying past winners. Update whenever we have a new winner
+# This is the screen for displaying past winners. Update it whenever we have a new winner
 #----------------------------------------------------------------------------------
     if screen == "pastWinners":
         os.system("clear")
-
         header()
-
         print('\n    These are your honorable past winners of Unnamed Fiefdom Game')
         print('\n    --------------------------------------------------------------------------------------\n')
         print('\n    Pre-Release (12/20/21): Steelwing\n')
@@ -297,12 +292,14 @@ while (loop):
 #This is the screen for purchacing soldiers
 #----------------------------------------------------------------------------------
     if screen == "mercs":
-        os.system("clear")
-
-        header()
-        
+        #define the cost of a soldier here
         mercCost = 10
+        
+        os.system("clear")
+        header()
+
         print('You currently have ' + userFief.defenders + ' soldiers and ' +  userFief.gold + ' gold.')
+
         print('You can hire mercinaries for ' + str(mercCost) + ' gold each?')
 
         upgradeInput = input('\nHow many mercinaries would you like to hire?\n')
@@ -479,7 +476,6 @@ while (loop):
 #----------------------------------------------------------------------------------
     if screen == "upgradeFiefAtt":
         os.system("clear")
-
         header()
         
         attTypeNext = 'undefined'
@@ -535,8 +531,8 @@ while (loop):
                 userFief.write()
                 userFief.read()
 
-
             elif upgradeInput == 'y' and int(userFief.gold) < attUpgradeCost:
+
                 print('\n')
                 print("     You need more gold first!\n\n\n\n")
 
@@ -552,12 +548,11 @@ while (loop):
 #This is the screen for updating a fief's farm/gold production.
 #----------------------------------------------------------------------------------
     if screen == "farm":
-        os.system("clear")
-
-        header()
-        
+        #these variables define the next upgrade level and the cost of that level
         farmTypeNext = 'undefined'
         farmUpgradeCost = 0
+        os.system("clear")
+        header()
         
         if attackFief.goldMod == str('1'):
             farmTypeNext = 'Watering Cans'
@@ -618,12 +613,6 @@ while (loop):
 
         screen = 'attack' 
 
-
-
-
-
-
-
 #This is the screen for updating a fief's defenses. Note: there are two screens
 #like this. One for fiefs and one for player strongholds.
 #----------------------------------------------------------------------------------
@@ -668,7 +657,6 @@ while (loop):
             print('Your current defense style is: ' + attackFief.defType)
             print('Would you like to upgrade to ' + defTypeNext + ' for ' + str(defUpgradeCost) + ' gold?')
 
-
             upgradeInput = input('y/n?')
 
             if upgradeInput == 'y' and int(userFief.gold) >= defUpgradeCost:
@@ -681,8 +669,8 @@ while (loop):
                 userFief.write()
                 userFief.read()
 
-
             elif upgradeInput == 'y' and int(userFief.gold) < defUpgradeCost:
+
                 print("You need more gold first!")
 
             elif upgradeInput == 'n':
@@ -793,16 +781,15 @@ while (loop):
 #-------------------------------------------------------------------------------
     if screen == "attack":
         os.system("clear")
-        
         header()
-        
         print("\n")
         print("Nearby Fiefdoms: ")
         print("------------------------------------------------------------------\n")
         
+        #loop through each file in the /fifes/ directory and print off their details in a list
         for filename in os.listdir('fiefs'):
             with open(os.path.join('fiefs', filename), 'r') as f:
-                
+            
                 tempName = filename[:-4]
                 tempName = Fiefdom()
                 tempName.name = filename[:-4]
@@ -920,8 +907,7 @@ while (loop):
                         
         if attackFief.defLevel == str(6):
             art7()
-        
-        
+                
         print('\n')
         print("     Avalible Commands:")
         print('     -------------------------------------')
@@ -957,7 +943,6 @@ while (loop):
 
         if command == '7':
             screen = 'farm'
-
 
 #The withdraw gold screen allows players to withdraw gold from a ruled fiefdom
 #
@@ -1058,9 +1043,7 @@ while (loop):
 #------------------------------------------------------------------------------
     if screen == 'withdraw':
         os.system("clear")
-        
         header()
-        
         print("\n\n")
         print('Now viewing the Fiefdom of ' + attackFief.name)
         print('\n\n')
@@ -1068,6 +1051,7 @@ while (loop):
         print(attackFief.name + ' has ' + attackFief.defenders + ' fighters.')
         time.sleep(1)
         print('\n')
+        
         withdrawNum = input('Enter the number of soldiers you would like to return home: ')
         time.sleep(1)
         
@@ -1258,7 +1242,6 @@ while (loop):
 
                 userFief.write()
                 attackFief.write()
-
 
             #if the other player wins
             if attackers <= defenders:
