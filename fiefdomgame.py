@@ -397,7 +397,7 @@ while (loop):
             withdrawNum = input('Enter the number of soldiers you would like to evenly distrubute among these ' + str(userFiefCount) + ' fiefs: ')
             time.sleep(1)
 
-            if !isinstance(withdrawNum, int):
+            if isinstance(withdrawNum, int) == False:
                 withdrawNum = '0'
 
             if int(withdrawNum) < 0:
