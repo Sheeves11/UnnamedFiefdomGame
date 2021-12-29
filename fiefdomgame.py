@@ -387,7 +387,7 @@ while (loop):
         print("\n\n")
         print('Currently Ruled Fiefs: ' + str(userFiefCount))
         print('Current Number of Soldiers in Stronghold: ' + str(userFief.defenders))
-        print('\n\n')
+        print('\n')
         time.sleep(1)
         if userFiefCount == 0:
             print('You control no fiefs you can distribute to! \n')
@@ -432,7 +432,9 @@ while (loop):
                 benchedSoldiers = int(withdrawNum) % userFiefCount
                 outgoingSoldierGroups = round((int(withdrawNum) - benchedSoldiers)/userFiefCount)
 
-                print(str(benchedSoldiers) + ' soldiers were held back to make even groups of ' + str(outgoingSoldierGroups) + '.')
+                if benchedSoldiers > 0:
+                    print(str(benchedSoldiers) + ' soldiers were held back to make even groups of ' + str(outgoingSoldierGroups) + '.')
+
                 print('\n')
 
                 for filename in os.listdir('fiefs'):
