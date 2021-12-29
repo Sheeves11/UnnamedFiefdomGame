@@ -422,21 +422,21 @@ while (loop):
             print(str(benchedSoldiers) + ' soldiers were held back to make even groups of ' + str(userFiefCooutgoingSoldierGroupsunt) + '.')
 
             for filename in os.listdir('fifes'):
-            with open(os.path.join('fifes', filename), 'r') as f:
+                with open(os.path.join('fifes', filename), 'r') as f:
                 
-                tempName = filename[:-4]
-                tempName = Fifedom()
-                tempName.name = filename[:-4]
-                tempName.read()
-                
-                homeStatus = " "
-                
-                if tempName.home != "True" and tempName.ruler == userFife.name:
-                    print(tempName.name + ' had ' + tempName.defenders + ' soldiers. \n')
-                    tempName.defenders = str(int(tempName.defenders) + outgoingSoldierGroups)
-                    tempName.write()
+                    tempName = filename[:-4]
+                    tempName = Fifedom()
+                    tempName.name = filename[:-4]
                     tempName.read()
-                    print(tempName.name + ' now has ' + tempName.defenders + ' soldiers! \n')
+                
+                    homeStatus = " "
+                
+                    if tempName.home != "True" and tempName.ruler == userFife.name:
+                        print(tempName.name + ' had ' + tempName.defenders + ' soldiers. \n')
+                        tempName.defenders = str(int(tempName.defenders) + outgoingSoldierGroups)
+                        tempName.write()
+                        tempName.read()
+                        print(tempName.name + ' now has ' + tempName.defenders + ' soldiers! \n')
 
             userFief.defenders = str(userFief.defenders) - int(withdrawNum) + benchedSoldiers
             userFife.write()
