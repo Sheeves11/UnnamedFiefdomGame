@@ -1,5 +1,5 @@
 import time
-import osfife
+import os
 import random
 from classes import *
 
