@@ -433,6 +433,7 @@ while (loop):
                 outgoingSoldierGroups = round((int(withdrawNum) - benchedSoldiers)/userFiefCount)
 
                 print(str(benchedSoldiers) + ' soldiers were held back to make even groups of ' + str(outgoingSoldierGroups) + '.')
+                print('\n')
 
                 for filename in os.listdir('fiefs'):
                     with open(os.path.join('fiefs', filename), 'r') as f:
@@ -446,15 +447,16 @@ while (loop):
                 
                         if tempName.home != "True" and tempName.ruler == userFief.name:
                             print(tempName.name + ' had ' + str(tempName.defenders) + ' soldier(s).')
+                            time.sleep(0.5)
                             tempName.defenders = str(int(tempName.defenders) + outgoingSoldierGroups)
                             tempName.write()
                             tempName.read()
                             print(tempName.name + ' now has ' + str(tempName.defenders) + ' soldiers! \n')
+                            time.sleep(0.5)
 
                 userFief.defenders = int(userFief.defenders) - int(withdrawNum) + benchedSoldiers
                 userFief.write()
                 userFief.read()
-                print('\n')
                 print('Number of Soldiers Remaining in Stronghold: ' + str(userFief.defenders))
 
                 print("\n\n\n\n\n\n\n\n\n")
