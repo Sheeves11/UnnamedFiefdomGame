@@ -784,7 +784,27 @@ while (loop):
         print("Nearby Fiefdoms: ")
         print("------------------------------------------------------------------\n")
         
-        #loop through each file in the /fifes/ directory and print off their details in a list
+        #loop through each file in the /fiefs/ directory and print off the details  of each fief in a list
+        for filename in os.listdir('fiefs'):
+            with open(os.path.join('fiefs', filename), 'r') as f:
+            
+                tempName = filename[:-4]
+                tempName = Fiefdom()
+                tempName.name = filename[:-4]
+                tempName.read()
+
+                if tempName.home != 'True' and tempName.ruler != userFief.name:
+                    print (textColor.YELLOW + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + 
+                            tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
+                
+                if tempName.home != "True" and tempName.ruler == userFief.name: 
+                    print (textColor.CYAN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + 
+                            tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
+
+        print("Nearby Strongholds: ")
+        print("------------------------------------------------------------------\n")
+
+        #loop through each file in the /fiefs/ directory and print off the details of each stronghold in a list
         for filename in os.listdir('fiefs'):
             with open(os.path.join('fiefs', filename), 'r') as f:
             
@@ -799,17 +819,9 @@ while (loop):
                     homeStatus = "Home Stronghold"
                     print (textColor.WARNING + 'The Stronghold of ' +  tempName.name + ' || Defenders: ' + 
                             tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
-
-                if tempName.home != 'True' and tempName.ruler != userFief.name:
-                    print (textColor.YELLOW + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + 
-                            tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
                 
                 if tempName.home == "True" and tempName.ruler == userFief.name: 
                     print (textColor.GREEN + 'The Stronghold of ' + tempName.name + ' || Defenders: ' + 
-                            tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
-                
-                if tempName.home != "True" and tempName.ruler == userFief.name: 
-                    print (textColor.CYAN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + 
                             tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
 
         print("\nAvalible Commands:")
