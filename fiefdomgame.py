@@ -804,7 +804,7 @@ while (loop):
                 fiefdomCount = fiefdomCount + 1
                 fiefdomMargin = fiefdomCount - ((currentPage - 1) * LINES_PER_PAGE)
 
-                if (fiefdomMargin <= LINES_PER_PAGE) && (fiefdomMargin > 0):
+                if (fiefdomMargin <= LINES_PER_PAGE) and (fiefdomMargin > 0):
                     if tempName.home != 'True' and tempName.ruler != userStronghold.name:
                         print (textColor.YELLOW + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + 
                                 tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
@@ -911,7 +911,7 @@ while (loop):
                 strongholdMargin = strongholdCount - ((currentPage - 1) * LINES_PER_PAGE)
                 homeStatus = " "
 
-                if  (strongholdMargin <= LINES_PER_PAGE) && (strongholdMargin > 0):
+                if  (strongholdMargin <= LINES_PER_PAGE) and (strongholdMargin > 0):
                     if tempName.home == "True" and tempName.ruler != userStronghold.name:
                         homeStatus = "Home Stronghold"
                         print (textColor.WARNING + 'The Stronghold of ' +  tempName.name + ' || Defenders: ' + 
