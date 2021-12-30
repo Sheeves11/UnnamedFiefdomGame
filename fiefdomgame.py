@@ -22,7 +22,7 @@ currentUsername = 'default'
 tempName = {}
 
 #fiefdom page variables
-LINES_PER_PAGE = 3  #SET THIS TO 30 OR SOMETHING LATER! 3 IS FOR TESTING!
+LINES_PER_PAGE = 10  #SET THIS TO 30 OR SOMETHING LATER! 10 IS FOR TESTING!
 currentPage = 1
 userStrongholdCount = 0
 
