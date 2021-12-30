@@ -53,6 +53,30 @@ while (loop):
                     tempName.defenders = str(int(tempName.defenders) + (defendersPer * int(tempName.defenderMod)))
                     tempName.gold = str(int(tempName.gold) + int(productionCalc))
                     tempName.write()
+
+    for filename in os.listdir('strongholds'):
+            with open(os.path.join('strongholds', filename), 'r') as f:
+                
+                tempName = filename[:-4]
+                tempName = Fiefdom()
+                tempName.name = filename[:-4]
+                tempName.defenderMod = '0'
+                tempName.defenderMod = '0' 
+                tempName.read()
+                
+                productionCalc = 0
+                maxProductionSoldiers = (int(tempName.goldMod) * 500)
+                if int(tempName.defenders) > maxProductionSoldiers:
+                    productionCalc = ((goldPer * int(tempName.goldMod)) + (int(maxProductionSoldiers) * int(tempName.goldMod)))
+
+                else:
+                    productionCalc = ((goldPer * int(tempName.goldMod)) + (int(tempName.defenders) * int(tempName.goldMod)))
+                
+                print(str(tempName.name + ' currently has ' + str(tempName.defenders) + ' defenders.'))
+#                if tempName.ruler != 'Unclaimed':
+#                    tempName.defenders = str(int(tempName.defenders) + (defendersPer * int(tempName.defenderMod)))
+#                    tempName.gold = str(int(tempName.gold) + int(productionCalc))
+#                    tempName.write()
     
     
 

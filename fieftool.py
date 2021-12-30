@@ -24,7 +24,7 @@ os.system("clear")
 
 #create some default objects that we'll write over later
 attackFief = Fiefdom()
-userFief = Fiefdom()
+userStronghold = Stronghold()
 
 #this begins the main game loop
 #------------------------------------------------------------------------------
