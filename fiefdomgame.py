@@ -844,7 +844,7 @@ while (loop):
                 currentPage = currentPage + 1
                 screen = "fiefdoms"
 
-        if current page > 1:
+        if currentPage > 1: #SW: This statement is always true if previous if statement is true. This is probably ok though.
             if str(command) == '5':
                 currentPage = currentPage - 1
                 screen = "fiefdoms"
@@ -948,7 +948,7 @@ while (loop):
                 currentPage = currentPage + 1
                 screen = "playerStrongholds"
 
-        if current page > 1:
+        if currentPage > 1:
             if str(command) == '5':
                 currentPage = currentPage - 1
                 screen = "playerStrongholds"
