@@ -802,13 +802,14 @@ while (loop):
                 tempName.read()
                 fiefdomCount = fiefdomCount + 1
 
-                if tempName.home != 'True' and tempName.ruler != userStronghold.name:
-                    print (textColor.YELLOW + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + 
-                            tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
+                if fiefdomCount - ((currentPage - 1) * LINES_PER_PAGE) <= LINES_PER_PAGE:
+                    if tempName.home != 'True' and tempName.ruler != userStronghold.name:
+                        print (textColor.YELLOW + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + 
+                                tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
                 
-                if tempName.home != "True" and tempName.ruler == userStronghold.name: 
-                    print (textColor.CYAN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + 
-                            tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
+                    if tempName.home != "True" and tempName.ruler == userStronghold.name: 
+                        print (textColor.CYAN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + 
+                                tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
 
         #Can split this operation into multiple based on number of fiefs. Don't need to show commands 4 and 5 if 
         #there are less than 30 fiefs
@@ -900,21 +901,22 @@ while (loop):
             with open(os.path.join('strongholds', filename), 'r') as f:
             
                 tempName = filename[:-4]
-                tempName = Fiefdom()
+                tempName = Stronghold()
                 tempName.name = filename[:-4]
                 tempName.read()
                 strongholdCount = strongholdCount + 1
                 
                 homeStatus = " "
 
-                if tempName.home == "True" and tempName.ruler != userStronghold.name:
-                    homeStatus = "Home Stronghold"
-                    print (textColor.WARNING + 'The Stronghold of ' +  tempName.name + ' || Defenders: ' + 
-                            tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
+                if strongholdCount - ((currentPage - 1) * LINES_PER_PAGE) <= LINES_PER_PAGE:
+                    if tempName.home == "True" and tempName.ruler != userStronghold.name:
+                        homeStatus = "Home Stronghold"
+                        print (textColor.WARNING + 'The Stronghold of ' +  tempName.name + ' || Defenders: ' + 
+                                tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
                 
-                if tempName.home == "True" and tempName.ruler == userStronghold.name: 
-                    print (textColor.GREEN + 'The Stronghold of ' + tempName.name + ' || Defenders: ' + 
-                            tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
+                    if tempName.home == "True" and tempName.ruler == userStronghold.name: 
+                        print (textColor.GREEN + 'The Stronghold of ' + tempName.name + ' || Defenders: ' + 
+                                tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
 
         print("\nAvalible Commands:")
         print('-------------------------------------')
