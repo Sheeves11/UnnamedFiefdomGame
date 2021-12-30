@@ -350,7 +350,7 @@ class Stronghold:
 
     #read class variables line by line
     def read(self):
-        fiefFile = 'fiefs/' + self.name + '.txt'
+        fiefFile = 'strongholds/' + self.name + '.txt'
         try:
             with open(fiefFile, 'r') as f:
                 self.name = f.readline().strip()

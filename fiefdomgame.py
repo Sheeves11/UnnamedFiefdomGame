@@ -787,6 +787,7 @@ while (loop):
         header()
 
         fiefdomCount = 0
+        fiefdomMargin = 0
 
         print("\n")
         print("Nearby Fiefdoms: ")
@@ -801,8 +802,9 @@ while (loop):
                 tempName.name = filename[:-4]
                 tempName.read()
                 fiefdomCount = fiefdomCount + 1
+                fiefdomMargin = fiefdomCount - ((currentPage - 1) * LINES_PER_PAGE)
 
-                if fiefdomCount - ((currentPage - 1) * LINES_PER_PAGE) <= LINES_PER_PAGE:
+                if (fiefdomMargin <= LINES_PER_PAGE) && (fiefdomMargin > 0):
                     if tempName.home != 'True' and tempName.ruler != userStronghold.name:
                         print (textColor.YELLOW + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + 
                                 tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
@@ -818,7 +820,7 @@ while (loop):
         print('{1}: Return to Stronghold')
         print('{2}: Garrison Soldiers')
         print('{3}: View Nearby Strongholds')
-        if fiefdomCount - ((currentPage - 1) * LINES_PER_PAGE) > LINES_PER_PAGE:
+        if fiefdomMargin > LINES_PER_PAGE:
             print('{4}: Next Page')
 
         if currentPage > 1:
@@ -840,7 +842,7 @@ while (loop):
             currentPage = 1
             screen = "playerStrongholds"
 
-        if fiefdomCount - ((currentPage - 1) * LINES_PER_PAGE) > LINES_PER_PAGE:
+        if fiefdomMargin > LINES_PER_PAGE:
             if str(command) == '4':
                 currentPage = currentPage + 1
                 screen = "fiefdoms"
@@ -891,6 +893,7 @@ while (loop):
         header()
 
         strongholdCount = 0
+        strongholdMargin = 0
 
         print("\n")
         print("Nearby Strongholds: ")
@@ -905,10 +908,10 @@ while (loop):
                 tempName.name = filename[:-4]
                 tempName.read()
                 strongholdCount = strongholdCount + 1
-                
+                strongholdMargin = strongholdCount - ((currentPage - 1) * LINES_PER_PAGE)
                 homeStatus = " "
 
-                if strongholdCount - ((currentPage - 1) * LINES_PER_PAGE) <= LINES_PER_PAGE:
+                if  (strongholdMargin <= LINES_PER_PAGE) && (strongholdMargin > 0):
                     if tempName.home == "True" and tempName.ruler != userStronghold.name:
                         homeStatus = "Home Stronghold"
                         print (textColor.WARNING + 'The Stronghold of ' +  tempName.name + ' || Defenders: ' + 
@@ -923,7 +926,7 @@ while (loop):
         print('{1}: Return to Stronghold')
         print('{2}: Garrison Soldiers')
         print('{3}: View Nearby Fiefdoms')
-        if strongholdCount - ((currentPage - 1) * LINES_PER_PAGE) > LINES_PER_PAGE:
+        if strongholdMargin > LINES_PER_PAGE:
             print('{4}: Next Page')
 
         if currentPage > 1:
@@ -945,7 +948,7 @@ while (loop):
             currentPage = 1
             screen = "fiefdoms"
 
-        if strongholdCount - ((currentPage - 1) * LINES_PER_PAGE) > LINES_PER_PAGE:
+        if strongholdMargin > LINES_PER_PAGE:
             if str(command) == '4':
                 currentPage = currentPage + 1
                 screen = "playerStrongholds"
