@@ -67,10 +67,14 @@ def WorldMap(seed):
     #This algorithm may be improvable. Has time-complexity O(n^2)!
     while (loop):                                   #This should keep going until the map is filled
         if firstLoop:                               #First check if this is the first loop
-            for y in range(len(worldMap[sPosY:])):          #This iterates through the height of the map from sPosY [I think]
-                for x in range(len(worldMap[y[sPosX:]])):   #This iterates through the width of the map from sPosX [I think]
+ #           for y in range(len(worldMap[sPosY:])):          #This iterates through the height of the map from sPosY [I think]
+ #               for x in range(len(worldMap[y[sPosX:]])):   #This iterates through the width of the map from sPosX [I think]
+ #                   worldMap[x][y] = 'X'
+            for y in range(len(worldMap)):
+                for x in range(len(worldMap[y])):
                     worldMap[x][y] = 'X'
-        loop = false
+            firstLoop = False
+        loop = False
 
     print('Attempting to print world map below! \n')
     for y in range(len(worldMap)):
