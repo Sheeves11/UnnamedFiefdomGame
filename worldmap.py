@@ -56,7 +56,8 @@ def ManualWorldMapSizeTest():
 def WorldMap(seed):
     os.system('clear')
 
-    worldMap = [['0'] * MAP_WIDTH] * MAP_HEIGHT    #Change this later if we want to do small/medium/large map presets
+    #worldMap = [['0'] * MAP_WIDTH] * MAP_HEIGHT    #Change this later if we want to do small/medium/large map presets
+    worldMap = [['0' for x in range(MAP_WIDTH)] for y in range(MAP_HEIGHT)]
 
     seed = '00555' #ToDo: Make seed generator work
     sPosX = seed[0]
@@ -84,7 +85,7 @@ def WorldMap(seed):
 #                for x in range(len(worldMap[y])):
 #                    worldMap[x][y] = 'X'
             for y in range(MAP_HEIGHT):
-                print('Pos y: ' + str(y))
+                #print('Pos y: ' + str(y))
                 for x in range(MAP_WIDTH):
                     #print('Pos x: ' + str(x))
 
@@ -92,7 +93,7 @@ def WorldMap(seed):
                     for i in range(MAP_HEIGHT):
                         for j in range(MAP_WIDTH):
                             if i == y and j == x:
-                                print(textColor.WARNING + worldMap[i][j] + textColor.RESET, end=" ")
+                                print(textColor.CYAN + worldMap[i][j] + textColor.RESET, end=" ")
                             else:
                                 print(worldMap[i][j], end=" ")
                         print('')
