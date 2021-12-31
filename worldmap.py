@@ -83,8 +83,8 @@ def WorldMap(seed):
             for y in range(MAP_HEIGHT):
                 print('Pos y: ' + str(y))
                 for x in range(MAP_WIDTH):
-                    print('Pos x: ' + str(x))
-                    worldMap[0][0] = 'X'
+                    #print('Pos x: ' + str(x))
+                    worldMap[x][0] = 'X'
             firstLoop = False
         loop = False
 
