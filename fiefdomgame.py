@@ -2,6 +2,7 @@ import os
 import time
 import random
 from classes import *
+from worldmap import *
 
 '''
 
@@ -240,11 +241,15 @@ while (loop):
         if command == '8':
             screen = 'pastWinners'
 
+        #The following commands are for testing only!
         if command == 'defaults':
             screen = 'createDefaults'
 
         if command == 'bigmoney':
             screen = 'devTestAddGold'
+
+        if command == 'wm':
+            screen = 'worldMap'
 
 #This is the screen for the message board.
 #----------------------------------------------------------------------------------
@@ -1498,6 +1503,22 @@ while (loop):
         
         time.sleep(2)
         print('...Funds Added!')
+
+        screen = 'stronghold'
+
+#This is currently just a test page for a possible world map feature
+#
+#It can be taken out
+#----------------------------------------------------------------------------------
+    if screen == "worldMap":
+
+        os.system("clear")
+
+        seed = '00555'  #Should be generated instead later
+        WorldMap(seed)
+
+        time.sleep(2)
+        nothing = input('Continue:')
 
         screen = 'stronghold'
 
