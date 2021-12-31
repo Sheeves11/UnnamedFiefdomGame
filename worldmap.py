@@ -56,7 +56,7 @@ def WorldMap(seed):
     os.system('clear')
 
 #    worldMap = [['0'] * MAP_WIDTH] * MAP_HEIGHT    #Change this later if we want to do small/medium/large map presets
-    worldMap = []
+    worldMap = [MAP_WIDTH][MAP_HEIGHT]
     seed = '00555' #ToDo: Make seed generator work
     sPosX = seed[0]
     sPosY = seed[1]
