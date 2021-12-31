@@ -86,7 +86,11 @@ def WorldMap(seed):
                 print('Pos y: ' + str(y))
                 for x in range(MAP_WIDTH):
                     #print('Pos x: ' + str(x))
-
+                    #Prints whole map each time. Very taxing! Remove this later!
+                    for y in range(MAP_HEIGHT):
+                        for x in range(MAP_WIDTH):
+                            print(worldMap[y][x], end=" ")
+                        print('')
                     temp = plotPoint(worldMap, symbol, x, y, freqMountain, freqPlains, freqForest)
                     symbol = temp
 
@@ -145,11 +149,7 @@ def plotPoint(wMap, symb, posX, posY, freqM, freqP, freqF):
         dS = ' '
         print('South is off the map!')
 
-    #Prints whole map each time. Very taxing! Remove this later!
-    for y in range(MAP_HEIGHT):
-        for x in range(MAP_WIDTH):
-            print(wMap[0][x], end=" ")
-        print('')
+    
 
     time.sleep(0.3)
     newPoint = FIEF #temporary
