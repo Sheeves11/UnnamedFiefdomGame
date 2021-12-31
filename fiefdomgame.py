@@ -325,16 +325,21 @@ while (loop):
         else:
             print("You need more gold first!")
 
-        print('\n\n\n\n\n\n\n\n\n\n')
-        print("     Avalible Commands:")
-        print('     -------------------------------------')
-        print('     {1}: Return to Stronghold')
-        print('     -------------------------------------')
+        print("\n\n\n\n\n\n\n\n\n")
+
+        print("Avalible Commands:")
+        print('-------------------------------------')
+        print('{1}: Return to Stronghold')
+        print('{2}: View Nearby Fiefdoms')
+        print('-------------------------------------')
         print('\n')
-        command = input("     Enter your command: ")
+        command = input("Enter your command: ")
         
         if command == "1":
             screen = "stronghold"
+        if command == "2":
+            currentPage = 1
+            screen = "fiefdoms"
 
 #This is the screen for viewing users owned fiefs and for garrisoning soldiers
 #----------------------------------------------------------------------------------
@@ -469,13 +474,17 @@ while (loop):
 
                 print("Avalible Commands:")
                 print('-------------------------------------')
-                print('{1}: Return to stronghold')
+                print('{1}: Return to Stronghold')
+                print('{2}: View Nearby Fiefdoms')
                 print('-------------------------------------')
                 print('\n')
                 command = input("Enter your command: ")
         
                 if command == "1":
                     screen = "stronghold"
+                if command == "2":
+                    currentPage = 1
+                    screen = "fiefdoms"
 
 #This is the screen for updating a user's attack power.
 #----------------------------------------------------------------------------------
@@ -819,7 +828,7 @@ while (loop):
                                 tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
 
         if fiefdomMargin > LINES_PER_PAGE or currentPage > 1:
-            print('/// Page ' + str(currentPage) + ' ///\n')
+            print('\n/// Page ' + str(currentPage) + ' ///')
         print("\nAvalible Commands:")
         print('-------------------------------------')
         print('{1}: Return to Stronghold')
@@ -1070,14 +1079,14 @@ while (loop):
         print('\n')
         print("     Avalible Commands:")
         print('     -------------------------------------')
-        print('     {1}: Return to stronghold')
-        print('     {2}: View nearby fiefdoms')
-        print('     {3}: Deploy additional forces')
-        print('     {4}: Withdraw forces')
-        print('     {5}: Withdraw gold')
-        print('     {6}: Upgrade defenses')
-        print('     {7}: Upgrade farms')
-        print('     {8): Upgrade training')
+        print('     {1}: Return to Stronghold')
+        print('     {2}: View Nearby Fiefdoms')
+        print('     {3}: Deploy Additional Forces')
+        print('     {4}: Withdraw Forces')
+        print('     {5}: Withdraw Gold')
+        print('     {6}: Upgrade Defenses')
+        print('     {7}: Upgrade Farms')
+        print('     {8): Upgrade Training')
         print('     -------------------------------------')
         print('\n')
         command = input("     Enter your command: ")
@@ -1157,7 +1166,7 @@ while (loop):
         deployNum = input('Enter the number of soldiers you would like to deploy: ')
         time.sleep(1)
 
-        print(deployNum + ' : deploynum || userStronghold.defenders : ' + userStronghold.defenders)
+        #print(deployNum + ' : deploynum || userStronghold.defenders : ' + userStronghold.defenders) #SW: remove this?
         
         if int(deployNum) < 0:
             os.system("clear")
@@ -1187,13 +1196,17 @@ while (loop):
 
             print("Avalible Commands:")
             print('-------------------------------------')
-            print('{1}: Return to stronghold')
+            print('{1}: Return to Stronghold')
+            print('{2}: View Nearby Fiefdoms')
             print('-------------------------------------')
             print('\n')
             command = input("Enter your command: ")
         
             if command == "1":
                 screen = "stronghold"
+            if command == "2":
+                currentPage = 1
+                screen = "fiefdoms"
 
         time.sleep(3)
 #The withdraw screen allows players to withdraw forces from a ruled fiefdom
@@ -1243,13 +1256,17 @@ while (loop):
 
             print("Avalible Commands:")
             print('-------------------------------------')
-            print('{1}: Return to stronghold')
+            print('{1}: Return to Stronghold')
+            print('{2}: View Nearby Fiefdoms')
             print('-------------------------------------')
             print('\n')
             command = input("Enter your command: ")
         
             if command == "1":
                 screen = "stronghold"
+            if command == "2":
+                currentPage = 1
+                screen = "fiefdoms"
 
 #This is the details page for enemy Fiefdoms
 #
@@ -1320,8 +1337,8 @@ while (loop):
 
         print("Avalible Commands:")
         print('-------------------------------------')
-        print('{1}: Return to stronghold')
-        print('{2}: View nearby fiefdoms')
+        print('{1}: Return to Stronghold')
+        print('{2}: View Nearby Fiefdoms')
         print('{3}: Attack')
         print('-------------------------------------')
         print('\n')
