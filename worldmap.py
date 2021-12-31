@@ -86,3 +86,6 @@ def WorldMap(seed):
 
 #To Do: Write this function
 def GenerateRandomSeed():
+    print('\nThis does nothing!\n')
+
+#eof
