@@ -7,8 +7,8 @@ from array import *
 #Not yet implemented!
 
 #Global variables
-MAP_WIDTH = 20
-MAP_HEIGHT = 8
+MAP_WIDTH = 10
+MAP_HEIGHT = 10
 DEFAULT_WEIGHT = 1
 
 #Map Icons
@@ -20,7 +20,7 @@ FOREST = '^'
 FIEF = 'X'
 STRONGHOLD = 'H'
 
-#Manually inserted map-grid for visualizing the size above
+#Manually inserted map-grid for visualizing. It is 20x8
 def ManualWorldMapSizeTest():
     print('''
         ~~~~~~~~~~~~~~~~~~~~
@@ -63,6 +63,8 @@ def WorldMap(seed):
     freqMountain = seed[2]
     freqPlains = seed[3]
     freqForest = seed[4]
+
+    symbol = FIEF
     
     loop = True
     firstLoop = True
@@ -84,7 +86,11 @@ def WorldMap(seed):
                 print('Pos y: ' + str(y))
                 for x in range(MAP_WIDTH):
                     #print('Pos x: ' + str(x))
-                    worldMap[0][x] = 'X'
+
+                    temp = plotPoint(worldMap, symbol, x, y, freqMountain, freqPlains, freqForest)
+                    symbol = temp
+
+                    worldMap[0][x] = symbol
             firstLoop = False
         loop = False
 
@@ -94,13 +100,46 @@ def WorldMap(seed):
 #            print(worldMap[y][x])
 #        print('\n')
 
+#Prints out the map in a nicely spaced grid
     for y in range(MAP_HEIGHT):
         for x in range(MAP_WIDTH):
             print(worldMap[0][x], end=" ")
-        print('')
+        #print('')
     print('\nFinished!\n')
                     
         
+
+def plotPoint(wMap, symb, posX, posY, freqM, freqP, freqF):
+    #Create points that are surrounding our current pos
+    dN, dNE, dE, dSE, dS, dSW, dW, dNW = ''
+    
+    print('Current symbol: ' + symb)
+    try:
+        dN = wMap[posY - 1][posX]
+        print('There is a ' + dN + ' to the north!')
+    except:
+        dN = ' '
+        print('North is off the map!')
+    print('Current symbol: ' + symb)
+    try:
+        dE = wMap[posY - 1][posX]
+        print('There is a ' + dN + ' to the east!')
+    except:
+        dE = ' '
+        print('East is off the map!')
+    try:
+        dW = wMap[posY][posX - 1]
+        print('There is a ' + dN + ' to the west!')
+    except:
+        dW = ' '
+        print('West is off the map!')
+    try:
+        dS = wMap[posY][posX - 1]
+        print('There is a ' + dN + ' to the south!')
+    except:
+        dS = ' '
+        print('South is off the map!')
+
 
 
 
