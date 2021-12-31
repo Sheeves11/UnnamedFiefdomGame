@@ -79,7 +79,7 @@ def WorldMap(seed):
     print('Attempting to print world map below! \n')
     for y in range(len(worldMap)):
         for x in range(len(worldMap[y])):
-            print(worldMap[x][y])
+            print(worldMap[y][x])
         print('\n')
 
     print('\nFinished!\n')
