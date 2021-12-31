@@ -95,10 +95,9 @@ def WorldMap(seed):
 #        print('\n')
 
     for y in range(MAP_HEIGHT):
-        print('Pos y: ' + str(y))
         for x in range(MAP_WIDTH):
             print(worldMap[0][x], end=" ")
-        print('\n')
+        print('')
     print('\nFinished!\n')
                     
         
