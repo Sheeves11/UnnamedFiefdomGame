@@ -3,6 +3,9 @@ import time
 import random
 from array import *
 
+#This is a very early development build for a world map feature.
+#Not yet implemented!
+
 #Global variables
 MAP_WIDTH = 20
 MAP_HEIGHT = 8
@@ -62,19 +65,25 @@ def WorldMap(seed):
     
     loop = True
     firstLoop = True
-    
     print('This is a test for the world map feature!')
+    print('worldMap before inserting anything: \n')
+    print(worldMap + '\n')
+    print('Inserting stuff into worldMap: \n')
     #This algorithm may be improvable. Has time-complexity O(n^2)!
-#    while (loop):                                   #This should keep going until the map is filled
-#        if firstLoop:                               #First check if this is the first loop
- #           for y in range(len(worldMap[sPosY:])):          #This iterates through the height of the map from sPosY [I think]
- #               for x in range(len(worldMap[y[sPosX:]])):   #This iterates through the width of the map from sPosX [I think]
- #                   worldMap[x][y] = 'X'
+    while (loop):                                   #This should keep going until the map is filled
+        if firstLoop:                               #First check if this is the first loop
+#            for y in range(len(worldMap[sPosY:])):          #This iterates through the height of the map from sPosY [I think]
+#                for x in range(len(worldMap[y[sPosX:]])):   #This iterates through the width of the map from sPosX [I think]
+#                    worldMap[x][y] = 'X'
 #            for y in range(len(worldMap)):
 #                for x in range(len(worldMap[y])):
 #                    worldMap[x][y] = 'X'
-#            firstLoop = False
-#        loop = False
+            for y in worldMap:
+                for x in y:
+                    print('Pos x: ' + str(x) + ' Pos y: ' + str(y))
+                    worldMap[x][y] = 'X'
+            firstLoop = False
+        loop = False
 
     print('Attempting to print world map below! \n')
 #    for y in range(len(worldMap)):
