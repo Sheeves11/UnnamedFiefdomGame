@@ -124,19 +124,19 @@ def plotPoint(wMap, symb, posX, posY, freqM, freqP, freqF):
     print('Current symbol: ' + symb)
     try:
         dE = wMap[posY][posX + 1]
-        print('There is a ' + dN + ' to the east!')
+        print('There is a ' + dE + ' to the east!')
     except:
         dE = ' '
         print('East is off the map!')
     try:
         dW = wMap[posY][posX - 1]
-        print('There is a ' + dN + ' to the west!')
+        print('There is a ' + dW + ' to the west!')
     except:
         dW = ' '
         print('West is off the map!')
     try:
         dS = wMap[posY + 1][posX]
-        print('There is a ' + dN + ' to the south!')
+        print('There is a ' + dS + ' to the south!')
     except:
         dS = ' '
         print('South is off the map!')
