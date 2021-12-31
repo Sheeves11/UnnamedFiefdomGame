@@ -111,8 +111,6 @@ def WorldMap(seed):
 
 def plotPoint(wMap, symb, posX, posY, freqM, freqP, freqF):
     #Create points that are surrounding our current pos
-    dN, dNE, dE, dSE, dS, dSW, dW, dNW = ''
-    
     print('Current symbol: ' + symb)
     try:
         dN = wMap[posY - 1][posX]
