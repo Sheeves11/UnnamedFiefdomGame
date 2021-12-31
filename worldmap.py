@@ -52,7 +52,7 @@ def ManualWorldMapSizeTest():
 def WorldMap(seed):
     os.system('clear')
 
-    worldMap = [[None] * MAP_WIDTH] * MAP_HEIGHT    #Change this later if we want to do small/medium/large map presets
+    worldMap = [[0] * MAP_WIDTH] * MAP_HEIGHT    #Change this later if we want to do small/medium/large map presets
     seed = '00555' #ToDo: Make seed generator work
     sPosX = seed[0]
     sPosY = seed[1]
@@ -65,16 +65,16 @@ def WorldMap(seed):
     
     print('This is a test for the world map feature!')
     #This algorithm may be improvable. Has time-complexity O(n^2)!
-    while (loop):                                   #This should keep going until the map is filled
-        if firstLoop:                               #First check if this is the first loop
+#    while (loop):                                   #This should keep going until the map is filled
+#        if firstLoop:                               #First check if this is the first loop
  #           for y in range(len(worldMap[sPosY:])):          #This iterates through the height of the map from sPosY [I think]
  #               for x in range(len(worldMap[y[sPosX:]])):   #This iterates through the width of the map from sPosX [I think]
  #                   worldMap[x][y] = 'X'
-            for y in range(len(worldMap)):
-                for x in range(len(worldMap[y])):
-                    worldMap[x][y] = 'X'
-            firstLoop = False
-        loop = False
+#            for y in range(len(worldMap)):
+#                for x in range(len(worldMap[y])):
+#                    worldMap[x][y] = 'X'
+#            firstLoop = False
+#        loop = False
 
     print('Attempting to print world map below! \n')
 #    for y in range(len(worldMap)):
