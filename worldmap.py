@@ -104,15 +104,17 @@ def WorldMap(seed):
     for y in range(MAP_HEIGHT):
         for x in range(MAP_WIDTH):
             print(worldMap[0][x], end=" ")
-        #print('')
+        print('')
     print('\nFinished!\n')
                     
-        
+       
 
+#Iterates through the map given the map itself and a set of 
+#values to determine what to write in the next position.
 def plotPoint(wMap, symb, posX, posY, freqM, freqP, freqF):
     #Create points that are surrounding our current pos
     os.system("clear")
-    print('posX: ' + str(posX) + 'posY: ' + str(posY))
+    print('posX: ' + str(posX) + ' posY: ' + str(posY))
     try:
         print('Current symbol: ' + symb)
     except:
@@ -142,6 +144,13 @@ def plotPoint(wMap, symb, posX, posY, freqM, freqP, freqF):
     except:
         dS = ' '
         print('South is off the map!')
+
+    #Prints whole map each time. Very taxing! Remove this later!
+    for y in range(MAP_HEIGHT):
+        for x in range(MAP_WIDTH):
+            print(worldMap[0][x], end=" ")
+        print('')
+
     time.sleep(0.3)
     newPoint = FIEF #temporary
     return newPoint
