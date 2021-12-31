@@ -91,6 +91,7 @@ def WorldMap(seed):
                         for x in range(MAP_WIDTH):
                             print(worldMap[y][x], end=" ")
                         print('')
+                    time.sleep(0.3)
                     temp = plotPoint(worldMap, symbol, x, y, freqMountain, freqPlains, freqForest)
                     symbol = temp
 
@@ -151,7 +152,7 @@ def plotPoint(wMap, symb, posX, posY, freqM, freqP, freqF):
 
     
 
-    time.sleep(0.3)
+    time.sleep(0.1)
     newPoint = FIEF #temporary
     return newPoint
 
