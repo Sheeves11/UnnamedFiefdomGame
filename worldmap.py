@@ -148,7 +148,7 @@ def plotPoint(wMap, symb, posX, posY, freqM, freqP, freqF):
     #Prints whole map each time. Very taxing! Remove this later!
     for y in range(MAP_HEIGHT):
         for x in range(MAP_WIDTH):
-            print(worldMap[0][x], end=" ")
+            print(wMap[0][x], end=" ")
         print('')
 
     time.sleep(0.3)
