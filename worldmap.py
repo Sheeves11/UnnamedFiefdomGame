@@ -90,7 +90,7 @@ def WorldMap(seed):
                     temp = plotPoint(worldMap, symbol, x, y, freqMountain, freqPlains, freqForest)
                     symbol = temp
 
-                    worldMap[0][x] = symbol
+                    worldMap[y][x] = symbol
             firstLoop = False
         loop = False
 
