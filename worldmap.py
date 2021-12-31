@@ -2,6 +2,7 @@ import os
 import time
 import random
 from array import *
+from classes import *
 
 #This is a very early development build for a world map feature.
 #Not yet implemented!
@@ -90,7 +91,10 @@ def WorldMap(seed):
                     #Prints whole map each time. Very taxing! Remove this later!
                     for i in range(MAP_HEIGHT):
                         for j in range(MAP_WIDTH):
-                            print(worldMap[i][j], end=" ")
+                            if i = y and j = x:
+                                print(textColor.WARNING + worldMap[i][j] + textColor.RESET, end=" ")
+                            else:
+                                print(worldMap[i][j], end=" ")
                         print('')
                     time.sleep(0.3)
 
