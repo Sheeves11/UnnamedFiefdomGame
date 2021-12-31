@@ -77,11 +77,12 @@ def WorldMap(seed):
         loop = False
 
     print('Attempting to print world map below! \n')
-    for y in range(len(worldMap)):
-        for x in range(len(worldMap[y])):
-            print(worldMap[y][x])
-        print('\n')
+#    for y in range(len(worldMap)):
+#        for x in range(len(worldMap[y])):
+#            print(worldMap[y][x])
+#        print('\n')
 
+    print(worldMap)
     print('\nFinished!\n')
                     
         
