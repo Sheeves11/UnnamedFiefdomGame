@@ -111,6 +111,8 @@ def WorldMap(seed):
 
 def plotPoint(wMap, symb, posX, posY, freqM, freqP, freqF):
     #Create points that are surrounding our current pos
+    os.system("clear")
+    print('posX: ' + str(posX) + 'posY: ' + str(posY))
     try:
         print('Current symbol: ' + symb)
     except:
@@ -140,7 +142,7 @@ def plotPoint(wMap, symb, posX, posY, freqM, freqP, freqF):
     except:
         dS = ' '
         print('South is off the map!')
-    time.sleep(0.2)
+    time.sleep(0.3)
     newPoint = FIEF #temporary
     return newPoint
 
