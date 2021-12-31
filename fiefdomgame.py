@@ -216,6 +216,7 @@ while (loop):
         command = input("     Enter your command: ")
         
         if command == '1':
+            currentPage = 1
             screen = "fiefdoms"
 
         if command == '2':
@@ -375,6 +376,7 @@ while (loop):
             screen = "stronghold"
 
         if command == "3":
+            currentPage = 1
             screen = "fiefdoms"
 
 #This is the screen for distributing a user's soldiers evenly among fiefs they control
@@ -603,6 +605,7 @@ while (loop):
                 attackFief.read()
                 userStronghold.write()
                 userStronghold.read()
+                currentPage = 1
                 screen = "fiefdoms"
 
             elif upgradeInput == 'y' and int(userStronghold.gold) < farmUpgradeCost:
@@ -614,6 +617,7 @@ while (loop):
             print('\n\n\n\n\n\n\n\n\n\n')
             command = input("     Press Enter ")
 
+        currentPage = 1
         screen = "fiefdoms" 
 
 #This is the screen for updating a fief's defenses. Note: there are two screens
@@ -681,7 +685,8 @@ while (loop):
 
             print('\n\n\n\n\n\n\n\n\n\n')
             command = input("     Press Enter ")
-        
+
+        currentPage = 1
         screen = "fiefdoms"
             
 #This is the about page for the game. Keep it updated
@@ -813,8 +818,8 @@ while (loop):
                         print (textColor.CYAN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + 
                                 tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
 
-        #Can split this operation into multiple based on number of fiefs. Don't need to show commands 4 and 5 if 
-        #there are less than 30 fiefs
+        if fiefdomMargin > LINES_PER_PAGE or currentPage > 1:
+            print('/// Page ' + str(currentPage) + ' ///\n')
         print("\nAvalible Commands:")
         print('-------------------------------------')
         print('{1}: Return to Stronghold')
@@ -921,6 +926,8 @@ while (loop):
                         print (textColor.GREEN + 'The Stronghold of ' + tempName.name + ' || Defenders: ' + 
                                 tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
 
+        if strongholdMargin > LINES_PER_PAGE or currentPage > 1:
+            print('/// Page ' + str(currentPage) + ' ///\n')
         print("\nAvalible Commands:")
         print('-------------------------------------')
         print('{1}: Return to Stronghold')
@@ -1079,6 +1086,7 @@ while (loop):
             screen = "stronghold"
 
         if command == "2":
+            currentPage = 1
             screen = "fiefdoms"
 
         if command == "3":
@@ -1123,6 +1131,7 @@ while (loop):
         userStronghold.write()
         userStronghold.read()
 
+        currentPage = 1
         screen = "fiefdoms"
 
 #The deploy screen allows players to deploy defenders to a Fiefdom that they 
@@ -1323,6 +1332,7 @@ while (loop):
             screen = "stronghold"
 
         if command == "2":
+            currentPage = 1
             screen = "fiefdoms"
 
         if command == "3":
@@ -1431,6 +1441,7 @@ while (loop):
             
             time.sleep(1)
             nothing = input('Continue:')
+            currentPage = 1
             screen = "fiefdoms"
 
 #This is a "secret" page that you can use to create default Fiefdoms
@@ -1453,7 +1464,7 @@ while (loop):
 
         time.sleep(2)
         print('Seeding Complete')
-
+        currentPage = 1
         screen = "fiefdoms"
 
 #This is another "secret" page that can be used to add funds for testing purposes
