@@ -92,7 +92,7 @@ def WorldMap(seed):
                     #Prints whole map each time. Very taxing! Remove this later!
                     for i in range(MAP_HEIGHT):
                         for j in range(MAP_WIDTH):
-                            if i == y and j == x:
+                            if i == y and j == x - 1:
                                 print(textColor.CYAN + worldMap[i][j] + textColor.RESET, end=" ")
                             else:
                                 print(worldMap[i][j], end=" ")
@@ -132,7 +132,7 @@ def plotPoint(wMap, symb, posX, posY, freqM, freqP, freqF):
     except:
         print('Current symbol: None')
     try:
-        dN = wMap[posY - 1][posX]
+        dN = wMap[posY - 2][posX]
         print('There is a ' + dN + ' to the north!')
     except:
         dN = ' '
@@ -145,7 +145,7 @@ def plotPoint(wMap, symb, posX, posY, freqM, freqP, freqF):
         dE = ' '
         print('East is off the map!')
     try:
-        dW = wMap[posY][posX - 1]
+        dW = wMap[posY][posX - 2]
         print('There is a ' + dW + ' to the west!')
     except:
         dW = ' '
