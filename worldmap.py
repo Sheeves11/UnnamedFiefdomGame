@@ -67,7 +67,8 @@ def WorldMap(seed):
     firstLoop = True
     print('This is a test for the world map feature!')
     print('worldMap before inserting anything: \n')
-    print(worldMap + '\n')
+    print(worldMap)
+    print('\n')
     print('Inserting stuff into worldMap: \n')
     #This algorithm may be improvable. Has time-complexity O(n^2)!
     while (loop):                                   #This should keep going until the map is filled
