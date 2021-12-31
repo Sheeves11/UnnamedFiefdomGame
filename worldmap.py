@@ -91,7 +91,7 @@ def WorldMap(seed):
                     #Prints whole map each time. Very taxing! Remove this later!
                     for i in range(MAP_HEIGHT):
                         for j in range(MAP_WIDTH):
-                            if i = y and j = x:
+                            if i == y and j == x:
                                 print(textColor.WARNING + worldMap[i][j] + textColor.RESET, end=" ")
                             else:
                                 print(worldMap[i][j], end=" ")
