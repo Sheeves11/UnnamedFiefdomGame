@@ -140,7 +140,7 @@ def plotPoint(wMap, symb, posX, posY, freqM, freqP, freqF):
     except:
         dS = ' '
         print('South is off the map!')
-
+    time.sleep(0.2)
     newPoint = FIEF #temporary
     return newPoint
 
