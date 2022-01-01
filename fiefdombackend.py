@@ -7,7 +7,7 @@ from classes import *
 goldPer = 100
 defendersPer = 3
 #interval in seconds
-interval = 3600
+interval = 3
 
 
 
@@ -32,6 +32,8 @@ while (loop):
     for filename in os.listdir('fiefs'):
             with open(os.path.join('fiefs', filename), 'r') as f:
                 
+#                print('Incrementing Fiefdom Totals:\n')
+
                 tempName = filename[:-4]
                 tempName = Fiefdom()
                 tempName.name = filename[:-4]
@@ -48,17 +50,19 @@ while (loop):
                     productionCalc = ((goldPer * int(tempName.goldMod)) + (int(tempName.defenders) * int(tempName.goldMod)))
                 
                 
-                print(str(tempName.name + ' currently has ' + str(tempName.defenders) + ' defenders.'))
                 if tempName.ruler != 'Unclaimed':
                     tempName.defenders = str(int(tempName.defenders) + (defendersPer * int(tempName.defenderMod)))
                     tempName.gold = str(int(tempName.gold) + int(productionCalc))
                     tempName.write()
+                    print(str('the fiefdom of ' + tempName.name + ' now has ' + str(tempName.defenders) + ' defenders.'))
 
     for filename in os.listdir('strongholds'):
             with open(os.path.join('strongholds', filename), 'r') as f:
                 
+#                print('Incrementing Player Stronghold Totals:\n')
+
                 tempName = filename[:-4]
-                tempName = Fiefdom()
+                tempName = Stronghold()
                 tempName.name = filename[:-4]
                 tempName.defenderMod = '0'
                 tempName.defenderMod = '0' 
@@ -72,12 +76,11 @@ while (loop):
                 else:
                     productionCalc = ((goldPer * int(tempName.goldMod)) + (int(tempName.defenders) * int(tempName.goldMod)))
                 
-                print(str(tempName.name + ' currently has ' + str(tempName.defenders) + ' defenders.'))
-#                if tempName.ruler != 'Unclaimed':
-#                    tempName.defenders = str(int(tempName.defenders) + (defendersPer * int(tempName.defenderMod)))
-#                    tempName.gold = str(int(tempName.gold) + int(productionCalc))
-#                    tempName.write()
-    
+                if tempName.ruler != 'Unclaimed':
+                    tempName.defenders = str(int(tempName.defenders) + (defendersPer * int(tempName.defenderMod)))
+                    tempName.gold = str(int(tempName.gold) + int(productionCalc))
+                    tempName.write()
+                    print('the stronghold of ' + str(tempName.name + ' currently has ' + str(tempName.defenders) + ' defenders.'))
     
 
     time.sleep(interval)
