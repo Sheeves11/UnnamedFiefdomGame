@@ -61,7 +61,7 @@ def ManualWorldMapSizeTest():
 #on that later.
 def GenerateWorldMap(seed):
     os.system('clear')
-    AUTOMATED = False
+    global AUTOMATED = False
     #worldMap = [['0'] * MAP_WIDTH] * MAP_HEIGHT    #Change this later if we want to do small/medium/large map presets
     worldMap = [['0' for x in range(MAP_WIDTH)] for y in range(MAP_HEIGHT)]
 
@@ -124,7 +124,7 @@ def GenerateWorldMap(seed):
 #This function could likely benefit from reaching two spaces out instead of just 1, but
 #that would make it far more complex. 
 def PrintSurroundings(wMap, symb, posX, posY, freqM, freqP, freqF):
-    
+    global AUTOMATED
     #Create points that are surrounding our current pos
     os.system("clear")
     print('posX: ' + str(posX) + ' posY: ' + str(posY))
