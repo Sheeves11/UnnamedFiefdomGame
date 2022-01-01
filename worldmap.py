@@ -231,7 +231,7 @@ def PrintSurroundings(wMap, symb, posX, posY, freqM, freqP, freqF):
     if not automated:
         userInput=input('Continue with manual input: press enter or input (n)')
 
-        if userInput == n
+        if userInput == 'n'
             automated = True
 
     return newPoint
