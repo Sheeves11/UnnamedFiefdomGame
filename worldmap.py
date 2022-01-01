@@ -184,7 +184,7 @@ def PrintSurroundings(wMap, symb, posX, posY, freqM, freqP, freqF):
     #Define a list using the surrounding symbols:
     surroundings = [dN, dNE, dE, dSE, dS, dSW, dW, dNW]
     
-    print('Surroundings: ') print(surroundings)
+    print('Surroundings: ') print(*surroundings)
     #Define a list of weight totals for each:
     weights = [0, 0, 0, 0, 0, 0, 0, 0]
     
@@ -210,15 +210,15 @@ def PrintSurroundings(wMap, symb, posX, posY, freqM, freqP, freqF):
         elif i == STRONGHOLD:
             weights[i] = 0
 
-    print('Weights: ') print(weights)
+    print('Weights: ') print(*weights)
     #Define a combined list of symbols and weights:
     symbolTable = [(dN,weights[0]),(dNE,weights[1]),(dE,weights[2]),(dSE,weights[3]),(dS,weights[4]),(dSW,weights[5]),(dW,weights[6]),(dNW,weights[7]), (RANDOM,RANDOM_INTENSITY)]
-    print('Symbol Table: ') print(symbolTable)
+    print('Symbol Table: ') print(*symbolTable)
     pointTable = []
     for item, weight in symbolTable:
         pointTable.extend([item]*weight)
     newPoint = random.choice(pointTable)
-    print('New Point: ') print(newPoint)
+    print('New Point: ') print(*newPoint)
     if newPoint == RANDOM:
         newPoint = GetRandomPoint()
 
