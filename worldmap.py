@@ -210,7 +210,7 @@ def PrintSurroundings(wMap, symb, posX, posY, freqM, freqP, freqF):
             weights[index] = 0
         elif i == STRONGHOLD:
             weights[index] = 0
-        index++
+        index = index + 1
 
     print('Weights: ') 
     print(*weights)
