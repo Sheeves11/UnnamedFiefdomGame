@@ -61,7 +61,8 @@ def ManualWorldMapSizeTest():
 #on that later.
 def GenerateWorldMap(seed):
     os.system('clear')
-    global AUTOMATED = False
+    global AUTOMATED
+    AUTOMATED = False
     #worldMap = [['0'] * MAP_WIDTH] * MAP_HEIGHT    #Change this later if we want to do small/medium/large map presets
     worldMap = [['0' for x in range(MAP_WIDTH)] for y in range(MAP_HEIGHT)]
 
