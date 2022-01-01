@@ -8,7 +8,7 @@ def header():
 -=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=--=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-
                                              UNNAMED FIEFDOM GAME
 -=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=--=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-'''
-    + textColor.WARNING + '\n                          Announcement: Season 1 will begin on December 20th, 2021!'
+    + textColor.WARNING + '\n                          Announcement: Season 1 will begin soon!'
     + textColor.RESET)
 
 #this is the d20 roll function
