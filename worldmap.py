@@ -248,9 +248,7 @@ def GetRandomPoint():
 def PrintMap(wMap, posX, posY):
     for i in range(MAP_HEIGHT):
         for j in range(MAP_WIDTH):
-            if i == posY and j == posX - 1:
-                print(textColor.CYAN + wMap[i][j] + textColor.RESET, end=" ")
-            elif i == posY and j == 0:
+            if i == posY and j == posX:
                 print(textColor.CYAN + wMap[i][j] + textColor.RESET, end=" ")
             else:
                 print(wMap[i][j], end=" ")
