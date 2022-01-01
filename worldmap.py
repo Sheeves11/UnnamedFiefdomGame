@@ -27,6 +27,16 @@ EMPTY = ' '
 UNEXPLORED = '0'
 RANDOM = '*'
 
+#Map Icon Color
+IC_WATER = textColor.BLUE
+IC_RIVER = textColor.BLUE
+IC_MOUNTAIN = textColor.LIGHT_GRAY
+IC_PLAINS = textColor.DIM
+IC_FOREST = textColor.GREEN
+IC_FIEF = textColor.RED
+IC_STRONGHOLD = textColor.BOLD
+IC_UNEXPLORED = textColor.WARNING
+
 #Manually inserted map-grid for visualizing. It is 20x8
 def ManualWorldMapSizeTest():
     print('''
@@ -110,10 +120,7 @@ def GenerateWorldMap(seed):
 #        print('\n')
 
 #Prints out the map in a nicely spaced grid
-    for y in range(MAP_HEIGHT):
-        for x in range(MAP_WIDTH):
-            print(worldMap[y][x], end=" ")
-        print('')
+    PrintColorMap(worldMap)
     print('\nFinished!\n')
                     
        
@@ -228,7 +235,7 @@ def PrintSurroundings(wMap, symb, posX, posY, freqM, freqP, freqF):
     if newPoint == RANDOM:
         newPoint = GetRandomPoint()
 
-    PrintMap(wMap, posX, posY)
+    GeneratePrintMap(wMap, posX, posY)
     
     if AUTOMATED == False:
         userInput=input('Continue with manual input: press enter or input (n)')
@@ -245,7 +252,7 @@ def GetRandomPoint():
         pointTable.extend([item]*weight)
     return random.choice(pointTable)
 
-def PrintMap(wMap, posX, posY):
+def GeneratePrintMap(wMap, posX, posY):
     for i in range(MAP_HEIGHT):
         for j in range(MAP_WIDTH):
             if i == posY and j == posX:
@@ -255,6 +262,29 @@ def PrintMap(wMap, posX, posY):
         print('')
     time.sleep(0.2)
 
+def PrintColorMap(wMap)
+    for i in range(MAP_HEIGHT):
+        for j in range(MAP_WIDTH):
+            symbol = wMap[i][j]
+            if symbol == UNEXPLORED:
+                print(IC_UNEXPLORED + symbol + textColor.RESET, end=" ")
+            elif symbol == EMPTY:
+                print(symbol, end=" ")
+            elif symbol == WATER:
+                print(IC_WATER + symbol + textColor.RESET, end=" ")
+            elif symbol == RIVER:
+                print(IC_RIVER + symbol + textColor.RESET, end=" ")
+            elif symbol == FOREST:
+                print(IC_FOREST + symbol + textColor.RESET, end=" ")
+            elif symbol == PLAINS:
+                print(IC_PLAINS + symbol + textColor.RESET, end=" ")
+            elif symbol == MOUNTAIN:
+                print(IC_MOUNTAIN + symbol + textColor.RESET, end=" ")
+            elif symbol == FIEF:
+                print(IC_FIEF + symbol + textColor.RESET, end=" ")
+            elif symbol == STRONGHOLD:
+                print(IC_STRONGHOLD + symbol + textColor.RESET, end=" ")
+        print('')
 
 #To Do: Write this function
 def GenerateRandomSeed():
