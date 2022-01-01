@@ -188,28 +188,29 @@ def PrintSurroundings(wMap, symb, posX, posY, freqM, freqP, freqF):
     print(*surroundings)
     #Define a list of weight totals for each:
     weights = [0, 0, 0, 0, 0, 0, 0, 0]
-    
+    index = 0
 
     #Calculate the weight totals:
     for i in surroundings:
         if i == UNEXPLORED:
-            weights[i] = 0
+            weights[index] = 0
         elif i == EMPTY:
-            weights[i] = 0
+            weights[index] = 0
         elif i == WATER:
-            weights[i] = 10
+            weights[index] = 10
         elif i == RIVER:
-            weights[i] = 10
+            weights[index] = 10
         elif i == FOREST:
-            weights[i] = freqF * WEIGHT_INTENSITY
+            weights[index] = freqF * WEIGHT_INTENSITY
         elif i == PLAINS:
-            weights[i] = freqP * WEIGHT_INTENSITY
+            weights[index] = freqP * WEIGHT_INTENSITY
         elif i == MOUNTAIN:
-            weights[i] =  freqM * WEIGHT_INTENSITY
+            weights[index] =  freqM * WEIGHT_INTENSITY
         elif i == FIEF:
-            weights[i] = 0
+            weights[index] = 0
         elif i == STRONGHOLD:
-            weights[i] = 0
+            weights[index] = 0
+        index++
 
     print('Weights: ') 
     print(*weights)
