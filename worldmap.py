@@ -8,8 +8,8 @@ from classes import *
 #Not yet implemented!
 
 #Global variables
-MAP_WIDTH = 10
-MAP_HEIGHT = 10
+MAP_WIDTH = 20
+MAP_HEIGHT = 20
 DEFAULT_WEIGHT = 10     #A common weight total
 WEIGHT_INTENSITY = 5    #Higher the number, the more focused the map will be
 RANDOM_INTENSITY = 20   #Higher the number, the more chaotic the map will be
@@ -30,8 +30,8 @@ RANDOM = '*'
 #Map Icon Color
 IC_WATER = textColor.BLUE
 IC_RIVER = textColor.BLUE
-IC_MOUNTAIN = textColor.LIGHT_GRAY
-IC_PLAINS = textColor.DIM
+IC_MOUNTAIN = textColor.DARK_GRAY
+IC_PLAINS = textColor.YELLOW
 IC_FOREST = textColor.GREEN
 IC_FIEF = textColor.RED
 IC_STRONGHOLD = textColor.BOLD
@@ -260,7 +260,7 @@ def GeneratePrintMap(wMap, posX, posY):
             else:
                 print(wMap[i][j], end=" ")
         print('')
-    time.sleep(0.2)
+    time.sleep(0.1)
 
 def PrintColorMap(wMap):
     for i in range(MAP_HEIGHT):
