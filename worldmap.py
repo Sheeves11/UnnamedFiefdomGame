@@ -112,7 +112,7 @@ def GenerateWorldMap(seed):
 #Prints out the map in a nicely spaced grid
     for y in range(MAP_HEIGHT):
         for x in range(MAP_WIDTH):
-            print(worldMap[0][x], end=" ")
+            print(worldMap[y][x], end=" ")
         print('')
     print('\nFinished!\n')
                     
@@ -250,10 +250,12 @@ def PrintMap(wMap, posX, posY):
         for j in range(MAP_WIDTH):
             if i == posY and j == posX - 1:
                 print(textColor.CYAN + wMap[i][j] + textColor.RESET, end=" ")
+            elif i == posY and j == 0:
+                print(textColor.CYAN + wMap[i][j] + textColor.RESET, end=" ")
             else:
                 print(wMap[i][j], end=" ")
         print('')
-    time.sleep(0.3)
+    time.sleep(0.2)
 
 
 #To Do: Write this function
