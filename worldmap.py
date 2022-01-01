@@ -262,7 +262,7 @@ def GeneratePrintMap(wMap, posX, posY):
         print('')
     time.sleep(0.2)
 
-def PrintColorMap(wMap)
+def PrintColorMap(wMap):
     for i in range(MAP_HEIGHT):
         for j in range(MAP_WIDTH):
             symbol = wMap[i][j]
