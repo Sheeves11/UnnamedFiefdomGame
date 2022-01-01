@@ -67,11 +67,11 @@ def GenerateWorldMap(seed):
     worldMap = [['0' for x in range(MAP_WIDTH)] for y in range(MAP_HEIGHT)]
 
     seed = '00555' #ToDo: Make seed generator work
-    sPosX = seed[0]
-    sPosY = seed[1]
-    freqMountain = seed[2]
-    freqPlains = seed[3]
-    freqForest = seed[4]
+    sPosX = int(seed[0])
+    sPosY = int(seed[1])
+    freqMountain = int(seed[2])
+    freqPlains = int(seed[3])
+    freqForest = int(seed[4])
 
     symbol = FIEF
     
