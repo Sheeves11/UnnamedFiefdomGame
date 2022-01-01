@@ -250,7 +250,7 @@ def PrintSurroundings(wMap, symb, posX, posY, freqM, freqP, freqF):
             AUTOMATED = True
             if not INSTANTLY_GENERATE:
                 userInput=input('Would you like to instantly generate this map? (y/n)')
-                    if userInput = y:
+                    if userInput == 'y':
                         INSTANTLY_GENERATE = True
 
     return newPoint
