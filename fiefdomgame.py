@@ -314,10 +314,15 @@ while (loop):
         print('You can hire mercinaries for ' + str(mercCost) + ' gold each?')
 
         upgradeInput = input('\nHow many mercinaries would you like to hire?\n')
+        
+        try:
+            int(upgradeInput)
+        except:
+            upgradeInput = '0'
 
         if int(upgradeInput) == 0:
             print("No changes were made!")
-
+   
         elif int(upgradeInput) < 0:
             print("You can't hire a negative number of soldiers")
 
