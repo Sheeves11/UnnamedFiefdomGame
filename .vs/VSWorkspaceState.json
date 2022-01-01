@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\fifes"
+    "\\fiefs",
+    "\\strongholds"
   ],
+  "SelectedNode": "\\strongholds\\devtest.txt",
   "PreviewInSolutionExplorer": false
 }

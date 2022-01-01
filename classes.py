@@ -181,6 +181,41 @@ def art7():
       ' ~' ~ '  '~ ~ =-==-=-= ~ ~ '   ~  ~  '   '
     ''')
 
+def art_farm1():
+    print('''  ,'  ,'   ,  ,-  ,           ,'   /           ,'
+ ,'  /    /  /   /   ,' ,'   /   ,'  ,'  ,'   /  ,
+,'  /    /  /   /   /  ,'  ,'   /   /   /   .'  /
+    ''')
+def art_farm2():
+    print(''' / / / / / / / / / / / / / / / / / / / / / / / / /
+ / / / / / / / / / / / / / / / / / / / / / / / / /
+ / / / / / / / / / / / / / / / / / / / / / / / / /
+    ''')
+def art_farm3():
+    print('''[^ [^ [^ [^ [^ [^ [^ [^ [^ [^ [^ [^ [^ [^ [^ [^ [^
+[^ [^ [^ [^ [^ [^ [^ [^ [^ [^ [^ [^ [^ [^ [^ [^ [^
+[^ [^ [^ [^ [^ [^ [^ [^ [^ [^ [^ [^ [^ [^ [^ [^ [^
+    ''')
+def art_farm4():
+    print('''[`~`][`~`][`~`][`~`][`~`][`~`][`~`][`~`][`~`][`~`]
+[`~`][`~`][`~`][`~`][`~`][`~`][`~`][`~`][`~`][`~`]
+[`~`][`~`][`~`][`~`][`~`][`~`][`~`][`~`][`~`][`~`]
+    ''')
+def art_farm5():
+    print('''[*&*][*&*][*&*][*&*][*&*][*&*][*&*][*&*][*&*][*&*]
+[*&*][*&*][*&*][*&*][*&*][*&*][*&*][*&*][*&*][*&*]
+[*&*][*&*][*&*][*&*][*&*][*&*][*&*][*&*][*&*][*&*]
+    ''')
+def art_farm6():
+    print('''<(*)><(*)><(*)><(*)><(*)><(*)><(*)><(*)><(*)><(*)>
+<(*)><(*)><(*)><(*)><(*)><(*)><(*)><(*)><(*)><(*)>
+<(*)><(*)><(*)><(*)><(*)><(*)><(*)><(*)><(*)><(*)>
+    ''')
+def art_farm7():
+    print('''|~@~||~@~||~@~||~@~||~@~||~@~||~@~||~@~||~@~||~@~|
+|~@~||~@~||~@~||~@~||~@~||~@~||~@~||~@~||~@~||~@~|
+|~@~||~@~||~@~||~@~||~@~||~@~||~@~||~@~||~@~||~@~|
+    ''')
 #the fiefdom class holds variables that define a player's stats
 class Fiefdom:
     name = 'Default Fiefdom'
@@ -255,6 +290,82 @@ class Fiefdom:
                 self.defenderMod = f.readline().strip()
                 self.farmType = f.readline().strip()
         except:
-            self.write()          
+            self.write()   
+            
+#SW: I am splitting this to safely determine if it is necessary to keep the above stuff or not
+class Stronghold:
+    name = 'Default Stronghold'
+    ruler = 'Unclaimed'
+    home = False
+    defenders = 100
+    gold = 500
+    defLevel = 0
+    defType = "Open Camp"
+    attLevel = 0
+    attType = "Angry Mob"
+    goldMod = '1'
+    defenderMod = '1'
+    farmType = "Dirt Patch"
+
+    #take the current stronghold and write it to the /strongholds directory
+    def write(self):
+        fiefFile = 'strongholds/' + self.name + '.txt'
+        
+        #this part creates a file if it isn't made yet        
+        try:
+            with open(fiefFile, 'x') as f:
+
+                f.write(self.name + '\n')
+                f.write(self.ruler + '\n')
+                f.write(str(self.home) + '\n')
+                f.write(str(self.defenders) + '\n')
+                f.write(str(self.gold) + '\n')
+                f.write(str(self.defLevel) + '\n')
+                f.write(str(self.defType) + '\n')
+                f.write(str(self.attLevel) + '\n')
+                f.write(str(self.attType) + '\n')
+                f.write(str(self.goldMod) + '\n')
+                f.write(str(self.defenderMod) + '\n')
+                f.write(str(self.farmType) + '\n')
+        except:
+            pass
+
+        #write the class variables down line by line in the text file
+        try:
+            with open(fiefFile, 'w') as f:
+                f.write(self.name + '\n')
+                f.write(self.ruler + '\n')
+                f.write(str(self.home) + '\n')
+                f.write(str(self.defenders) + '\n')
+                f.write(str(self.gold) + '\n')
+                f.write(str(self.defLevel) + '\n')
+                f.write(str(self.defType) + '\n')
+                f.write(str(self.attLevel) + '\n')
+                f.write(str(self.attType) + '\n')
+                f.write(str(self.goldMod) + '\n')
+                f.write(str(self.defenderMod) + '\n')
+                f.write(str(self.farmType) + '\n')
+        except:
+            pass
+
+    #read class variables line by line
+    def read(self):
+        fiefFile = 'strongholds/' + self.name + '.txt'
+        try:
+            with open(fiefFile, 'r') as f:
+                self.name = f.readline().strip()
+                self.ruler = f.readline().strip()
+                self.home = f.readline().strip()
+                self.defenders = f.readline().strip()
+                self.gold = f.readline().strip()
+                self.defLevel = f.readline().strip()
+                self.defType = f.readline().strip()
+                self.attLevel = f.readline().strip()
+                self.attType = f.readline().strip()
+                self.goldMod = f.readline().strip()
+                self.defenderMod = f.readline().strip()
+                self.farmType = f.readline().strip()
+        except:
+            self.write()      
             
 #eof
