@@ -13,7 +13,7 @@ MAP_HEIGHT = 10
 DEFAULT_WEIGHT = 10     #A common weight total
 WEIGHT_INTENSITY = 5    #Higher the number, the more focused the map will be
 RANDOM_INTENSITY = 20   #Higher the number, the more chaotic the map will be
-automated = False
+AUTOMATED = False
 
 #Map Icons
 WATER = '~'
@@ -61,7 +61,7 @@ def ManualWorldMapSizeTest():
 #on that later.
 def GenerateWorldMap(seed):
     os.system('clear')
-    automated = False
+    AUTOMATED = False
     #worldMap = [['0'] * MAP_WIDTH] * MAP_HEIGHT    #Change this later if we want to do small/medium/large map presets
     worldMap = [['0' for x in range(MAP_WIDTH)] for y in range(MAP_HEIGHT)]
 
@@ -229,11 +229,11 @@ def PrintSurroundings(wMap, symb, posX, posY, freqM, freqP, freqF):
 
     PrintMap(wMap, posX, posY)
     
-    if not automated:
+    if AUTOMATED == False:
         userInput=input('Continue with manual input: press enter or input (n)')
 
         if userInput == 'n':
-            automated = True
+            AUTOMATED = True
 
     return newPoint
 
