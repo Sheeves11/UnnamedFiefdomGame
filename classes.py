@@ -28,7 +28,7 @@ class textColor:
     WARNING = '\033[93m'
     YELLOW = '\033[33m'
     DARK_GRAY = '\033[90m'
-    LIGHT_GRAY = '\033[37m]'
+    LIGHT_GRAY = '\033[37m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
