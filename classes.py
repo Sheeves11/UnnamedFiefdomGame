@@ -373,8 +373,8 @@ class Stronghold:
             
 
 class Map:
-    name = 'serverMap'
-    seed = '00555'
+    name = 'default'
+    seed = '00000'
     weight = 40
     height = 40
     worldMap = []
