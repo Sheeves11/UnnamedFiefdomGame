@@ -377,11 +377,11 @@ class Map:
     worldMap = QuietlyGenerateWorldMap(seed)
 
     def write(self):
-        mapFile = 'worldmap/' + self.name + '.txt'
+        fiefFile = 'map/' + self.name + '.txt'
         
         #this part creates a file if it isn't made yet        
         try:
-            with open(mapFile, 'x') as f:
+            with open(fiefFile, 'x') as f:
                 f.write(str(self.seed) + '\n')
                 f.write(str(self.worldMap) + '\n')
         except:
@@ -389,7 +389,7 @@ class Map:
 
         #write the class variables down line by line in the text file
         try:
-            with open(mapFile, 'w') as f:
+            with open(fiefFile, 'w') as f:
                 f.write(str(self.seed) + '\n')
                 f.write(str(self.worldMap) + '\n')
         except:
@@ -397,9 +397,9 @@ class Map:
 
     #read class variables line by line
     def read(self):
-        mapFile = 'worldmap/' + self.name + '.txt'
+        fiefFile = 'map/' + self.name + '.txt'
         try:
-            with open(mapFile, 'r') as f:
+            with open(fiefFile, 'r') as f:
                 self.seed = f.readline().strip()
                 self.worldMap = f.readline().strip()
 

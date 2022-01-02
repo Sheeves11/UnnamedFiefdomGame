@@ -2,7 +2,7 @@ import os
 import time
 import random
 from classes import *
-from worldmap import *
+#from worldmap import *
 
 '''
 
@@ -1517,7 +1517,11 @@ while (loop):
         #seed = GenerateSeed()
         #GenerateWorldMap(seed)
 
-        worldMap = Map()
+        serverMap = Map()
+
+        print(serverMap.seed)
+        print('\n')
+        print(serverMap.worldMap)
 
         time.sleep(2)
         nothing = input('Continue:')
