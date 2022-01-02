@@ -402,16 +402,20 @@ class Map:
     #read class variables line by line
     def read(self):
         mapFile = 'map/' + self.name + '.txt'
+        
         try:
-            with open(mapFile, 'r') as f:
+            print('Trying to read file:')
+            with open(mapFile) as f:
+                print('Was able to read file:')
                 for i in range(self.height):
                     for j in range(self.width):
                         c = f.read(1)
                         self.worldMap[i][j] = c
                         print(c)
                     print('\n')
-
+                print('End of loop')
         except:
-            self.write()
+            print('Could not read file!')
+            pass
             
 #eof
