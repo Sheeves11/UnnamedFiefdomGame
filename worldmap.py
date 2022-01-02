@@ -1,10 +1,24 @@
 import os
 import time
 import random
-from classes import *
 
 #This is a very early development build for a world map feature.
 #Not yet implemented!
+
+#Had to pull these out of classes to make stuff work! Temp fix!
+RED = '\033[91m'
+GREEN = '\033[92m'
+RESET = '\033[0m'
+DIM = '\033[2m'
+MAGENTA = '\033[95m'
+BLUE = '\033[94m'
+CYAN = '\033[96m'
+WARNING = '\033[93m'
+YELLOW = '\033[33m'
+DARK_GRAY = '\033[90m'
+LIGHT_GRAY = '\033[37m'
+BOLD = '\033[1m'
+UNDERLINE = '\033[4m'
 
 #Global variables
 MAP_WIDTH = 40
@@ -28,14 +42,14 @@ UNEXPLORED = '0'
 RANDOM = '*'
 
 #Map Icon Color
-IC_WATER = textColor.BLUE
-IC_RIVER = textColor.BLUE
-IC_MOUNTAIN = textColor.DARK_GRAY
-IC_PLAINS = textColor.YELLOW
-IC_FOREST = textColor.GREEN
-IC_FIEF = textColor.RED
-IC_STRONGHOLD = textColor.BOLD
-IC_UNEXPLORED = textColor.WARNING
+IC_WATER = BLUE
+IC_RIVER = BLUE
+IC_MOUNTAIN = DARK_GRAY
+IC_PLAINS = YELLOW
+IC_FOREST = GREEN
+IC_FIEF = RED
+IC_STRONGHOLD = BOLD
+IC_UNEXPLORED = WARNING
 
 #This is the primary function for generating a world map
 #Utilizes a passed 'seed' value that alters how the map is generated
