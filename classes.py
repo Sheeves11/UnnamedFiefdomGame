@@ -386,7 +386,7 @@ class Map:
         try:
             with open(mapFile, 'x') as f:
                 f.write(str(self.seed) + '\n')
-                    f.write(self.worldMap)
+                f.write(self.worldMap)
         except:
             pass
 
