@@ -1,8 +1,12 @@
+#!/usr/bin/env python
+
 import os
 import time
 import random
+import bcrypt
 from classes import *
 from worldmap import *
+
 
 '''
 
@@ -97,7 +101,7 @@ while (loop):
                 See more info at github.com/Sheeves11/UnnamedFiefdomGame ''')
         print('\n')
         userStronghold = Stronghold()
-        username = input("                Enter your username (Note that passwords are not encrypted (yet): ")
+        username = input("                Enter your username: ")
         currentUsername = username
 
         #if "username.txt" does not exist, create it. The file only contains a name and password for now.
@@ -112,7 +116,21 @@ while (loop):
                 print('\nUsername: ' + username)
                 password = "default"
                 password = input('Enter your password: ')
-                f.write(password)
+                
+
+                salt = bcrypt.gensalt()
+                hashed = bcrypt.hashpw(password, salt)
+                
+                print('\n\n')
+#                print('Password Entered: ' + str(password))
+ #               print('Salt Phrase: ' + str(salt)) 
+  #              print('Hashed Result To Be Stored: ' + str(hashed))
+                print('\n\n')
+                
+                
+                
+                
+                f.write(hashed)
                 print('Creating new account...')
                 time.sleep(1)
                 print('Logging in as: ' + username)
@@ -120,15 +138,16 @@ while (loop):
                 screen = 'stronghold'
         except:
             with open(usernameFile, 'r') as f:
-                temp1 = f.readline().strip()
-                truePass = f.readline().strip()
                 os.system('clear')
                 header()
-
+                
+                temp1 = f.readline().strip()
+                hashed = f.readline().strip()
+                
                 print('\n\nWelcome back, ' + str(username))
                 userPass = input('Enter your password: ')
 
-                if str(userPass) == str(truePass):
+                if bcrypt.checkpw(userPass, hashed):
                     print('Password is correct')
                     time.sleep(1)
                     print("Logging in as: " + username)
@@ -139,6 +158,7 @@ while (loop):
                     time.sleep(2)
                     screen = 'login'
 
+                tempthing = input('\n\nPress Enter To Continue\n\n')
 #The stronghold screen is homebase for players. The page also writes the current username
 #into the userStronghold object.
 #
