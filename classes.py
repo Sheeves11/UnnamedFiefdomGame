@@ -373,6 +373,7 @@ class Stronghold:
             
 
 class Map:
+    name = 'serverMap'
     seed = GenerateSeed()
     worldMap = QuietlyGenerateWorldMap(seed)
 
