@@ -375,6 +375,8 @@ class Stronghold:
 class Map:
     name = 'serverMap'
     seed = '00555'
+    height = 40
+    width = 40
     worldMap = []
 
     def write(self):
@@ -384,7 +386,14 @@ class Map:
         try:
             with open(mapFile, 'x') as f:
                 f.write(str(self.seed) + '\n')
-                f.write(str(self.worldMap) + '\n')
+                for i in range(height):
+                    f.write(str('[')
+                    for j in range(width):
+                        if j < width:
+                            f.write(str(self.worldMap[i][j] + ',')
+                        else:
+                            f.write(str(self.worldMap[i][j])
+                    f.write(str(']\n'))
         except:
             pass
 
@@ -402,7 +411,8 @@ class Map:
         try:
             with open(mapFile, 'r') as f:
                 self.seed = f.readline().strip()
-                self.worldMap = f.readline().strip()
+                while True:
+                    self.worldMap = f.readline().strip()
 
         except:
             self.write()
