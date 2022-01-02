@@ -385,10 +385,22 @@ class Map:
     def write(self):
         mapFile = 'map/' + self.name + '.txt'
         
-        #this part creates a file if it isn't made yet        
+        #this part creates a file if it isn't made yet. SW: This has not been tested.
         try:
             with open(mapFile, 'x') as f:
-                f.write(str(self.worldMap))
+                f.write(str("["))
+                for i in range(self.height):
+                    f.write(str("["))
+                    for j in range(self.width):
+                        if j < self.width - 1:
+                            f.write("'" + str(self.worldMap[i][j]) + "',")
+                        else:
+                            f.write("'" + str(self.worldMap[i][j]) + "'")
+                    if i < self.height - 1:
+                        f.write(str("],"))
+                    else:
+                        f.write(str("]"))
+                f.write(str("]"))
         except:
             pass
 
@@ -408,15 +420,12 @@ class Map:
                     else:
                         f.write(str("]"))
                 f.write(str("]"))
-                    #f.write(str('\n'))
         except:
             pass
 
     #read class variables line by line
     def read(self):
         mapFile = 'map/' + self.name + '.txt'
-        # tempMap = [['0' for x in range(self.width)] for y in range(self.height)]
-        #success = False
         try:
             readMapFile = open(mapFile, 'r')
             readList = eval(readMapFile.read())
@@ -424,17 +433,9 @@ class Map:
 
             for count in range(len(readList)):
                 self.worldMap.append(readList[count])
-                #for details in range(len(readList[0])):
-                    #tempMap[count][details] = readList[count][details]
-            #success = True
-                
+
         except:
             print('Could not read file!')
             pass
-
-        # if success:
-        #     print('successful!')
-        #     for y in range(self.height):
-        #         self.worldMap.append(tempMap[y])
             
 #eof
