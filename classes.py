@@ -412,7 +412,9 @@ class Map:
     #read class variables line by line
     def read(self):
         mapFile = 'map/' + self.name + '.txt'
-
+        tempMap = [['0' for x in range(self.width)] for y in range(self.height)]
+        print('self.width is: ' + str(self.width) + 'self.height is: ' + str(self.height))
+        success = False
         try:
             print('Trying to read the file')
             readMapFile = open(mapFile, 'r')
@@ -427,12 +429,17 @@ class Map:
                 print('For count in range len(readList)')
                 for details in range(len(readList[0])):
                     print('For details in range readlist[0]')
+                    print('count is: ' + str(count) + 'details is: ' + str(details))
                     print('trying to set world map to be ' + str(readList[count][details]))
-                    self.worldMap[count][details] = readList[count][details]
-                    print('now world map is: ' + str(self.worldMap[count][details]))
+                    tempMap[count][details] = readList[count][details]
+                    print('now world map is: ' + str(tempMap[count][details]))
+            success = True
                 
         except:
             print('Could not read file!')
             pass
+
+        if success:
+            print('successful!')
             
 #eof
