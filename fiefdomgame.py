@@ -1537,13 +1537,13 @@ while (loop):
         serverMap.read()
         serverMap.name = 'serverMap'
         serverMap.seed = '00666'
-        serverMap.worldMap = QuietlyGenerateWorldMap(serverMap.seed)
+        serverMap.worldMap = GenerateWorldMap(serverMap.seed)
         serverMap.write()
 
         
         #print(serverMap.seed)
-        print('\n')
-        PrintColorMap(serverMap.worldMap)
+        #print('\n')
+        #PrintColorMap(serverMap.worldMap)
         #print(serverMap.worldMap)
 
         

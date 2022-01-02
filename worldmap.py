@@ -125,6 +125,8 @@ def GenerateWorldMap(seed):
 #Prints out the map in a nicely spaced grid
     PrintColorMap(worldMap)
     print('\nFinished!\n')
+
+    return worldMap
       
 #Iterates through the map given the map itself and a set of 
 #values to determine what to write in the next position.
