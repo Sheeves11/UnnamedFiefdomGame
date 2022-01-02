@@ -544,27 +544,27 @@ while (loop):
 
         if userStronghold.attLevel == str('1'):
             attTypeNext = 'Semi-trained Longbow Archers'
-            attUpgradeCost = 1500
+            attUpgradeCost = 3500
 
         if userStronghold.attLevel == str('2'):
             attTypeNext = 'Military Recruits'
-            attUpgradeCost = 3000
+            attUpgradeCost = 10000
 
         if userStronghold.attLevel == str('3'):
             attTypeNext = 'Fairly Well-trained Archers with Flaming Arrows'
-            attUpgradeCost = 5000
+            attUpgradeCost = 45000
 
         if userStronghold.attLevel == str('4'):
             attTypeNext = 'Drunks with Trebuchets'
-            attUpgradeCost = 10000
+            attUpgradeCost = 75000
 
         if userStronghold.attLevel == str('5'):
             attTypeNext = 'Scientists who are Experiementing with Biological Warfare'
-            attUpgradeCost = 20000
+            attUpgradeCost = 200000
 
         if userStronghold.attLevel == str('6'):
             attTypeNext = 'Peasents with Guns'
-            attUpgradeCost = 40000
+            attUpgradeCost = 400000
 
         if userStronghold.attLevel == str('7'):
             print('\n\n')
@@ -617,7 +617,7 @@ while (loop):
 
         if attackFief.goldMod == str('2'):
             farmTypeNext = 'Wheelbarrows'
-            farmUpgradeCost = 1500
+            farmUpgradeCost = 2000
 
         if attackFief.goldMod == str('3'):
             farmTypeNext = 'Fertilizer'
@@ -689,7 +689,7 @@ while (loop):
 
         if attackFief.defLevel == str('1'):
             defTypeNext = 'Really Deep Ditches'
-            defUpgradeCost = 1500
+            defUpgradeCost = 2500
 
         if attackFief.defLevel == str('2'):
             defTypeNext = 'Tall Towers'
@@ -705,7 +705,7 @@ while (loop):
 
         if attackFief.defLevel == str('5'):
             defTypeNext = 'Boiling Oil'
-            defUpgradeCost = 40000
+            defUpgradeCost = 50000
 
         if attackFief.defLevel == str('6'):
             print('     Your current defense style is: ' + attackFief.defType)
@@ -713,13 +713,13 @@ while (loop):
             print('\n\n\n\n\n\n\n\n\n\n')
             command = input("     Press Enter ")
         else:
-            print('Your current defense style is: ' + attackFief.defType)
-            print('Would you like to upgrade to ' + defTypeNext + ' for ' + str(defUpgradeCost) + ' gold?')
+            print('    Your current defense style is: ' + attackFief.defType)
+            print('    Would you like to upgrade to ' + defTypeNext + ' for ' + str(defUpgradeCost) + ' gold?')
 
-            upgradeInput = input('y/n?')
+            upgradeInput = input('    (y/n): ')
 
             if upgradeInput == 'y' and int(userStronghold.gold) >= defUpgradeCost:
-                print("Upgrade Complete!")
+                print("    Upgrade Complete!")
                 attackFief.defType = defTypeNext
                 attackFief.defLevel = str(int(attackFief.defLevel) + 1)
                 userStronghold.gold = str(int(userStronghold.gold) - defUpgradeCost)
@@ -730,10 +730,10 @@ while (loop):
 
             elif upgradeInput == 'y' and int(userStronghold.gold) < defUpgradeCost:
 
-                print("You need more gold first!")
+                print("    You need more gold first!")
 
             elif upgradeInput == 'n':
-                print("No changes made.")
+                print("    No changes made.")
 
             print('\n\n\n\n\n\n\n\n\n\n')
             command = input("     Press Enter ")
@@ -766,8 +766,8 @@ while (loop):
       yourself open to attack! Your home stronghold will never fall, but any conquered fiefdoms can be taken by
       opposing players. Make sure you can defend the territory you claim!
 
-      Each claimed fiefdom will generate 100 gold per hour. That gold can be spent on defense and attack upgrades
-      as well as additional soldiers.
+      Each claimed fiefdom will generate gold per hour depending on the number of soldiers you have! That gold can 
+      be spent on defense and attack upgrades as well as additional soldiers or thieves.
 
       Upgrade your conqured fiefdoms to keep them safe! Be careful though. Any upgraded fiefdom can still be taken,
       and your upgrades will be transfered to the new ruler.
