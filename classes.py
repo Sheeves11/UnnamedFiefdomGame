@@ -402,21 +402,26 @@ class Map:
     #read class variables line by line
     def read(self):
         mapFile = 'map/' + self.name + '.txt'
-        
+        i = 0
+        j = 0
         try:
             print('Trying to read file:')
-            with open(mapFile) as f:
-                i = 0
-                j = 0
+            with open(mapFile, 'r') as f:
                 print('Was able to read file:')
                 lines = f.readlines()
+                print('Just read a line')
                 for char in lines:
+                    print('in upper for-loop')
                     char = lines.split(",")
-                    if i < self.height - 1:
-                        if j < self.width - 1:
+                    print('just split char:' + str(char))
+                    if i < self.height:
+                        print('i is less than height')
+                        if j < self.width:
+                            print('j is less than width')
                             self.worldMap[i][j] = char
                             j = j + 1
                         else:
+                            print('j is not less than width')
                             j = 0
                             i = i + 1
         except:
