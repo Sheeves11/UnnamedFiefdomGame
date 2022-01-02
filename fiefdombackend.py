@@ -7,7 +7,7 @@ from classes import *
 goldPer = 100
 defendersPer = 3
 #interval in seconds
-interval = 3
+interval = 3600
 
 
 

@@ -101,7 +101,7 @@ while (loop):
         
         #if "username.txt" does not exist, create it. The file only contains a name and password for now.
         try:
-            usernameFile = username + ".txt"
+            usernameFile = "users/" + username + ".txt"
             with open(usernameFile, 'x') as f:
                 f.write(username + '\n')
                 os.system('clear')
