@@ -392,9 +392,16 @@ class Map:
         #write the class variables down line by line in the text file
         try:
             with open(mapFile, 'w') as f:
+                f.write(str("["))
                 for i in range(self.height):
+                    f.write(str("["))
                     for j in range(self.width):
-                        f.write(str(self.worldMap[i][j]) + " ")
+                        if j < self.width:
+                            f.write("'" + str(self.worldMap[i][j]) + "',")
+                        else:
+                            f.write(str(self.worldMap[i][j]))
+                    f.write(str("]"))
+                f.write(str("]"))
                     #f.write(str('\n'))
         except:
             pass
@@ -402,28 +409,18 @@ class Map:
     #read class variables line by line
     def read(self):
         mapFile = 'map/' + self.name + '.txt'
-        i = 0
-        j = 0
+
         try:
-            print('Trying to read file:')
-            with open(mapFile, 'r') as f:
-                print('Was able to read file:')
-                lines = f.readlines()
-                print('Just read a line')
-                for char in lines:
-                    print('in upper for-loop')
-                    char = lines.split(" ")
-                    print('just split char:' + str(char))
-                    if i < self.height:
-                        print('i is less than height')
-                        if j < self.width:
-                            print('j is less than width')
-                            self.worldMap[i][j] = char
-                            j = j + 1
-                        else:
-                            print('j is not less than width')
-                            j = 0
-                            i = i + 1
+            readMapFile = open(mapFile, 'r')
+            readList = eval(readMapFile.read())
+            readMapFile.close()
+
+            
+
+            for count in range(len(readList)):
+                for details in range(len(readList[0])):
+                    self.worldMap[count][details] = readList[count][details]
+                
         except:
             print('Could not read file!')
             pass
