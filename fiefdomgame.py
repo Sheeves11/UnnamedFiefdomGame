@@ -209,7 +209,8 @@ while (loop):
 
         print('     On a hilltop overlooking endless rolling fields, you see the only home you have ever known.')
         print('     The Fiefdom is home to ' + textColor.WARNING +  str(userStronghold.defenders) + textColor.RESET + ' highly skilled warriors, and dozens of loyal citizens.')
-        print('\n     Do not let them down')
+        print('     You also employ the services of ' + textColor.WARNING +  str(userStronghold.thieves) + textColor.RESET + ' well-trained thieves.')
+        print('\n     Grow your forces to overcome the enemy. Do not let your citizens down')
         print('\n     Within your coffers, you have ' + textColor.WARNING + str(userStronghold.gold) + textColor.RESET + ' gold.')
         print('     ' + 'Production: ' + str(productionCalc) + ' gold and ' + str((int(defenderOutput) * int(attackFief.defenderMod))) + ' soldiers per hour.')
         print('     Your army of ' + textColor.WARNING + str(userStronghold.attType) + textColor.RESET + ' stands ready.')
@@ -235,17 +236,16 @@ while (loop):
                 ''')
 
         print("     Avalible Commands:")
-        print('     -------------------------------------')
-        print('     {1}: View Nearby Fiefdoms')
+        print('     -------------------------------------------------------')
+        print('     {1}: View Nearby Fiefdoms        {9}: Hire Thieves')
         print('     {2}: Hire Mercenaries')
-        #print('{3}: Upgrade Defense')
         print('     {3}: Upgrade Attack')
         print('     {4}: Garrison Soldiers')
         print('     {5}: About')
         print('     {6}: Upcoming Features')
         print('     {7}: Message Board')
         print('     {8}: View Past Winners')
-        print('     -------------------------------------')
+        print('     --------------------------------------------------------')
         print('\n')
         command = input("     Enter your command: ")
 
@@ -274,6 +274,9 @@ while (loop):
         if command == '8':
             screen = 'pastWinners'
 
+        if command == '9':
+            screen = 'thieves'
+        
         #The following commands are for testing only!
         if command == 'defaults':
             screen = 'createDefaults'
@@ -332,6 +335,72 @@ while (loop):
 
         tempInput = input('    Press Enter To Return To Stronghold\n    ')
         screen = 'stronghold'
+
+
+
+
+#This is the screen for purchacing soldiers
+#----------------------------------------------------------------------------------
+    if screen == "thieves":
+        #define the cost of a soldier here
+        thiefCost = 1000
+
+        os.system("clear")
+        header()
+
+        print('''
+            
+            
+            
+        As in all cities, your stronghold is home to a number of seedy characters who frequent the criminal underbelly
+        of society. For a price, they will be loyal to you.
+        
+        Thieves do not contribute to your gold production, but they can infilitrate other player strongholds
+        and return with stolen gold.
+        ''')
+
+        print('\n\n\n        You currently have ' + str(userStronghold.thieves) + ' thieves and ' +  str(userStronghold.gold) + ' gold.')
+
+        print('        You can hire thieves for ' + str(thiefCost) + ' gold each')
+
+        upgradeInput = input('\n        Enter the number of thieves you would like to hire: ')
+
+        try:
+            int(upgradeInput)
+        except:
+            upgradeInput = '0'
+
+        if int(upgradeInput) == 0:
+            print("        No changes were made!")
+
+        elif int(upgradeInput) < 0:
+            print("        You can't hire a negative number of thieves")
+
+        elif (int(upgradeInput) * thiefCost) <=  int(userStronghold.gold):
+            userStronghold.thieves = str(int(userStronghold.thieves) + int(upgradeInput))
+            userStronghold.gold = str(int(userStronghold.gold) - (thiefCost * int(upgradeInput)))
+            userStronghold.write()
+            userStronghold.read()
+
+        else:
+            print("        You need more gold first!")
+
+        print("\n\n\n\n\n\n\n\n\n")
+
+        print("        Avalible Commands:")
+        print('        -------------------------------------')
+        print('        {1}: Return to Stronghold')
+        print('        {2}: View Nearby Fiefdoms')
+        print('        -------------------------------------')
+        print('\n')
+        command = input("        Enter your command: ")
+
+        if command == "1":
+            screen = "stronghold"
+        if command == "2":
+            currentPage = 1
+            screen = "fiefdoms"
+
 
 #This is the screen for purchacing soldiers
 #----------------------------------------------------------------------------------
