@@ -1,6 +1,7 @@
 import os
 import time
 import random
+from worldmap import *
 
 #header() should be called on every page
 def header():
@@ -376,6 +377,73 @@ class Stronghold:
                 self.farmType = f.readline().strip()
                 self.thieves = f.readline().strip()
         except:
-            self.write()      
+            self.write()     
+            
+
+class Map:
+    name = 'default'
+    width = 40
+    height = 40
+    worldMap = []
+    
+    def initializeMap(self):
+        wMap = [['0' for x in range(self.width)] for y in range(self.height)]
+        return wMap
+
+    def write(self):
+        mapFile = 'map/' + self.name + '.txt'
+        
+        #this part creates a file if it isn't made yet. SW: This has not been tested.
+        try:
+            with open(mapFile, 'x') as f:
+                f.write(str("["))
+                for i in range(self.height):
+                    f.write(str("["))
+                    for j in range(self.width):
+                        if j < self.width - 1:
+                            f.write("'" + str(self.worldMap[i][j]) + "',")
+                        else:
+                            f.write("'" + str(self.worldMap[i][j]) + "'")
+                    if i < self.height - 1:
+                        f.write(str("],"))
+                    else:
+                        f.write(str("]"))
+                f.write(str("]"))
+        except:
+            pass
+
+        #write the class variables down line by line in the text file
+        try:
+            with open(mapFile, 'w') as f:
+                f.write(str("["))
+                for i in range(self.height):
+                    f.write(str("["))
+                    for j in range(self.width):
+                        if j < self.width - 1:
+                            f.write("'" + str(self.worldMap[i][j]) + "',")
+                        else:
+                            f.write("'" + str(self.worldMap[i][j]) + "'")
+                    if i < self.height - 1:
+                        f.write(str("],"))
+                    else:
+                        f.write(str("]"))
+                f.write(str("]"))
+        except:
+            pass
+
+    #read class variables line by line
+    def read(self):
+        mapFile = 'map/' + self.name + '.txt'
+        try:
+            readMapFile = open(mapFile, 'r')
+            readList = eval(readMapFile.read())
+            readMapFile.close()
+
+            for count in range(len(readList)):
+                self.worldMap.append(readList[count])
+
+        except:
+            print('Could not read file!')
+            pass
             
 #eof

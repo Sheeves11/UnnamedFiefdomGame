@@ -1,10 +1,24 @@
 import os
 import time
 import random
-from classes import *
 
 #This is a very early development build for a world map feature.
 #Not yet implemented!
+
+#Had to pull these out of classes to make stuff work! Temp fix!
+RED = '\033[91m'
+GREEN = '\033[92m'
+RESET = '\033[0m'
+DIM = '\033[2m'
+MAGENTA = '\033[95m'
+BLUE = '\033[94m'
+CYAN = '\033[96m'
+WARNING = '\033[93m'
+YELLOW = '\033[33m'
+DARK_GRAY = '\033[90m'
+LIGHT_GRAY = '\033[37m'
+BOLD = '\033[1m'
+UNDERLINE = '\033[4m'
 
 #Global variables
 MAP_WIDTH = 40
@@ -28,14 +42,14 @@ UNEXPLORED = '0'
 RANDOM = '*'
 
 #Map Icon Color
-IC_WATER = textColor.BLUE
-IC_RIVER = textColor.BLUE
-IC_MOUNTAIN = textColor.DARK_GRAY
-IC_PLAINS = textColor.YELLOW
-IC_FOREST = textColor.GREEN
-IC_FIEF = textColor.RED
-IC_STRONGHOLD = textColor.BOLD
-IC_UNEXPLORED = textColor.WARNING
+IC_WATER = BLUE
+IC_RIVER = BLUE
+IC_MOUNTAIN = DARK_GRAY
+IC_PLAINS = YELLOW
+IC_FOREST = GREEN
+IC_FIEF = RED
+IC_STRONGHOLD = BOLD
+IC_UNEXPLORED = WARNING
 
 #This is the primary function for generating a world map
 #Utilizes a passed 'seed' value that alters how the map is generated
@@ -65,7 +79,7 @@ def GenerateWorldMap(seed):
     #worldMap = [['0'] * MAP_WIDTH] * MAP_HEIGHT    #Change this later if we want to do small/medium/large map presets
     worldMap = [['0' for x in range(MAP_WIDTH)] for y in range(MAP_HEIGHT)]
 
-    seed = '00555' #ToDo: Make seed generator work
+    #seed = '00555' #ToDo: Make seed generator work
     sPosX = int(seed[0])
     sPosY = int(seed[1])
     freqMountain = int(seed[2])
@@ -111,7 +125,8 @@ def GenerateWorldMap(seed):
 #Prints out the map in a nicely spaced grid
     PrintColorMap(worldMap)
     print('\nFinished!\n')
-                    
+
+    return worldMap
       
 #Iterates through the map given the map itself and a set of 
 #values to determine what to write in the next position.
@@ -182,7 +197,14 @@ def PrintSurroundings(wMap, symb, posX, posY, freqM, freqP, freqF):
     surroundings = [dN, dNE, dE, dSE, dS, dSW, dW, dNW]
     
     print('Surroundings: ') 
-    print(*surroundings)
+
+    print('. . . . .')
+    print('. ' + dNW + dN + dNE + ' .')
+    print('. ' + dW + ' ' + dE + ' .')
+    print('. ' + dSW + dS + dSE + ' .')
+    print('. . . . .')
+    
+    # print(*surroundings)
     #Define a list of weight totals for each:
     weights = [0, 0, 0, 0, 0, 0, 0, 0]
     index = 0
@@ -239,6 +261,110 @@ def PrintSurroundings(wMap, symb, posX, posY, freqM, freqP, freqF):
 
     return newPoint
 
+
+#Does the same thing as GenerateWordlMap but with no prints
+def QuietlyGenerateWorldMap(seed):
+    #worldMap = [['0'] * MAP_WIDTH] * MAP_HEIGHT    #Change this later if we want to do small/medium/large map presets
+    worldMap = [['0' for x in range(MAP_WIDTH)] for y in range(MAP_HEIGHT)]
+    sPosX = int(seed[0])
+    sPosY = int(seed[1])
+    freqMountain = int(seed[2])
+    freqPlains = int(seed[3])
+    freqForest = int(seed[4])
+    
+    loop = True
+    firstLoop = True
+    #This algorithm may be improvable. Has time-complexity O(n^2)!
+    while (loop):                                   #This should keep going until the map is filled
+        if firstLoop:                               #First check if this is the first loop
+            for y in range(MAP_HEIGHT):
+                #print('Pos y: ' + str(y))
+                for x in range(MAP_WIDTH):
+                    #print('Pos x: ' + str(x))
+               
+                    worldMap[y][x] = DefineSurroundings(worldMap, x, y, freqMountain, freqPlains, freqForest)
+
+            firstLoop = False
+        loop = False
+    return worldMap
+
+#Does the same thing as PrintSurroundings but with no prints
+def DefineSurroundings(wMap, posX, posY, freqM, freqP, freqF):
+    try:
+        dN = wMap[posY - 1][posX]
+    except:
+        dN = ' '
+    try:
+        dNE = wMap[posY - 1][posX + 1]
+    except:
+        dNE = ' '
+    try:
+        dE = wMap[posY][posX + 1]
+    except:
+        dE = ' '
+    try:
+        dSE = wMap[posY + 1][posX + 1]
+    except:
+        dSE = ' '
+    try:
+        dS = wMap[posY + 1][posX]
+    except:
+        dS = ' '
+    try:
+        dSW = wMap[posY + 1][posX - 1]
+    except:
+        dSW = ' '
+    try:
+        dW = wMap[posY][posX - 1]
+    except:
+        dW = ' '
+    try:
+        dNW = wMap[posY - 1][posX - 1]
+    except:
+        dNW = ' '
+
+    #Define a list using the surrounding symbols:
+    surroundings = [dN, dNE, dE, dSE, dS, dSW, dW, dNW]
+    
+    #Define a list of weight totals for each:
+    weights = [0, 0, 0, 0, 0, 0, 0, 0]
+    index = 0
+
+    #Calculate the weight totals:
+    for i in surroundings:
+        if i == UNEXPLORED:
+            weights[index] = 0
+        elif i == EMPTY:
+            weights[index] = 0
+        elif i == WATER:
+            weights[index] = 10
+        elif i == RIVER:
+            weights[index] = 10
+        elif i == FOREST:
+            weights[index] = freqF * WEIGHT_INTENSITY
+        elif i == PLAINS:
+            weights[index] = freqP * WEIGHT_INTENSITY
+        elif i == MOUNTAIN:
+            weights[index] =  freqM * WEIGHT_INTENSITY
+        elif i == FIEF:
+            weights[index] = 0
+        elif i == STRONGHOLD:
+            weights[index] = 0
+        index = index + 1
+
+    #Define a combined list of symbols and weights:
+    symbolTable = [(dN,weights[0]),(dNE,weights[1]),(dE,weights[2]),(dSE,weights[3]),(dS,weights[4]),(dSW,weights[5]),(dW,weights[6]),(dNW,weights[7]), (RANDOM,RANDOM_INTENSITY)]
+
+    pointTable = []
+    for item, weight in symbolTable:
+        pointTable.extend([item]*weight)
+    newPoint = random.choice(pointTable)
+
+    if newPoint == RANDOM:
+        newPoint = GetRandomPoint()
+
+    return newPoint
+
 def GetRandomPoint():
     symbolTable = [(WATER, DEFAULT_WEIGHT),(FOREST, DEFAULT_WEIGHT), (PLAINS, DEFAULT_WEIGHT), (MOUNTAIN, DEFAULT_WEIGHT)]
     pointTable = []
@@ -250,7 +376,7 @@ def GeneratePrintMap(wMap, posX, posY):
     for i in range(MAP_HEIGHT):
         for j in range(MAP_WIDTH):
             if i == posY and j == posX:
-                print(textColor.CYAN + wMap[i][j] + textColor.RESET, end=" ")
+                print(CYAN + wMap[i][j] + RESET, end=" ")
             else:
                 print(wMap[i][j], end=" ")
         print('')
@@ -261,27 +387,27 @@ def PrintColorMap(wMap):
         for j in range(MAP_WIDTH):
             symbol = wMap[i][j]
             if symbol == UNEXPLORED:
-                print(IC_UNEXPLORED + symbol + textColor.RESET, end=" ")
+                print(IC_UNEXPLORED + symbol + RESET, end=" ")
             elif symbol == EMPTY:
                 print(symbol, end=" ")
             elif symbol == WATER:
-                print(IC_WATER + symbol + textColor.RESET, end=" ")
+                print(IC_WATER + symbol + RESET, end=" ")
             elif symbol == RIVER:
-                print(IC_RIVER + symbol + textColor.RESET, end=" ")
+                print(IC_RIVER + symbol + RESET, end=" ")
             elif symbol == FOREST:
-                print(IC_FOREST + symbol + textColor.RESET, end=" ")
+                print(IC_FOREST + symbol + RESET, end=" ")
             elif symbol == PLAINS:
-                print(IC_PLAINS + symbol + textColor.RESET, end=" ")
+                print(IC_PLAINS + symbol + RESET, end=" ")
             elif symbol == MOUNTAIN:
-                print(IC_MOUNTAIN + symbol + textColor.RESET, end=" ")
+                print(IC_MOUNTAIN + symbol + RESET, end=" ")
             elif symbol == FIEF:
-                print(IC_FIEF + symbol + textColor.RESET, end=" ")
+                print(IC_FIEF + symbol + RESET, end=" ")
             elif symbol == STRONGHOLD:
-                print(IC_STRONGHOLD + symbol + textColor.RESET, end=" ")
+                print(IC_STRONGHOLD + symbol + RESET, end=" ")
         print('')
 
 #To Do: Write this function
-def GenerateRandomSeed():
-    print('\nThis does nothing!\n')
+def GenerateSeed():
+    return('00555')
 
 #eof
