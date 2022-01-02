@@ -406,7 +406,10 @@ class Map:
             with open(mapFile, 'r') as f:
                 for i in range(self.height):
                     for j in range(self.width):
-                        self.worldMap[i][j] = f.read(1)
+                        c = f.read(1)
+                        self.worldMap[i][j] = c
+                        print(c)
+                    print('\n')
 
         except:
             self.write()
