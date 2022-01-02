@@ -1,15 +1,14 @@
 import os
 import time
 import random
-from array import *
 from classes import *
 
 #This is a very early development build for a world map feature.
 #Not yet implemented!
 
 #Global variables
-MAP_WIDTH = 20
-MAP_HEIGHT = 20
+MAP_WIDTH = 40
+MAP_HEIGHT = 40
 DEFAULT_WEIGHT = 10     #A common weight total
 WEIGHT_INTENSITY = 5    #Higher the number, the more focused the map will be
 RANDOM_INTENSITY = 20   #Higher the number, the more chaotic the map will be
@@ -37,19 +36,6 @@ IC_FOREST = textColor.GREEN
 IC_FIEF = textColor.RED
 IC_STRONGHOLD = textColor.BOLD
 IC_UNEXPLORED = textColor.WARNING
-
-#Manually inserted map-grid for visualizing. It is 20x8
-def ManualWorldMapSizeTest():
-    print('''
-        ~~~~~~~~~~~~~~~~~~~~
-        ~~~##############~~~
-        ~~####^##X#M##H###~~
-        ~####^X^##MMM######~
-        ~##^^^^^###|####X##~
-        ~~###^^##X##|#####~~
-        ~~~##########|###~~~
-        ~~~~~~~~~~~~~~~~~~~~
-    ''')
 
 #This is the primary function for generating a world map
 #Utilizes a passed 'seed' value that alters how the map is generated
@@ -126,8 +112,7 @@ def GenerateWorldMap(seed):
     PrintColorMap(worldMap)
     print('\nFinished!\n')
                     
-       
-
+      
 #Iterates through the map given the map itself and a set of 
 #values to determine what to write in the next position.
 #ToDo I don't think symb is actually necessary, as it is just the last
