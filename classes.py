@@ -412,8 +412,8 @@ class Map:
                 lines = f.readlines()
                 for char in lines:
                     char = lines.split(",")
-                    if i < height:
-                        if j < width:
+                    if i < self.height:
+                        if j < self.width:
                             self.worldMap[i][j] = char
                             j = j + 1
                         else:
