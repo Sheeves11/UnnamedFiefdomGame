@@ -65,7 +65,7 @@ def GenerateWorldMap(seed):
     #worldMap = [['0'] * MAP_WIDTH] * MAP_HEIGHT    #Change this later if we want to do small/medium/large map presets
     worldMap = [['0' for x in range(MAP_WIDTH)] for y in range(MAP_HEIGHT)]
 
-    seed = '00555' #ToDo: Make seed generator work
+    #seed = '00555' #ToDo: Make seed generator work
     sPosX = int(seed[0])
     sPosY = int(seed[1])
     freqMountain = int(seed[2])
@@ -282,6 +282,6 @@ def PrintColorMap(wMap):
 
 #To Do: Write this function
 def GenerateRandomSeed():
-    print('\nThis does nothing!\n')
+    return('00555')
 
 #eof

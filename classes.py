@@ -1,6 +1,7 @@
 import os
 import time
 import random
+from worldmap import *
 
 #header() should be called on every page
 def header():
@@ -368,6 +369,41 @@ class Stronghold:
                 self.defenderMod = f.readline().strip()
                 self.farmType = f.readline().strip()
         except:
-            self.write()      
+            self.write()     
+            
+
+class WorldMap:
+    seed = GenerateSeed()
+    worldMap = GenerateWorldMap()
+
+    def write(self):
+        mapFile = 'worldmap/' + self.name + '.txt'
+        
+        #this part creates a file if it isn't made yet        
+        try:
+            with open(mapFile, 'x') as f:
+                f.write(str(self.seed) + '\n')
+                f.write(str(self.worldMap) + '\n')
+        except:
+            pass
+
+        #write the class variables down line by line in the text file
+        try:
+            with open(mapFile, 'w') as f:
+                f.write(str(self.seed) + '\n')
+                f.write(str(self.worldMap) + '\n')
+        except:
+            pass
+
+    #read class variables line by line
+    def read(self):
+        mapFile = 'worldmap/' + self.name + '.txt'
+        try:
+            with open(mapFile, 'r') as f:
+                self.seed = f.readline().strip()
+                self.worldMap = f.readline().strip()
+
+        except:
+            self.write()
             
 #eof

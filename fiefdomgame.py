@@ -2,7 +2,7 @@ import os
 import time
 import random
 from classes import *
-from worldmap import *
+#from worldmap import *
 
 '''
 
@@ -1514,8 +1514,10 @@ while (loop):
 
         os.system("clear")
 
-        seed = '00555'  #Should be generated instead later
-        GenerateWorldMap(seed)
+        #seed = GenerateSeed()
+        #GenerateWorldMap(seed)
+
+        worldMap = WorldMap()
 
         time.sleep(2)
         nothing = input('Continue:')
