@@ -372,7 +372,7 @@ class Stronghold:
             self.write()     
             
 
-class WorldMap:
+class Map:
     seed = GenerateSeed()
     worldMap = GenerateWorldMap()
 
