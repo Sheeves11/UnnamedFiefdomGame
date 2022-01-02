@@ -402,13 +402,8 @@ class Map:
             with open(mapFile, 'w') as f:
                 f.write(str(self.seed) + '\n')
                 for i in range(height):
-                    f.write(str('['))
                     for j in range(width):
-                        if j < width:
-                            f.write(str(self.worldMap[i][j] + ','))
-                        else:
-                            f.write(str(self.worldMap[i][j]))
-                    f.write(str(']\n'))
+                        f.write(self.worldMap[i][j])
         except:
             pass
 
