@@ -1577,6 +1577,7 @@ while (loop):
         print('-------------------------------------')
         print('{1}: Return to Stronghold')
         print('{2}: View Nearby Fiefdoms')
+        print('{3}: Send Thieves To Steal Gold')
         print('-------------------------------------')
         print('\n')
 
@@ -1588,6 +1589,54 @@ while (loop):
         if command == "2":
             currentPage = 1
             screen = "fiefdoms"
+
+        if command == "3":
+            screen = "thiefPage"
+
+
+#This is the theif attack page, which you will see when trying
+#to steal gold from another player
+#
+#------------------------------------------------------------------------------
+    if screen == "thiefPage":
+        os.system("clear")
+        header()
+
+        #this is where the battle logic happens!
+        print('\n\nThis battle is between ' + attackStronghold.name + ' and ' + userStronghold.name)
+        print('\n\nSimulating Battle...')
+        time.sleep(1)
+        print('\n...\n')
+        time.sleep(1)
+
+        attackers = userStronghold.thieves
+        goldToSteal = attackStronghold.gold
+
+        attackLosses = 0
+
+        print('Thieves Attacking: ' + str(attackers))
+        print('Defending Stronghold: ' + attackStronghold.name)
+        print('Attacking Stronghold: ' + str(userStronghold.name))
+        print('Potential Gold To Be Stolen: ' + str(attackStronghold.gold))
+        print('Defenders: ' + str(attackStronghold.defenders))
+        print('\n\nThief Logic Time: ')
+        
+        thiefChance = 0
+        thiefChance = (int(attackStronghold.defenders) // 10) // int(attackers)
+
+        print('Percent Chance of Success: ' + str(thiefChance))
+
+
+
+        tempInput = input('Press Enter To Continue: ')
+        screen = "strongholds"
+
+
+
+
+
+
+
 
 
 #The "battle" page simulates a battle between two Fiefdoms. This is currently the most
