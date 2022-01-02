@@ -415,28 +415,18 @@ class Map:
     #read class variables line by line
     def read(self):
         mapFile = 'map/' + self.name + '.txt'
-        tempMap = [['0' for x in range(self.width)] for y in range(self.height)]
-        #print('self.width is: ' + str(self.width) + 'self.height is: ' + str(self.height))
-        success = False
+        # tempMap = [['0' for x in range(self.width)] for y in range(self.height)]
+        #success = False
         try:
-            #print('Trying to read the file')
             readMapFile = open(mapFile, 'r')
-            #print('File has been read, trying to make readList:')
             readList = eval(readMapFile.read())
-            #print('Readlist has been evaluated and read. Closing readMapFile:')
             readMapFile.close()
-            #print('readMapFile Closed.')
-            
-            #print('Counting through readList:')
+
             for count in range(len(readList)):
-                #print('For count in range len(readList)')
-                for details in range(len(readList[0])):
-                    #print('For details in range readlist[0]')
-                    #print('count is: ' + str(count) + 'details is: ' + str(details))
-                    #print('trying to set world map to be ' + str(readList[count][details]))
-                    tempMap[count][details] = readList[count][details]
-                    #print('now world map is: ' + str(tempMap[count][details]))
-            success = True
+                self.worldMap.append(readList[count])
+                #for details in range(len(readList[0])):
+                    #tempMap[count][details] = readList[count][details]
+            #success = True
                 
         except:
             print('Could not read file!')
@@ -445,11 +435,6 @@ class Map:
         # if success:
         #     print('successful!')
         #     for y in range(self.height):
-        #         for x in range(self.width):
-        #             self.worldMap[y][x] = tempMap[y][x]
-        if success:
-            print('successful!')
-            for y in range(self.height):
-                self.worldMap.append(tempMap[y])
+        #         self.worldMap.append(tempMap[y])
             
 #eof

@@ -1476,12 +1476,13 @@ while (loop):
         os.system("clear")
         serverMap.name = "serverMap"
         serverMap.read()
-        print('Printing what the world map looks like after read:')
-        print(str(serverMap.worldMap))
-        print('Attempting to print color map:\n')
+        # print('Printing what the world map looks like after read:')
+        # print(str(serverMap.worldMap))
+        # print('Attempting to print color map:\n')
+        print('World Map: \n')
         PrintColorMap(serverMap.worldMap)
-
-        time.sleep(2)
+        print('')
+        time.sleep(1)
         nothing = input('Continue:')
 
         screen = 'stronghold'
