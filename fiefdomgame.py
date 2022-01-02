@@ -39,6 +39,7 @@ os.system("clear")
 #create some default objects that we'll write over later
 attackFief = Fiefdom()
 userStronghold = Stronghold()
+serverMap = Map()
 
 #this begins the main game loop
 #------------------------------------------------------------------------------
@@ -1517,11 +1518,11 @@ while (loop):
         #seed = GenerateSeed()
         #GenerateWorldMap(seed)
 
-        serverMap = Map()
-
-        serverMap.name = 'serverMap'
-       
         serverMap.read()
+        serverMap.name = 'serverMap'
+        serverMap.seed = '00666'
+        serverMap.worldMap = QuietlyGenerateWorldMap(serverMap.seed)
+        serverMap.write()
 
         
         #print(serverMap.seed)
@@ -1529,7 +1530,7 @@ while (loop):
         PrintColorMap(serverMap.worldMap)
         #print(serverMap.worldMap)
 
-        serverMap.write()
+        
         time.sleep(2)
         nothing = input('Continue:')
 

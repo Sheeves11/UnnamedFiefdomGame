@@ -374,8 +374,8 @@ class Stronghold:
 
 class Map:
     name = 'serverMap'
-    seed = GenerateSeed()
-    worldMap = QuietlyGenerateWorldMap(seed)
+    seed = '00555'
+    worldMap = []
 
     def write(self):
         fiefFile = 'map/' + self.name + '.txt'
