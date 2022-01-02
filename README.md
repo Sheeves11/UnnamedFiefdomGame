@@ -36,8 +36,8 @@ Your goal is to control as many fiefdoms as you can manage without spreading you
 Your home stronghold will never fall, but any conquered fiefdoms can be taken by opposing players. Make sure you can defend the
 territory you claim!
 
-Each claimed fiefdom will generate 100 gold per hour. That gold can be spent on defense and attack upgrades as well as
-additional soldiers.
+Each claimed fiefdom will generate gold depending on the number of soldiers stationed there. That gold can be spent on defense and attack 
+upgrades as well as additional soldiers.
 
 Upgrade your conqured fiefdoms to keep them safe! Be careful though. Any upgraded fiefdom can still be taken, and 
 your upgrades will transfer to the new ruler.
@@ -47,7 +47,7 @@ your upgrades will transfer to the new ruler.
 Hosting Server Installation Info:
 
 I use a development server running Ubuntu Server 18.03 and Python 3.6. You will also need to install gotty and a GO development environment 
-before running the game.
+before running the game. You will also need the python package bcrypt for password encryption. Install it with the following command: (pip3 install py-bcrypt)
 
 More information about goTTY can be had here: https://github.com/yudai/gotty
 
@@ -66,6 +66,10 @@ In your player's browser, connect using the server's IP address. For example:
 
 http://10.4.40.15
 
+(you may need to use tools like SCREEN to disown these processes if you are working via SSH sessions)
+
+You will then need to seed some starting fiefdoms using the fieftool.py program.
+
 -----------------------------------------------------------------------------------------------------------------
 
-Enjoy! (More details coming soon!)
+Enjoy!
