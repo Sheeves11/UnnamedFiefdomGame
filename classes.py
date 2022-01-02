@@ -399,8 +399,11 @@ class Map:
                         if j < self.width:
                             f.write("'" + str(self.worldMap[i][j]) + "',")
                         else:
-                            f.write(str(self.worldMap[i][j]))
-                    f.write(str("]"))
+                            f.write("'" + str(self.worldMap[i][j]) + "'")
+                    if i < self.height:
+                        f.write(str("],"))
+                    else:
+                        f.write(str("]"))
                 f.write(str("]"))
                     #f.write(str('\n'))
         except:
