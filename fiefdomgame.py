@@ -1471,7 +1471,8 @@ while (loop):
             currentPage = 1
             screen = "fiefdoms"
 
-    if screen = "viewMap":
+#This page is just a color printing of the current server map
+    if screen == "viewMap":
         os.system("clear")
         serverMap.read()
         PrintColorMap(serverMap.worldMap)
