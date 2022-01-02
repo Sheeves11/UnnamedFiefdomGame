@@ -9,7 +9,7 @@ def header():
 -=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=--=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-
                                              UNNAMED FIEFDOM GAME
 -=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=--=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-'''
-    + textColor.WARNING + '\n                          Announcement: Season 1 will begin on December 20th, 2021!'
+    + textColor.WARNING + '\n            Announcement: The Pre-Release has concluded! Congrats Steelwing! || Season 1 begins on 1/3/2021!'
     + textColor.RESET)
 
 #this is the d20 roll function
@@ -233,6 +233,7 @@ class Fiefdom:
     goldMod = '1'
     defenderMod = '1'
     farmType = "Dirt Patch"
+    thieves = 0
 
     #take the current fiefdom and write it to the /fiefs directory
     def write(self):
@@ -254,6 +255,7 @@ class Fiefdom:
                 f.write(str(self.goldMod) + '\n')
                 f.write(str(self.defenderMod) + '\n')
                 f.write(str(self.farmType) + '\n')
+                f.write(str(self.thieves) + '\n')
         except:
             pass
 
@@ -272,6 +274,7 @@ class Fiefdom:
                 f.write(str(self.goldMod) + '\n')
                 f.write(str(self.defenderMod) + '\n')
                 f.write(str(self.farmType) + '\n')
+                f.write(str(self.thieves) + '\n')
         except:
             pass
 
@@ -292,6 +295,7 @@ class Fiefdom:
                 self.goldMod = f.readline().strip()
                 self.defenderMod = f.readline().strip()
                 self.farmType = f.readline().strip()
+                self.thieves = f.readline().strip()
         except:
             self.write()   
             
@@ -309,6 +313,7 @@ class Stronghold:
     goldMod = '1'
     defenderMod = '1'
     farmType = "Dirt Patch"
+    thieves = 0
 
     #take the current stronghold and write it to the /strongholds directory
     def write(self):
@@ -330,6 +335,7 @@ class Stronghold:
                 f.write(str(self.goldMod) + '\n')
                 f.write(str(self.defenderMod) + '\n')
                 f.write(str(self.farmType) + '\n')
+                f.write(str(self.thieves) + '\n')
         except:
             pass
 
@@ -348,6 +354,7 @@ class Stronghold:
                 f.write(str(self.goldMod) + '\n')
                 f.write(str(self.defenderMod) + '\n')
                 f.write(str(self.farmType) + '\n')
+                f.write(str(self.thieves) + '\n')
         except:
             pass
 
@@ -368,6 +375,7 @@ class Stronghold:
                 self.goldMod = f.readline().strip()
                 self.defenderMod = f.readline().strip()
                 self.farmType = f.readline().strip()
+                self.thieves = f.readline().strip()
         except:
             self.write()     
             
