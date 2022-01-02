@@ -21,7 +21,25 @@ answer = input('Would you like to wipe the server and all user data? (y/n)\n')
 
 if answer == 'y':
     print('Deleting all text files...\n\n')
-    os.system("rm *.txt")
+
+    dir_name = "/fiefs"
+    test = os.listdir(dir_name)
+    for item in test:
+        if item.endswith(".txt"):
+            os.remove(os.path.join(dir_name, item))
+
+    dir_name = "/users"
+    test = os.listdir(dir_name)
+    for item in test:
+        if item.endswith(".txt"):
+            os.remove(os.path.join(dir_name, item))
+
+    dir_name = "/strongholds"
+    test = os.listdir(dir_name)
+    for item in test:
+        if item.endswith(".txt"):
+            os.remove(os.path.join(dir_name, item))
+
     print('Delete Complete\n\n')
     throwaway = input('Press Enter To Contiue:\n')
     pass
