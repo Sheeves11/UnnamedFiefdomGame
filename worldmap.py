@@ -125,36 +125,6 @@ def GenerateWorldMap(seed):
 #Prints out the map in a nicely spaced grid
     PrintColorMap(worldMap)
     print('\nFinished!\n')
-
-#Does the same thing as GenerateWordlMap but with no prints
-def QuietlyGenerateWorldMap(seed):
-    #worldMap = [['0'] * MAP_WIDTH] * MAP_HEIGHT    #Change this later if we want to do small/medium/large map presets
-    worldMap = [['0' for x in range(MAP_WIDTH)] for y in range(MAP_HEIGHT)]
-    sPosX = int(seed[0])
-    sPosY = int(seed[1])
-    freqMountain = int(seed[2])
-    freqPlains = int(seed[3])
-    freqForest = int(seed[4])
-
-    symbol = FIEF
-    
-    loop = True
-    firstLoop = True
-    #This algorithm may be improvable. Has time-complexity O(n^2)!
-    while (loop):                                   #This should keep going until the map is filled
-        if firstLoop:                               #First check if this is the first loop
-            for y in range(MAP_HEIGHT):
-                #print('Pos y: ' + str(y))
-                for x in range(MAP_WIDTH):
-                    #print('Pos x: ' + str(x))
-               
-                    temp = PrintSurroundings(worldMap, symbol, x, y, freqMountain, freqPlains, freqForest)
-                    symbol = temp
-
-                    worldMap[y][x] = symbol
-            firstLoop = False
-        loop = False
-    return worldMap
       
 #Iterates through the map given the map itself and a set of 
 #values to determine what to write in the next position.
@@ -283,7 +253,34 @@ def PrintSurroundings(wMap, symb, posX, posY, freqM, freqP, freqF):
     return newPoint
 
 
-def DefineSurroundings(wMap, symb, posX, posY, freqM, freqP, freqF):
+#Does the same thing as GenerateWordlMap but with no prints
+def QuietlyGenerateWorldMap(seed):
+    #worldMap = [['0'] * MAP_WIDTH] * MAP_HEIGHT    #Change this later if we want to do small/medium/large map presets
+    worldMap = [['0' for x in range(MAP_WIDTH)] for y in range(MAP_HEIGHT)]
+    sPosX = int(seed[0])
+    sPosY = int(seed[1])
+    freqMountain = int(seed[2])
+    freqPlains = int(seed[3])
+    freqForest = int(seed[4])
+    
+    loop = True
+    firstLoop = True
+    #This algorithm may be improvable. Has time-complexity O(n^2)!
+    while (loop):                                   #This should keep going until the map is filled
+        if firstLoop:                               #First check if this is the first loop
+            for y in range(MAP_HEIGHT):
+                #print('Pos y: ' + str(y))
+                for x in range(MAP_WIDTH):
+                    #print('Pos x: ' + str(x))
+               
+                    worldMap[y][x] = DefineSurroundings(worldMap, x, y, freqMountain, freqPlains, freqForest)
+
+            firstLoop = False
+        loop = False
+    return worldMap
+
+#Does the same thing as PrintSurroundings but with no prints
+def DefineSurroundings(wMap, posX, posY, freqM, freqP, freqF):
     try:
         dN = wMap[posY - 1][posX]
     except:
