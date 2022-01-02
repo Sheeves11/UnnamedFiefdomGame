@@ -394,7 +394,7 @@ class Map:
             with open(mapFile, 'w') as f:
                 for i in range(self.height):
                     for j in range(self.width):
-                        f.write(str(self.worldMap[i][j]) + ",")
+                        f.write(str(self.worldMap[i][j]) + " ")
                     #f.write(str('\n'))
         except:
             pass
@@ -412,7 +412,7 @@ class Map:
                 print('Just read a line')
                 for char in lines:
                     print('in upper for-loop')
-                    char = lines.split(",")
+                    char = lines.split(" ")
                     print('just split char:' + str(char))
                     if i < self.height:
                         print('i is less than height')
