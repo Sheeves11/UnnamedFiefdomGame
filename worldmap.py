@@ -264,7 +264,7 @@ def GeneratePrintMap(wMap, posX, posY):
     for i in range(MAP_HEIGHT):
         for j in range(MAP_WIDTH):
             if i == posY and j == posX:
-                print(textColor.CYAN + wMap[i][j] + textColor.RESET, end=" ")
+                print(CYAN + wMap[i][j] + RESET, end=" ")
             else:
                 print(wMap[i][j], end=" ")
         print('')
@@ -275,23 +275,23 @@ def PrintColorMap(wMap):
         for j in range(MAP_WIDTH):
             symbol = wMap[i][j]
             if symbol == UNEXPLORED:
-                print(IC_UNEXPLORED + symbol + textColor.RESET, end=" ")
+                print(IC_UNEXPLORED + symbol + RESET, end=" ")
             elif symbol == EMPTY:
                 print(symbol, end=" ")
             elif symbol == WATER:
-                print(IC_WATER + symbol + textColor.RESET, end=" ")
+                print(IC_WATER + symbol + RESET, end=" ")
             elif symbol == RIVER:
-                print(IC_RIVER + symbol + textColor.RESET, end=" ")
+                print(IC_RIVER + symbol + RESET, end=" ")
             elif symbol == FOREST:
-                print(IC_FOREST + symbol + textColor.RESET, end=" ")
+                print(IC_FOREST + symbol + RESET, end=" ")
             elif symbol == PLAINS:
-                print(IC_PLAINS + symbol + textColor.RESET, end=" ")
+                print(IC_PLAINS + symbol + RESET, end=" ")
             elif symbol == MOUNTAIN:
-                print(IC_MOUNTAIN + symbol + textColor.RESET, end=" ")
+                print(IC_MOUNTAIN + symbol + RESET, end=" ")
             elif symbol == FIEF:
-                print(IC_FIEF + symbol + textColor.RESET, end=" ")
+                print(IC_FIEF + symbol + RESET, end=" ")
             elif symbol == STRONGHOLD:
-                print(IC_STRONGHOLD + symbol + textColor.RESET, end=" ")
+                print(IC_STRONGHOLD + symbol + RESET, end=" ")
         print('')
 
 #To Do: Write this function
