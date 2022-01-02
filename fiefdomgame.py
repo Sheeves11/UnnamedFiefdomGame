@@ -1520,14 +1520,16 @@ while (loop):
         serverMap = Map()
 
         serverMap.name = 'serverMap'
-
+       
         serverMap.read()
 
+        
         #print(serverMap.seed)
         print('\n')
         PrintColorMap(serverMap.worldMap)
         #print(serverMap.worldMap)
 
+        serverMap.write()
         time.sleep(2)
         nothing = input('Continue:')
 
