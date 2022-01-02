@@ -1523,7 +1523,7 @@ while (loop):
         os.system("clear")
 
         seed = '00555'  #Should be generated instead later
-        WorldMap(seed)
+        GenerateWorldMap(seed)
 
         time.sleep(2)
         nothing = input('Continue:')
