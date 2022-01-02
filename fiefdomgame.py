@@ -310,7 +310,7 @@ while (loop):
         os.system("clear")
         header()
 
-        print('You currently have ' + userStronghold.defenders + ' soldiers and ' +  userStronghold.gold + ' gold.')
+        print('You currently have ' + str(userStronghold.defenders) + ' soldiers and ' +  str(userStronghold.gold) + ' gold.')
 
         print('You can hire mercinaries for ' + str(mercCost) + ' gold each?')
 
