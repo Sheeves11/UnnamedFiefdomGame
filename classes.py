@@ -374,7 +374,7 @@ class Stronghold:
 
 class Map:
     seed = GenerateSeed()
-    worldMap = GenerateWorldMap()
+    worldMap = GenerateWorldMap(seed)
 
     def write(self):
         mapFile = 'worldmap/' + self.name + '.txt'
