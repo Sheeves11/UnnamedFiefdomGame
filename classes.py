@@ -383,19 +383,12 @@ class Map:
         mapFile = 'map/' + self.name + '.txt'
         
         #this part creates a file if it isn't made yet        
-  #      try:
-  #          with open(mapFile, 'x') as f:
-  #              f.write(str(self.seed) + '\n')
-  #              for i in range(height):
-  #                  f.write(str('['))
-  #                  for j in range(width):
-  #                      if j < width:
-  #                          f.write(str(self.worldMap[i][j] + ','))
-  #                      else:
-  #                          f.write(str(self.worldMap[i][j]))
-  #                  f.write(str(']\n'))
-  #      except:
-  #          pass
+        try:
+            with open(mapFile, 'x') as f:
+                f.write(str(self.seed) + '\n')
+                    f.write(self.worldMap)
+        except:
+            pass
 
         #write the class variables down line by line in the text file
         try:
