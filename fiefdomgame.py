@@ -285,7 +285,7 @@ while (loop):
                 log.write(userStronghold.name + ': ' + str(tempMessage) + '\n')
 
             #refresh this page
-            screen = 'stronghold'
+            screen = 'board'
             
 # This is the screen for displaying past winners. Update it whenever we have a new winner
 #----------------------------------------------------------------------------------
@@ -298,7 +298,7 @@ while (loop):
         print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
 
         tempInput = input('    Press Enter To Return To Stronghold\n    ')
-        screen = 'board'
+        screen = 'stronghold'
  
 #This is the screen for purchacing soldiers
 #----------------------------------------------------------------------------------
