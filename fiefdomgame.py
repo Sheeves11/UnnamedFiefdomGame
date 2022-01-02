@@ -1534,7 +1534,6 @@ while (loop):
         #seed = GenerateSeed()
         #GenerateWorldMap(seed)
 
-        serverMap.read()
         serverMap.name = 'serverMap'
         serverMap.seed = '00666'
         serverMap.worldMap = GenerateWorldMap(serverMap.seed)
