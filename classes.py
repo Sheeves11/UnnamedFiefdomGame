@@ -374,7 +374,6 @@ class Stronghold:
 
 class Map:
     name = 'default'
-    seed = '00000'
     weight = 40
     height = 40
     worldMap = []
@@ -385,7 +384,6 @@ class Map:
         #this part creates a file if it isn't made yet        
         try:
             with open(mapFile, 'x') as f:
-                f.write(str(self.seed) + '\n')
                 f.write(str(self.worldMap) + '\n')
         except:
             pass
@@ -393,7 +391,6 @@ class Map:
         #write the class variables down line by line in the text file
         try:
             with open(mapFile, 'w') as f:
-                f.write(str(self.seed) + '\n')
                 for i in range(self.height):
                     for j in range(self.width):
                         f.write(str(self.worldMap[i][j]))
@@ -405,11 +402,15 @@ class Map:
     def read(self):
         mapFile = 'map/' + self.name + '.txt'
         try:
+            i = 0
+            j = 0
             with open(mapFile, 'r') as f:
-                self.seed = f.readline().strip()
                 for line in f:
+                    j = 0
                     for ch in line:
                         self.worldMap[i][j] = ch
+                        j = j + 1
+                    i = i + 1
 
         except:
             self.write()
