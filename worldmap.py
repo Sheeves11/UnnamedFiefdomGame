@@ -125,7 +125,36 @@ def GenerateWorldMap(seed):
 #Prints out the map in a nicely spaced grid
     PrintColorMap(worldMap)
     print('\nFinished!\n')
-                    
+
+#Does the same thing as GenerateWordlMap but with no prints
+def QuietlyGenerateWorldMap(seed):
+    #worldMap = [['0'] * MAP_WIDTH] * MAP_HEIGHT    #Change this later if we want to do small/medium/large map presets
+    worldMap = [['0' for x in range(MAP_WIDTH)] for y in range(MAP_HEIGHT)]
+    sPosX = int(seed[0])
+    sPosY = int(seed[1])
+    freqMountain = int(seed[2])
+    freqPlains = int(seed[3])
+    freqForest = int(seed[4])
+
+    symbol = FIEF
+    
+    loop = True
+    firstLoop = True
+    #This algorithm may be improvable. Has time-complexity O(n^2)!
+    while (loop):                                   #This should keep going until the map is filled
+        if firstLoop:                               #First check if this is the first loop
+            for y in range(MAP_HEIGHT):
+                #print('Pos y: ' + str(y))
+                for x in range(MAP_WIDTH):
+                    #print('Pos x: ' + str(x))
+               
+                    temp = PrintSurroundings(worldMap, symbol, x, y, freqMountain, freqPlains, freqForest)
+                    symbol = temp
+
+                    worldMap[y][x] = symbol
+            firstLoop = False
+        loop = False
+    return worldMap
       
 #Iterates through the map given the map itself and a set of 
 #values to determine what to write in the next position.
@@ -250,6 +279,83 @@ def PrintSurroundings(wMap, symb, posX, posY, freqM, freqP, freqF):
                 userInput=input('Would you like to instantly generate this map? (y/n)')
                 if userInput == 'y':
                     INSTANTLY_GENERATE = True
+
+    return newPoint
+
+
+def DefineSurroundings(wMap, symb, posX, posY, freqM, freqP, freqF):
+    try:
+        dN = wMap[posY - 1][posX]
+    except:
+        dN = ' '
+    try:
+        dNE = wMap[posY - 1][posX + 1]
+    except:
+        dNE = ' '
+    try:
+        dE = wMap[posY][posX + 1]
+    except:
+        dE = ' '
+    try:
+        dSE = wMap[posY + 1][posX + 1]
+    except:
+        dSE = ' '
+    try:
+        dS = wMap[posY + 1][posX]
+    except:
+        dS = ' '
+    try:
+        dSW = wMap[posY + 1][posX - 1]
+    except:
+        dSW = ' '
+    try:
+        dW = wMap[posY][posX - 1]
+    except:
+        dW = ' '
+    try:
+        dNW = wMap[posY - 1][posX - 1]
+    except:
+        dNW = ' '
+
+    #Define a list using the surrounding symbols:
+    surroundings = [dN, dNE, dE, dSE, dS, dSW, dW, dNW]
+    
+    #Define a list of weight totals for each:
+    weights = [0, 0, 0, 0, 0, 0, 0, 0]
+    index = 0
+
+    #Calculate the weight totals:
+    for i in surroundings:
+        if i == UNEXPLORED:
+            weights[index] = 0
+        elif i == EMPTY:
+            weights[index] = 0
+        elif i == WATER:
+            weights[index] = 10
+        elif i == RIVER:
+            weights[index] = 10
+        elif i == FOREST:
+            weights[index] = freqF * WEIGHT_INTENSITY
+        elif i == PLAINS:
+            weights[index] = freqP * WEIGHT_INTENSITY
+        elif i == MOUNTAIN:
+            weights[index] =  freqM * WEIGHT_INTENSITY
+        elif i == FIEF:
+            weights[index] = 0
+        elif i == STRONGHOLD:
+            weights[index] = 0
+        index = index + 1
+
+    #Define a combined list of symbols and weights:
+    symbolTable = [(dN,weights[0]),(dNE,weights[1]),(dE,weights[2]),(dSE,weights[3]),(dS,weights[4]),(dSW,weights[5]),(dW,weights[6]),(dNW,weights[7]), (RANDOM,RANDOM_INTENSITY)]
+
+    pointTable = []
+    for item, weight in symbolTable:
+        pointTable.extend([item]*weight)
+    newPoint = random.choice(pointTable)
+
+    if newPoint == RANDOM:
+        newPoint = GetRandomPoint()
 
     return newPoint
 
