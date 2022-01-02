@@ -197,7 +197,14 @@ def PrintSurroundings(wMap, symb, posX, posY, freqM, freqP, freqF):
     surroundings = [dN, dNE, dE, dSE, dS, dSW, dW, dNW]
     
     print('Surroundings: ') 
-    print(*surroundings)
+
+    print('. . . . .')
+    print('. ' + dNW + dN + dNE + ' .')
+    print('. ' + dW + ' ' + dE + ' .')
+    print('. ' + dSW + dS + dSE + ' .')
+    print('. . . . .')
+    
+    # print(*surroundings)
     #Define a list of weight totals for each:
     weights = [0, 0, 0, 0, 0, 0, 0, 0]
     index = 0
