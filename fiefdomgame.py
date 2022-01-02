@@ -1476,6 +1476,9 @@ while (loop):
         os.system("clear")
         serverMap.name = "serverMap"
         serverMap.read()
+        print('Printing what the world map looks like after read:')
+        print(str(serverMap.worldMap))
+        print('Attempting to print color map:\n')
         PrintColorMap(serverMap.worldMap)
 
         time.sleep(2)
