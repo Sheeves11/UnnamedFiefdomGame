@@ -213,6 +213,7 @@ while (loop):
         print('     {6}: Upcoming Features')
         print('     {7}: Message Board')
         print('     {8}: View Past Winners')
+        print('     {9}: View World Map')
         print('     -------------------------------------')
         print('\n')
         command = input("     Enter your command: ")
@@ -241,6 +242,9 @@ while (loop):
             
         if command == '8':
             screen = 'pastWinners'
+
+        if command == '9':
+            screen = 'viewMap'
 
         #The following commands are for testing only!
         if command == 'defaults':
@@ -1466,6 +1470,17 @@ while (loop):
             nothing = input('Continue:')
             currentPage = 1
             screen = "fiefdoms"
+
+    if screen = "viewMap":
+        os.system("clear")
+        serverMap.read()
+        PrintColorMap(serverMap.worldMap)
+
+        time.sleep(2)
+        nothing = input('Continue:')
+
+        screen = 'stronghold'
+
 
 #This is a "secret" page that you can use to create default Fiefdoms
 #to seed your installation with land that can be taken. 
