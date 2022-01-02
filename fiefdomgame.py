@@ -1537,8 +1537,6 @@ while (loop):
         serverMap.read()
         serverMap.name = 'serverMap'
         serverMap.seed = '00666'
-        serverMap.height = MAP_HEIGHT
-        serverMap.width = MAP_WIDTH
         serverMap.worldMap = QuietlyGenerateWorldMap(serverMap.seed)
         serverMap.write()
 
