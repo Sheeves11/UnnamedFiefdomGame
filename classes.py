@@ -376,7 +376,11 @@ class Map:
     name = 'default'
     width = 40
     height = 40
-    worldMap = [['0' for x in range(width)] for y in range(height)]
+    worldMap = []
+    
+    def initializeMap(self):
+        wMap = [['0' for x in range(self.width)] for y in range(self.height)]
+        return wMap
 
     def write(self):
         mapFile = 'map/' + self.name + '.txt'
@@ -438,10 +442,14 @@ class Map:
             print('Could not read file!')
             pass
 
+        # if success:
+        #     print('successful!')
+        #     for y in range(self.height):
+        #         for x in range(self.width):
+        #             self.worldMap[y][x] = tempMap[y][x]
         if success:
             print('successful!')
             for y in range(self.height):
-                for x in range(self.width):
-                    self.worldMap[y][x] = tempMap[y][x]
+                self.worldMap.append(tempMap[y])
             
 #eof
