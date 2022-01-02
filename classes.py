@@ -411,12 +411,15 @@ class Map:
         mapFile = 'map/' + self.name + '.txt'
 
         try:
+            print('Trying to read the file')
             readMapFile = open(mapFile, 'r')
+            print('File has been read, trying to make readList:')
             readList = eval(readMapFile.read())
+            print('Readlist has been evaluated and read. Closing readMapFile:')
             readMapFile.close()
-
+            print('readMapFile Closed.')
             
-
+            print('Counting through readList:')
             for count in range(len(readList)):
                 for details in range(len(readList[0])):
                     self.worldMap[count][details] = readList[count][details]
