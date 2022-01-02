@@ -411,8 +411,8 @@ class Map:
         try:
             with open(mapFile, 'r') as f:
                 self.seed = f.readline().strip()
-                while True:
-                    self.worldMap = f.readline().strip()
+                for i in range(self.height)
+                    self.worldMap[i] = f.readline().strip()
 
         except:
             self.write()

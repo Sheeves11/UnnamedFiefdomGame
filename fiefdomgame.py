@@ -1534,12 +1534,12 @@ while (loop):
         #seed = GenerateSeed()
         #GenerateWorldMap(seed)
 
-        serverMap.read()
+        #serverMap.read()
         serverMap.name = 'serverMap'
         serverMap.seed = '00666'
         serverMap.height = MAP_HEIGHT
         serverMap.width = MAP_WIDTH
-        serverMap.worldMap = QuietlyGenerateWorldMap(serverMap.seed)
+        serverMap.worldMap = GenerateWorldMap(serverMap.seed)
         serverMap.write()
 
         
@@ -1549,7 +1549,7 @@ while (loop):
         #print(serverMap.worldMap)
 
         
-        time.sleep(2)
+        #time.sleep(2)
         nothing = input('Continue:')
 
         screen = 'stronghold'
