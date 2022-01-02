@@ -1534,9 +1534,12 @@ while (loop):
         #seed = GenerateSeed()
         #GenerateWorldMap(seed)
 
+        serverMap.read()
         serverMap.name = 'serverMap'
         serverMap.seed = '00666'
-        serverMap.worldMap = GenerateWorldMap(serverMap.seed)
+        serverMap.height = MAP_HEIGHT
+        serverMap.width = MAP_WIDTH
+        serverMap.worldMap = QuietlyGenerateWorldMap(serverMap.seed)
         serverMap.write()
 
         
