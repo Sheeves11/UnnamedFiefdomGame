@@ -378,11 +378,11 @@ class Map:
     worldMap = []
 
     def write(self):
-        fiefFile = 'map/' + self.name + '.txt'
+        mapFile = 'map/' + self.name + '.txt'
         
         #this part creates a file if it isn't made yet        
         try:
-            with open(fiefFile, 'x') as f:
+            with open(mapFile, 'x') as f:
                 f.write(str(self.seed) + '\n')
                 f.write(str(self.worldMap) + '\n')
         except:
@@ -390,7 +390,7 @@ class Map:
 
         #write the class variables down line by line in the text file
         try:
-            with open(fiefFile, 'w') as f:
+            with open(mapFile, 'w') as f:
                 f.write(str(self.seed) + '\n')
                 f.write(str(self.worldMap) + '\n')
         except:
@@ -398,9 +398,9 @@ class Map:
 
     #read class variables line by line
     def read(self):
-        fiefFile = 'map/' + self.name + '.txt'
+        mapFile = 'map/' + self.name + '.txt'
         try:
-            with open(fiefFile, 'r') as f:
+            with open(mapFile, 'r') as f:
                 self.seed = f.readline().strip()
                 self.worldMap = f.readline().strip()
 
