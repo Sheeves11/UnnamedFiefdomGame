@@ -408,10 +408,12 @@ class Map:
             with open(mapFile) as f:
                 print('Was able to read file:')
                 for i in range(self.height):
+                    print('Trying to read from line: ' + str(i))
                     for j in range(self.width):
+                        print('Trying to read from position: ' + str(j))
                         c = f.read(1)
                         self.worldMap[i][j] = c
-                        print(c)
+                        print(str(self.worldMap[i][j]))
                     print('\n')
                 print('End of loop')
         except:
