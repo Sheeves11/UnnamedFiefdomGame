@@ -1267,6 +1267,30 @@ while (loop):
         if (int(attackFief.defenders) >= int(withdrawNum)) and int(withdrawNum) > 0:
             print('Returning ' + str(withdrawNum) + ' soldiers back home')
 
+            attackFief.defenders = str(int(attackFief.defenders) - int(withdrawNum))
+            attackFief.write()
+            attackFief.read()
+
+            userStronghold.defenders = str(int(userStronghold.defenders) + int(withdrawNum))
+            userStronghold.write()
+            userStronghold.read()
+
+            print("\n\n\n\n\n\n\n\n\n")
+
+            print("Avalible Commands:")
+            print('-------------------------------------')
+            print('{1}: Return to Stronghold')
+            print('{2}: View Nearby Fiefdoms')
+            print('-------------------------------------')
+            print('\n')
+            command = input("Enter your command: ")
+
+            if command == "1":
+                screen = "stronghold"
+            if command == "2":
+                currentPage = 1
+                screen = "fiefdoms"
+
         if int(withdrawNum) == 0:
             print('No soldiers selected')
             screen = "homeDetails"
