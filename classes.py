@@ -395,13 +395,9 @@ class Map:
             with open(mapFile, 'w') as f:
                 f.write(str(self.seed) + '\n')
                 for i in range(self.height):
-                    f.write(str('['))
                     for j in range(self.width):
-                        if j < self.width:
-                            f.write(str(self.worldMap[i][j] + ','))
-                        else:
-                            f.write(str(self.worldMap[i][j]))
-                    f.write(str(']\n'))
+                        f.write(str(self.worldMap[i][j]))
+                    f.write(str('\n'))
         except:
             pass
 
@@ -411,8 +407,9 @@ class Map:
         try:
             with open(mapFile, 'r') as f:
                 self.seed = f.readline().strip()
-                for i in range(self.height):
-                    self.worldMap[i] = f.readline().strip()
+                for line in f:
+                    for ch in line:
+                        self.worldMap[i][j] = ch
 
         except:
             self.write()

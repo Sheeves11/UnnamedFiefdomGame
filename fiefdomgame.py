@@ -1539,13 +1539,13 @@ while (loop):
         serverMap.seed = '00666'
         serverMap.height = MAP_HEIGHT
         serverMap.width = MAP_WIDTH
-        serverMap.worldMap = GenerateWorldMap(serverMap.seed)
+        serverMap.worldMap = QuietlyGenerateWorldMap(serverMap.seed)
         serverMap.write()
 
         
         #print(serverMap.seed)
-        #print('\n')
-        #PrintColorMap(serverMap.worldMap)
+        print('\n')
+        PrintColorMap(serverMap.worldMap)
         #print(serverMap.worldMap)
 
         
