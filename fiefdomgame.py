@@ -39,6 +39,7 @@ os.system("clear")
 #create some default objects that we'll write over later
 attackFief = Fiefdom()
 userStronghold = Stronghold()
+attackStronghold = Stronghold()
 
 #this begins the main game loop
 #------------------------------------------------------------------------------
@@ -992,14 +993,14 @@ while (loop):
             print (fileFief + 'loading is happening')
             try:
                 with open(fileFief, 'r') as f:
-                    attackFief.name = f.readline().strip()
-                    attackFief.read()
+                    attackStronghold.name = f.readline().strip()
+                    attackStronghold.read()
 
-                    if str(attackFief.ruler) == str(userStronghold.ruler):
+                    if str(attackStronghold.ruler) == str(userStronghold.ruler):
                         screen = 'homeDetails'
-                    if str(attackFief.home) == 'True':
+                    if str(attackStronghold.home) == 'True':
                         screen = 'stronghold'
-                    if str(attackFief.ruler) != str(userStronghold.ruler):
+                    if str(attackStronghold.ruler) != str(userStronghold.ruler):
                         screen = "enemyStrongholdDetails"
 
             except:
@@ -1391,59 +1392,58 @@ while (loop):
     if screen == "enemyStrongholdDetails":
         os.system("clear")
         header()
-
+        attackStronghold.read()
         print("\n\n")
-        print('Now viewing the stronghold of ' + attackFief.name)
-        print('This fiefdom is ruled by ' + attackFief.ruler)
+        print('Now viewing the stronghold of ' + attackStronghold.name)
         print('-------------------------------------------------------------------------')
         print('\nYour scouts return early in the morning, bringing back reports of the enemy fiefdom.')
-        print(attackFief.name + ' looks to have ' + str(attackFief.defenders) + ' fighters.')
-        print('Defense Type: ' + attackFief.defType)
+        print(attackStronghold.name + ' looks to have ' + str(attackStronghold.defenders) + ' fighters.')
+        print('Defense Type: ' + attackStronghold.defType)
         print('-------------------------------------------------------------------------')
 
         print("\n\n")
 
-        if attackFief.defLevel == str(0):
+        if attackStronghold.defLevel == str(0):
             art1()
 
-        if attackFief.defLevel == str(1):
+        if attackStronghold.defLevel == str(1):
             art2()
 
-        if attackFief.defLevel == str(2):
+        if attackStronghold.defLevel == str(2):
             art3()
 
-        if attackFief.defLevel == str(3):
+        if attackStronghold.defLevel == str(3):
             art4()
 
-        if attackFief.defLevel == str(4):
+        if attackStronghold.defLevel == str(4):
             art5()
 
-        if attackFief.defLevel == str(5):
+        if attackStronghold.defLevel == str(5):
             art6()
 
-        if attackFief.defLevel == str(6):
+        if attackStronghold.defLevel == str(6):
             art7()
 
 
-        if attackFief.goldMod == str(1):
+        if attackStronghold.goldMod == str(1):
             art_farm1()
 
-        if attackFief.goldMod == str(2):
+        if attackStronghold.goldMod == str(2):
             art_farm2()
 
-        if attackFief.goldMod == str(3):
+        if attackStronghold.goldMod == str(3):
             art_farm3()
 
-        if attackFief.goldMod == str(4):
+        if attackStronghold.goldMod == str(4):
             art_farm4()
 
-        if attackFief.goldMod == str(5):
+        if attackStronghold.goldMod == str(5):
             art_farm5()
 
-        if attackFief.goldMod == str(6):
+        if attackStronghold.goldMod == str(6):
             art_farm6()
 
-        if attackFief.goldMod == str(7):
+        if attackStronghold.goldMod == str(7):
             art_farm7()
 
         print("\n\n")
