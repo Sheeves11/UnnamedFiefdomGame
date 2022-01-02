@@ -6,7 +6,7 @@ import random
 import bcrypt
 from classes import *
 from worldmap import *
-
+from os.path import exists
 
 '''
 
@@ -100,43 +100,16 @@ while (loop):
 
                 See more info at github.com/Sheeves11/UnnamedFiefdomGame ''')
         print('\n')
+
         userStronghold = Stronghold()
         username = input("                Enter your username: ")
         currentUsername = username
 
-        #if "username.txt" does not exist, create it. The file only contains a name and password for now.
-        try:
+        userPath = ('users/' + username + '.txt')
+        
+        if exists(userPath) == True:
+            
             usernameFile = "users/" + username + ".txt"
-            with open(usernameFile, 'x') as f:
-                f.write(username + '\n')
-                os.system('clear')
-                header()
-                print('\n\n')
-                print('Welcome! To create your account, please enter your password. \nIf this was a mistake, refresh the page!')
-                print('\nUsername: ' + username)
-                password = "default"
-                password = input('Enter your password: ')
-                
-
-                salt = bcrypt.gensalt()
-                hashed = bcrypt.hashpw(password, salt)
-                
-                print('\n\n')
-#                print('Password Entered: ' + str(password))
- #               print('Salt Phrase: ' + str(salt)) 
-  #              print('Hashed Result To Be Stored: ' + str(hashed))
-                print('\n\n')
-                
-                
-                
-                
-                f.write(hashed)
-                print('Creating new account...')
-                time.sleep(1)
-                print('Logging in as: ' + username)
-                time.sleep(1)
-                screen = 'stronghold'
-        except:
             with open(usernameFile, 'r') as f:
                 os.system('clear')
                 header()
@@ -144,21 +117,60 @@ while (loop):
                 temp1 = f.readline().strip()
                 hashed = f.readline().strip()
                 
-                print('\n\nWelcome back, ' + str(username))
-                userPass = input('Enter your password: ')
+                print('\n\n    Welcome back, ' + str(username))
+                userPass = input('    Enter your password: ')
 
                 if bcrypt.checkpw(userPass, hashed):
-                    print('Password is correct')
-                    time.sleep(1)
-                    print("Logging in as: " + username)
-                    time.sleep(1)
+                    print('    Password is correct')
+                    time.sleep(.5)
+                    print("    Logging in as: " + username)
+                    time.sleep(.5)
                     screen = 'stronghold'
                 else:
-                    print('Access denied')
-                    time.sleep(2)
+                    print('    Access denied')
+                    time.sleep(.5)
                     screen = 'login'
 
-                tempthing = input('\n\nPress Enter To Continue\n\n')
+        else:
+            #if "username.txt" does not exist, create it. The file only contains a name and password for now.
+            newUser = input('\n                New user detected. Make a new account? (y/n): ')
+            
+            if newUser == 'y':
+                try:
+                    usernameFile = "users/" + username + ".txt"
+                    with open(usernameFile, 'x') as f:
+                        f.write(username + '\n')
+                        os.system('clear')
+                        header()
+                
+                        print('\n\n')
+                        print(textColor.WARNING + '    WELCOME NEW PLAYER' + textColor.RESET)
+                        print('    -------------------------------------------------------------------------------------------------------------')
+                        print('\n    Creating new account for ' + str(username) + '!')
+                        password = "default"
+                        email = "default"
+
+                        password = input('\n\n\n    Please choose your password: ')
+                        email = input('\n    Please enter your email address: ')
+
+                        salt = bcrypt.gensalt()
+                        hashed = bcrypt.hashpw(password, salt)
+                
+                        print('\n\n')
+                
+                        f.write(hashed + '\n')
+                        f.write(email)
+                        print('    Creating new account...')
+                        time.sleep(.5)
+                        print('    Logging in as: ' + username)
+                        time.sleep(.5)
+                        screen = 'stronghold'
+                except:
+                    pass
+
+            else:
+                screen = "login"
+
 #The stronghold screen is homebase for players. The page also writes the current username
 #into the userStronghold object.
 #
