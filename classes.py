@@ -396,11 +396,11 @@ class Map:
                 for i in range(self.height):
                     f.write(str("["))
                     for j in range(self.width):
-                        if j < self.width:
+                        if j < self.width - 1:
                             f.write("'" + str(self.worldMap[i][j]) + "',")
                         else:
                             f.write("'" + str(self.worldMap[i][j]) + "'")
-                    if i < self.height:
+                    if i < self.height - 1:
                         f.write(str("],"))
                     else:
                         f.write(str("]"))
