@@ -390,9 +390,9 @@ class Map:
                     f.write(str('['))
                     for j in range(width):
                         if j < width:
-                            f.write(str(self.worldMap[i][j] + ',')
+                            f.write(str(self.worldMap[i][j] + ','))
                         else:
-                            f.write(str(self.worldMap[i][j])
+                            f.write(str(self.worldMap[i][j]))
                     f.write(str(']\n'))
         except:
             pass
