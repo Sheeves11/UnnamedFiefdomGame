@@ -405,7 +405,7 @@ class Map:
         
         try:
             print('Trying to read file:')
-            with open(mapFile, r) as f:
+            with open(mapFile) as f:
                 i = 0
                 j = 0
                 print('Was able to read file:')
