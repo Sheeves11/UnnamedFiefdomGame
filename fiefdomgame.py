@@ -1000,7 +1000,7 @@ while (loop):
                     if str(attackFief.home) == 'True':
                         screen = 'stronghold'
                     if str(attackFief.ruler) != str(userStronghold.ruler):
-                        screen = "details"
+                        screen = "enemyStrongholdDetails"
 
             except:
                 print ('the file open broke')
@@ -1380,6 +1380,90 @@ while (loop):
 
         if command == "3":
             screen = 'battle'
+
+#This is the details page for enemy Fiefdoms
+#
+#To Do
+# - Make it prettier
+# - In the future, add a way to obscure exact numbers?
+# - Add ability to attempt spying to gain info on defenses and upgrades
+#------------------------------------------------------------------------------
+    if screen == "enemyStrongholdDetails":
+        os.system("clear")
+        header()
+
+        print("\n\n")
+        print('Now viewing the stronghold of ' + attackFief.name)
+        print('This fiefdom is ruled by ' + attackFief.ruler)
+        print('-------------------------------------------------------------------------')
+        print('\nYour scouts return early in the morning, bringing back reports of the enemy fiefdom.')
+        print(attackFief.name + ' looks to have ' + str(attackFief.defenders) + ' fighters.')
+        print('Defense Type: ' + attackFief.defType)
+        print('-------------------------------------------------------------------------')
+
+        print("\n\n")
+
+        if attackFief.defLevel == str(0):
+            art1()
+
+        if attackFief.defLevel == str(1):
+            art2()
+
+        if attackFief.defLevel == str(2):
+            art3()
+
+        if attackFief.defLevel == str(3):
+            art4()
+
+        if attackFief.defLevel == str(4):
+            art5()
+
+        if attackFief.defLevel == str(5):
+            art6()
+
+        if attackFief.defLevel == str(6):
+            art7()
+
+
+        if attackFief.goldMod == str(1):
+            art_farm1()
+
+        if attackFief.goldMod == str(2):
+            art_farm2()
+
+        if attackFief.goldMod == str(3):
+            art_farm3()
+
+        if attackFief.goldMod == str(4):
+            art_farm4()
+
+        if attackFief.goldMod == str(5):
+            art_farm5()
+
+        if attackFief.goldMod == str(6):
+            art_farm6()
+
+        if attackFief.goldMod == str(7):
+            art_farm7()
+
+        print("\n\n")
+
+        print("Avalible Commands:")
+        print('-------------------------------------')
+        print('{1}: Return to Stronghold')
+        print('{2}: View Nearby Fiefdoms')
+        print('-------------------------------------')
+        print('\n')
+
+        command = input("Enter your command: ")
+
+        if command == "1":
+            screen = "stronghold"
+
+        if command == "2":
+            currentPage = 1
+            screen = "fiefdoms"
+
 
 #The "battle" page simulates a battle between two Fiefdoms. This is currently the most
 #complicated page and could use some cleaning up.
