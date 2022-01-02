@@ -384,7 +384,7 @@ class Map:
         #this part creates a file if it isn't made yet        
         try:
             with open(mapFile, 'x') as f:
-                f.write(str(self.worldMap) + '\n')
+                f.write(str(self.worldMap))
         except:
             pass
 
@@ -394,7 +394,7 @@ class Map:
                 for i in range(self.height):
                     for j in range(self.width):
                         f.write(str(self.worldMap[i][j]))
-                    f.write(str('\n'))
+                    #f.write(str('\n'))
         except:
             pass
 
