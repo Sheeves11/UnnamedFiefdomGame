@@ -295,7 +295,7 @@ def PrintColorMap(wMap):
         print('')
 
 #To Do: Write this function
-def GenerateRandomSeed():
+def GenerateSeed():
     return('00555')
 
 #eof
