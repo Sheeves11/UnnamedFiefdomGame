@@ -1178,6 +1178,11 @@ while (loop):
 
         #print(deployNum + ' : deploynum || userStronghold.defenders : ' + userStronghold.defenders) #SW: remove this?
         
+        try:
+            deployNum = int(deployNum)
+        except:
+            deployNum = 0
+
         if int(deployNum) < 0:
             os.system("clear")
             print("You cannot deploy a negative number of soldiers. \n\nThat doesn't even make sense.")
@@ -1189,6 +1194,9 @@ while (loop):
             print("You do not have enough soldiers for that")
             time.sleep(2)
             screen = 'homeDetails'
+
+        if deployNum == 0:
+            screen = "homeDetails"
 
         if (int(userStronghold.defenders) >= int(deployNum)) and int(deployNum) > 0:
             print('Deploying ' + str(deployNum) + ' soldiers to ' + str(attackFief.name))
@@ -1238,7 +1246,11 @@ while (loop):
         
         withdrawNum = input('Enter the number of soldiers you would like to return home: ')
         time.sleep(1)
-        
+        try:
+            withdrawNum = int(withdrawNum)
+        except:
+            withdrawNum = 0
+
         if int(withdrawNum) < 0:
             os.system("clear")
             print("You cannot send home a negative number of soldiers. \n\nThat doesn't even make sense.")
@@ -1254,6 +1266,10 @@ while (loop):
         if (int(attackFief.defenders) >= int(withdrawNum)) and int(withdrawNum) > 0:
             print('Returning ' + str(withdrawNum) + ' soldiers back home')
         
+        if int(withdrawNum) == 0:
+            print('No soldiers selected')
+            screen = "homeDetails"
+
             attackFief.defenders = str(int(attackFief.defenders) - int(withdrawNum))
             attackFief.write()
             attackFief.read()
