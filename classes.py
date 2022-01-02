@@ -424,8 +424,12 @@ class Map:
             
             print('Counting through readList:')
             for count in range(len(readList)):
+                print('For count in range len(readList)')
                 for details in range(len(readList[0])):
+                    print('For details in range readlist[0]')
+                    print('trying to set world map to be ' + str(readList[count][details]))
                     self.worldMap[count][details] = readList[count][details]
+                    print('now world map is: ' + str(self.worldMap[count][details]))
                 
         except:
             print('Could not read file!')
