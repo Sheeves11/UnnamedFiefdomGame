@@ -783,12 +783,16 @@ def CycleBiome(biome):
 #   Returns: an random int based on the number of matching biomes in the passed mapClass
 #--------------------------------------------------------------------------------------------------------------
 def UpdateUsedBiomes(biome, mapClass):
+    count = 0
     if biome == FOREST:
-        mapClass.usedForests += 1
-    if biome == MOUNTAIN:
-        mapClass.usedMountains += 1
-    if biome == PLAINS:
-        mapClass.usedPlains += 1
+        count = int(mapClass.usedForests) + 1
+        mapClass.usedForests = count
+    elif biome == MOUNTAIN:
+        count = int(mapClass.usedMountains) + 1
+        mapClass.usedMountains = count
+    elif biome == PLAINS:
+        count = int(mapClass.usedPlains) + 1
+        mapClass.usedPlains = count
 
     mapClass.write()
 
