@@ -470,6 +470,8 @@ class Map:
                 if count > 1:
                     self.worldMap.append(readList[count])
 
+            print(*self.worldMap)
+
         except:
             print('Could not read file!')
             pass
