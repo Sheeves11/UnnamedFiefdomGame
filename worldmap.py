@@ -114,7 +114,7 @@ def GenerateWorldMap(seed):
             for y in range(MAP_HEIGHT):             #Iterate through each row of the map
                 for x in range(MAP_WIDTH):          #Iterate through each symbol in the row
                     #Set the symbol at this location based on surroundings:
-                    worldMap[y][x] = PrintSurroundings(worldMap, x, y, freqMountain, freqPlains, freqForest)
+                    worldMap[y][x] = DefineSurroundings(worldMap, x, y, freqMountain, freqPlains, freqForest)
 
             firstLoop = False                       #First loop is done
 
@@ -125,7 +125,7 @@ def GenerateWorldMap(seed):
     return worldMap
 
 #--------------------------------------------------------------------------------------------------------------
-#   [PrintSurroundings]
+#   [DefineSurroundings]
 #   Parameters: wMap, posX, posY, freqM, freqP, freqF
 #
 #   Iterates through the map given the map itself and a set of 
@@ -135,7 +135,7 @@ def GenerateWorldMap(seed):
 #   This function could likely benefit from reaching two spaces out instead of just 1, but
 #   that would make it far more complex. 
 #--------------------------------------------------------------------------------------------------------------
-def PrintSurroundings(wMap, posX, posY, freqM, freqP, freqF):
+def DefineSurroundings(wMap, posX, posY, freqM, freqP, freqF):
     global AUTOMATED
     global INSTANTLY_GENERATE
     
@@ -353,7 +353,7 @@ def PrintSurroundings(wMap, posX, posY, freqM, freqP, freqF):
 #   [QuietlyGenerateWorldMap]
 #   Parameters: seed
 #
-#   Does the same thing as GenerateWordlMap but with no prints
+#   Does the same thing as GenerateWordlMap but with no prints or user interaction
 #--------------------------------------------------------------------------------------------------------------
 def QuietlyGenerateWorldMap(seed):
     worldMap = [['0' for x in range(MAP_WIDTH)] for y in range(MAP_HEIGHT)]
@@ -369,19 +369,19 @@ def QuietlyGenerateWorldMap(seed):
         if firstLoop:
             for y in range(MAP_HEIGHT):
                 for x in range(MAP_WIDTH):
-                    worldMap[y][x] = DefineSurroundings(worldMap, x, y, freqMountain, freqPlains, freqForest)
+                    worldMap[y][x] = QuietlyDefineSurroundings(worldMap, x, y, freqMountain, freqPlains, freqForest)
 
             firstLoop = False
         loop = False
     return worldMap
 
 #--------------------------------------------------------------------------------------------------------------
-#   [DefineSurroundings]
+#   [QuietlyDefineSurroundings]
 #   Parameters: wMap, posX, posY, freqM, freqP, freqF
 #
-#   Does the same thing as PrintSurroundings but with no prints
+#   Does the same thing as PrintSurroundings but with no prints or user interaction
 #--------------------------------------------------------------------------------------------------------------
-def DefineSurroundings(wMap, posX, posY, freqM, freqP, freqF):
+def QuietlyDefineSurroundings(wMap, posX, posY, freqM, freqP, freqF):
     try:
         dN = wMap[posY - 1][posX]
     except:
@@ -567,10 +567,46 @@ def DefineFiefBiome(fief):
 #
 #   Gets a list containing the number of biomes found in the passed map object.
 #   List layout is:
-#       [numForest, numMountain, numPlains]
+#       [numWater, numRivers, numForest, numMountain, numPlains]
 #--------------------------------------------------------------------------------------------------------------
 def getBiomeCounts(wMap):
-    print('WIP')
+    numWater = 0
+    numRivers = 0
+    numForests = 0
+    numMountains = 0
+    numPlains = 0
+
+    for i in range(len(wMap)):
+        for j in range(len(wMap[i])):
+            if wMap[i][j] == WATER:
+                numWater += 1
+            if wMap[i][j] == RIVER:
+                numRivers += 1
+            if wMap[i][j] == FOREST:
+                numForests += 1
+            if wMap[i][j] == MOUNTAIN:
+                numMountains += 1
+            if wMap[i][j] == PLAINS:
+                numPlains += 1
+
+    biomeCounts = [numWater, numRivers, numForests, numMountains, numPlains]
+    return biomeCounts
+
+#--------------------------------------------------------------------------------------------------------------
+#   [setBiomeCounts]
+#   Parameters: wMap
+#
+#   Gets a list containing the number of biomes found in the passed map object.
+#   List layout is:
+#       [numWater, numRivers, numForest, numMountain, numPlains]
+#--------------------------------------------------------------------------------------------------------------
+def setBiomeCounts(WorldMap):
+    biomeCounts = getBiomeCounts(WorldMap.worldMap)
+    WorldMap.numWater = biomeCounts[0]
+    WorldMap.numRivers = biomeCounts[1]
+    WorldMap.numForests = biomeCounts[2]
+    WorldMap.numMountains = biomeCounts[3]
+    WorldMap.numPlains = biomeCounts[4]
 
 #--------------------------------------------------------------------------------------------------------------
 #   [GenerateSeed]

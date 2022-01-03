@@ -1893,6 +1893,7 @@ while (loop):
         serverMap.height = MAP_HEIGHT
         serverMap.width = MAP_WIDTH
         serverMap.worldMap = GenerateWorldMap(serverMap.seed)
+        setBiomeCounts(serverMap)
         serverMap.write()
 
         print('\n')
