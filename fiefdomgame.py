@@ -43,11 +43,7 @@ os.system("clear")
 #create some default objects that we'll write over later
 attackFief = Fiefdom()
 userStronghold = Stronghold()
-
-serverMap = Map()
-
 attackStronghold = Stronghold()
-
 
 #this begins the main game loop
 #------------------------------------------------------------------------------
@@ -242,7 +238,7 @@ while (loop):
         print("     Avalible Commands:")
         print('     -------------------------------------------------------')
         print('     {1}: View Nearby Fiefdoms        {9}: Hire Thieves')
-        print('     {2}: Hire Mercenaries            {10}: View World Map')
+        print('     {2}: Hire Mercenaries')
         print('     {3}: Upgrade Attack')
         print('     {4}: Garrison Soldiers')
         print('     {5}: About')
@@ -250,7 +246,6 @@ while (loop):
         print('     {7}: Message Board')
         print('     {8}: View Past Winners')
         print('     --------------------------------------------------------')
-
         print('\n')
         command = input("     Enter your command: ")
 
@@ -278,13 +273,10 @@ while (loop):
 
         if command == '8':
             screen = 'pastWinners'
-            
+
         if command == '9':
             screen = 'thieves'
-
-        if command == '10':
-            screen = 'viewMap'
-
+        
         #The following commands are for testing only!
         if command == 'defaults':
             screen = 'createDefaults'
@@ -1611,33 +1603,90 @@ while (loop):
         header()
 
         #this is where the battle logic happens!
-        print('\n\nThis battle is between ' + attackStronghold.name + ' and ' + userStronghold.name)
-        print('\n\nSimulating Battle...')
+        print('\n\n    ' + attackStronghold.name + '\'s Stronghold has ' + attackStronghold.defenders + ' soldiers keeping a watchful eye. You have ' + str(userStronghold.thieves) + ' who are ready for a heist.')
+        print('    Rumor has it that their coffers hold ' + str(attackStronghold.gold) + ' gold pieces.')
+        print('    Your thieves work best in groups of 3 per 100 soldiers. Too few and they lack manpower. Too many and they draw unwanted attention.')
+        print('\n    ...\n')
         time.sleep(1)
-        print('\n...\n')
-        time.sleep(1)
+        
+        desiredAttackers = 0
+        attackers = 0
 
-        attackers = userStronghold.thieves
+        try:
+            desiredAttackers = int(input('    Enter the number of thieves you would like to send on this mission: '))
+        except:
+            print('\n\n    That is not a valid option, sorry!')
+            Attackers = 0
+
+        if int(desiredAttackers) <= int(userStronghold.thieves)  and int(desiredAttackers) > 0:
+#            print('desieredAttackers = ' + str(desiredAttackers))
+            attackers = int(desiredAttackers)
+        else:
+            print('invalid number')
+            attackers = 0
+
+
         goldToSteal = attackStronghold.gold
 
-        attackLosses = 0
-
-        print('Thieves Attacking: ' + str(attackers))
-        print('Defending Stronghold: ' + attackStronghold.name)
-        print('Attacking Stronghold: ' + str(userStronghold.name))
-        print('Potential Gold To Be Stolen: ' + str(attackStronghold.gold))
-        print('Defenders: ' + str(attackStronghold.defenders))
-        print('\n\nThief Logic Time: ')
+#        print('Thieves Attacking: ' + str(attackers))
+#        print('Defending Stronghold: ' + attackStronghold.name)
+#        print('Attacking Stronghold: ' + str(userStronghold.name))
+#        print('Potential Gold To Be Stolen: ' + str(attackStronghold.gold))
+#        print('Defenders: ' + str(attackStronghold.defenders))
+#        print('\n\nThief Logic Time: ')
         
-        thiefChance = 0
-        thiefChance = (int(attackStronghold.defenders) // 10) // int(attackers)
+        thiefs = float(attackers)
+        defs = float(attackStronghold.defenders)
+        potentialGold = float(attackStronghold.gold)
+        maxCarriedGold = 0
+        
+        ratio = float(thiefs / defs)
 
-        print('Percent Chance of Success: ' + str(thiefChance))
+        chance = float(4.4 + (ratio * 4180) + (-61607 * (ratio * ratio)))
+
+        maxCarriedGold = thiefs * (potentialGold // 10)
+        maxCarriedGold = maxCarriedGold * (1 + thiefs // 2)
+
+        
+#        print('Percent Chance of Success: ' + str(chance))
+#        print('Max Stolen Gold = ' + str(maxCarriedGold))
+        
+        if int(maxCarriedGold) > int(attackStronghold.gold):
+            maxCarriedGold = int(attackStronghold.gold)
+        
+        randomNum = roll(0) * 5
+#        print('\nRandom Roll is: ' + str(randomNum))
+
+        if int(randomNum) > int(chance) and int(attackers) > 0:
+            
+            print('    Despite their valient efforts, your thieves have been captured.\n    This mission is a failure.')
+            
+            userStronghold.thieves = int(userStronghold.thieves) - int(attackers)
+            userStronghold.write()
+            userStronghold.read()
+
+            print('    You have ' + str(userStronghold.thieves) + ' thieves remaining.')
+
+        elif int(randomNum) <= int(chance) and int(attackers) > 0:
+            print('    Success! Your thieves return with pocketsfull of gold!\n    Your thieves managed to secure ' + str(maxCarriedGold) + ' gold for the stronghold!')
+            
+            userStronghold.gold = int(maxCarriedGold) + int(userStronghold.gold)
+            userStronghold.write()
+            userStronghold.read()
+
+            attackStronghold.gold = int(attackStronghold.gold) - int(maxCarriedGold)
+            attackStronghold.write()
+            attackStronghold.read()
+
+            print('    You now have ' + str(userStronghold.gold) + ' gold.')
+
+        else:
+            print('    Nothing Happened')
 
 
 
-        tempInput = input('Press Enter To Continue: ')
-        screen = "strongholds"
+        tempInput = input('    Press Enter To Continue: ')
+        screen = "enemyStrongholdDetails"
 
 
 
@@ -1753,23 +1802,6 @@ while (loop):
             currentPage = 1
             screen = "fiefdoms"
 
-#This page is just a color printing of the current server map
-    if screen == "viewMap":
-        os.system("clear")
-        serverMap.name = "serverMap"
-        serverMap.read()
-        # print('Printing what the world map looks like after read:')
-        # print(str(serverMap.worldMap))
-        # print('Attempting to print color map:\n')
-        print('World Map: \n')
-        PrintColorMap(serverMap.worldMap)
-        print('')
-        time.sleep(1)
-        nothing = input('Continue:')
-
-        screen = 'stronghold'
-
-
 #This is a "secret" page that you can use to create default Fiefdoms
 #to seed your installation with land that can be taken.
 #
@@ -1821,8 +1853,9 @@ while (loop):
 
         os.system("clear")
 
-        #seed = GenerateSeed()
-        #GenerateWorldMap(seed)
+        seed = '00555'  #Should be generated instead later
+        GenerateWorldMap(seed)
+
 
         #serverMap.read()
         serverMap.name = 'serverMap'
@@ -1840,6 +1873,7 @@ while (loop):
 
         
         #time.sleep(2)
+
         nothing = input('Continue:')
 
         screen = 'stronghold'
