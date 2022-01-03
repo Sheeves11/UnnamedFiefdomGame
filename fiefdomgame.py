@@ -1886,7 +1886,7 @@ while (loop):
         print('\n')
         PrintColorMap(serverMap.worldMap)
 
-        nothing = input('Continue:')
+        nothing = input('\nContinue:')
 
         screen = 'stronghold'
 

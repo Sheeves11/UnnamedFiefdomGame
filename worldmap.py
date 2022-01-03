@@ -201,7 +201,7 @@ def DefineSurroundings(wMap, posX, posY, freqM, freqP, freqF):
         #Define a list using the surrounding symbols:
         surroundings = [dN, dNE, dE, dSE, dS, dSW, dW, dNW]
         #Print surrounding symbols in a relevant box formation
-        print('Surroundings: ') 
+        print('\nSurroundings: ') 
         print('- - - - -')
         print('- ' + dNW + ' ' + dN + ' ' + dNE + ' -')
         print('- ' + dW + '   ' + dE + ' -')
@@ -236,14 +236,14 @@ def DefineSurroundings(wMap, posX, posY, freqM, freqP, freqF):
             index = index + 1
 
         #Print weights:
-        print('Weights: ') 
+        print('\nWeights: ') 
         print(*weights)
 
         #Define a combined list of symbols and weights:
         symbolTable = [(dN,weights[0]),(dNE,weights[1]),(dE,weights[2]),(dSE,weights[3]),(dS,weights[4]),(dSW,weights[5]),(dW,weights[6]),(dNW,weights[7]), (RANDOM,RANDOM_INTENSITY)]
 
         #Print new combined list:
-        print('Symbol Table: ') 
+        print('\nSymbol Table: ') 
         print(*symbolTable)
 
         #Define an expanded list of the combined list:
@@ -255,9 +255,9 @@ def DefineSurroundings(wMap, posX, posY, freqM, freqP, freqF):
         newPoint = random.choice(pointTable)
 
         #Print the randomly selected symbol:
-        print('New Point: ') 
+        print('\nNew Point: ') 
         print(*newPoint)
-
+        print('')
     #If the option to instantly generate the map is selected, no print statements are made:
     else:
         if FIRST_PRINT:
@@ -615,49 +615,55 @@ def DefineFiefBiome(fiefClass):
 #   instead.
 #--------------------------------------------------------------------------------------------------------------
 def PlaceFiefInWorldMap(fiefClass, mapClass):
-    DefineFiefBiome(fiefClass)
-    print('Defined Biome as: ' + str(fiefClass.biome))
-    remaining = 0
-    cycle = 0
-    pickingPoint = 0
+    if fiefClass.biome == '0':
+        DefineFiefBiome(fiefClass)
+        print('Defined Biome as: ' + str(fiefClass.biome))
+        remaining = 0
+        cycle = 0
+        pickingPoint = 0
 
-    #Check if there are still biome slots open for a particular biome.
-    #If none are available, then change the fief's biome and try again.
-    #If there aren't any open spots at all, then stop the loop.
-    while remaining == 0 and cycle < 4:
-        remaining = CheckRemainingBiomes(fiefClass.biome, mapClass)
-        if remaining == 0:
-            fiefClass.biome = CycleBiome(fiefClass.biome)
-            cycle += 1
-    if cycle > 3:
-        print('Error, no more room for fiefs left on this map!')
+        #Check if there are still biome slots open for a particular biome.
+        #If none are available, then change the fief's biome and try again.
+        #If there aren't any open spots at all, then stop the loop.
+        while remaining == 0 and cycle < 4:
+            remaining = CheckRemainingBiomes(fiefClass.biome, mapClass)
+            if remaining == 0:
+                fiefClass.biome = CycleBiome(fiefClass.biome)
+                cycle += 1
+        if cycle > 3:
+            print('Error, no more room for fiefs left on this map!')
+        else:
+            while pickingPoint < 10:    #Tries to get a point. Fails if it manages to select an occupied point 10 times.
+            #Select one of the available biomes at random
+                point = GetRandomPointByBiome(fiefClass.biome, mapClass)
+                
+                #If a biome was found:
+                if point >= 1:
+                    coordinates = GetPointCoordinates(fiefClass.biome, point, mapClass.worldMap)
+
+                    if CrossCheckCoordinates(coordinates):
+                        print('Successfully selected coordinates!:')
+                        print(*coordinates)
+                        fiefClass.setCoordinates(coordinates)
+                        print('Successfully set coordinates!: ')
+                        print('xCoordinate: ' + str(fiefClass.xCoordinate) + ' yCoordinate:' + str(fiefClass.yCoordinate))
+                        print('Updating used biomes in mapClass: ')
+                        UpdateUsedBiomes(fiefClass.biome, mapClass)
+                        print('Used Forests: ' + str(mapClass.usedForests))
+                        print('Used Plains: ' + str(mapClass.usedPlains))
+                        print('Used Mountains: ' + str(mapClass.usedMountains))
+                        print('Inserting Fief into map:')
+                        InsertFiefAtLocation(fiefClass.yCoordinate, fiefClass.xCoordinate, mapClass)
+                        
+                        PrintColorMap(mapClass.worldMap)
+
+                        fiefClass.write()
+                        pickingPoint = 10
+
+                    else:
+                        pickingPoint += 1
     else:
-        while pickingPoint < 10:    #Tries to get a point. Fails if it manages to select an occupied point 10 times.
-        #Select one of the available biomes at random
-            point = GetRandomPointByBiome(fiefClass.biome, mapClass)
-            
-            #If a biome was found:
-            if point >= 1:
-                coordinates = GetPointCoordinates(fiefClass.biome, point, mapClass.worldMap)
-
-                if CrossCheckCoordinates(coordinates):
-                    print('Successfully selected coordinates!:')
-                    print(*coordinates)
-                    fiefClass.setCoordinates(coordinates)
-                    print('Successfully set coordinates!: ')
-                    print('xCoordinate: ' + str(fiefClass.xCoordinate) + 'yCoordinate:' + str(fiefClass.yCoordinate))
-                    print('Updating used biomes in mapClass: ')
-                    UpdateUsedBiomes(fiefClass.biome, mapClass)
-                    print('Inserting Fief into map:')
-                    InsertFiefAtLocation(fiefClass.yCoordinate, fiefClass.xCoordinate, mapClass)
-                    
-                    PrintColorMap(mapClass.worldMap)
-
-                    fiefClass.write()
-                    pickingPoint = 10
-
-                else:
-                    pickingPoint += 1
+        print('This fief is already on the map!')
 
 #--------------------------------------------------------------------------------------------------------------
 #   [GetPointCoordinates]
