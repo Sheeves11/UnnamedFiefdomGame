@@ -469,8 +469,8 @@ class Map:
             for count in range(len(readList)):
                 if count == 0:
                     self.values.append(readList[count])
-                    success = True
-                if count > 1:
+                    self.success = True
+                if count > 0:
                     self.worldMap.append(readList[count])
 
             print(*self.worldMap)
