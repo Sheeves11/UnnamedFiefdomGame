@@ -32,6 +32,7 @@ WEIGHT_INTENSITY = 5    #Higher the number, the more focused the map will be
 RANDOM_INTENSITY = 20   #Higher the number, the more chaotic the map will be
 INSTANTLY_GENERATE = False
 AUTOMATED = False
+LOADING_INCREMENT = 0
 
 #Map Icons
 WATER = '~'
@@ -140,7 +141,7 @@ def DefineSurroundings(wMap, posX, posY, freqM, freqP, freqF):
     global INSTANTLY_GENERATE
     
     os.system("clear")
-
+    
     #Create points that are surrounding our current position
     #Prints each position at the top of the page:
     if not INSTANTLY_GENERATE:
@@ -256,6 +257,7 @@ def DefineSurroundings(wMap, posX, posY, freqM, freqP, freqF):
 
     #If the option to instantly generate the map is selected, no print statements are made:
     else:
+        LoadingAnimation('Generating Map')
         try:
             dN = wMap[posY - 1][posX]
         except:
@@ -342,12 +344,46 @@ def DefineSurroundings(wMap, posX, posY, freqM, freqP, freqF):
             #Additionally, if the user decides to automate the process, ask if they want it 
             #to be generated instantly:
             if not INSTANTLY_GENERATE:
-                userInput=input('Would you like to instantly generate this map? (y/n): ')
+                userInput=input('Would you like to quickly generate this map? (y/n): ')
                 if userInput == 'y':
                     INSTANTLY_GENERATE = True
 
     #Return the symbol
     return newPoint
+
+#--------------------------------------------------------------------------------------------------------------
+#   [LoadingAnimationIncrementor]
+#   Parameter: cap
+#
+#   Uses a global variable to cycle through a loading animation and returns a number based on the cap passed
+#--------------------------------------------------------------------------------------------------------------
+def LoadingAnimationIncrementor(cap):
+    global LOADING_INCREMENT
+
+    if LOADING_INCREMENT > cap:
+        LOADING_INCREMENT = 0
+    else:
+        LOADING_INCREMENT += 1
+
+    return LOADING_INCREMENT
+
+#--------------------------------------------------------------------------------------------------------------
+#   [LoadingAnimation]
+#   Parameter: thingLoading
+#
+#   Prints a passed string with an animation after it that changes each time the screen is refreshed.
+#   Function should be used in loops where the system is being cleared several times.
+#--------------------------------------------------------------------------------------------------------------
+def LoadingAnimation(thingLoading):
+    frame = LoadingAnimationIncrementor(4)
+    if frame == 0:
+        print(thingLoading)
+    elif frame == 1:
+        print(thingLoading + '.')
+    elif frame == 2:
+        print(thingLoading + '..')
+    else:
+        print(thingLoading + '...')
 
 #--------------------------------------------------------------------------------------------------------------
 #   [QuietlyGenerateWorldMap]
