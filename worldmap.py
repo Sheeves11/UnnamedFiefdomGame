@@ -635,10 +635,12 @@ def PlaceFiefInWorldMap(fiefClass, mapClass):
         else:
             while pickingPoint < 10:    #Tries to get a point. Fails if it manages to select an occupied point 10 times.
             #Select one of the available biomes at random
+                print('Picking a random ' + str(fiefClass.biome) + ' biome out of the ones available:')
                 point = GetRandomPointByBiome(fiefClass.biome, mapClass)
+                print('Picked point: ' + str(point))
                 
                 #If a biome was found:
-                if point >= 1:
+                if point > 0:
                     coordinates = GetPointCoordinates(fiefClass.biome, point, mapClass.worldMap)
 
                     if CrossCheckCoordinates(coordinates):
@@ -666,9 +668,9 @@ def PlaceFiefInWorldMap(fiefClass, mapClass):
         print('This fief is already on the map!')
 
 #--------------------------------------------------------------------------------------------------------------
-#   [GetPointCoordinates]
-#   Parameters: biome, point, mapClass
-#   Returns: a set of coordinates based on the point parameter.
+#   [InsertFiefAtLocation]
+#   Parameters: yPos, xPos, mapClass
+#   Returns: finds the x and y position in the world map and writes an X
 #--------------------------------------------------------------------------------------------------------------
 def InsertFiefAtLocation(yPos, xPos, mapClass):
     for i in range(len(mapClass.worldMap)):
@@ -753,11 +755,11 @@ def CheckRemainingBiomes(biome, mapClass):
 #--------------------------------------------------------------------------------------------------------------
 def GetRandomPointByBiome(biome, mapClass):
     if biome == FOREST:
-        return random.randint(1, mapClass.numForests)
+        return random.randint(1, int(mapClass.numForests))
     if biome == MOUNTAIN:
-        return random.randint(1, mapClass.numMountains)
+        return random.randint(1, int(mapClass.numMountains))
     if biome == PLAINS:
-        return random.randint(1, mapClass.numPlains)
+        return random.randint(1, int(mapClass.numPlains))
 
 #--------------------------------------------------------------------------------------------------------------
 #   [CycleBiome]
