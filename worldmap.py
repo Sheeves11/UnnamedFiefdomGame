@@ -32,6 +32,7 @@ WEIGHT_INTENSITY = 5    #Higher the number, the more focused the map will be
 RANDOM_INTENSITY = 20   #Higher the number, the more chaotic the map will be
 INSTANTLY_GENERATE = False
 AUTOMATED = False
+FIRST_PRINT = True
 LOADING_INCREMENT = 0
 
 #Map Icons
@@ -89,8 +90,10 @@ def GenerateWorldMap(seed):
     #Pull globals into this function and reset them:
     global AUTOMATED
     global INSTANTLY_GENERATE
+    global FIRST_PRINT
     INSTANTLY_GENERATE = False
     AUTOMATED = False
+    FIRST_PRINT = True
 
     #Define world map and set variables based on seed value:
     worldMap = [['0' for x in range(MAP_WIDTH)] for y in range(MAP_HEIGHT)]
@@ -139,12 +142,12 @@ def GenerateWorldMap(seed):
 def DefineSurroundings(wMap, posX, posY, freqM, freqP, freqF):
     global AUTOMATED
     global INSTANTLY_GENERATE
-    
-    os.system("clear")
+    global FIRST_PRINT
     
     #Create points that are surrounding our current position
     #Prints each position at the top of the page:
     if not INSTANTLY_GENERATE:
+        os.system("clear")
         print('posX: ' + str(posX) + ' posY: ' + str(posY))
         try:
             dN = wMap[posY - 1][posX]
@@ -257,7 +260,9 @@ def DefineSurroundings(wMap, posX, posY, freqM, freqP, freqF):
 
     #If the option to instantly generate the map is selected, no print statements are made:
     else:
-        LoadingAnimation('Generating Map')
+        if FIRST_PRINT:
+            print('Generating Map...')
+            FIRST_PRINT = False
         try:
             dN = wMap[posY - 1][posX]
         except:
