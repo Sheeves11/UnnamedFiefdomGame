@@ -232,11 +232,11 @@ def PrintSurroundings(wMap, posX, posY, freqM, freqP, freqF):
     surroundings = [dN, dNE, dE, dSE, dS, dSW, dW, dNW]
     #Print surrounding symbols in a relevant box formation
     print('Surroundings: ') 
-    print('. . . . .')
-    print('. ' + dNW + ' ' + dN + ' ' + dNE + ' .')
-    print('. ' + dW + '   ' + dE + ' .')
-    print('. ' + dSW + ' ' + dS + ' ' + dSE + ' .')
-    print('. . . . .')
+    print('- - - - -')
+    print('- ' + dNW + ' ' + dN + ' ' + dNE + ' -')
+    print('- ' + dW + '   ' + dE + ' -')
+    print('- ' + dSW + ' ' + dS + ' ' + dSE + ' -')
+    print('- - - - -')
 
     #Define a list of weight totals for each:
     weights = [0, 0, 0, 0, 0, 0, 0, 0]
@@ -299,14 +299,14 @@ def PrintSurroundings(wMap, posX, posY, freqM, freqP, freqF):
     #While the map making process isn't automated:
     if not AUTOMATED:
         #Offer the user the option to make each symbol at a time, or automate the process.
-        userInput=input('Continue with manual input: press enter or input (auto)')
+        userInput=input('Continue with manual input: press (enter) or type (auto): ')
 
         if userInput == 'auto':
             AUTOMATED = True
             #Additionally, if the user decides to automate the process, ask if they want it 
             #to be generated instantly:
             if not INSTANTLY_GENERATE:
-                userInput=input('Would you like to instantly generate this map? (y/n)')
+                userInput=input('Would you like to instantly generate this map? (y/n): ')
                 if userInput == 'y':
                     INSTANTLY_GENERATE = True
 
