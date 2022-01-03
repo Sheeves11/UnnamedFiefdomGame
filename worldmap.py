@@ -203,7 +203,7 @@ def PrintSurroundings(wMap, symb, posX, posY, freqM, freqP, freqF):
     print('. ' + dW + ' ' + dE + ' .')
     print('. ' + dSW + dS + dSE + ' .')
     print('. . . . .')
-    
+
     # print(*surroundings)
     #Define a list of weight totals for each:
     weights = [0, 0, 0, 0, 0, 0, 0, 0]

@@ -234,6 +234,9 @@ class Fiefdom:
     defenderMod = '1'
     farmType = "Dirt Patch"
     thieves = 0
+    biome = '0'
+    xCoordinate = 0
+    yCoordinate = 0
 
     #take the current fiefdom and write it to the /fiefs directory
     def write(self):
@@ -314,6 +317,9 @@ class Stronghold:
     defenderMod = '1'
     farmType = "Dirt Patch"
     thieves = 0
+    biome = '0'
+    xCoordinate = 0
+    yCoordinate = 0
 
     #take the current stronghold and write it to the /strongholds directory
     def write(self):
@@ -322,7 +328,6 @@ class Stronghold:
         #this part creates a file if it isn't made yet        
         try:
             with open(fiefFile, 'x') as f:
-
                 f.write(self.name + '\n')
                 f.write(self.ruler + '\n')
                 f.write(str(self.home) + '\n')
@@ -336,6 +341,9 @@ class Stronghold:
                 f.write(str(self.defenderMod) + '\n')
                 f.write(str(self.farmType) + '\n')
                 f.write(str(self.thieves) + '\n')
+                f.write(str(self.biome) + '\n')
+                f.write(str(self.xCoordinate) + '\n')
+                f.write(str(self.yCoordinate) + '\n')
         except:
             pass
 
@@ -355,6 +363,9 @@ class Stronghold:
                 f.write(str(self.defenderMod) + '\n')
                 f.write(str(self.farmType) + '\n')
                 f.write(str(self.thieves) + '\n')
+                f.write(str(self.biome) + '\n')
+                f.write(str(self.xCoordinate) + '\n')
+                f.write(str(self.yCoordinate) + '\n')
         except:
             pass
 
@@ -376,20 +387,35 @@ class Stronghold:
                 self.defenderMod = f.readline().strip()
                 self.farmType = f.readline().strip()
                 self.thieves = f.readline().strip()
+                self.biome = f.readline().strip()
+                self.xCoordinate = f.readline().strip()
+                self.yCoordinate = f.readline().strip()
         except:
             self.write()     
             
 
 class Map:
+    seed = '00555'
     name = 'default'
-    width = 40
-    height = 40
-    worldMap = []
+    width = 5
+    height = 5
     
-    def initializeMap(self):
-        wMap = [['0' for x in range(self.width)] for y in range(self.height)]
-        return wMap
+    numWater = 0
+    numRivers = 0
+    numPlains = 0
+    numForests = 0
+    numMountains = 0
+    
+    usedPlains = 0
+    usedForests = 0
+    usedMountains = 0
 
+    values = []
+    worldMap = []
+
+    success = False #Temporary bool
+
+    #Testing map read/write updates (1)
     def write(self):
         mapFile = 'map/' + self.name + '.txt'
         
@@ -416,6 +442,7 @@ class Map:
         try:
             with open(mapFile, 'w') as f:
                 f.write(str("["))
+                f.write("['" + str(self.seed) + "'],")
                 for i in range(self.height):
                     f.write(str("["))
                     for j in range(self.width):
@@ -431,7 +458,7 @@ class Map:
         except:
             pass
 
-    #read class variables line by line
+    #read class variables line by line and save them into self.worldMap
     def read(self):
         mapFile = 'map/' + self.name + '.txt'
         try:
@@ -440,10 +467,23 @@ class Map:
             readMapFile.close()
 
             for count in range(len(readList)):
-                self.worldMap.append(readList[count])
+                if count == 0:
+                    self.values.append(readList[count])
+                    
+                if count > 0:
+                    self.worldMap.append(readList[count])
+
+            # print(*self.worldMap)
+            self.success = True
 
         except:
             print('Could not read file!')
             pass
+
+        if self.success == True:
+            self.seed = str(self.values[0]).lstrip("['").rstrip("']")
+            print('Seed: ' + str(self.seed))
+
+        
             
 #eof

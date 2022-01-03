@@ -1856,7 +1856,24 @@ while (loop):
         seed = '00555'  #Should be generated instead later
         GenerateWorldMap(seed)
 
-        time.sleep(2)
+
+        #serverMap.read()
+        serverMap.name = 'serverMap'
+        serverMap.seed = '00557'
+        serverMap.height = MAP_HEIGHT
+        serverMap.width = MAP_WIDTH
+        serverMap.worldMap = GenerateWorldMap(serverMap.seed)
+        serverMap.write()
+
+        
+        #print(serverMap.seed)
+        print('\n')
+        PrintColorMap(serverMap.worldMap)
+        #print(serverMap.worldMap)
+
+        
+        #time.sleep(2)
+
         nothing = input('Continue:')
 
         screen = 'stronghold'
