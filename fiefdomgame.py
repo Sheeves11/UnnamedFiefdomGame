@@ -1913,8 +1913,15 @@ while (loop):
         os.system("clear")
 
         fief = Fiefdom()
-        fief.name = 'Ashen Grove'
-        fief.read()
+        
+
+        fileFief = 'fiefs/' + command + '.txt'
+        try:
+            with open(fileFief, 'r') as f:
+                fief.name = 'Ashen Grove'
+                fief.read()
+        except:
+            print ('the file open broke')
 
         PlaceFiefInWorldMap(fief, serverMap)
 
