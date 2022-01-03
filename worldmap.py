@@ -406,8 +406,21 @@ def PrintColorMap(wMap):
                 print(IC_STRONGHOLD + symbol + RESET, end=" ")
         print('')
 
-#To Do: Write this function
+#To Do: Improve this function
 def GenerateSeed():
-    return('00555')
+    seed = ''
+    x = 0
+    y = 0
+    biomeMountain = random.randint(1, 9)
+    biomePlains = random.randint(1, 9)
+    biomeForest = random.randint(1, 9)
+    
+    seed.append(str(x))
+    seed.append(str(y))
+    seed.append(str(biomeMountain))
+    seed.append(str(biomePlains))
+    seed.append(str(biomeForest))
+
+    return seed
 
 #eof

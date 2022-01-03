@@ -259,6 +259,9 @@ class Fiefdom:
                 f.write(str(self.defenderMod) + '\n')
                 f.write(str(self.farmType) + '\n')
                 f.write(str(self.thieves) + '\n')
+                f.write(str(self.biome) + '\n')
+                f.write(str(self.xCoordinate) + '\n')
+                f.write(str(self.yCoordinate) + '\n')
         except:
             pass
 
@@ -278,6 +281,9 @@ class Fiefdom:
                 f.write(str(self.defenderMod) + '\n')
                 f.write(str(self.farmType) + '\n')
                 f.write(str(self.thieves) + '\n')
+                f.write(str(self.biome) + '\n')
+                f.write(str(self.xCoordinate) + '\n')
+                f.write(str(self.yCoordinate) + '\n')
         except:
             pass
 
@@ -299,6 +305,9 @@ class Fiefdom:
                 self.defenderMod = f.readline().strip()
                 self.farmType = f.readline().strip()
                 self.thieves = f.readline().strip()
+                self.biome = f.readline().strip()
+                self.xCoordinate = f.readline().strip()
+                self.yCoordinate = f.readline().strip()
         except:
             self.write()   
             
