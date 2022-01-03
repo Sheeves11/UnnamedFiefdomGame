@@ -619,7 +619,7 @@ def PlaceFiefInWorldMap(fiefClass, mapClass):
     #If none are available, then change the fief's biome and try again.
     #If there aren't any open spots at all, then stop the loop.
     while remaining == 0 and cycle < 4:
-        remaining = CheckRemainingBiomes(fiefClass.biome)
+        remaining = CheckRemainingBiomes(fiefClass.biome, mapClass)
         if remaining == 0:
             fiefClass.biome = CycleBiome(fiefClass.biome)
     if cycle > 3:
