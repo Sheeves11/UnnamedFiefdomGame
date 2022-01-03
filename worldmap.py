@@ -550,11 +550,11 @@ def GenerateSeed():
     biomePlains = random.randint(1, 9)
     biomeForest = random.randint(1, 9)
     
-    seed.append(str(x))
-    seed.append(str(y))
-    seed.append(str(biomeMountain))
-    seed.append(str(biomePlains))
-    seed.append(str(biomeForest))
+    seed += str(x)
+    seed += str(y)
+    seed += str(biomeMountain)
+    seed += str(biomePlains)
+    seed += str(biomeForest)
 
     return seed
 
