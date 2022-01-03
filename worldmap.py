@@ -193,6 +193,67 @@ def PrintSurroundings(wMap, posX, posY, freqM, freqP, freqF):
         except:
             dNW = ' '
             print('North is off the map!')
+    
+        #Define a list using the surrounding symbols:
+        surroundings = [dN, dNE, dE, dSE, dS, dSW, dW, dNW]
+        #Print surrounding symbols in a relevant box formation
+        print('Surroundings: ') 
+        print('- - - - -')
+        print('- ' + dNW + ' ' + dN + ' ' + dNE + ' -')
+        print('- ' + dW + '   ' + dE + ' -')
+        print('- ' + dSW + ' ' + dS + ' ' + dSE + ' -')
+        print('- - - - -')
+
+        #Define a list of weight totals for each:
+        weights = [0, 0, 0, 0, 0, 0, 0, 0]
+        #Define a value to iterate through weights with:
+        index = 0
+
+        #Calculate the weight totals:
+        for i in surroundings:
+            if i == UNEXPLORED:
+                weights[index] = 0
+            elif i == EMPTY:
+                weights[index] = 0
+            elif i == WATER:
+                weights[index] = 10
+            elif i == RIVER:
+                weights[index] = 10
+            elif i == FOREST:
+                weights[index] = freqF * WEIGHT_INTENSITY
+            elif i == PLAINS:
+                weights[index] = freqP * WEIGHT_INTENSITY
+            elif i == MOUNTAIN:
+                weights[index] =  freqM * WEIGHT_INTENSITY
+            elif i == FIEF:
+                weights[index] = 0
+            elif i == STRONGHOLD:
+                weights[index] = 0
+            index = index + 1
+
+        #Print weights:
+        print('Weights: ') 
+        print(*weights)
+
+        #Define a combined list of symbols and weights:
+        symbolTable = [(dN,weights[0]),(dNE,weights[1]),(dE,weights[2]),(dSE,weights[3]),(dS,weights[4]),(dSW,weights[5]),(dW,weights[6]),(dNW,weights[7]), (RANDOM,RANDOM_INTENSITY)]
+
+        #Print new combined list:
+        print('Symbol Table: ') 
+        print(*symbolTable)
+
+        #Define an expanded list of the combined list:
+        pointTable = []
+        for item, weight in symbolTable:
+            pointTable.extend([item]*weight)
+        
+        #Choose a random item in the list:
+        newPoint = random.choice(pointTable)
+
+        #Print the randomly selected symbol:
+        print('New Point: ') 
+        print(*newPoint)
+
     #If the option to instantly generate the map is selected, no print statements are made:
     else:
         try:
@@ -227,66 +288,41 @@ def PrintSurroundings(wMap, posX, posY, freqM, freqP, freqF):
             dNW = wMap[posY - 1][posX - 1]
         except:
             dNW = ' '
-
-    #Define a list using the surrounding symbols:
-    surroundings = [dN, dNE, dE, dSE, dS, dSW, dW, dNW]
-    #Print surrounding symbols in a relevant box formation
-    print('Surroundings: ') 
-    print('- - - - -')
-    print('- ' + dNW + ' ' + dN + ' ' + dNE + ' -')
-    print('- ' + dW + '   ' + dE + ' -')
-    print('- ' + dSW + ' ' + dS + ' ' + dSE + ' -')
-    print('- - - - -')
-
-    #Define a list of weight totals for each:
-    weights = [0, 0, 0, 0, 0, 0, 0, 0]
-    #Define a value to iterate through weights with:
-    index = 0
-
-    #Calculate the weight totals:
-    for i in surroundings:
-        if i == UNEXPLORED:
-            weights[index] = 0
-        elif i == EMPTY:
-            weights[index] = 0
-        elif i == WATER:
-            weights[index] = 10
-        elif i == RIVER:
-            weights[index] = 10
-        elif i == FOREST:
-            weights[index] = freqF * WEIGHT_INTENSITY
-        elif i == PLAINS:
-            weights[index] = freqP * WEIGHT_INTENSITY
-        elif i == MOUNTAIN:
-            weights[index] =  freqM * WEIGHT_INTENSITY
-        elif i == FIEF:
-            weights[index] = 0
-        elif i == STRONGHOLD:
-            weights[index] = 0
-        index = index + 1
-
-    #Print weights:
-    print('Weights: ') 
-    print(*weights)
-
-    #Define a combined list of symbols and weights:
-    symbolTable = [(dN,weights[0]),(dNE,weights[1]),(dE,weights[2]),(dSE,weights[3]),(dS,weights[4]),(dSW,weights[5]),(dW,weights[6]),(dNW,weights[7]), (RANDOM,RANDOM_INTENSITY)]
-
-    #Print new combined list:
-    print('Symbol Table: ') 
-    print(*symbolTable)
-
-    #Define an expanded list of the combined list:
-    pointTable = []
-    for item, weight in symbolTable:
-        pointTable.extend([item]*weight)
-    
-    #Choose a random item in the list:
-    newPoint = random.choice(pointTable)
-
-    #Print the randomly selected symbol:
-    print('New Point: ') 
-    print(*newPoint)
+        #Define a list using the surrounding symbols:
+        surroundings = [dN, dNE, dE, dSE, dS, dSW, dW, dNW]
+        #Define a list of weight totals for each:
+        weights = [0, 0, 0, 0, 0, 0, 0, 0]
+        #Define a value to iterate through weights with:
+        index = 0
+        #Calculate the weight totals:
+        for i in surroundings:
+            if i == UNEXPLORED:
+                weights[index] = 0
+            elif i == EMPTY:
+                weights[index] = 0
+            elif i == WATER:
+                weights[index] = 10
+            elif i == RIVER:
+                weights[index] = 10
+            elif i == FOREST:
+                weights[index] = freqF * WEIGHT_INTENSITY
+            elif i == PLAINS:
+                weights[index] = freqP * WEIGHT_INTENSITY
+            elif i == MOUNTAIN:
+                weights[index] =  freqM * WEIGHT_INTENSITY
+            elif i == FIEF:
+                weights[index] = 0
+            elif i == STRONGHOLD:
+                weights[index] = 0
+            index = index + 1
+        #Define a combined list of symbols and weights:
+        symbolTable = [(dN,weights[0]),(dNE,weights[1]),(dE,weights[2]),(dSE,weights[3]),(dS,weights[4]),(dSW,weights[5]),(dW,weights[6]),(dNW,weights[7]), (RANDOM,RANDOM_INTENSITY)]
+        #Define an expanded list of the combined list:
+        pointTable = []
+        for item, weight in symbolTable:
+            pointTable.extend([item]*weight)
+        #Choose a random item in the list:
+        newPoint = random.choice(pointTable)
 
     #If the RANDOM symbol was picked, get a random symbol:
     if newPoint == RANDOM:
