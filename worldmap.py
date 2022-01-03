@@ -124,7 +124,7 @@ def GenerateWorldMap(seed):
 
         loop = False                                #Map should be complete, stop looping.
 
-    print('\nFinished!\n')
+    print('\nFinished!')
 
     return worldMap
 
@@ -343,7 +343,7 @@ def DefineSurroundings(wMap, posX, posY, freqM, freqP, freqF):
     #While the map making process isn't automated:
     if not AUTOMATED:
         #Offer the user the option to make each symbol at a time, or automate the process.
-        userInput=input('Continue with manual input: press (enter) or type (auto): ')
+        userInput=input('\nContinue with manual input? press (enter) or type (auto): ')
 
         if userInput == 'auto':
             AUTOMATED = True
