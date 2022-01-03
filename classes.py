@@ -440,7 +440,7 @@ class Map:
         try:
             with open(mapFile, 'w') as f:
                 f.write(str("["))
-                f.write("[" + str(self.seed) + "]")
+                f.write("[" + str(self.seed) + "],")
                 for i in range(self.height):
                     f.write(str("["))
                     for j in range(self.width):
