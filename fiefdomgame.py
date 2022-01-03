@@ -1762,7 +1762,7 @@ while (loop):
         # print(str(serverMap.worldMap))
         # print('Attempting to print color map:\n')
         print('World Map: \n')
-        PrintColorMap(serverMap.worldMap)
+        # PrintColorMap(serverMap.worldMap)
         print('')
         time.sleep(1)
         nothing = input('Continue:')
