@@ -615,7 +615,7 @@ def DefineFiefBiome(fiefClass):
 #   instead.
 #--------------------------------------------------------------------------------------------------------------
 def PlaceFiefInWorldMap(fiefClass, mapClass):
-    if fiefClass.biome == '0':
+    if (fiefClass.biome == '0') and (fiefClass.name != 'Default Fiefdom'):
         DefineFiefBiome(fiefClass)
         print('Defined Biome as: ' + str(fiefClass.biome))
         remaining = 0
@@ -638,7 +638,7 @@ def PlaceFiefInWorldMap(fiefClass, mapClass):
                 print('Picking a random ' + str(fiefClass.biome) + ' biome out of the ones available:')
                 point = GetRandomPointByBiome(fiefClass.biome, mapClass)
                 print('Picked point: ' + str(point))
-                
+
                 #If a biome was found:
                 if point > 0:
                     coordinates = GetPointCoordinates(fiefClass.biome, point, mapClass.worldMap)
@@ -665,7 +665,10 @@ def PlaceFiefInWorldMap(fiefClass, mapClass):
                     else:
                         pickingPoint += 1
     else:
-        print('This fief is already on the map!')
+        if fiefClass.name != 'Default Fiefdom':
+            print("That fiefdom doesn't exist!")
+        else:
+            print('That fief is already on the map!')
 
 #--------------------------------------------------------------------------------------------------------------
 #   [InsertFiefAtLocation]

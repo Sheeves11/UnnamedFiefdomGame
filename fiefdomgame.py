@@ -1905,7 +1905,7 @@ while (loop):
                 fief.name = f.readline().strip()
                 fief.read()
         except:
-            print ('the file open broke')
+            print ('No file found')
 
         PlaceFiefInWorldMap(fief, serverMap)
 
