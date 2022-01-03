@@ -261,6 +261,7 @@ def DefineSurroundings(wMap, posX, posY, freqM, freqP, freqF):
     #If the option to instantly generate the map is selected, no print statements are made:
     else:
         if FIRST_PRINT:
+            os.system("clear")
             print('Generating Map...')
             FIRST_PRINT = False
         try:
@@ -349,7 +350,7 @@ def DefineSurroundings(wMap, posX, posY, freqM, freqP, freqF):
             #Additionally, if the user decides to automate the process, ask if they want it 
             #to be generated instantly:
             if not INSTANTLY_GENERATE:
-                userInput=input('Would you like to quickly generate this map? (y/n): ')
+                userInput=input('Would you like to instantly generate this map? (y/n): ')
                 if userInput == 'y':
                     INSTANTLY_GENERATE = True
 
