@@ -413,7 +413,7 @@ class Map:
     values = []
     worldMap = []
 
-    success = False
+    success = False #Temporary bool
 
     #Testing map read/write updates (1)
     def write(self):
@@ -469,11 +469,12 @@ class Map:
             for count in range(len(readList)):
                 if count == 0:
                     self.values.append(readList[count])
-                    self.success = True
+                    
                 if count > 0:
                     self.worldMap.append(readList[count])
 
-            print(*self.worldMap)
+            # print(*self.worldMap)
+            self.success = True
 
         except:
             print('Could not read file!')
