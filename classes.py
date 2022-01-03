@@ -480,8 +480,7 @@ class Map:
             pass
 
         if self.success == True:
-            self.seed = self.values[0]
-            self.seed = self.seed.lstrip("['").rstrip("']")
+            self.seed = str(self.values[0]).lstrip("['").rstrip("']")
             print('Seed: ' + str(self.seed))
 
         
