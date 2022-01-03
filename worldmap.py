@@ -582,6 +582,9 @@ def DefineFiefBiome(fiefClass):
     plainsBiomeNames = ['plain', 'field', 'prairie', 'flat', 'expanse', 'grass', 'meadow', 'steppe', 'plateau', 'heath', 'moor', 'hollow']
     mountainBiomeNames = ['mount', 'alp', 'bluff', 'cliff', 'crag', 'mesa', 'peak', 'range', 'ridge', 'pike', 'hill', 'butte', 'height']
 
+    print('Trying to define fief biome.')
+    print('Fief name is: ' + str(fiefClass.name))
+    print('Fief biome is: ' + str(fiefClass.biome))
     #Check if the name sounds like a forest
     for i in range(len(forestBiomeNames)):
         if forestBiomeNames[i] in fiefClass.name:
