@@ -21,8 +21,8 @@ BOLD = '\033[1m'
 UNDERLINE = '\033[4m'
 
 #Global variables
-MAP_WIDTH = 20
-MAP_HEIGHT = 20
+MAP_WIDTH = 5
+MAP_HEIGHT = 5
 DEFAULT_WEIGHT = 10     #A common weight total
 WEIGHT_INTENSITY = 5    #Higher the number, the more focused the map will be
 RANDOM_INTENSITY = 20   #Higher the number, the more chaotic the map will be
@@ -286,6 +286,7 @@ def QuietlyGenerateWorldMap(seed):
 
             firstLoop = False
         loop = False
+    print(*worldMap)
     return worldMap
 
 #Does the same thing as PrintSurroundings but with no prints

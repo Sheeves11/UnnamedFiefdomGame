@@ -397,8 +397,8 @@ class Stronghold:
 class Map:
     seed = '00555'
     name = 'default'
-    width = 20
-    height = 20
+    width = 5
+    height = 5
     
     numWater = 0
     numRivers = 0
