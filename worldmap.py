@@ -610,7 +610,7 @@ def DefineFiefBiome(fiefClass):
 #--------------------------------------------------------------------------------------------------------------
 def PlaceFiefInWorldMap(fiefClass, mapClass):
     DefineFiefBiome(fiefClass)
-
+    print('Defined Biome as: ' + str(fiefClass.biome))
     remaining = 0
     cycle = 0
     pickingPoint = 0
@@ -728,16 +728,14 @@ def CrossCheckCoordinates(coordinates):
 #   Returns: number of remaining biomes of the passed type in the passed mapClass
 #--------------------------------------------------------------------------------------------------------------
 def CheckRemainingBiomes(biome, mapClass):
-    remaining = 0
-
     if biome == FOREST:
-        remaining = int(mapClass.numForests) - int(mapClass.usedForests)
-    if biome == MOUNTAIN:
-        remaining = int(mapClass.numMountains) - int(mapClass.usedMountains)
-    if biome == PLAINS:
-        remaining = int(mapClass.numPlains) - int(mapClass.usedPlains)
-    
-    return remaining
+        return int(mapClass.numForests) - int(mapClass.usedForests)
+    elif biome == MOUNTAIN:
+        return int(mapClass.numMountains) - int(mapClass.usedMountains)
+    elif biome == PLAINS:
+        return int(mapClass.numPlains) - int(mapClass.usedPlains)
+    else:
+        return 0
 
 #--------------------------------------------------------------------------------------------------------------
 #   [GetRandomPointByBiome]
