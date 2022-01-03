@@ -422,8 +422,12 @@ class Map:
     worldMap = []
 
     success = False #Temporary bool
-
-    #Testing map read/write updates (1)
+    #--------------------------------------------------------------------------------------------------------------
+    #   Writes a map file as a 2-d list like so:
+    #   [['seed'], ['width'], ['height'], ['numWater'], ['numRivers'], ['numPlains'], ['numForests'], 
+    #   ['numMountains'], ['usedPlains'], ['usedForests'], ['usedMountains'], ['worldMap ROW 1'], [worldMap ROW 2], 
+    #   [worldMap ROW 3], [...], [worldMap ROW height]
+    #--------------------------------------------------------------------------------------------------------------
     def write(self):
         mapFile = 'map/' + self.name + '.txt'
         
@@ -431,6 +435,17 @@ class Map:
         try:
             with open(mapFile, 'x') as f:
                 f.write(str("["))
+                f.write("['" + str(self.seed) + "'],")
+                f.write("['" + str(self.width) + "'],")
+                f.write("['" + str(self.height) + "'],")
+                f.write("['" + str(self.numWater) + "'],")
+                f.write("['" + str(self.numRivers) + "'],")
+                f.write("['" + str(self.numPlains) + "'],")
+                f.write("['" + str(self.numForests) + "'],")
+                f.write("['" + str(self.numMountains) + "'],")
+                f.write("['" + str(self.usedPlains) + "'],")
+                f.write("['" + str(self.usedForests) + "'],")
+                f.write("['" + str(self.usedMountains) + "'],")
                 for i in range(self.height):
                     f.write(str("["))
                     for j in range(self.width):
@@ -451,6 +466,16 @@ class Map:
             with open(mapFile, 'w') as f:
                 f.write(str("["))
                 f.write("['" + str(self.seed) + "'],")
+                f.write("['" + str(self.width) + "'],")
+                f.write("['" + str(self.height) + "'],")
+                f.write("['" + str(self.numWater) + "'],")
+                f.write("['" + str(self.numRivers) + "'],")
+                f.write("['" + str(self.numPlains) + "'],")
+                f.write("['" + str(self.numForests) + "'],")
+                f.write("['" + str(self.numMountains) + "'],")
+                f.write("['" + str(self.usedPlains) + "'],")
+                f.write("['" + str(self.usedForests) + "'],")
+                f.write("['" + str(self.usedMountains) + "'],")
                 for i in range(self.height):
                     f.write(str("["))
                     for j in range(self.width):
@@ -466,7 +491,11 @@ class Map:
         except:
             pass
 
-    #read class variables line by line and save them into self.worldMap
+    #--------------------------------------------------------------------------------------------------------------
+    #   Opens the map file and reads the whole thing into the variable "readList" before closing it.
+    #   The first 11 variables are stored in a "values" array for sorting into appropriate variables.
+    #   Then, each row of the map is loaded into the worldMap 2d-list.
+    #--------------------------------------------------------------------------------------------------------------
     def read(self):
         mapFile = 'map/' + self.name + '.txt'
         try:
@@ -475,13 +504,12 @@ class Map:
             readMapFile.close()
 
             for count in range(len(readList)):
-                if count == 0:
+                if count <= 10:
                     self.values.append(readList[count])
                     
-                if count > 0:
+                if count > 10:
                     self.worldMap.append(readList[count])
 
-            # print(*self.worldMap)
             self.success = True
 
         except:
@@ -490,8 +518,25 @@ class Map:
 
         if self.success == True:
             self.seed = str(self.values[0]).lstrip("['").rstrip("']")
-            print('Seed: ' + str(self.seed))
+            self.width = str(self.values[1]).lstrip("['").rstrip("']")
+            self.height = str(self.values[2]).lstrip("['").rstrip("']")
+            self.numWater = str(self.values[3]).lstrip("['").rstrip("']")
+            self.numRivers = str(self.values[4]).lstrip("['").rstrip("']")
+            self.numPlains = str(self.values[5]).lstrip("['").rstrip("']")
+            self.numForests = str(self.values[6]).lstrip("['").rstrip("']")
+            self.numMountains = str(self.values[7]).lstrip("['").rstrip("']")
+            self.usedPlains = str(self.values[8]).lstrip("['").rstrip("']")
+            self.usedForests = str(self.values[9]).lstrip("['").rstrip("']")
+            self.usedMountains = str(self.values[10]).lstrip("['").rstrip("']")
+            print('seed: ' + str(self.seed))
+            print('width: ' + str(self.width))
+            print('height: ' + str(self.height))
+            print('numWater: ' + str(self.numWater))
+            print('numPlains: ' + str(self.numPlains))
+            print('numForests: ' + str(self.numForests))
+            print('numMountains: ' + str(self.numMountains))
+            print('usedPlains: ' + str(self.usedPlains))
+            print('usedForests: ' + str(self.usedForests))
+            print('usedMountains: ' + str(self.usedMountains))
 
-        
-            
 #eof

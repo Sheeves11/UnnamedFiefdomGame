@@ -1873,7 +1873,7 @@ while (loop):
         os.system("clear")
 
         serverMap.name = 'serverMap'
-        serverMap.seed = '00557'
+        serverMap.seed = GenerateSeed()
         serverMap.height = MAP_HEIGHT
         serverMap.width = MAP_WIDTH
         serverMap.worldMap = GenerateWorldMap(serverMap.seed)

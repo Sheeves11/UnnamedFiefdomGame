@@ -101,11 +101,14 @@ def GenerateWorldMap(seed):
     
     loop = True
     firstLoop = True
+
+    #Print title, blank map, etc.
     print('World Map Devtool')
     print('worldMap before inserting anything: \n')
     print(worldMap)
     print('\n')
     print('Inserting stuff into worldMap: \n')
+
     while (loop):                                   #This should keep going until the map is filled (currently loops once)
         if firstLoop:                               #Check if this is the first loop (for coordinate stuff later)
             for y in range(MAP_HEIGHT):             #Iterate through each row of the map
