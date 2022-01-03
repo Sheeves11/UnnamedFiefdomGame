@@ -466,8 +466,10 @@ class Map:
             
             for count in range(len(readList)):
                 if count == 0:
-                    self.seed = readList[count]
+                    print('Count is 0, trying to set seed.')
+                    self.seed = str(readList[count])
                 if count > 1:
+                    print('Count is greater than 1, trying to read map.')
                     self.worldMap.append(readList[count])
 
         except:
