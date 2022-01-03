@@ -309,6 +309,9 @@ class Fiefdom:
                 self.yCoordinate = f.readline().strip()
         except:
             self.write()   
+    def setCoordinates(self, coordinates):
+        self.yCoordinate = coordinates[0]
+        self.xCoordinate = coordinates[1]
             
 #SW: I am splitting this to safely determine if it is necessary to keep the above stuff or not
 class Stronghold:

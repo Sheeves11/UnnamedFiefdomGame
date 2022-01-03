@@ -291,6 +291,9 @@ while (loop):
         if command == 'wm':
             screen = 'worldMap'
 
+        if command == 'tf':
+            screen = 'testFiefPlacement'
+
 #This is the screen for the message board.
 #----------------------------------------------------------------------------------
     if screen == "board":
@@ -1880,9 +1883,9 @@ while (loop):
 
         screen = 'stronghold'
 
-#This is currently just a test page for a possible world map feature
+#This is a devtool for making the world map for a server
 #
-#It can be taken out
+#It eventually needs to be accessed in another way
 #----------------------------------------------------------------------------------
     if screen == "worldMap":
 
@@ -1893,7 +1896,7 @@ while (loop):
         serverMap.height = MAP_HEIGHT
         serverMap.width = MAP_WIDTH
         serverMap.worldMap = GenerateWorldMap(serverMap.seed)
-        setBiomeCounts(serverMap)
+        SetBiomeCounts(serverMap)
         serverMap.write()
 
         print('\n')
@@ -1902,6 +1905,23 @@ while (loop):
         nothing = input('Continue:')
 
         screen = 'stronghold'
+
+#This is currently just a test page to see if fief placement in the world map works as intended
+#----------------------------------------------------------------------------------
+    if screen == "testFiefPlacement":
+
+        os.system("clear")
+
+        fief = Fiefdom()
+        fief.name = 'Ashen Grove'
+        fief.read()
+
+        PlaceFiefInWorldMap(fief, serverMap)
+
+        nothing = input('Continue:')
+
+        screen = 'stronghold'
+        
 
     '''
 #This screen is for upgrading your home stronghold's defenses

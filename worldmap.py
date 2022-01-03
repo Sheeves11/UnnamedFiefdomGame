@@ -504,8 +504,7 @@ def QuietlyDefineSurroundings(wMap, posX, posY, freqM, freqP, freqF):
 
 #--------------------------------------------------------------------------------------------------------------
 #   [GetRandomPoint]
-#
-#   Grabs a random biome symbol
+#   Returns: A random biome symbol
 #--------------------------------------------------------------------------------------------------------------
 def GetRandomPoint():
     symbolTable = [(WATER, DEFAULT_WEIGHT),(FOREST, DEFAULT_WEIGHT), (PLAINS, DEFAULT_WEIGHT), (MOUNTAIN, DEFAULT_WEIGHT)]
@@ -516,8 +515,7 @@ def GetRandomPoint():
 
 #--------------------------------------------------------------------------------------------------------------
 #   [GetRandomLandPoint]
-#
-#   Grabs a random solid land biome symbol
+#   Returns: a random solid land biome symbol
 #--------------------------------------------------------------------------------------------------------------
 def GetRandomLandPoint():
     symbolTable = [(FOREST, DEFAULT_WEIGHT), (PLAINS, DEFAULT_WEIGHT), (MOUNTAIN, DEFAULT_WEIGHT)]
@@ -574,44 +572,219 @@ def PrintColorMap(wMap):
 
 #--------------------------------------------------------------------------------------------------------------
 #   [DefineFiefBiome]
-#   Parameters: fief
+#   Parameters: fiefClass
 #
 #   Sets a fief's biome based on the fief's name. If no match is found, the fief is assigned a random biome 
 #   instead.
 #--------------------------------------------------------------------------------------------------------------
-def DefineFiefBiome(fief):
+def DefineFiefBiome(fiefClass):
     forestBiomeNames = ['forest', 'wood', 'root', 'grove', 'thicket', 'glade', 'pine', 'timber', 'covert', 'canopy']
     plainsBiomeNames = ['plain', 'field', 'prairie', 'flat', 'expanse', 'grass', 'meadow', 'steppe', 'plateau', 'heath', 'moor', 'hollow']
     mountainBiomeNames = ['mount', 'alp', 'bluff', 'cliff', 'crag', 'mesa', 'peak', 'range', 'ridge', 'pike', 'hill', 'butte', 'height']
 
     #Check if the name sounds like a forest
     for i in range(len(forestBiomeNames)):
-        if forestBiomeNames[i] in fief.name:
-            fief.biome = FOREST
+        if forestBiomeNames[i] in fiefClass.name:
+            fiefClass.biome = FOREST
     #Check if the name sounds like a mountain
     for i in range(len(mountainBiomeNames)):
-        if mountainBiomeNames[i] in fief.name:
-            fief.biome = MOUNTAIN
+        if mountainBiomeNames[i] in fiefClass.name:
+            fiefClass.biome = MOUNTAIN
     #Check if the name sounds like a plains
     for i in range(len(plainsBiomeNames)):
-        if plainsBiomeNames[i] in fief.name:
-            fief.biome = PLAINS
+        if plainsBiomeNames[i] in fiefClass.name:
+            fiefClass.biome = PLAINS
     #Select randomly if the name doesn't sound like any of the previous biomes
-    if fief.biome == '0':
-        fief.biome = GetRandomLandPoint()
+    if fiefClass.biome == '0':
+        fiefClass.biome = GetRandomLandPoint()
 
-    #Update the fief file
-    fief.write()
+    #Update the fiefClass file
+    fiefClass.write()
 
 #--------------------------------------------------------------------------------------------------------------
-#   [getBiomeCounts]
+#   [PlaceFiefInWorldMap]
+#   Parameters: fiefClass, mapClass
+#
+#   Sets a fief's biome based on the fief's name. If no match is found, the fief is assigned a random biome 
+#   instead.
+#--------------------------------------------------------------------------------------------------------------
+def PlaceFiefInWorldMap(fiefClass, mapClass):
+    DefineFiefBiome(fiefClass)
+
+    remaining = 0
+    cycle = 0
+    pickingPoint = 0
+
+    #Check if there are still biome slots open for a particular biome.
+    #If none are available, then change the fief's biome and try again.
+    #If there aren't any open spots at all, then stop the loop.
+    while remaining == 0 and cycle < 4:
+        remaining = CheckRemainingBiomes(fiefClass.biome)
+        if remaining == 0:
+            fiefClass.biome = CycleBiome(fiefClass.biome)
+    if cycle > 3:
+        print('Error, no more room for fiefs left on this map!')
+    else:
+        while pickingPoint < 15:    #Tries to get a point. Fails if it manages to select an occupied point 15 times.
+        #Select one of the available biomes at random
+            point = GetRandomPointByBiome(fiefClass.biome, mapClass)
+            
+            #If a biome was found:
+            if point >= 1:
+                coordinates = GetPointCoordinates(fiefClass.biome, point, mapClass.worldMap)
+
+                if CrossCheckCoordinates(coordinates):
+                    print('Successfully selected coordinates!:')
+                    print(*coordinates)
+                    fiefClass.setCoordinates(coordinates)
+                    print('Successfully set coordinates!: ')
+                    print('xCoordinate: ' + str(fiefClass.xCoordinate) + 'yCoordinate:' + str(fiefClass.yCoordinate))
+                    print('Updating used biomes in mapClass: ')
+                    UpdateUsedBiomes(fiefClass.biome, mapClass)
+                    print('Inserting Fief into map:')
+                    InsertFiefAtLocation(fiefClass.yCoordinate, fiefClass.xCoordinate, mapClass)
+                    
+                    PrintColorMap(mapClass.worldMap)
+
+                    fiefClass.write()
+                    pickingPoint = 15
+
+                else:
+                    pickingPoint += 1
+
+#--------------------------------------------------------------------------------------------------------------
+#   [GetPointCoordinates]
+#   Parameters: biome, point, mapClass
+#   Returns: a set of coordinates based on the point parameter.
+#--------------------------------------------------------------------------------------------------------------
+def InsertFiefAtLocation(yPos, xPos, mapClass):
+    for i in range(len(mapClass.worldMap)):
+        for j in range(len(mapClass.worldMap[i])):
+            if i == yPos and j == xPos:
+                mapClass.worldMap[i][j] = 'X'
+    mapClass.write()
+
+#--------------------------------------------------------------------------------------------------------------
+#   [GetPointCoordinates]
+#   Parameters: biome, point, mapClass
+#   Returns: a set of coordinates based on the point parameter.
+#--------------------------------------------------------------------------------------------------------------
+def GetPointCoordinates(biome, point, wMap):
+    coordinates = [0, 0]
+    counter = 0
+    if biome == FOREST:
+        for i in range(len(wMap)):
+            for j in range(len(wMap[i])):
+                if wMap[i][j] == FOREST:
+                    counter += 1
+                    if counter == point:
+                        coordinates[0] = i
+                        coordinates[1] = j
+    elif biome == PLAINS:
+        for i in range(len(wMap)):
+            for j in range(len(wMap[i])):
+                if wMap[i][j] == PLAINS:
+                    counter += 1
+                    if counter == point:
+                        coordinates[0] = i
+                        coordinates[1] = j
+    elif biome == MOUNTAIN:
+        for i in range(len(wMap)):
+            for j in range(len(wMap[i])):
+                if wMap[i][j] == MOUNTAIN:
+                    counter += 1
+                    if counter == point:
+                        coordinates[0] = i
+                        coordinates[1] = j
+
+    return coordinates
+
+#--------------------------------------------------------------------------------------------------------------
+#   [CrossCheckCoordinates]
+#   Parameters: coordinates
+#   Returns: True if no other fiefs have the same coordinates
+#--------------------------------------------------------------------------------------------------------------
+def CrossCheckCoordinates(coordinates):
+    for filename in os.listdir('fiefs'):
+            with open(os.path.join('fiefs', filename), 'r') as f:
+                tempName = filename[:-4]
+                tempName = Fiefdom()
+                tempName.name = filename[:-4]
+                tempName.read()
+
+                if tempName.yCoordinate == coordinates[0] and tempName.xCoordinate == coordinates[1]:
+                    print('Error, same coordinates as ' + str(tempName.name) + '!')
+                    return False
+                else:
+                    return True
+
+#--------------------------------------------------------------------------------------------------------------
+#   [CheckRemainingBiomes]
+#   Parameters: biome, mapClass
+#   Returns: number of remaining biomes of the passed type in the passed mapClass
+#--------------------------------------------------------------------------------------------------------------
+def CheckRemainingBiomes(biome, mapClass):
+    remaining = 0
+
+    if biome == FOREST:
+        remaining = mapClass.numForests - mapClass.usedForests
+    if biome == MOUNTAIN:
+        remaining = mapClass.numMountains - mapClass.usedMountains
+    if biome == PLAINS:
+        remaining = mapClass.numPlains - mapClass.usedPlains
+    
+    return remaining
+
+#--------------------------------------------------------------------------------------------------------------
+#   [GetRandomPointByBiome]
+#   Parameters: biome, mapClass
+#   Returns: an random int based on the number of matching biomes in the passed mapClass
+#--------------------------------------------------------------------------------------------------------------
+def GetRandomPointByBiome(biome, mapClass):
+    if biome == FOREST:
+        return random.randint(1, mapClass.numForests)
+    if biome == MOUNTAIN:
+        return random.randint(1, mapClass.numMountains)
+    if biome == PLAINS:
+        return random.randint(1, mapClass.numPlains)
+
+#--------------------------------------------------------------------------------------------------------------
+#   [CycleBiome]
+#   Parameters: biome
+#   Returns: a different biome based on the biome passed
+#--------------------------------------------------------------------------------------------------------------
+def CycleBiome(biome):
+    if biome == FOREST:
+        return MOUNTAIN
+    elif biome == MOUNTAIN:
+        return PLAINS
+    elif biome == PLAINS:
+        return FOREST
+
+#--------------------------------------------------------------------------------------------------------------
+#   [UpdateUsedBiomes]
+#   Parameters: biome, mapClass
+#   Returns: an random int based on the number of matching biomes in the passed mapClass
+#--------------------------------------------------------------------------------------------------------------
+def UpdateUsedBiomes(biome, mapClass):
+    if biome == FOREST:
+        mapClass.usedForests += 1
+    if biome == MOUNTAIN:
+        mapClass.usedMountains += 1
+    if biome == PLAINS:
+        mapClass.usedPlains += 1
+
+    mapClass.write()
+
+#--------------------------------------------------------------------------------------------------------------
+#   [GetBiomeCounts]
 #   Parameters: wMap
 #
 #   Gets a list containing the number of biomes found in the passed map object.
 #   List layout is:
 #       [numWater, numRivers, numForest, numMountain, numPlains]
 #--------------------------------------------------------------------------------------------------------------
-def getBiomeCounts(wMap):
+def GetBiomeCounts(wMap):
     numWater = 0
     numRivers = 0
     numForests = 0
@@ -632,23 +805,23 @@ def getBiomeCounts(wMap):
                 numPlains += 1
 
     biomeCounts = [numWater, numRivers, numForests, numMountains, numPlains]
+
     return biomeCounts
+    
 
 #--------------------------------------------------------------------------------------------------------------
-#   [setBiomeCounts]
-#   Parameters: wMap
+#   [SetBiomeCounts]
+#   Parameters: mapClass
 #
-#   Gets a list containing the number of biomes found in the passed map object.
-#   List layout is:
-#       [numWater, numRivers, numForest, numMountain, numPlains]
+#   Sets the number of biomes in the map class
 #--------------------------------------------------------------------------------------------------------------
-def setBiomeCounts(WorldMap):
-    biomeCounts = getBiomeCounts(WorldMap.worldMap)
-    WorldMap.numWater = biomeCounts[0]
-    WorldMap.numRivers = biomeCounts[1]
-    WorldMap.numForests = biomeCounts[2]
-    WorldMap.numMountains = biomeCounts[3]
-    WorldMap.numPlains = biomeCounts[4]
+def SetBiomeCounts(mapClass):
+    biomeCounts = GetBiomeCounts(mapClass.worldMap)
+    mapClass.numWater = biomeCounts[0]
+    mapClass.numRivers = biomeCounts[1]
+    mapClass.numForests = biomeCounts[2]
+    mapClass.numMountains = biomeCounts[3]
+    mapClass.numPlains = biomeCounts[4]
 
 #--------------------------------------------------------------------------------------------------------------
 #   [GenerateSeed]
