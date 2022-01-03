@@ -440,7 +440,7 @@ class Map:
         try:
             with open(mapFile, 'w') as f:
                 f.write(str(self.seed))
-                f.write(str("["))
+                f.write(str("\n["))
                 for i in range(self.height):
                     f.write(str("["))
                     for j in range(self.width):
@@ -464,13 +464,12 @@ class Map:
             readList = eval(readMapFile.read())
             readMapFile.close()
             
+
+
             for count in range(len(readList)):
-                if count == 0:
-                    print('Count is 0, trying to set seed.')
-                    self.seed = str(readList[count])
-                if count > 1:
-                    print('Count is greater than 1, trying to read map.')
-                    self.worldMap.append(readList[count])
+                print('readList[count]: ' + str(readList[count]))
+                print('Trying to load stuff into map.')
+                self.worldMap.append(readList[count])
 
         except:
             print('Could not read file!')
