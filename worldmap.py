@@ -584,21 +584,24 @@ def DefineFiefBiome(fiefClass):
 
     print('Trying to define fief biome.')
     print('Fief name is: ' + str(fiefClass.name))
-    print('Fief biome is: ' + str(fiefClass.biome))
     #Check if the name sounds like a forest
     for i in range(len(forestBiomeNames)):
-        if forestBiomeNames[i] in fiefClass.name:
+        if forestBiomeNames[i] in str(fiefClass.name).lower():
+            print('Name contains ' + str(forestBiomeNames[i]) + '!')
             fiefClass.biome = FOREST
     #Check if the name sounds like a mountain
     for i in range(len(mountainBiomeNames)):
-        if mountainBiomeNames[i] in fiefClass.name:
+        if mountainBiomeNames[i] in str(fiefClass.name).lower():
+            print('Name contains ' + str(mountainBiomeNames[i]) + '!')
             fiefClass.biome = MOUNTAIN
     #Check if the name sounds like a plains
     for i in range(len(plainsBiomeNames)):
-        if plainsBiomeNames[i] in fiefClass.name:
+        if plainsBiomeNames[i] in str(fiefClass.name).lower():
+            print('Name contains ' + str(plainsBiomeNames[i]) + '!')
             fiefClass.biome = PLAINS
     #Select randomly if the name doesn't sound like any of the previous biomes
     if fiefClass.biome == '0':
+        print('Fief name does not contain a specific biome type, setting a random biome.')
         fiefClass.biome = GetRandomLandPoint()
 
     #Update the fiefClass file
