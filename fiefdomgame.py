@@ -277,10 +277,10 @@ while (loop):
 
         if command == '9':
             screen = 'thieves'
-            
+
         if command == '10':
             screen = 'viewMap'
-            
+        
         #The following commands are for testing only!
         if command == 'defaults':
             screen = 'createDefaults'
@@ -1822,6 +1822,21 @@ while (loop):
 
         screen = 'stronghold'
 
+#This page is just a color printing of the current server map
+    if screen == "viewMap":
+        os.system("clear")
+        serverMap.name = "serverMap"
+        serverMap.read()
+
+        print('World Map: \n')
+        PrintColorMap(serverMap.worldMap)
+        print('')
+        time.sleep(1)
+        nothing = input('Continue:')
+
+        screen = 'stronghold'
+
+
 #This is a "secret" page that you can use to create default Fiefdoms
 #to seed your installation with land that can be taken.
 #
@@ -1872,29 +1887,16 @@ while (loop):
     if screen == "worldMap":
 
         os.system("clear")
-        
-        #seed = GenerateSeed()
-        #GenerateWorldMap(seed)
-        seed = '00555'  #Should be generated instead later
-        GenerateWorldMap(seed)
 
-
-        #serverMap.read()
         serverMap.name = 'serverMap'
-        serverMap.seed = '00557'
+        serverMap.seed = GenerateSeed()
         serverMap.height = MAP_HEIGHT
         serverMap.width = MAP_WIDTH
         serverMap.worldMap = GenerateWorldMap(serverMap.seed)
         serverMap.write()
 
-        
-        #print(serverMap.seed)
         print('\n')
         PrintColorMap(serverMap.worldMap)
-        #print(serverMap.worldMap)
-
-        
-        #time.sleep(2)
 
         nothing = input('Continue:')
 
