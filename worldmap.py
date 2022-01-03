@@ -617,7 +617,7 @@ def PlaceFiefInWorldMap(fiefClass, mapClass):
 
     print('Testing world map:')
     PrintColorMap(mapClass.worldMap)
-    
+
     #Check if there are still biome slots open for a particular biome.
     #If none are available, then change the fief's biome and try again.
     #If there aren't any open spots at all, then stop the loop.
@@ -625,10 +625,11 @@ def PlaceFiefInWorldMap(fiefClass, mapClass):
         remaining = CheckRemainingBiomes(fiefClass.biome, mapClass)
         if remaining == 0:
             fiefClass.biome = CycleBiome(fiefClass.biome)
+            cycle += 1
     if cycle > 3:
         print('Error, no more room for fiefs left on this map!')
     else:
-        while pickingPoint < 15:    #Tries to get a point. Fails if it manages to select an occupied point 15 times.
+        while pickingPoint < 10:    #Tries to get a point. Fails if it manages to select an occupied point 10 times.
         #Select one of the available biomes at random
             point = GetRandomPointByBiome(fiefClass.biome, mapClass)
             
@@ -650,7 +651,7 @@ def PlaceFiefInWorldMap(fiefClass, mapClass):
                     PrintColorMap(mapClass.worldMap)
 
                     fiefClass.write()
-                    pickingPoint = 15
+                    pickingPoint = 10
 
                 else:
                     pickingPoint += 1
@@ -730,11 +731,11 @@ def CheckRemainingBiomes(biome, mapClass):
     remaining = 0
 
     if biome == FOREST:
-        remaining = mapClass.numForests - mapClass.usedForests
+        remaining = int(mapClass.numForests) - int(mapClass.usedForests)
     if biome == MOUNTAIN:
-        remaining = mapClass.numMountains - mapClass.usedMountains
+        remaining = int(mapClass.numMountains) - int(mapClass.usedMountains)
     if biome == PLAINS:
-        remaining = mapClass.numPlains - mapClass.usedPlains
+        remaining = int(mapClass.numPlains) - int(mapClass.usedPlains)
     
     return remaining
 
