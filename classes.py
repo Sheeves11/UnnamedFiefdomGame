@@ -397,8 +397,8 @@ class Stronghold:
 class Map:
     seed = '00555'
     name = 'default'
-    width = 40
-    height = 40
+    width = 20
+    height = 20
     
     numWater = 0
     numRivers = 0
@@ -412,6 +412,8 @@ class Map:
 
     values = []
     worldMap = []
+
+    success = False
 
     #Testing map read/write updates (1)
     def write(self):
@@ -467,6 +469,7 @@ class Map:
             for count in range(len(readList)):
                 if count == 0:
                     self.values.append(readList[count])
+                    success = True
                 if count > 1:
                     self.worldMap.append(readList[count])
 
@@ -475,5 +478,11 @@ class Map:
         except:
             print('Could not read file!')
             pass
+
+        if self.success == True:
+            self.seed = self.values[0]
+            print('Seed: ' + str(self.seed))
+
+        
             
 #eof
