@@ -21,8 +21,8 @@ BOLD = '\033[1m'
 UNDERLINE = '\033[4m'
 
 #Global variables
-MAP_WIDTH = 40
-MAP_HEIGHT = 40
+MAP_WIDTH = 30
+MAP_HEIGHT = 30
 DEFAULT_WEIGHT = 10     #A common weight total
 WEIGHT_INTENSITY = 5    #Higher the number, the more focused the map will be
 RANDOM_INTENSITY = 20   #Higher the number, the more chaotic the map will be
@@ -199,9 +199,9 @@ def PrintSurroundings(wMap, symb, posX, posY, freqM, freqP, freqF):
     print('Surroundings: ') 
 
     print('. . . . .')
-    print('. ' + dNW + dN + dNE + ' .')
-    print('. ' + dW + ' ' + dE + ' .')
-    print('. ' + dSW + dS + dSE + ' .')
+    print('. ' + dNW + ' ' + dN + ' ' + dNE + ' .')
+    print('. ' + dW + '   ' + dE + ' .')
+    print('. ' + dSW + ' ' + dS + ' ' + dSE + ' .')
     print('. . . . .')
 
     # print(*surroundings)

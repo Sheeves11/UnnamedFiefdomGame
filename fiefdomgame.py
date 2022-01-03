@@ -1758,9 +1758,7 @@ while (loop):
         os.system("clear")
         serverMap.name = "serverMap"
         serverMap.read()
-        # print('Printing what the world map looks like after read:')
-        # print(str(serverMap.worldMap))
-        # print('Attempting to print color map:\n')
+
         print('World Map: \n')
         PrintColorMap(serverMap.worldMap)
         print('')
@@ -1821,10 +1819,6 @@ while (loop):
 
         os.system("clear")
 
-        #seed = GenerateSeed()
-        #GenerateWorldMap(seed)
-
-        #serverMap.read()
         serverMap.name = 'serverMap'
         serverMap.seed = '00557'
         serverMap.height = MAP_HEIGHT
@@ -1832,14 +1826,9 @@ while (loop):
         serverMap.worldMap = GenerateWorldMap(serverMap.seed)
         serverMap.write()
 
-        
-        #print(serverMap.seed)
         print('\n')
         PrintColorMap(serverMap.worldMap)
-        #print(serverMap.worldMap)
 
-        
-        #time.sleep(2)
         nothing = input('Continue:')
 
         screen = 'stronghold'
