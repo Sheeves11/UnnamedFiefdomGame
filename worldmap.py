@@ -665,7 +665,7 @@ def PlaceFiefInWorldMap(fiefClass, mapClass):
                     else:
                         pickingPoint += 1
     else:
-        if fiefClass.name != 'Default Fiefdom':
+        if fiefClass.name == 'Default Fiefdom':
             print("That fiefdom doesn't exist!")
         else:
             print('That fief is already on the map!')
