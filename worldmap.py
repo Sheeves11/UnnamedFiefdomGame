@@ -618,9 +618,6 @@ def PlaceFiefInWorldMap(fiefClass, mapClass):
     cycle = 0
     pickingPoint = 0
 
-    print('Testing world map:')
-    PrintColorMap(mapClass.worldMap)
-
     #Check if there are still biome slots open for a particular biome.
     #If none are available, then change the fief's biome and try again.
     #If there aren't any open spots at all, then stop the loop.

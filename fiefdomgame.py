@@ -1913,12 +1913,11 @@ while (loop):
         os.system("clear")
 
         fief = Fiefdom()
-        
+        fief.name = 'Ashen Grove'
 
-        fileFief = 'fiefs/' + command + '.txt'
+        fileFief = 'fiefs/' + fief.name + '.txt'
         try:
             with open(fileFief, 'r') as f:
-                fief.name = 'Ashen Grove'
                 fief.read()
         except:
             print ('the file open broke')
