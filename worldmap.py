@@ -286,7 +286,6 @@ def QuietlyGenerateWorldMap(seed):
 
             firstLoop = False
         loop = False
-    print(*worldMap)
     return worldMap
 
 #Does the same thing as PrintSurroundings but with no prints
