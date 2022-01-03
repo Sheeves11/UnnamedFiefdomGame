@@ -73,3 +73,16 @@ You will then need to seed some starting fiefdoms using the fieftool.py program.
 -----------------------------------------------------------------------------------------------------------------
 
 Enjoy!
+
+-----------------------------------------------------------------------------------------------------------------
+
+Update Log:
+
+Since this game started, we've added almost 300 commits and 3k lines of code! Here are your latest updates:
+
+1/2/2022:
+Added password encryption using salted hashes
+Added thieves for stealing from player Strongholds
+Many, many bug fixes
+
+(to be continued)

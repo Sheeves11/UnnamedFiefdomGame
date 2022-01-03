@@ -1805,6 +1805,22 @@ while (loop):
             nothing = input('Continue:')
             currentPage = 1
             screen = "fiefdoms"
+            
+#This page is just a color printing of the current server map
+    if screen == "viewMap":
+        os.system("clear")
+        serverMap.name = "serverMap"
+        serverMap.read()
+        # print('Printing what the world map looks like after read:')
+        # print(str(serverMap.worldMap))
+        # print('Attempting to print color map:\n')
+        print('World Map: \n')
+        PrintColorMap(serverMap.worldMap)
+        print('')
+        time.sleep(1)
+        nothing = input('Continue:')
+
+        screen = 'stronghold'
 
 #This page is just a color printing of the current server map
     if screen == "viewMap":
