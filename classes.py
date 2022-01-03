@@ -1,7 +1,6 @@
 import os
 import time
 import random
-from worldmap import *
 
 #header() should be called on every page
 def header():

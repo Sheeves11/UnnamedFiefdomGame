@@ -1,6 +1,7 @@
 import os
 import time
 import random
+from classes import *
 
 #This is a very early development build for a world map feature.
 #Not yet implemented!
@@ -365,6 +366,7 @@ def DefineSurroundings(wMap, posX, posY, freqM, freqP, freqF):
 
     return newPoint
 
+#Grabs a random biome symbol
 def GetRandomPoint():
     symbolTable = [(WATER, DEFAULT_WEIGHT),(FOREST, DEFAULT_WEIGHT), (PLAINS, DEFAULT_WEIGHT), (MOUNTAIN, DEFAULT_WEIGHT)]
     pointTable = []
@@ -372,6 +374,15 @@ def GetRandomPoint():
         pointTable.extend([item]*weight)
     return random.choice(pointTable)
 
+#Grabs a random biome symbol
+def GetRandomLandPoint():
+    symbolTable = [(FOREST, DEFAULT_WEIGHT), (PLAINS, DEFAULT_WEIGHT), (MOUNTAIN, DEFAULT_WEIGHT)]
+    pointTable = []
+    for item, weight in symbolTable:
+        pointTable.extend([item]*weight)
+    return random.choice(pointTable)
+
+#A visual char-by-char generation of the map
 def GeneratePrintMap(wMap, posX, posY):
     for i in range(MAP_HEIGHT):
         for j in range(MAP_WIDTH):
@@ -382,6 +393,7 @@ def GeneratePrintMap(wMap, posX, posY):
         print('')
     time.sleep(0.1)
 
+#Prints a color version of the map
 def PrintColorMap(wMap):
     for i in range(MAP_HEIGHT):
         for j in range(MAP_WIDTH):
@@ -405,6 +417,25 @@ def PrintColorMap(wMap):
             elif symbol == STRONGHOLD:
                 print(IC_STRONGHOLD + symbol + RESET, end=" ")
         print('')
+
+#Sets a fief's biome based on the fief's name. If no match is found, the fief is assigned a random biome instead.
+def DefineFiefBiome(fief):
+    forestBiomeNames = ['forest', 'wood', 'root', 'grove', 'thicket', 'glade', 'pine', 'timber', 'covert', 'canopy']
+    plainsBiomeNames = ['plain', 'field', 'prairie', 'flat', 'expanse', 'grass', 'meadow', 'steppe', 'plateau', 'heath', 'moor', 'hollow']
+    mountainBiomeNames = ['mount', 'alp', 'bluff', 'cliff', 'crag', 'mesa', 'peak', 'range', 'ridge', 'pike', 'hill', 'butte', 'height']
+
+    for i in range(len(forestBiomeNames)):
+        if forestBiomeNames[i] in fief.name:
+            fief.biome = FOREST
+    for i in range(len(plainsBiomeNames)):
+        if plainsBiomeNames[i] in fief.name:
+            fief.biome = PLAINS
+    for i in range(len(mountainBiomeNames)):
+        if mountainBiomeNames[i] in fief.name:
+            fief.biome = MOUNTAIN
+    if fief.biome == '0':
+        fief.biome = GetRandomLandPoint()
+    fief.write()
 
 #To Do: Improve this function
 def GenerateSeed():
