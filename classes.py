@@ -373,14 +373,23 @@ class Stronghold:
             
 
 class Map:
+    seed = '00555'
     name = 'default'
     width = 40
     height = 40
-    worldMap = []
     
-    def initializeMap(self):
-        wMap = [['0' for x in range(self.width)] for y in range(self.height)]
-        return wMap
+    numWater = 0
+    numRivers = 0
+    numPlains = 0
+    numForests = 0
+    numMountains = 0
+    
+    usedPlains = 0
+    usedForests = 0
+    usedMountains = 0
+
+    
+    worldMap = []
 
     def write(self):
         mapFile = 'map/' + self.name + '.txt'
@@ -407,6 +416,7 @@ class Map:
         #write the class variables down line by line in the text file
         try:
             with open(mapFile, 'w') as f:
+                f.write(str(self.seed))
                 f.write(str("["))
                 for i in range(self.height):
                     f.write(str("["))
@@ -423,7 +433,7 @@ class Map:
         except:
             pass
 
-    #read class variables line by line
+    #read class variables line by line and save them into self.worldMap
     def read(self):
         mapFile = 'map/' + self.name + '.txt'
         try:
@@ -432,7 +442,8 @@ class Map:
             readMapFile.close()
 
             for count in range(len(readList)):
-                self.worldMap.append(readList[count])
+                if count > 1:
+                    self.worldMap.append(readList[count])
 
         except:
             print('Could not read file!')
