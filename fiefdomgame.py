@@ -44,6 +44,7 @@ os.system("clear")
 attackFief = Fiefdom()
 userStronghold = Stronghold()
 attackStronghold = Stronghold()
+serverMap = Map()
 
 #this begins the main game loop
 #------------------------------------------------------------------------------
@@ -238,7 +239,7 @@ while (loop):
         print("     Avalible Commands:")
         print('     -------------------------------------------------------')
         print('     {1}: View Nearby Fiefdoms        {9}: Hire Thieves')
-        print('     {2}: Hire Mercenaries')
+        print('     {2}: Hire Mercenaries            {10}: View World Map')
         print('     {3}: Upgrade Attack')
         print('     {4}: Garrison Soldiers')
         print('     {5}: About')
@@ -276,7 +277,10 @@ while (loop):
 
         if command == '9':
             screen = 'thieves'
-        
+            
+        if command == '10':
+            screen = 'viewMap'
+            
         #The following commands are for testing only!
         if command == 'defaults':
             screen = 'createDefaults'
@@ -1801,6 +1805,22 @@ while (loop):
             nothing = input('Continue:')
             currentPage = 1
             screen = "fiefdoms"
+            
+#This page is just a color printing of the current server map
+    if screen == "viewMap":
+        os.system("clear")
+        serverMap.name = "serverMap"
+        serverMap.read()
+        # print('Printing what the world map looks like after read:')
+        # print(str(serverMap.worldMap))
+        # print('Attempting to print color map:\n')
+        print('World Map: \n')
+        PrintColorMap(serverMap.worldMap)
+        print('')
+        time.sleep(1)
+        nothing = input('Continue:')
+
+        screen = 'stronghold'
 
 #This is a "secret" page that you can use to create default Fiefdoms
 #to seed your installation with land that can be taken.
@@ -1852,7 +1872,9 @@ while (loop):
     if screen == "worldMap":
 
         os.system("clear")
-
+        
+        #seed = GenerateSeed()
+        #GenerateWorldMap(seed)
         seed = '00555'  #Should be generated instead later
         GenerateWorldMap(seed)
 
