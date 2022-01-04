@@ -543,6 +543,9 @@ class Map:
             print('usedMountains: ' + str(self.usedMountains))
 
     def selfDiagnostic(self):
+        print('Running diagnostic on map class...')
+        print('Current attributes are: ')
+        print('name: ' + str(self.name))
         print('seed: ' + str(self.seed))
         print('width: ' + str(self.width))
         print('height: ' + str(self.height))
@@ -553,6 +556,7 @@ class Map:
         print('usedPlains: ' + str(self.usedPlains))
         print('usedForests: ' + str(self.usedForests))
         print('usedMountains: ' + str(self.usedMountains))
+        print('worldMap:')
         print(*self.worldMap)
 
 #eof
