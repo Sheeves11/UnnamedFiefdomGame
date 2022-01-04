@@ -283,17 +283,11 @@ while (loop):
             screen = 'viewMap'
         
         #The following commands are for testing only!
-        if command == 'defaults':
-            screen = 'createDefaults'
+        if command == 'devtest':
+            screen = 'devTest'
 
-        if command == 'bigmoney':
-            screen = 'devTestAddGold'
-
-        if command == 'wm':
-            screen = 'worldMap'
-
-        if command == 'tf':
-            screen = 'testFiefPlacement'
+        if command == 'dt': #SW: because I'm lazy
+            screen = 'devTest'
 
 #This is the screen for the message board.
 #----------------------------------------------------------------------------------
@@ -1206,7 +1200,7 @@ while (loop):
         print('     {5}: Withdraw Gold')
         print('     {6}: Upgrade Defenses')
         print('     {7}: Upgrade Farms')
-        print('     {8): Upgrade Training')
+        print('     {8}: Upgrade Training')
         print('     -------------------------------------')
         print('\n')
         command = input("     Enter your command: ")
@@ -1831,12 +1825,76 @@ while (loop):
         screen = 'stronghold'
 
 
+#This is the new devtest menu with all the devtest commands sorted out and neat
+#------------------------------------------------------------------------------
+    if screen == "devTest":
+        os.system("clear")
+
+        header()
+        print("\n")
+
+        print('     Welcome to the dev test menu. This should only be used for testing purposes.')
+        print('\n')
+        print('''
+             ___                                                                  _
+           /__/|__                                                            __//|
+           |__|/_/|__                   D E V T E S T                       _/_|_||
+           |_|___|/_/|__                                                 __/_|___||
+           |___|____|/_/|__                                           __/_|____|_||
+           |_|___|_____|/_/|_________________________________________/_|_____|___||
+           |___|___|__|___|/__/___/___/___/___/___/___/___/___/___/_|_____|____|_||
+           |_|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___||
+           |___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|_||
+           |_|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|/
+
+                ''')
+
+        print("     Avalible Commands:")
+        print('     -------------------------------------------------------')
+        print('     {1}: Return to Stronghold')
+        print('     {2}: Create Default Fiefs')
+        print('     {3}: Generate World Map (Must do this before 3-5)')
+        print('     {4}: Add Fief Tool')
+        print('     {5}: Add all Fiefs Tool')
+        print('     {6}: Add all Strongholds Tool')
+        print('     {7}: Placeholder')
+        print('     {8}: Add Gold Tool (for testing!)')
+        print('     --------------------------------------------------------')
+        print('\n')
+        command = input("     Enter your command: ")
+
+        if command == '1':
+            currentPage = 1
+            screen = "stronghold"
+
+        if command == '2':
+            screen = 'devTestCreateDefaults'
+
+        if command == '3':
+            screen = 'devTestWorldMap'
+
+        if command == '4':
+            screen = 'devTestFiefPlacement'
+
+        if command == '5':
+            screen = 'devTestPlotAllFiefs'
+
+        if command == '6':
+            screen = 'devTestPlotAllStrongholds'
+
+        if command == '7':
+            screen = 'devTest'
+
+        if command == '8':
+            screen = 'devTestAddGold'
+
+
 #This is a "secret" page that you can use to create default Fiefdoms
 #to seed your installation with land that can be taken.
 #
 #It should be taken out if you ever open this game up to many players
 #----------------------------------------------------------------------------------
-    if screen == "createDefaults":
+    if screen == "devTestCreateDefaults":
 
         os.system("clear")
         print('Seeding the world with default fiefdoms')
@@ -1872,13 +1930,13 @@ while (loop):
         time.sleep(2)
         print('...Funds Added!')
 
-        screen = 'stronghold'
+        screen = 'devTest'
 
 #This is a devtool for making the world map for a server
 #
 #It eventually needs to be accessed in another way
 #----------------------------------------------------------------------------------
-    if screen == "worldMap":
+    if screen == "devTestWorldMap":
 
         os.system("clear")
 
@@ -1895,11 +1953,11 @@ while (loop):
 
         nothing = input('\nContinue:')
 
-        screen = 'stronghold'
+        screen = 'devTest'
 
 #This is currently just a test page to see if fief placement in the world map works as intended
 #----------------------------------------------------------------------------------
-    if screen == "testFiefPlacement":
+    if screen == "devTestFiefPlacement":
 
         os.system("clear")
 
@@ -1918,8 +1976,31 @@ while (loop):
 
         nothing = input('Continue:')
 
-        screen = 'stronghold'
+        screen = 'devTest'
+
+#This plots all fiefs on the server at once
+#----------------------------------------------------------------------------------
+    if screen == "devTestPlotAllFiefs":
+
+        os.system("clear")
+
+        PlotAllFiefs(serverMap)
+
+        nothing = input('Continue:')
+
+        screen = 'devTest'
         
+#This plots all strongholds on the server at once
+#----------------------------------------------------------------------------------
+    if screen == "devTestPlotAllStrongholds":
+
+        os.system("clear")
+        print('WIP')
+        #PlotAllStrongholds(serverMap)
+
+        nothing = input('Continue:')
+
+        screen = 'devTest'
 
     '''
 #This screen is for upgrading your home stronghold's defenses
