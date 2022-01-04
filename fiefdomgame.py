@@ -2089,7 +2089,7 @@ while (loop):
 
         os.system("clear")
         print('World Generation Complete!')
-        print('\n')
+        print('')
         PrintColorMap(serverMap.worldMap)
 
         nothing = input('Continue:')
