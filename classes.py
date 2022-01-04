@@ -221,20 +221,21 @@ def art_farm7():
 
 def FirstLaunch():
     try:
-        settingsFile = open('settings.txt', 'r+')
-        print('Opened settings.txt')
-        if settingsFile.readline(0).endswith('no'):
-            print('Settings.txt ends with no.')
-            settingsFile.seek(0)
-            print('Attempting to write over line')
-            settingsFile.write('Map Initialized: yes')
-            print('Wrote over the line!')
-            settingsFile.close()
-            return True
-        else:
-            print('Settings did not end in no!')
-            settingsFile.close()
-            return False
+        with open('settings.txt', 'r+') as settingsFile:
+            print('Opened settings.txt')
+            line = settingsFile.readline().strip()
+            if line.endswith('no'):
+                print('Settings.txt ends with no.')
+                settingsFile.seek(0)
+                print('Attempting to write over line')
+                settingsFile.write('Map Initialized: yes')
+                print('Wrote over the line!')
+                settingsFile.close()
+                return True
+            else:
+                print('Settings did not end in no!')
+                settingsFile.close()
+                return False
     except:
         print('Error, something wrong with settings.txt!')
         return False
