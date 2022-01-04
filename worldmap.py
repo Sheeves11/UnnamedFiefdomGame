@@ -605,22 +605,21 @@ def DefineFiefBiome(fiefClass):
     plainsBiomeNames = ['plain', 'field', 'prairie', 'flat', 'expanse', 'grass', 'meadow', 'steppe', 'plateau', 'heath', 'moor', 'hollow']
     mountainBiomeNames = ['mount', 'alp', 'bluff', 'cliff', 'crag', 'mesa', 'peak', 'range', 'ridge', 'pike', 'hill', 'butte', 'height']
 
-    print('Trying to define fief biome.')
-    print('Fief name is: ' + str(fiefClass.name))
+    print('Fief name: ' + str(fiefClass.name))
     #Check if the name sounds like a forest
     for i in range(len(forestBiomeNames)):
         if forestBiomeNames[i] in str(fiefClass.name).lower():
-            print('Name contains ' + str(forestBiomeNames[i]) + '!')
+            print('Name contains ' + str(forestBiomeNames[i]) + ", so it's a forest!")
             fiefClass.biome = FOREST
     #Check if the name sounds like a mountain
     for i in range(len(mountainBiomeNames)):
         if mountainBiomeNames[i] in str(fiefClass.name).lower():
-            print('Name contains ' + str(mountainBiomeNames[i]) + '!')
+            print('Name contains ' + str(mountainBiomeNames[i]) + ", so it's a mountain!")
             fiefClass.biome = MOUNTAIN
     #Check if the name sounds like a plains
     for i in range(len(plainsBiomeNames)):
         if plainsBiomeNames[i] in str(fiefClass.name).lower():
-            print('Name contains ' + str(plainsBiomeNames[i]) + '!')
+            print('Name contains ' + str(plainsBiomeNames[i]) + ", so it's a plains!")
             fiefClass.biome = PLAINS
     #Select randomly if the name doesn't sound like any of the previous biomes
     if fiefClass.biome == '0':
@@ -644,55 +643,7 @@ def PlotAllFiefs(mapClass):
             fiefClass = Fiefdom()
             fiefClass.name = filename[:-4]
             fiefClass.read()
-            # print('Cross checking with: ' + str(tempName.name))
-            DefineFiefBiome(fiefClass)
-            # print('Defined Biome as: ' + str(fiefClass.biome))
-            remaining = 0
-            cycle = 0
-            pickingPoint = 0
-
-            #Check if there are still biome slots open for a particular biome.
-            #If none are available, then change the fief's biome and try again.
-            #If there aren't any open spots at all, then stop the loop.
-            while remaining == 0 and cycle < 4:
-                remaining = CheckRemainingBiomes(fiefClass.biome, mapClass)
-                if remaining == 0:
-                    fiefClass.biome = CycleBiome(fiefClass.biome)
-                    cycle += 1
-            if cycle > 3:
-                print('Error, no more room for fiefs left on this map!')
-            else:
-                while pickingPoint < 10:    #Tries to get a point. Fails if it manages to select an occupied point 10 times.
-                #Select one of the available biomes at random
-                    # print('Picking a random ' + str(fiefClass.biome) + ' biome out of the ones available:')
-                    point = GetRandomPointByBiome(fiefClass.biome, mapClass)
-                    # print('Picked point: ' + str(point))
-
-                    #If a biome was found:
-                    if point > 0:
-                        coordinates = GetPointCoordinates(fiefClass.biome, point, mapClass.worldMap)
-
-                        if CrossCheckCoordinates(coordinates):
-                            # print('Successfully selected coordinates!:')
-                            # print(*coordinates)
-                            fiefClass.setCoordinates(coordinates)
-                            # print('Successfully set coordinates!: ')
-                            # print('xCoordinate: ' + str(fiefClass.xCoordinate) + ' yCoordinate: ' + str(fiefClass.yCoordinate))
-                            # print('Updating used biomes in mapClass, biome is ' + str(fiefClass.biome) + ': ')
-                            UpdateUsedBiomes(fiefClass.biome, mapClass)
-                            # print('Used Forests: ' + str(mapClass.usedForests))
-                            # print('Used Plains: ' + str(mapClass.usedPlains))
-                            # print('Used Mountains: ' + str(mapClass.usedMountains))
-                            # print('Inserting Fief into map:')
-                            InsertFiefAtLocation(fiefClass.yCoordinate, fiefClass.xCoordinate, mapClass)
-                            
-                            PrintColorMap(mapClass.worldMap)
-
-                            fiefClass.write()
-                            pickingPoint = 10
-
-                        else:
-                            pickingPoint += 1
+            QuietlyPlaceFiefInWorldMap(fiefClass, mapClass)
 
 #--------------------------------------------------------------------------------------------------------------
 #   [PlaceFiefInWorldMap]
@@ -742,6 +693,58 @@ def PlaceFiefInWorldMap(fiefClass, mapClass):
                         print('Used Plains: ' + str(mapClass.usedPlains))
                         print('Used Mountains: ' + str(mapClass.usedMountains))
                         print('Inserting Fief into map:')
+                        InsertFiefAtLocation(fiefClass.yCoordinate, fiefClass.xCoordinate, mapClass)
+                        
+                        PrintColorMap(mapClass.worldMap)
+
+                        fiefClass.write()
+                        pickingPoint = 10
+
+                    else:
+                        pickingPoint += 1
+    else:
+        if fiefClass.name == 'Default Fiefdom':
+            print("That fiefdom doesn't exist!")
+        else:
+            print('That fief is already on the map!')
+
+
+#--------------------------------------------------------------------------------------------------------------
+#   [QuietlyPlaceFiefInWorldMap]
+#   Parameters: fiefClass, mapClass
+#
+#   Sets a fief's biome based on the fief's name. If no match is found, the fief is assigned a random biome 
+#   instead. This version doesn't print as much diagnostic stuff.
+#--------------------------------------------------------------------------------------------------------------
+def QuietlyPlaceFiefInWorldMap(fiefClass, mapClass):
+    if (fiefClass.biome == '0') and (fiefClass.name != 'Default Fiefdom'):
+        DefineFiefBiome(fiefClass)
+        remaining = 0
+        cycle = 0
+        pickingPoint = 0
+
+        #Check if there are still biome slots open for a particular biome.
+        #If none are available, then change the fief's biome and try again.
+        #If there aren't any open spots at all, then stop the loop.
+        while remaining == 0 and cycle < 4:
+            remaining = CheckRemainingBiomes(fiefClass.biome, mapClass)
+            if remaining == 0:
+                fiefClass.biome = CycleBiome(fiefClass.biome)
+                cycle += 1
+        if cycle > 3:
+            print('Error, no more room for fiefs left on this map!')
+        else:
+            while pickingPoint < 10:    #Tries to get a point. Fails if it manages to select an occupied point 10 times.
+                #Select one of the available biomes at random
+                point = GetRandomPointByBiome(fiefClass.biome, mapClass)
+                #If a biome was found:
+                if point > 0:
+                    coordinates = GetPointCoordinates(fiefClass.biome, point, mapClass.worldMap)
+
+                    if CrossCheckCoordinates(coordinates):
+                        print(*coordinates)
+                        fiefClass.setCoordinates(coordinates)
+                        UpdateUsedBiomes(fiefClass.biome, mapClass)
                         InsertFiefAtLocation(fiefClass.yCoordinate, fiefClass.xCoordinate, mapClass)
                         
                         PrintColorMap(mapClass.worldMap)
