@@ -1828,7 +1828,7 @@ while (loop):
 
         PrintLegend()
         print('')
-        print('World Map: \n')
+        print('World Map:')
         print('')
         WorldMapLocation(int(userStronghold.yCoordinate), int(userStronghold.xCoordinate), serverMap)
         print('')
@@ -1850,7 +1850,7 @@ while (loop):
 
         PrintLegend()
         print('')
-        print('World Map: \n')
+        print('World Map:')
         print('')
         WorldMapLocation(int(attackStronghold.yCoordinate), int(attackStronghold.xCoordinate), serverMap)
         print('')
@@ -1872,7 +1872,7 @@ while (loop):
 
         PrintLegend()
         print('')
-        print('World Map: \n')
+        print('World Map:')
         print('')
         WorldMapLocation(int(attackFief.yCoordinate), int(attackFief.xCoordinate), serverMap)
         print('')
