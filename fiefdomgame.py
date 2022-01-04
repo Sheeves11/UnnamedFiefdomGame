@@ -197,6 +197,10 @@ while (loop):
         userStronghold.defenders = str(userStronghold.defenders)
         userStronghold.write()
 
+        if FirstLaunch():
+            serverMap.name = 'serverMap'
+            SilentlyGenerateWorld(serverMap)
+
         productionCalc = 0
         maxProductionSoldiers = (int(userStronghold.goldMod) * 500)
         if int(userStronghold.defenders) > maxProductionSoldiers:
@@ -280,7 +284,7 @@ while (loop):
             screen = 'thieves'
 
         if command == '10':
-            screen = 'viewMap'
+            screen = 'viewMapYourStronghold'
         
         #The following commands are for testing only!
         if command == 'devtest':
@@ -1192,8 +1196,8 @@ while (loop):
 
         print('\n')
         print("     Avalible Commands:")
-        print('     -------------------------------------')
-        print('     {1}: Return to Stronghold')
+        print('     -------------------------------------------------------')
+        print('     {1}: Return to Stronghold       {9}:View Location')
         print('     {2}: View Nearby Fiefdoms')
         print('     {3}: Deploy Additional Forces')
         print('     {4}: Withdraw Forces')
@@ -1201,7 +1205,7 @@ while (loop):
         print('     {6}: Upgrade Defenses')
         print('     {7}: Upgrade Farms')
         print('     {8}: Upgrade Training')
-        print('     -------------------------------------')
+        print('     -------------------------------------------------------')
         print('\n')
         command = input("     Enter your command: ")
 
@@ -1226,6 +1230,9 @@ while (loop):
 
         if command == '7':
             screen = 'farm'
+
+        if command == '9':
+            screen = 'viewMapCurrentFief'
 
 #The withdraw gold screen allows players to withdraw gold from a ruled fiefdom
 #
@@ -1494,6 +1501,7 @@ while (loop):
         print('{1}: Return to Stronghold')
         print('{2}: View Nearby Fiefdoms')
         print('{3}: Attack')
+        print('{4}: View Location')
         print('-------------------------------------')
         print('\n')
 
@@ -1508,6 +1516,9 @@ while (loop):
 
         if command == "3":
             screen = 'battle'
+        
+        if command == "4":
+            screen = 'viewMapCurrentFief'
 
 #This is the details page for enemy Fiefdoms
 #
@@ -1580,6 +1591,7 @@ while (loop):
         print('{1}: Return to Stronghold')
         print('{2}: View Nearby Fiefdoms')
         print('{3}: Send Thieves To Steal Gold')
+        print('{4}: View Location')
         print('-------------------------------------')
         print('\n')
 
@@ -1594,6 +1606,9 @@ while (loop):
 
         if command == "3":
             screen = "thiefPage"
+
+        if command == "4":
+            screen = "viewMapEnemyStronghold"
 
 
 #This is the theif attack page, which you will see when trying
@@ -1804,25 +1819,74 @@ while (loop):
             currentPage = 1
             screen = "fiefdoms"
 
-#This page is just a color printing of the current server map
-    if screen == "viewMap":
+#This page prints the world map with your stronghold's location marked on it
+    if screen == "viewMapYourStronghold":
         os.system("clear")
         serverMap.name = "serverMap"
 
         if firstMapRead:
-            print('First read: printing diagnostics: ')
             serverMap.read()
             firstMapRead = False
 
-        print('World Map: \n')
+        print('Current Location -  Row: ' + str(userStronghold.yCoordinate) + ' Column: ' + str(userStronghold.xCoordinate))
+        print('')
         PrintLegend()
         print('')
-        PrintColorMap(serverMap.worldMap)
+        print('World Map:')
+        print('')
+        WorldMapLocation(int(userStronghold.yCoordinate), int(userStronghold.xCoordinate), serverMap)
         print('')
         time.sleep(1)
         nothing = input('Continue:')
 
         screen = 'stronghold'
+
+#This page prints the world map with your stronghold's location marked on it
+    if screen == "viewMapEnemyStronghold":
+        os.system("clear")
+        serverMap.name = "serverMap"
+
+        if firstMapRead:
+            serverMap.read()
+            firstMapRead = False
+
+        print('Current Location -  Row: ' + str(attackStronghold.yCoordinate) + ' Column: ' + str(attackStronghold.xCoordinate))
+        print('')
+        PrintLegend()
+        print('')
+        print('World Map:')
+        print('')
+        WorldMapLocation(int(attackStronghold.yCoordinate), int(attackStronghold.xCoordinate), serverMap)
+        print('')
+        time.sleep(1)
+        nothing = input('Continue:')
+
+        screen = 'enemyStrongholdDetails'
+
+#This page prints the world map with your stronghold's location marked on it
+    if screen == "viewMapCurrentFief":
+        os.system("clear")
+        serverMap.name = "serverMap"
+
+        if firstMapRead:
+            serverMap.read()
+            firstMapRead = False
+
+        print('Current Location -  Row: ' + str(attackFief.yCoordinate) + ' Column: ' + str(attackFief.xCoordinate))
+        print('')
+        PrintLegend()
+        print('')
+        print('World Map:')
+        print('')
+        WorldMapLocation(int(attackFief.yCoordinate), int(attackFief.xCoordinate), serverMap)
+        print('')
+        time.sleep(1)
+        nothing = input('Continue:')
+
+        if str(attackFief.ruler) == str(userStronghold.ruler):
+            screen = 'homeDetails'
+        if str(attackFief.ruler) != str(userStronghold.ruler):
+            screen = "details"
 
 
 #This is the new devtest menu with all the devtest commands sorted out and neat
@@ -1836,7 +1900,7 @@ while (loop):
         print('     Welcome to the dev test menu. This should only be used for testing purposes.')
         print('\n')
         print('''
-             ___                                                                  _
+            ___                                                                  _
            /__/|__                                                            __//|
            |__|/_/|__                   D E V T E S T                       _/_|_||
            |_|___|/_/|__                                                 __/_|___||
@@ -1853,13 +1917,16 @@ while (loop):
         print('     -------------------------------------------------------')
         print('     {1}: Return to Stronghold')
         print('     {2}: Create Default Fiefs')
-        print('     {3}: Generate World Map (Must do this before 3-5)')
+        print('     {3}: Generate World Map (Must do this before 4-6)')
         print('     {4}: Add Fief Tool')
         print('     {5}: Add all Fiefs Tool')
         print('     {6}: Add all Strongholds Tool')
-        print('     {7}: Placeholder')
+        print('     {7}: Quick Generate World (DO NOT USE if 3-6 were used!)')
         print('     {8}: Add Gold Tool (for testing!)')
+        print('     {9}: World Map Diagnostic (Only run after step 3 or 7)')
         print('     --------------------------------------------------------')
+        print('     Note: To quick generate a world, just hit 7. To go step ')
+        print('           by step, start at 3 and proceed without using 7!  ')
         print('\n')
         command = input("     Enter your command: ")
 
@@ -1883,10 +1950,13 @@ while (loop):
             screen = 'devTestPlotAllStrongholds'
 
         if command == '7':
-            screen = 'devTest'
+            screen = 'devTestGenerateWorld'
 
         if command == '8':
             screen = 'devTestAddGold'
+
+        if command == '9':
+            screen = 'devTestWorldMapDiagnostics'
 
 
 #This is a "secret" page that you can use to create default Fiefdoms
@@ -1995,8 +2065,52 @@ while (loop):
     if screen == "devTestPlotAllStrongholds":
 
         os.system("clear")
-        print('WIP')
-        #PlotAllStrongholds(serverMap)
+        PlotAllStrongholds(serverMap)
+
+        nothing = input('Continue:')
+
+        screen = 'devTest'
+
+
+#This impelments all the map related functions in one go
+#----------------------------------------------------------------------------------
+    if screen == "devTestGenerateWorld":
+
+        os.system("clear")
+        serverMap.name = 'serverMap'
+        serverMap.seed = GenerateSeed()
+        serverMap.height = MAP_HEIGHT
+        serverMap.width = MAP_WIDTH
+        serverMap.worldMap = SilentlyGenerateWorldMap(serverMap.seed)
+        SetBiomeCounts(serverMap)
+        serverMap.write()
+
+        os.system("clear")
+        PlotAllFiefs(serverMap)
+
+        os.system("clear")
+        PlotAllStrongholds(serverMap)
+
+        os.system("clear")
+        print('World Generation Complete!')
+        print('')
+        PrintColorMap(serverMap.worldMap)
+
+        nothing = input('Continue:')
+
+        screen = 'devTest'
+
+#This impelments all the map related functions in one go
+#----------------------------------------------------------------------------------
+    if screen == "devTestWorldMapDiagnostics":
+
+        os.system("clear")
+
+        serverMap.selfDiagnostic()
+        # print('\n')
+        # PrintLegend()
+        print('\n')
+        PrintColorMap(serverMap.worldMap)
 
         nothing = input('Continue:')
 

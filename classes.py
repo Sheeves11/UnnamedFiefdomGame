@@ -218,6 +218,18 @@ def art_farm7():
 |~@~||~@~||~@~||~@~||~@~||~@~||~@~||~@~||~@~||~@~|
 |~@~||~@~||~@~||~@~||~@~||~@~||~@~||~@~||~@~||~@~|
     ''')
+
+def FirstLaunch():
+    settingsFile = open('settings.txt', 'r+')
+    if settingsFile.readline(0).endswith('no'):
+        settingsFile.seek(0)
+        settingsFile.write('Map Initialized: yes')
+        settingsFile.close()
+        return True
+    else:
+        settingsFile.close()
+        return False
+    
 #the fiefdom class holds variables that define a player's stats
 class Fiefdom:
     name = 'Default Fiefdom'
@@ -334,11 +346,11 @@ class Stronghold:
 
     #take the current stronghold and write it to the /strongholds directory
     def write(self):
-        fiefFile = 'strongholds/' + self.name + '.txt'
+        strongholdFile = 'strongholds/' + self.name + '.txt'
         
         #this part creates a file if it isn't made yet        
         try:
-            with open(fiefFile, 'x') as f:
+            with open(strongholdFile, 'x') as f:
                 f.write(self.name + '\n')
                 f.write(self.ruler + '\n')
                 f.write(str(self.home) + '\n')
@@ -360,7 +372,7 @@ class Stronghold:
 
         #write the class variables down line by line in the text file
         try:
-            with open(fiefFile, 'w') as f:
+            with open(strongholdFile, 'w') as f:
                 f.write(self.name + '\n')
                 f.write(self.ruler + '\n')
                 f.write(str(self.home) + '\n')
@@ -382,9 +394,9 @@ class Stronghold:
 
     #read class variables line by line
     def read(self):
-        fiefFile = 'strongholds/' + self.name + '.txt'
+        strongholdFile = 'strongholds/' + self.name + '.txt'
         try:
-            with open(fiefFile, 'r') as f:
+            with open(strongholdFile, 'r') as f:
                 self.name = f.readline().strip()
                 self.ruler = f.readline().strip()
                 self.home = f.readline().strip()
@@ -403,7 +415,10 @@ class Stronghold:
                 self.yCoordinate = f.readline().strip()
         except:
             self.write()     
-            
+
+    def setCoordinates(self, coordinates):
+        self.yCoordinate = coordinates[0]
+        self.xCoordinate = coordinates[1]
 
 class Map:
     seed = '00555'
@@ -531,16 +546,16 @@ class Map:
             self.usedPlains = str(self.values[8]).lstrip("['").rstrip("']")
             self.usedForests = str(self.values[9]).lstrip("['").rstrip("']")
             self.usedMountains = str(self.values[10]).lstrip("['").rstrip("']")
-            print('seed: ' + str(self.seed))
-            print('width: ' + str(self.width))
-            print('height: ' + str(self.height))
-            print('numWater: ' + str(self.numWater))
-            print('numPlains: ' + str(self.numPlains))
-            print('numForests: ' + str(self.numForests))
-            print('numMountains: ' + str(self.numMountains))
-            print('usedPlains: ' + str(self.usedPlains))
-            print('usedForests: ' + str(self.usedForests))
-            print('usedMountains: ' + str(self.usedMountains))
+            # print('seed: ' + str(self.seed))
+            # print('width: ' + str(self.width))
+            # print('height: ' + str(self.height))
+            # print('numWater: ' + str(self.numWater))
+            # print('numPlains: ' + str(self.numPlains))
+            # print('numForests: ' + str(self.numForests))
+            # print('numMountains: ' + str(self.numMountains))
+            # print('usedPlains: ' + str(self.usedPlains))
+            # print('usedForests: ' + str(self.usedForests))
+            # print('usedMountains: ' + str(self.usedMountains))
 
     def selfDiagnostic(self):
         print('Running diagnostic on map class...')
@@ -556,7 +571,7 @@ class Map:
         print('usedPlains: ' + str(self.usedPlains))
         print('usedForests: ' + str(self.usedForests))
         print('usedMountains: ' + str(self.usedMountains))
-        print('worldMap:')
-        print(*self.worldMap)
+        # print('worldMap:')
+        # print(*self.worldMap)
 
 #eof
