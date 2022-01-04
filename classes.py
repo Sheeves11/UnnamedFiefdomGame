@@ -505,7 +505,7 @@ class Map:
             readMapFile = open(mapFile, 'r')
             readList = eval(readMapFile.read())
             readMapFile.close()
-
+            self.worldMap = []  #Needs to clear the world map if anything happened to be in there before reading.
             for count in range(len(readList)):
                 if count <= 10:
                     self.values.append(readList[count])
