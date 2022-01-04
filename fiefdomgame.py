@@ -220,6 +220,8 @@ while (loop):
             serverMap.name = 'serverMap'
             serverMap.read()
             SilentlyPlaceStrongholdInWorldMap(userStronghold, serverMap)
+            serverMap.read()
+            newUserAccount = False
 
         print('     On a hilltop overlooking endless rolling fields, you see the only home you have ever known.')
         print('     The Fiefdom is home to ' + textColor.WARNING +  str(userStronghold.defenders) + textColor.RESET + ' highly skilled warriors, and dozens of loyal citizens.')
