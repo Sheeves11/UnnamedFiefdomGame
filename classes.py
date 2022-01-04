@@ -334,11 +334,11 @@ class Stronghold:
 
     #take the current stronghold and write it to the /strongholds directory
     def write(self):
-        fiefFile = 'strongholds/' + self.name + '.txt'
+        strongholdFile = 'strongholds/' + self.name + '.txt'
         
         #this part creates a file if it isn't made yet        
         try:
-            with open(fiefFile, 'x') as f:
+            with open(strongholdFile, 'x') as f:
                 f.write(self.name + '\n')
                 f.write(self.ruler + '\n')
                 f.write(str(self.home) + '\n')
@@ -360,7 +360,7 @@ class Stronghold:
 
         #write the class variables down line by line in the text file
         try:
-            with open(fiefFile, 'w') as f:
+            with open(strongholdFile, 'w') as f:
                 f.write(self.name + '\n')
                 f.write(self.ruler + '\n')
                 f.write(str(self.home) + '\n')
@@ -382,9 +382,9 @@ class Stronghold:
 
     #read class variables line by line
     def read(self):
-        fiefFile = 'strongholds/' + self.name + '.txt'
+        strongholdFile = 'strongholds/' + self.name + '.txt'
         try:
-            with open(fiefFile, 'r') as f:
+            with open(strongholdFile, 'r') as f:
                 self.name = f.readline().strip()
                 self.ruler = f.readline().strip()
                 self.home = f.readline().strip()
@@ -404,6 +404,9 @@ class Stronghold:
         except:
             self.write()     
             
+    def setCoordinates(self, coordinates):
+        self.yCoordinate = coordinates[0]
+        self.xCoordinate = coordinates[1]
 
 class Map:
     seed = '00555'

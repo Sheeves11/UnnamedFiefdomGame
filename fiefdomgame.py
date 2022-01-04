@@ -1836,7 +1836,7 @@ while (loop):
         print('     Welcome to the dev test menu. This should only be used for testing purposes.')
         print('\n')
         print('''
-             ___                                                                  _
+            ___                                                                  _
            /__/|__                                                            __//|
            |__|/_/|__                   D E V T E S T                       _/_|_||
            |_|___|/_/|__                                                 __/_|___||
@@ -1996,7 +1996,7 @@ while (loop):
 
         os.system("clear")
         print('WIP')
-        #PlotAllStrongholds(serverMap)
+        PlotAllStrongholds(serverMap)
 
         nothing = input('Continue:')
 

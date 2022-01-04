@@ -728,6 +728,7 @@ def QuietlyPlaceFiefInWorldMap(fiefClass, mapClass):
         remaining = 0
         cycle = 0
         pickingPoint = 0
+        spotFound = False
 
         #Check if there are still biome slots open for a particular biome.
         #If none are available, then change the fief's biome and try again.
@@ -757,9 +758,11 @@ def QuietlyPlaceFiefInWorldMap(fiefClass, mapClass):
 
                         fiefClass.write()
                         pickingPoint = 10
-
+                        spotFound = True
                     else:
                         pickingPoint += 1
+            if spotFound == False:
+                print("Error, couldn't find an empty spot!")
     else:
         if fiefClass.name == 'Default Fiefdom':
             print("That fiefdom doesn't exist!")
@@ -775,7 +778,7 @@ def InsertFiefAtLocation(yPos, xPos, mapClass):
     for i in range(len(mapClass.worldMap)):
         for j in range(len(mapClass.worldMap[i])):
             if i == yPos and j == xPos:
-                mapClass.worldMap[i][j] = 'X'
+                mapClass.worldMap[i][j] = FIEF
     mapClass.write()
 
 #--------------------------------------------------------------------------------------------------------------
@@ -829,6 +832,25 @@ def CrossCheckFiefCoordinates(coordinates):
             with open(os.path.join('fiefs', filename), 'r') as f:
                 tempName = filename[:-4]
                 tempName = Fiefdom()
+                tempName.name = filename[:-4]
+                tempName.read()
+                # print('Cross checking with: ' + str(tempName.name))
+                if tempName.yCoordinate == coordinates[0] and tempName.xCoordinate == coordinates[1]:
+                    print('Error, same coordinates as ' + str(tempName.name) + '!')
+                    return False
+    return True
+
+#--------------------------------------------------------------------------------------------------------------
+#   [CrossCheckStrongholdCoordinates]
+#   Parameters: coordinates
+#   Returns: True if no strongholds have the same coordinates
+#--------------------------------------------------------------------------------------------------------------
+def CrossCheckStrongholdCoordinates(coordinates):
+    
+    for filename in os.listdir('strongholds'):
+            with open(os.path.join('strongholds', filename), 'r') as f:
+                tempName = filename[:-4]
+                tempName = Stronghold()
                 tempName.name = filename[:-4]
                 tempName.read()
                 # print('Cross checking with: ' + str(tempName.name))
@@ -946,6 +968,104 @@ def SetBiomeCounts(mapClass):
     mapClass.numForests = biomeCounts[2]
     mapClass.numMountains = biomeCounts[3]
     mapClass.numPlains = biomeCounts[4]
+
+#--------------------------------------------------------------------------------------------------------------
+#   [DefineStrongholdBiome]
+#   Parameters: strongholdClass
+#   Sets a stronghold's biome randomly.
+#--------------------------------------------------------------------------------------------------------------
+def DefineStrongholdBiome(strongholdClass):
+    strongholdClass.biome = GetRandomLandPoint()
+    strongholdClass.write()
+
+
+#--------------------------------------------------------------------------------------------------------------
+#   [PlotAllStrongholds]
+#   Parameters: mapClass
+#   Plots all stronghold files on the world map (this won't be used too often, since strongholds will
+#   typically be added one at a time as new users are made)
+#--------------------------------------------------------------------------------------------------------------
+def PlotAllStrongholds(mapClass):
+    for filename in os.listdir('strongholds'):
+        with open(os.path.join('strongholds', filename), 'r') as f:
+            time.sleep(0.3)
+            os.system("clear")
+            strongholdClass = filename[:-4]
+            strongholdClass = Stronghold()
+            strongholdClass.name = filename[:-4]
+            strongholdClass.read()
+            QuietlyPlaceStrongholdInWorldMap(strongholdClass, mapClass)
+
+#--------------------------------------------------------------------------------------------------------------
+#   [QuietlyPlaceStrongholdInWorldMap]
+#   Parameters: strongholdClass, mapClass
+#
+#   Sets a fief's biome based on the fief's name. If no match is found, the fief is assigned a random biome 
+#   instead. This version doesn't print as much diagnostic stuff.
+#--------------------------------------------------------------------------------------------------------------
+def QuietlyPlaceStrongholdInWorldMap(strongholdClass, mapClass):
+    if (strongholdClass.biome == '0') and (strongholdClass.name != 'Default Stronghold'):
+        DefineStrongholdBiome(strongholdClass)
+        remaining = 0
+        cycle = 0
+        pickingPoint = 0
+        spotFound = False
+
+        #Check if there are still biome slots open for a particular biome.
+        #If none are available, then change the stronghold's biome and try again.
+        #If there aren't any open spots at all, then stop the loop.
+        while remaining == 0 and cycle < 4:
+            remaining = CheckRemainingBiomes(strongholdClass.biome, mapClass)
+            if remaining == 0:
+                strongholdClass.biome = CycleBiome(strongholdClass.biome)
+                cycle += 1
+        if cycle > 3:
+            print('Error, no more room left on this map!')
+        else:
+            while pickingPoint < 10:    #Tries to get a point. Fails if it manages to select an occupied point 10 times.
+                #Select one of the available biomes at random
+                point = GetRandomPointByBiome(strongholdClass.biome, mapClass)
+                #If a biome was found:
+                if point > 0:
+                    #Grab some coordinates:
+                    coordinates = GetPointCoordinates(strongholdClass.biome, point, mapClass.worldMap)  
+                    #If coordinates aren't the same as some fief:
+                    if CrossCheckFiefCoordinates(coordinates):  
+                        #If the coordinates aren't the same as some other stronghold:                                        
+                        if CrossCheckStrongholdCoordinates(coordinates):   
+                            #Update map and stronghold:                             
+                            print(*coordinates)
+                            strongholdClass.setCoordinates(coordinates)
+                            UpdateUsedBiomes(strongholdClass.biome, mapClass)
+                            InsertStrongholdAtLocation(strongholdClass.yCoordinate, strongholdClass.xCoordinate, mapClass)
+                            
+                            PrintColorMap(mapClass.worldMap)
+
+                            strongholdClass.write()
+                            pickingPoint = 10
+                            spotFound = True
+                        else:
+                            pickingPoint += 1
+                    else:
+                        pickingPoint += 1
+            if spotFound == False:
+                print("Error, couldn't find an empty spot!")
+    else:
+        if strongholdClass.name == 'Default Stronghold':
+            print("That stronghold doesn't exist!")
+        else:
+            print('That stronghold is already on the map!')
+#--------------------------------------------------------------------------------------------------------------
+#   [InsertStrongholdAtLocation]
+#   Parameters: yPos, xPos, mapClass
+#   Returns: finds the x and y position in the world map and writes an H
+#--------------------------------------------------------------------------------------------------------------
+def InsertStrongholdAtLocation(yPos, xPos, mapClass):
+    for i in range(len(mapClass.worldMap)):
+        for j in range(len(mapClass.worldMap[i])):
+            if i == yPos and j == xPos:
+                mapClass.worldMap[i][j] = STRONGHOLD
+    mapClass.write()
 
 #--------------------------------------------------------------------------------------------------------------
 #   [GenerateSeed]
