@@ -1815,7 +1815,6 @@ while (loop):
         serverMap.name = "serverMap"
         serverMap.read()
 
-        serverMap.selfDiagnostic()
         print('World Map: \n')
         PrintColorMap(serverMap.worldMap)
         print('')
