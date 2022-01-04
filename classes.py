@@ -542,4 +542,17 @@ class Map:
             print('usedForests: ' + str(self.usedForests))
             print('usedMountains: ' + str(self.usedMountains))
 
+    def selfDiagnostic(self):
+        print('seed: ' + str(self.seed))
+        print('width: ' + str(self.width))
+        print('height: ' + str(self.height))
+        print('numWater: ' + str(self.numWater))
+        print('numPlains: ' + str(self.numPlains))
+        print('numForests: ' + str(self.numForests))
+        print('numMountains: ' + str(self.numMountains))
+        print('usedPlains: ' + str(self.usedPlains))
+        print('usedForests: ' + str(self.usedForests))
+        print('usedMountains: ' + str(self.usedMountains))
+        print(*self.worldMap)
+
 #eof

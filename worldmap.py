@@ -25,8 +25,8 @@ BOLD = '\033[1m'
 UNDERLINE = '\033[4m'
 
 #Global variables
-MAP_WIDTH = 30
-MAP_HEIGHT = 30
+MAP_WIDTH = 10
+MAP_HEIGHT = 10
 DEFAULT_WEIGHT = 10     #A common weight total
 WEIGHT_INTENSITY = 5    #Higher the number, the more focused the map will be
 RANDOM_INTENSITY = 20   #Higher the number, the more chaotic the map will be
@@ -658,9 +658,12 @@ def PlaceFiefInWorldMap(fiefClass, mapClass):
                         InsertFiefAtLocation(fiefClass.yCoordinate, fiefClass.xCoordinate, mapClass)
                         
                         PrintColorMap(mapClass.worldMap)
-                        
-                        mapClass.write()
-                        fiefClass.write()
+                        print('Checking if map was wiped: ')
+                        if str(mapClass.worldMap) != '':
+                            print('Attempting to write to serverMap: ')
+                            mapClass.selfDiagnostic()
+                            mapClass.write()
+                            fiefClass.write()
                         pickingPoint = 10
 
                     else:
