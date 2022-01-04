@@ -1071,14 +1071,13 @@ def InsertStrongholdAtLocation(yPos, xPos, mapClass):
 #--------------------------------------------------------------------------------------------------------------
 #   [WorldMapLocation]
 #   Parameters: yPos, xPos, mapClass
-#   Finds your current x and y position in the world map and prints it
+#   Replaces current x and y position in the world map with a new icon, prints the map, then reverts the map.
 #--------------------------------------------------------------------------------------------------------------
 def WorldMapLocation(yPos, xPos, mapClass):
-    for i in range(len(mapClass.worldMap)):
-        for j in range(len(mapClass.worldMap[i])):
-            if i == yPos and j == xPos:
-                mapClass.worldMap[i][j] = LOCATION
-                PrintColorMap(mapClass.worldMap)
+    tempIcon = mapClass.worldMap[yPos][xPos]
+    mapClass.worldMap[yPos][xPos] = LOCATION
+    PrintColorMap(mapClass.worldMap)
+    mapClass.worldMap[yPos][xPos] = tempIcon
 
 #--------------------------------------------------------------------------------------------------------------
 #   [GenerateSeed]

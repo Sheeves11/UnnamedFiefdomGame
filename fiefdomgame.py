@@ -1821,9 +1821,12 @@ while (loop):
         serverMap.name = "serverMap"
 
         if firstMapRead:
-            # print('First read: printing diagnostics: ')
+            print('First read!')
             serverMap.read()
             firstMapRead = False
+
+        print('Checking current coordinates...')
+        print('y: ' + str(userStronghold.yCoordinate) + ' x: ' + str(userStronghold.xCoordinate))
 
         print('World Map: \n')
         PrintLegend()
@@ -1841,9 +1844,12 @@ while (loop):
         serverMap.name = "serverMap"
 
         if firstMapRead:
-            # print('First read: printing diagnostics: ')
+            print('First read!')
             serverMap.read()
             firstMapRead = False
+
+        print('Checking current coordinates...')
+        print('y: ' + str(attackStronghold.yCoordinate) + ' x: ' + str(attackStronghold.xCoordinate))
 
         print('World Map: \n')
         PrintLegend()
@@ -1861,9 +1867,12 @@ while (loop):
         serverMap.name = "serverMap"
 
         if firstMapRead:
-            # print('First read: printing diagnostics: ')
+            print('First read!')
             serverMap.read()
             firstMapRead = False
+
+        print('Checking current coordinates...')
+        print('y: ' + str(attackFief.yCoordinate) + ' x: ' + str(attackFief.xCoordinate))
 
         print('World Map: \n')
         PrintLegend()
