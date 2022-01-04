@@ -559,7 +559,7 @@ class Map:
         print('usedPlains: ' + str(self.usedPlains))
         print('usedForests: ' + str(self.usedForests))
         print('usedMountains: ' + str(self.usedMountains))
-        print('worldMap:')
-        print(*self.worldMap)
+        # print('worldMap:')
+        # print(*self.worldMap)
 
 #eof
