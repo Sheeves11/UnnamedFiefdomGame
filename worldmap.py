@@ -54,7 +54,7 @@ IC_MOUNTAIN = DARK_GRAY
 IC_PLAINS = YELLOW
 IC_FOREST = GREEN
 IC_FIEF = RED
-IC_STRONGHOLD = BOLD
+IC_STRONGHOLD = MAGENTA
 IC_UNEXPLORED = WARNING
 
 #--------------------------------------------------------------------------------------------------------------
@@ -575,7 +575,7 @@ def PrintColorMap(wMap):
 #   Prints a legend for the map
 #--------------------------------------------------------------------------------------------------------------
 def PrintLegend():
-    print('- Legend --------')
+    print('- Legend ---------')
     print('- ' + IC_WATER + WATER + RESET + ' : Water      -')
     #print('- ' + IC_RIVER + RIVER + RESET + ' : River      -')
     print('- ' + IC_FOREST + FOREST + RESET + ' : Forest     -')
