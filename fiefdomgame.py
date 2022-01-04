@@ -1821,12 +1821,10 @@ while (loop):
         serverMap.name = "serverMap"
 
         if firstMapRead:
-            print('First read!')
             serverMap.read()
             firstMapRead = False
 
-        print('Checking current coordinates...')
-        print('y: ' + str(userStronghold.yCoordinate) + ' x: ' + str(userStronghold.xCoordinate))
+        print('Current Location -  Row: ' + str(userStronghold.yCoordinate) + ' Column: ' + str(userStronghold.xCoordinate))
 
         print('World Map: \n')
         PrintLegend()
@@ -1844,15 +1842,14 @@ while (loop):
         serverMap.name = "serverMap"
 
         if firstMapRead:
-            print('First read!')
             serverMap.read()
             firstMapRead = False
 
-        print('Checking current coordinates...')
-        print('y: ' + str(attackStronghold.yCoordinate) + ' x: ' + str(attackStronghold.xCoordinate))
+        print('Current Location -  Row: ' + str(attackStronghold.yCoordinate) + ' Column: ' + str(attackStronghold.xCoordinate))
 
-        print('World Map: \n')
         PrintLegend()
+        print('')
+        print('World Map: \n')
         print('')
         WorldMapLocation(int(attackStronghold.yCoordinate), int(attackStronghold.xCoordinate), serverMap)
         print('')
@@ -1867,12 +1864,10 @@ while (loop):
         serverMap.name = "serverMap"
 
         if firstMapRead:
-            print('First read!')
             serverMap.read()
             firstMapRead = False
 
-        print('Checking current coordinates...')
-        print('y: ' + str(attackFief.yCoordinate) + ' x: ' + str(attackFief.xCoordinate))
+        print('Current Location -  Row: ' + str(attackFief.yCoordinate) + ' Column: ' + str(attackFief.xCoordinate))
 
         print('World Map: \n')
         PrintLegend()
@@ -2058,8 +2053,36 @@ while (loop):
     if screen == "devTestPlotAllStrongholds":
 
         os.system("clear")
-        print('WIP')
         PlotAllStrongholds(serverMap)
+
+        nothing = input('Continue:')
+
+        screen = 'devTest'
+
+
+#This impelments all the map related functions in one go
+#----------------------------------------------------------------------------------
+    if screen == "devTestGenerateWorld":
+
+        os.system("clear")
+        serverMap.name = 'serverMap'
+        serverMap.seed = GenerateSeed()
+        serverMap.height = MAP_HEIGHT
+        serverMap.width = MAP_WIDTH
+        serverMap.worldMap = QuietlyGenerateWorldMap(serverMap.seed)
+        SetBiomeCounts(serverMap)
+        serverMap.write()
+
+        os.system("clear")
+        PlotAllFiefs(serverMap)
+
+        os.system("clear")
+        PlotAllStrongholds(serverMap)
+
+        os.system("clear")
+        print('World Generation Complete!')
+        print('\n')
+        PrintColorMap(serverMap.worldMap)
 
         nothing = input('Continue:')
 
