@@ -1917,8 +1917,9 @@ while (loop):
         print('     {6}: Add all Strongholds Tool')
         print('     {7}: Quick Generate World (DO NOT USE if 3-6 were used!)')
         print('     {8}: Add Gold Tool (for testing!)')
+        print('     {9}: World Map Diagnostic (Only run after step 3 or 7)')
         print('     --------------------------------------------------------')
-        print('     Note: to quick generate a world, just hit 7. To go step ')
+        print('     Note: To quick generate a world, just hit 7. To go step ')
         print('           by step, start at 3 and proceed without using 7!  ')
         print('\n')
         command = input("     Enter your command: ")
@@ -1947,6 +1948,9 @@ while (loop):
 
         if command == '8':
             screen = 'devTestAddGold'
+
+        if command == '8':
+            screen = 'devTestWorldMapDiagnostics'
 
 
 #This is a "secret" page that you can use to create default Fiefdoms
@@ -2083,6 +2087,22 @@ while (loop):
 
         os.system("clear")
         print('World Generation Complete!')
+        print('\n')
+        PrintColorMap(serverMap.worldMap)
+
+        nothing = input('Continue:')
+
+        screen = 'devTest'
+
+#This impelments all the map related functions in one go
+#----------------------------------------------------------------------------------
+    if screen == "devTestWorldMapDiagnostics":
+
+        os.system("clear")
+
+        serverMap.selfDiagnostic()
+        # print('\n')
+        # PrintLegend()
         print('\n')
         PrintColorMap(serverMap.worldMap)
 
