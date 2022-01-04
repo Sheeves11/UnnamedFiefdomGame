@@ -649,7 +649,7 @@ def PlaceFiefInWorldMap(fiefClass, mapClass):
                         fiefClass.setCoordinates(coordinates)
                         print('Successfully set coordinates!: ')
                         print('xCoordinate: ' + str(fiefClass.xCoordinate) + ' yCoordinate:' + str(fiefClass.yCoordinate))
-                        print('Updating used biomes in mapClass: ')
+                        print('Updating used biomes in mapClass, biome is ' + str(fiefClass.biome) + ': ')
                         UpdateUsedBiomes(fiefClass.biome, mapClass)
                         print('Used Forests: ' + str(mapClass.usedForests))
                         print('Used Plains: ' + str(mapClass.usedPlains))
@@ -786,13 +786,13 @@ def UpdateUsedBiomes(biome, mapClass):
     count = 0
     if biome == FOREST:
         count = int(mapClass.usedForests) + 1
-        mapClass.usedForests = count
+        mapClass.usedForests = str(count)
     elif biome == MOUNTAIN:
         count = int(mapClass.usedMountains) + 1
-        mapClass.usedMountains = count
+        mapClass.usedMountains = str(count)
     elif biome == PLAINS:
         count = int(mapClass.usedPlains) + 1
-        mapClass.usedPlains = count
+        mapClass.usedPlains = str(count)
 
     mapClass.write()
 
