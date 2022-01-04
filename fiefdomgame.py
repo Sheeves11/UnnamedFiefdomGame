@@ -1949,7 +1949,7 @@ while (loop):
         if command == '8':
             screen = 'devTestAddGold'
 
-        if command == '8':
+        if command == '9':
             screen = 'devTestWorldMapDiagnostics'
 
 
