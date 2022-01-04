@@ -25,8 +25,8 @@ BOLD = '\033[1m'
 UNDERLINE = '\033[4m'
 
 #Global variables
-MAP_WIDTH = 3
-MAP_HEIGHT = 3
+MAP_WIDTH = 40
+MAP_HEIGHT = 40
 DEFAULT_WEIGHT = 10     #A common weight total
 WEIGHT_INTENSITY = 5    #Higher the number, the more focused the map will be
 RANDOM_INTENSITY = 20   #Higher the number, the more chaotic the map will be
@@ -729,7 +729,7 @@ def CrossCheckCoordinates(coordinates):
                 tempName = Fiefdom()
                 tempName.name = filename[:-4]
                 tempName.read()
-                print('Cross checking with: ' + str(tempName.name))
+                # print('Cross checking with: ' + str(tempName.name))
                 if tempName.yCoordinate == coordinates[0] and tempName.xCoordinate == coordinates[1]:
                     print('Error, same coordinates as ' + str(tempName.name) + '!')
                     return False
@@ -771,10 +771,13 @@ def GetRandomPointByBiome(biome, mapClass):
 #--------------------------------------------------------------------------------------------------------------
 def CycleBiome(biome):
     if biome == FOREST:
+        print('No forests left, changing biome to a mountain:')
         return MOUNTAIN
     elif biome == MOUNTAIN:
+        print('No mountains left, changing biome to a plains:')
         return PLAINS
     elif biome == PLAINS:
+        print('No plains left, changing biome to a forest:')
         return FOREST
 
 #--------------------------------------------------------------------------------------------------------------
