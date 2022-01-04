@@ -198,7 +198,6 @@ while (loop):
         userStronghold.write()
 
         if FirstLaunch():
-            serverMap.name = 'serverMap'
             SilentlyGenerateWorld(serverMap)
 
         productionCalc = 0
