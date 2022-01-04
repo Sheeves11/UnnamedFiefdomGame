@@ -631,6 +631,70 @@ def DefineFiefBiome(fiefClass):
     fiefClass.write()
 
 #--------------------------------------------------------------------------------------------------------------
+#   [PlotAllFiefs]
+#   Parameters: mapClass
+#   Plots all fief files on the world map
+#--------------------------------------------------------------------------------------------------------------
+def PlotAllFiefs(mapClass):
+    for filename in os.listdir('fiefs'):
+        with open(os.path.join('fiefs', filename), 'r') as f:
+            time.sleep(0.3)
+            os.system("clear")
+            fiefClass = filename[:-4]
+            fiefClass = Fiefdom()
+            fiefClass.name = filename[:-4]
+            fiefClass.read()
+            # print('Cross checking with: ' + str(tempName.name))
+            DefineFiefBiome(fiefClass)
+            # print('Defined Biome as: ' + str(fiefClass.biome))
+            remaining = 0
+            cycle = 0
+            pickingPoint = 0
+
+            #Check if there are still biome slots open for a particular biome.
+            #If none are available, then change the fief's biome and try again.
+            #If there aren't any open spots at all, then stop the loop.
+            while remaining == 0 and cycle < 4:
+                remaining = CheckRemainingBiomes(fiefClass.biome, mapClass)
+                if remaining == 0:
+                    fiefClass.biome = CycleBiome(fiefClass.biome)
+                    cycle += 1
+            if cycle > 3:
+                print('Error, no more room for fiefs left on this map!')
+            else:
+                while pickingPoint < 10:    #Tries to get a point. Fails if it manages to select an occupied point 10 times.
+                #Select one of the available biomes at random
+                    # print('Picking a random ' + str(fiefClass.biome) + ' biome out of the ones available:')
+                    point = GetRandomPointByBiome(fiefClass.biome, mapClass)
+                    # print('Picked point: ' + str(point))
+
+                    #If a biome was found:
+                    if point > 0:
+                        coordinates = GetPointCoordinates(fiefClass.biome, point, mapClass.worldMap)
+
+                        if CrossCheckCoordinates(coordinates):
+                            # print('Successfully selected coordinates!:')
+                            # print(*coordinates)
+                            fiefClass.setCoordinates(coordinates)
+                            # print('Successfully set coordinates!: ')
+                            # print('xCoordinate: ' + str(fiefClass.xCoordinate) + ' yCoordinate: ' + str(fiefClass.yCoordinate))
+                            # print('Updating used biomes in mapClass, biome is ' + str(fiefClass.biome) + ': ')
+                            UpdateUsedBiomes(fiefClass.biome, mapClass)
+                            # print('Used Forests: ' + str(mapClass.usedForests))
+                            # print('Used Plains: ' + str(mapClass.usedPlains))
+                            # print('Used Mountains: ' + str(mapClass.usedMountains))
+                            # print('Inserting Fief into map:')
+                            InsertFiefAtLocation(fiefClass.yCoordinate, fiefClass.xCoordinate, mapClass)
+                            
+                            PrintColorMap(mapClass.worldMap)
+
+                            fiefClass.write()
+                            pickingPoint = 10
+
+                        else:
+                            pickingPoint += 1
+
+#--------------------------------------------------------------------------------------------------------------
 #   [PlaceFiefInWorldMap]
 #   Parameters: fiefClass, mapClass
 #
@@ -671,7 +735,7 @@ def PlaceFiefInWorldMap(fiefClass, mapClass):
                         print(*coordinates)
                         fiefClass.setCoordinates(coordinates)
                         print('Successfully set coordinates!: ')
-                        print('xCoordinate: ' + str(fiefClass.xCoordinate) + ' yCoordinate:' + str(fiefClass.yCoordinate))
+                        print('xCoordinate: ' + str(fiefClass.xCoordinate) + ' yCoordinate: ' + str(fiefClass.yCoordinate))
                         print('Updating used biomes in mapClass, biome is ' + str(fiefClass.biome) + ': ')
                         UpdateUsedBiomes(fiefClass.biome, mapClass)
                         print('Used Forests: ' + str(mapClass.usedForests))

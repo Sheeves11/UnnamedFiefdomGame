@@ -293,7 +293,10 @@ while (loop):
             screen = 'worldMap'
 
         if command == 'tf':
-            screen = 'testFiefPlacement'
+            screen = 'devTestFiefPlacement'
+
+        if command == 'paf':
+            screen = 'devTestPlotAllFiefs'
 
 #This is the screen for the message board.
 #----------------------------------------------------------------------------------
@@ -1899,7 +1902,7 @@ while (loop):
 
 #This is currently just a test page to see if fief placement in the world map works as intended
 #----------------------------------------------------------------------------------
-    if screen == "testFiefPlacement":
+    if screen == "devTestFiefPlacement":
 
         os.system("clear")
 
@@ -1919,6 +1922,19 @@ while (loop):
         nothing = input('Continue:')
 
         screen = 'stronghold'
+
+#This plots all fiefs on the server at once
+#----------------------------------------------------------------------------------
+    if screen == "devTestPlotAllFiefs":
+
+        os.system("clear")
+
+        PlotAllFiefs(serverMap)
+
+        nothing = input('Continue:')
+
+        screen = 'stronghold'
+        
         
 
     '''
