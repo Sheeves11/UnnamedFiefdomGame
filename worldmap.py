@@ -406,12 +406,12 @@ def LoadingAnimation(thingLoading):
     time.sleep(0.1)
 
 #--------------------------------------------------------------------------------------------------------------
-#   [QuietlyGenerateWorldMap]
+#   [SilentlyGenerateWorldMap]
 #   Parameters: seed
 #
 #   Does the same thing as GenerateWordlMap but with no prints or user interaction
 #--------------------------------------------------------------------------------------------------------------
-def QuietlyGenerateWorldMap(seed):
+def SilentlyGenerateWorldMap(seed):
     worldMap = [['0' for x in range(MAP_WIDTH)] for y in range(MAP_HEIGHT)]
     sPosX = int(seed[0])
     sPosY = int(seed[1])
@@ -425,19 +425,19 @@ def QuietlyGenerateWorldMap(seed):
         if firstLoop:
             for y in range(MAP_HEIGHT):
                 for x in range(MAP_WIDTH):
-                    worldMap[y][x] = QuietlyDefineSurroundings(worldMap, x, y, freqMountain, freqPlains, freqForest)
+                    worldMap[y][x] = SilentlyDefineSurroundings(worldMap, x, y, freqMountain, freqPlains, freqForest)
 
             firstLoop = False
         loop = False
     return worldMap
 
 #--------------------------------------------------------------------------------------------------------------
-#   [QuietlyDefineSurroundings]
+#   [SilentlyDefineSurroundings]
 #   Parameters: wMap, posX, posY, freqM, freqP, freqF
 #
 #   Does the same thing as PrintSurroundings but with no prints or user interaction
 #--------------------------------------------------------------------------------------------------------------
-def QuietlyDefineSurroundings(wMap, posX, posY, freqM, freqP, freqF):
+def SilentlyDefineSurroundings(wMap, posX, posY, freqM, freqP, freqF):
     try:
         dN = wMap[posY - 1][posX]
     except:
@@ -638,6 +638,35 @@ def DefineFiefBiome(fiefClass):
     fiefClass.write()
 
 #--------------------------------------------------------------------------------------------------------------
+#   [SilentlyDefineFiefBiome]
+#   Parameters: fiefClass
+#
+#   Sets a fief's biome based on the fief's name. If no match is found, the fief is assigned a random biome 
+#   instead. Does this without printing anything
+#--------------------------------------------------------------------------------------------------------------
+def SilentlyDefineFiefBiome(fiefClass):
+    forestBiomeNames = ['forest', 'wood', 'root', 'grove', 'thicket', 'glade', 'pine', 'timber', 'covert', 'canopy']
+    plainsBiomeNames = ['plain', 'field', 'prairie', 'flat', 'expanse', 'grass', 'meadow', 'steppe', 'plateau', 'heath', 'moor', 'hollow']
+    mountainBiomeNames = ['mount', 'alp', 'bluff', 'cliff', 'crag', 'mesa', 'peak', 'range', 'ridge', 'pike', 'hill', 'butte', 'height']
+    #Check if the name sounds like a forest
+    for i in range(len(forestBiomeNames)):
+        if forestBiomeNames[i] in str(fiefClass.name).lower():
+            fiefClass.biome = FOREST
+    #Check if the name sounds like a mountain
+    for i in range(len(mountainBiomeNames)):
+        if mountainBiomeNames[i] in str(fiefClass.name).lower():
+            fiefClass.biome = MOUNTAIN
+    #Check if the name sounds like a plains
+    for i in range(len(plainsBiomeNames)):
+        if plainsBiomeNames[i] in str(fiefClass.name).lower():
+            fiefClass.biome = PLAINS
+    #Select randomly if the name doesn't sound like any of the previous biomes
+    if fiefClass.biome == '0':
+        fiefClass.biome = GetRandomLandPoint()
+    #Update the fiefClass file
+    fiefClass.write()
+
+#--------------------------------------------------------------------------------------------------------------
 #   [PlotAllFiefs]
 #   Parameters: mapClass
 #   Plots all fief files on the world map
@@ -652,6 +681,20 @@ def PlotAllFiefs(mapClass):
             fiefClass.name = filename[:-4]
             fiefClass.read()
             QuietlyPlaceFiefInWorldMap(fiefClass, mapClass)
+
+#--------------------------------------------------------------------------------------------------------------
+#   [SilentlyPlotAllFiefs]
+#   Parameters: mapClass
+#   Plots all fief files on the world map
+#--------------------------------------------------------------------------------------------------------------
+def SilentlyPlotAllFiefs(mapClass):
+    for filename in os.listdir('fiefs'):
+        with open(os.path.join('fiefs', filename), 'r') as f:
+            fiefClass = filename[:-4]
+            fiefClass = Fiefdom()
+            fiefClass.name = filename[:-4]
+            fiefClass.read()
+            SilentlyPlaceFiefInWorldMap(fiefClass, mapClass)
 
 #--------------------------------------------------------------------------------------------------------------
 #   [PlaceFiefInWorldMap]
@@ -761,6 +804,59 @@ def QuietlyPlaceFiefInWorldMap(fiefClass, mapClass):
                         fiefClass.write()
                         pickingPoint = 10
                         spotFound = True
+                    else:
+                        pickingPoint += 1
+            if spotFound == False:
+                print("Error, couldn't find an empty spot!")
+    else:
+        if fiefClass.name == 'Default Fiefdom':
+            print("That fiefdom doesn't exist!")
+        else:
+            print(str(fiefClass.name) + ' is already on the map!')
+
+#--------------------------------------------------------------------------------------------------------------
+#   [SilentlyPlaceFiefInWorldMap]
+#   Parameters: fiefClass, mapClass
+#
+#   Sets a fief's biome based on the fief's name. If no match is found, the fief is assigned a random biome 
+#   instead. This version doesn't print anything unless an error occurs.
+#--------------------------------------------------------------------------------------------------------------
+def SilentlyPlaceFiefInWorldMap(fiefClass, mapClass):
+    if (fiefClass.biome == '0') and (fiefClass.name != 'Default Fiefdom'):
+        SilentlyDefineFiefBiome(fiefClass)
+        remaining = 0
+        cycle = 0
+        pickingPoint = 0
+        spotFound = False
+
+        #Check if there are still biome slots open for a particular biome.
+        #If none are available, then change the fief's biome and try again.
+        #If there aren't any open spots at all, then stop the loop.
+        while remaining == 0 and cycle < 4:
+            remaining = CheckRemainingBiomes(fiefClass.biome, mapClass)
+            if remaining == 0:
+                fiefClass.biome = CycleBiome(fiefClass.biome)
+                cycle += 1
+        if cycle > 3:
+            print('Error, no more room for fiefs left on this map!')
+        else:
+            while pickingPoint < 10:    #Tries to get a point. Fails if it manages to select an occupied point 10 times.
+                #Select one of the available biomes at random
+                point = GetRandomPointByBiome(fiefClass.biome, mapClass)
+                #If a biome was found:
+                if point > 0:
+                    coordinates = GetPointCoordinates(fiefClass.biome, point, mapClass.worldMap)
+
+                    if CrossCheckFiefCoordinates(coordinates):
+                        if CrossCheckStrongholdCoordinates(coordinates):
+                            fiefClass.setCoordinates(coordinates)
+                            UpdateUsedBiomes(fiefClass.biome, mapClass)
+                            InsertFiefAtLocation(fiefClass.yCoordinate, fiefClass.xCoordinate, mapClass)
+                            fiefClass.write()
+                            pickingPoint = 10
+                            spotFound = True
+                        else:
+                            pickingPoint += 1
                     else:
                         pickingPoint += 1
             if spotFound == False:
@@ -999,6 +1095,21 @@ def PlotAllStrongholds(mapClass):
             QuietlyPlaceStrongholdInWorldMap(strongholdClass, mapClass)
 
 #--------------------------------------------------------------------------------------------------------------
+#   [SilentlyPlotAllStrongholds]
+#   Parameters: mapClass
+#   Plots all stronghold files on the world map (this won't be used too often, since strongholds will
+#   typically be added one at a time as new users are made). This version has no prints.
+#--------------------------------------------------------------------------------------------------------------
+def SilentlyPlotAllStrongholds(mapClass):
+    for filename in os.listdir('strongholds'):
+        with open(os.path.join('strongholds', filename), 'r') as f:
+            strongholdClass = filename[:-4]
+            strongholdClass = Stronghold()
+            strongholdClass.name = filename[:-4]
+            strongholdClass.read()
+            SilentlyPlaceStrongholdInWorldMap(strongholdClass, mapClass)
+
+#--------------------------------------------------------------------------------------------------------------
 #   [QuietlyPlaceStrongholdInWorldMap]
 #   Parameters: strongholdClass, mapClass
 #
@@ -1058,6 +1169,64 @@ def QuietlyPlaceStrongholdInWorldMap(strongholdClass, mapClass):
             print("That stronghold doesn't exist!")
         else:
             print(str(strongholdClass.name) + "'s stronghold is already on the map!")
+
+#--------------------------------------------------------------------------------------------------------------
+#   [SilentlyPlaceStrongholdInWorldMap]
+#   Parameters: strongholdClass, mapClass
+#
+#   These are getting redundant, I know. 
+#   Sets a fief's biome based on the fief's name. If no match is found, the fief is assigned a random biome 
+#   instead. This version doesn't print a single thing unless an error happens.
+#--------------------------------------------------------------------------------------------------------------
+def SilentlyPlaceStrongholdInWorldMap(strongholdClass, mapClass):
+    if (strongholdClass.biome == '0') and (strongholdClass.name != 'Default Stronghold'):
+        DefineStrongholdBiome(strongholdClass)
+        remaining = 0
+        cycle = 0
+        pickingPoint = 0
+        spotFound = False
+
+        #Check if there are still biome slots open for a particular biome.
+        #If none are available, then change the stronghold's biome and try again.
+        #If there aren't any open spots at all, then stop the loop.
+        while remaining == 0 and cycle < 4:
+            remaining = CheckRemainingBiomes(strongholdClass.biome, mapClass)
+            if remaining == 0:
+                strongholdClass.biome = CycleBiome(strongholdClass.biome)
+                cycle += 1
+        if cycle > 3:
+            print('Error, no more room left on this map!')
+        else:
+            while pickingPoint < 10:    #Tries to get a point. Fails if it manages to select an occupied point 10 times.
+                #Select one of the available biomes at random
+                point = GetRandomPointByBiome(strongholdClass.biome, mapClass)
+                #If a biome was found:
+                if point > 0:
+                    #Grab some coordinates:
+                    coordinates = GetPointCoordinates(strongholdClass.biome, point, mapClass.worldMap)  
+                    #If coordinates aren't the same as some fief:
+                    if CrossCheckFiefCoordinates(coordinates):  
+                        #If the coordinates aren't the same as some other stronghold:                                        
+                        if CrossCheckStrongholdCoordinates(coordinates):   
+                            #Update map and stronghold:  
+                            strongholdClass.setCoordinates(coordinates)
+                            UpdateUsedBiomes(strongholdClass.biome, mapClass)
+                            InsertStrongholdAtLocation(strongholdClass.yCoordinate, strongholdClass.xCoordinate, mapClass)
+
+                            strongholdClass.write()
+                            pickingPoint = 10
+                            spotFound = True
+                        else:
+                            pickingPoint += 1
+                    else:
+                        pickingPoint += 1
+            if spotFound == False:
+                print("Error, couldn't find an empty spot!")
+    else:
+        if strongholdClass.name == 'Default Stronghold':
+            print("That stronghold doesn't exist!")
+        else:
+            print(str(strongholdClass.name) + "'s stronghold is already on the map!")
 #--------------------------------------------------------------------------------------------------------------
 #   [InsertStrongholdAtLocation]
 #   Parameters: yPos, xPos, mapClass
@@ -1080,6 +1249,19 @@ def WorldMapLocation(yPos, xPos, mapClass):
     mapClass.worldMap[yPos][xPos] = LOCATION
     PrintColorMap(mapClass.worldMap)
     mapClass.worldMap[yPos][xPos] = tempIcon
+
+#--------------------------------------------------------------------------------------------------------------
+#   [SilentlyGenerateWorld]
+#   Parameters: mapClass
+#   This function combines the other functions to silently generate the world in the background.
+#--------------------------------------------------------------------------------------------------------------
+def SilentlyGenerateWorld(mapClass):
+    seed = GenerateSeed()
+    # LoadingAnimation('Generating World Map')
+    SilentlyGenerateWorldMap(seed)
+    # LoadingAnimation('Placing Fiefs and Strongholds')
+    SilentlyPlotAllFiefs(mapClass)
+    SilentlyPlotAllStrongholds(mapClass)
 
 #--------------------------------------------------------------------------------------------------------------
 #   [GenerateSeed]

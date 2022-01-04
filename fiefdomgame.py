@@ -197,6 +197,10 @@ while (loop):
         userStronghold.defenders = str(userStronghold.defenders)
         userStronghold.write()
 
+        if FirstLaunch():
+            serverMap.name = 'serverMap'
+            SilentlyGenerateWorld(serverMap)
+
         productionCalc = 0
         maxProductionSoldiers = (int(userStronghold.goldMod) * 500)
         if int(userStronghold.defenders) > maxProductionSoldiers:
@@ -2077,7 +2081,7 @@ while (loop):
         serverMap.seed = GenerateSeed()
         serverMap.height = MAP_HEIGHT
         serverMap.width = MAP_WIDTH
-        serverMap.worldMap = QuietlyGenerateWorldMap(serverMap.seed)
+        serverMap.worldMap = SilentlyGenerateWorldMap(serverMap.seed)
         SetBiomeCounts(serverMap)
         serverMap.write()
 

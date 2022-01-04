@@ -218,6 +218,18 @@ def art_farm7():
 |~@~||~@~||~@~||~@~||~@~||~@~||~@~||~@~||~@~||~@~|
 |~@~||~@~||~@~||~@~||~@~||~@~||~@~||~@~||~@~||~@~|
     ''')
+
+def FirstLaunch():
+    settingsFile = open('settings.txt', 'r+')
+    if settingsFile.readline(0).endswith('no'):
+        settingsFile.seek(0)
+        settingsFile.write('Map Initialized: yes')
+        settingsFile.close()
+        return True
+    else:
+        settingsFile.close()
+        return False
+    
 #the fiefdom class holds variables that define a player's stats
 class Fiefdom:
     name = 'Default Fiefdom'
