@@ -45,6 +45,7 @@ attackFief = Fiefdom()
 userStronghold = Stronghold()
 attackStronghold = Stronghold()
 serverMap = Map()
+firstMapRead = True
 
 #this begins the main game loop
 #------------------------------------------------------------------------------
@@ -1813,7 +1814,10 @@ while (loop):
     if screen == "viewMap":
         os.system("clear")
         serverMap.name = "serverMap"
-        serverMap.read()
+
+        if firstMapRead:
+            serverMap.read()
+            firstMapRead = False
 
         print('World Map: \n')
         PrintColorMap(serverMap.worldMap)
