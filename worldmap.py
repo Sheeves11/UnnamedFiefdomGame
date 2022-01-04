@@ -767,12 +767,12 @@ def QuietlyPlaceFiefInWorldMap(fiefClass, mapClass):
         if fiefClass.name == 'Default Fiefdom':
             print("That fiefdom doesn't exist!")
         else:
-            print('That fief is already on the map!')
+            print(str(fiefClass.name) + ' is already on the map!')
 
 #--------------------------------------------------------------------------------------------------------------
 #   [InsertFiefAtLocation]
 #   Parameters: yPos, xPos, mapClass
-#   Returns: finds the x and y position in the world map and writes an X
+#   Finds the x and y position in the world map and writes an X
 #--------------------------------------------------------------------------------------------------------------
 def InsertFiefAtLocation(yPos, xPos, mapClass):
     for i in range(len(mapClass.worldMap)):
@@ -1033,7 +1033,8 @@ def QuietlyPlaceStrongholdInWorldMap(strongholdClass, mapClass):
                     if CrossCheckFiefCoordinates(coordinates):  
                         #If the coordinates aren't the same as some other stronghold:                                        
                         if CrossCheckStrongholdCoordinates(coordinates):   
-                            #Update map and stronghold:                             
+                            #Update map and stronghold:  
+                            print('Adding ' + str(strongholdClass.name) + "'s stronghold to the map!")                           
                             print(*coordinates)
                             strongholdClass.setCoordinates(coordinates)
                             UpdateUsedBiomes(strongholdClass.biome, mapClass)
@@ -1054,11 +1055,11 @@ def QuietlyPlaceStrongholdInWorldMap(strongholdClass, mapClass):
         if strongholdClass.name == 'Default Stronghold':
             print("That stronghold doesn't exist!")
         else:
-            print('That stronghold is already on the map!')
+            print(str(strongholdClass.name) + "'s stronghold is already on the map!")
 #--------------------------------------------------------------------------------------------------------------
 #   [InsertStrongholdAtLocation]
 #   Parameters: yPos, xPos, mapClass
-#   Returns: finds the x and y position in the world map and writes an H
+#   Finds the x and y position in the world map and writes an H
 #--------------------------------------------------------------------------------------------------------------
 def InsertStrongholdAtLocation(yPos, xPos, mapClass):
     for i in range(len(mapClass.worldMap)):
@@ -1066,6 +1067,18 @@ def InsertStrongholdAtLocation(yPos, xPos, mapClass):
             if i == yPos and j == xPos:
                 mapClass.worldMap[i][j] = STRONGHOLD
     mapClass.write()
+
+#--------------------------------------------------------------------------------------------------------------
+#   [WorldMapLocation]
+#   Parameters: yPos, xPos, mapClass
+#   Finds your current x and y position in the world map and prints it
+#--------------------------------------------------------------------------------------------------------------
+def WorldMapLocation(yPos, xPos, mapClass):
+    for i in range(len(mapClass.worldMap)):
+        for j in range(len(mapClass.worldMap[i])):
+            if i == yPos and j == xPos:
+                mapClass.worldMap[i][j] = LOCATION
+                PrintColorMap(mapClass.worldMap)
 
 #--------------------------------------------------------------------------------------------------------------
 #   [GenerateSeed]

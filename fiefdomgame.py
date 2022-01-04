@@ -280,7 +280,7 @@ while (loop):
             screen = 'thieves'
 
         if command == '10':
-            screen = 'viewMap'
+            screen = 'viewMapYourStronghold'
         
         #The following commands are for testing only!
         if command == 'devtest':
@@ -1192,8 +1192,8 @@ while (loop):
 
         print('\n')
         print("     Avalible Commands:")
-        print('     -------------------------------------')
-        print('     {1}: Return to Stronghold')
+        print('     -------------------------------------------------------')
+        print('     {1}: Return to Stronghold       {9}:View Location')
         print('     {2}: View Nearby Fiefdoms')
         print('     {3}: Deploy Additional Forces')
         print('     {4}: Withdraw Forces')
@@ -1201,7 +1201,7 @@ while (loop):
         print('     {6}: Upgrade Defenses')
         print('     {7}: Upgrade Farms')
         print('     {8}: Upgrade Training')
-        print('     -------------------------------------')
+        print('     -------------------------------------------------------')
         print('\n')
         command = input("     Enter your command: ")
 
@@ -1226,6 +1226,9 @@ while (loop):
 
         if command == '7':
             screen = 'farm'
+
+        if command == '9':
+            screen = 'viewMapCurrentFief'
 
 #The withdraw gold screen allows players to withdraw gold from a ruled fiefdom
 #
@@ -1494,6 +1497,7 @@ while (loop):
         print('{1}: Return to Stronghold')
         print('{2}: View Nearby Fiefdoms')
         print('{3}: Attack')
+        print('{4}: View Location')
         print('-------------------------------------')
         print('\n')
 
@@ -1508,6 +1512,9 @@ while (loop):
 
         if command == "3":
             screen = 'battle'
+        
+        if command == "4":
+            screen = 'viewMapCurrentFief'
 
 #This is the details page for enemy Fiefdoms
 #
@@ -1580,6 +1587,7 @@ while (loop):
         print('{1}: Return to Stronghold')
         print('{2}: View Nearby Fiefdoms')
         print('{3}: Send Thieves To Steal Gold')
+        print('{4}: View Location')
         print('-------------------------------------')
         print('\n')
 
@@ -1594,6 +1602,9 @@ while (loop):
 
         if command == "3":
             screen = "thiefPage"
+
+        if command == "4":
+            screen = "viewMapEnemyStronghold"
 
 
 #This is the theif attack page, which you will see when trying
@@ -1804,25 +1815,68 @@ while (loop):
             currentPage = 1
             screen = "fiefdoms"
 
-#This page is just a color printing of the current server map
-    if screen == "viewMap":
+#This page prints the world map with your stronghold's location marked on it
+    if screen == "viewMapYourStronghold":
         os.system("clear")
         serverMap.name = "serverMap"
 
         if firstMapRead:
-            print('First read: printing diagnostics: ')
+            # print('First read: printing diagnostics: ')
             serverMap.read()
             firstMapRead = False
 
         print('World Map: \n')
         PrintLegend()
         print('')
-        PrintColorMap(serverMap.worldMap)
+        WorldMapLocation(userStronghold.yCoordinate, userStronghold.xCoordinate, serverMap.worldMap)
         print('')
         time.sleep(1)
         nothing = input('Continue:')
 
         screen = 'stronghold'
+
+#This page prints the world map with your stronghold's location marked on it
+    if screen == "viewMapEnemyStronghold":
+        os.system("clear")
+        serverMap.name = "serverMap"
+
+        if firstMapRead:
+            # print('First read: printing diagnostics: ')
+            serverMap.read()
+            firstMapRead = False
+
+        print('World Map: \n')
+        PrintLegend()
+        print('')
+        WorldMapLocation(attackStronghold.yCoordinate, attackStronghold.xCoordinate, serverMap.worldMap)
+        print('')
+        time.sleep(1)
+        nothing = input('Continue:')
+
+        screen = 'enemyStrongholdDetails'
+
+#This page prints the world map with your stronghold's location marked on it
+    if screen == "viewMapCurrentFief":
+        os.system("clear")
+        serverMap.name = "serverMap"
+
+        if firstMapRead:
+            # print('First read: printing diagnostics: ')
+            serverMap.read()
+            firstMapRead = False
+
+        print('World Map: \n')
+        PrintLegend()
+        print('')
+        WorldMapLocation(attackFief.yCoordinate, attackFief.xCoordinate, serverMap.worldMap)
+        print('')
+        time.sleep(1)
+        nothing = input('Continue:')
+
+        if str(attackFief.ruler) == str(userStronghold.ruler):
+            screen = 'homeDetails'
+        if str(attackFief.ruler) != str(userStronghold.ruler):
+            screen = "details"
 
 
 #This is the new devtest menu with all the devtest commands sorted out and neat

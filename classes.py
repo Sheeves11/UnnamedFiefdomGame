@@ -403,7 +403,7 @@ class Stronghold:
                 self.yCoordinate = f.readline().strip()
         except:
             self.write()     
-            
+
     def setCoordinates(self, coordinates):
         self.yCoordinate = coordinates[0]
         self.xCoordinate = coordinates[1]
@@ -534,16 +534,16 @@ class Map:
             self.usedPlains = str(self.values[8]).lstrip("['").rstrip("']")
             self.usedForests = str(self.values[9]).lstrip("['").rstrip("']")
             self.usedMountains = str(self.values[10]).lstrip("['").rstrip("']")
-            print('seed: ' + str(self.seed))
-            print('width: ' + str(self.width))
-            print('height: ' + str(self.height))
-            print('numWater: ' + str(self.numWater))
-            print('numPlains: ' + str(self.numPlains))
-            print('numForests: ' + str(self.numForests))
-            print('numMountains: ' + str(self.numMountains))
-            print('usedPlains: ' + str(self.usedPlains))
-            print('usedForests: ' + str(self.usedForests))
-            print('usedMountains: ' + str(self.usedMountains))
+            # print('seed: ' + str(self.seed))
+            # print('width: ' + str(self.width))
+            # print('height: ' + str(self.height))
+            # print('numWater: ' + str(self.numWater))
+            # print('numPlains: ' + str(self.numPlains))
+            # print('numForests: ' + str(self.numForests))
+            # print('numMountains: ' + str(self.numMountains))
+            # print('usedPlains: ' + str(self.usedPlains))
+            # print('usedForests: ' + str(self.usedForests))
+            # print('usedMountains: ' + str(self.usedMountains))
 
     def selfDiagnostic(self):
         print('Running diagnostic on map class...')
