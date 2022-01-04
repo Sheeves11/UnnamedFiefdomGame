@@ -571,6 +571,20 @@ def PrintColorMap(wMap):
         print('')
 
 #--------------------------------------------------------------------------------------------------------------
+#   [PrintLegend]
+#   Prints a legend for the map
+#--------------------------------------------------------------------------------------------------------------
+def PrintLegend():
+    print('- Legend --------')
+    print('- ' + IC_WATER + WATER + RESET + ' : Water      -')
+    #print('- ' + IC_RIVER + RIVER + RESET + ' : River      -')
+    print('- ' + IC_FOREST + FOREST + RESET + ' : Forest     -')
+    print('- ' + IC_PLAINS + PLAINS + RESET + ' : Plains     -')
+    print('- ' + IC_MOUNTAIN + MOUNTAIN + RESET + ' : Mountain   -')
+    print('- ' + IC_FIEF + FIEF + RESET + ' : Fief       -')
+    print('- ' + IC_STRONGHOLD + STRONGHOLD + RESET + ' : Stronghold -')
+
+#--------------------------------------------------------------------------------------------------------------
 #   [DefineFiefBiome]
 #   Parameters: fiefClass
 #
