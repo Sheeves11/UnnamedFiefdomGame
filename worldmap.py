@@ -658,12 +658,8 @@ def PlaceFiefInWorldMap(fiefClass, mapClass):
                         InsertFiefAtLocation(fiefClass.yCoordinate, fiefClass.xCoordinate, mapClass)
                         
                         PrintColorMap(mapClass.worldMap)
-                        print('Checking if map was wiped: ')
-                        if str(mapClass.worldMap) != '':
-                            print('Attempting to write to serverMap: ')
-                            mapClass.selfDiagnostic()
-                            mapClass.write()
-                            fiefClass.write()
+
+                        fiefClass.write()
                         pickingPoint = 10
 
                     else:
@@ -684,7 +680,7 @@ def InsertFiefAtLocation(yPos, xPos, mapClass):
         for j in range(len(mapClass.worldMap[i])):
             if i == yPos and j == xPos:
                 mapClass.worldMap[i][j] = 'X'
-    # mapClass.write()
+    mapClass.write()
 
 #--------------------------------------------------------------------------------------------------------------
 #   [GetPointCoordinates]
@@ -798,7 +794,7 @@ def UpdateUsedBiomes(biome, mapClass):
         count = int(mapClass.usedPlains) + 1
         mapClass.usedPlains = count
 
-    # mapClass.write()
+    mapClass.write()
 
 #--------------------------------------------------------------------------------------------------------------
 #   [GetBiomeCounts]
