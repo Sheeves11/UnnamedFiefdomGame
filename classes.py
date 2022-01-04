@@ -164,7 +164,7 @@ _[]_./ == \ /\_,'=-|( ||''|| )/-=`._/\ / == \:;:;:
     
 def art7():
     print('''
-       ,-....    _/=-=-=--=-=-=\_    v
+       ,-.._     _/=-=-=--=-=-=\_    v
   ^   |  _,,'._ /|<.__.>~~<.__.>|`
      /-''     '  \=|--|-__-|--|=/   _,-'`'--._
    .'   /\________|===_/--\_===|___i____/\ `  `.
@@ -309,6 +309,9 @@ class Fiefdom:
                 self.yCoordinate = f.readline().strip()
         except:
             self.write()   
+    def setCoordinates(self, coordinates):
+        self.yCoordinate = coordinates[0]
+        self.xCoordinate = coordinates[1]
             
 #SW: I am splitting this to safely determine if it is necessary to keep the above stuff or not
 class Stronghold:
@@ -446,14 +449,14 @@ class Map:
                 f.write("['" + str(self.usedPlains) + "'],")
                 f.write("['" + str(self.usedForests) + "'],")
                 f.write("['" + str(self.usedMountains) + "'],")
-                for i in range(self.height):
+                for i in range(int(self.height)):
                     f.write(str("["))
-                    for j in range(self.width):
-                        if j < self.width - 1:
+                    for j in range(int(self.width)):
+                        if j < int(self.width) - 1:
                             f.write("'" + str(self.worldMap[i][j]) + "',")
                         else:
                             f.write("'" + str(self.worldMap[i][j]) + "'")
-                    if i < self.height - 1:
+                    if i < int(self.height) - 1:
                         f.write(str("],"))
                     else:
                         f.write(str("]"))
@@ -476,14 +479,14 @@ class Map:
                 f.write("['" + str(self.usedPlains) + "'],")
                 f.write("['" + str(self.usedForests) + "'],")
                 f.write("['" + str(self.usedMountains) + "'],")
-                for i in range(self.height):
+                for i in range(int(self.height)):
                     f.write(str("["))
-                    for j in range(self.width):
-                        if j < self.width - 1:
+                    for j in range(int(self.width)):
+                        if j < int(self.width) - 1:
                             f.write("'" + str(self.worldMap[i][j]) + "',")
                         else:
                             f.write("'" + str(self.worldMap[i][j]) + "'")
-                    if i < self.height - 1:
+                    if i < int(self.height) - 1:
                         f.write(str("],"))
                     else:
                         f.write(str("]"))
@@ -502,7 +505,7 @@ class Map:
             readMapFile = open(mapFile, 'r')
             readList = eval(readMapFile.read())
             readMapFile.close()
-
+            self.worldMap = []  #Needs to clear the world map if anything happened to be in there before reading.
             for count in range(len(readList)):
                 if count <= 10:
                     self.values.append(readList[count])
@@ -538,5 +541,22 @@ class Map:
             print('usedPlains: ' + str(self.usedPlains))
             print('usedForests: ' + str(self.usedForests))
             print('usedMountains: ' + str(self.usedMountains))
+
+    def selfDiagnostic(self):
+        print('Running diagnostic on map class...')
+        print('Current attributes are: ')
+        print('name: ' + str(self.name))
+        print('seed: ' + str(self.seed))
+        print('width: ' + str(self.width))
+        print('height: ' + str(self.height))
+        print('numWater: ' + str(self.numWater))
+        print('numPlains: ' + str(self.numPlains))
+        print('numForests: ' + str(self.numForests))
+        print('numMountains: ' + str(self.numMountains))
+        print('usedPlains: ' + str(self.usedPlains))
+        print('usedForests: ' + str(self.usedForests))
+        print('usedMountains: ' + str(self.usedMountains))
+        print('worldMap:')
+        print(*self.worldMap)
 
 #eof

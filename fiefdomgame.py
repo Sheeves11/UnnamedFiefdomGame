@@ -45,6 +45,7 @@ attackFief = Fiefdom()
 userStronghold = Stronghold()
 attackStronghold = Stronghold()
 serverMap = Map()
+firstMapRead = True
 
 #this begins the main game loop
 #------------------------------------------------------------------------------
@@ -60,7 +61,7 @@ while (loop):
  _    _                                      _   ______ _       __    _                    _____
 | |  | |                                    | | |  ____(_)     / _|  | |                  / ____|
 | |  | |_ __  _ __   __ _ _ __ ___   ___  __| | | |__   _  ___| |_ __| | ___  _ __ ___   | |  __  __ _ _ __ ___   ___
-| |  | | '_ \| '_ \ / _` | '_ ` _ \ / _ \/ _` | |  __| | |/ _ \  _/ _` |/ _ \| '_ ` _ \  | | |_ |/ _` | '_ ` _ \ / _
+| |  | | '_ \| '_ \ / _` | '_ ` _ \ / _ \/ _` | |  __| | |/ _ \  _/ _` |/ _ \| '_ ` _ \  | | |_ |/ _` | '_ ` _ \ / _ `
 | |__| | | | | | | | (_| | | | | | |  __/ (_| | | |    | |  __/ || (_| | (_) | | | | | | | |__| | (_| | | | | | |  __/
  \____/|_| |_|_| |_|\__,_|_| |_| |_|\___|\__,_| |_|    |_|\___|_| \__,_|\___/|_| |_| |_|  \_____|\__,_|_| |_| |_|\___|
 
@@ -290,6 +291,9 @@ while (loop):
 
         if command == 'wm':
             screen = 'worldMap'
+
+        if command == 'tf':
+            screen = 'testFiefPlacement'
 
 #This is the screen for the message board.
 #----------------------------------------------------------------------------------
@@ -1805,30 +1809,20 @@ while (loop):
             nothing = input('Continue:')
             currentPage = 1
             screen = "fiefdoms"
-            
+
 #This page is just a color printing of the current server map
     if screen == "viewMap":
         os.system("clear")
         serverMap.name = "serverMap"
-        serverMap.read()
-        # print('Printing what the world map looks like after read:')
-        # print(str(serverMap.worldMap))
-        # print('Attempting to print color map:\n')
+
+        if firstMapRead:
+            print('First read: printing diagnostics: ')
+            serverMap.read()
+            firstMapRead = False
+
         print('World Map: \n')
-        PrintColorMap(serverMap.worldMap)
+        PrintLegend()
         print('')
-        time.sleep(1)
-        nothing = input('Continue:')
-
-        screen = 'stronghold'
-
-#This page is just a color printing of the current server map
-    if screen == "viewMap":
-        os.system("clear")
-        serverMap.name = "serverMap"
-        serverMap.read()
-
-        print('World Map: \n')
         PrintColorMap(serverMap.worldMap)
         print('')
         time.sleep(1)
@@ -1880,9 +1874,9 @@ while (loop):
 
         screen = 'stronghold'
 
-#This is currently just a test page for a possible world map feature
+#This is a devtool for making the world map for a server
 #
-#It can be taken out
+#It eventually needs to be accessed in another way
 #----------------------------------------------------------------------------------
     if screen == "worldMap":
 
@@ -1893,14 +1887,39 @@ while (loop):
         serverMap.height = MAP_HEIGHT
         serverMap.width = MAP_WIDTH
         serverMap.worldMap = GenerateWorldMap(serverMap.seed)
+        SetBiomeCounts(serverMap)
         serverMap.write()
 
         print('\n')
         PrintColorMap(serverMap.worldMap)
 
+        nothing = input('\nContinue:')
+
+        screen = 'stronghold'
+
+#This is currently just a test page to see if fief placement in the world map works as intended
+#----------------------------------------------------------------------------------
+    if screen == "testFiefPlacement":
+
+        os.system("clear")
+
+        fief = Fiefdom()
+        command = input('Enter a fief name to input: ')
+
+        fileFief = 'fiefs/' + command + '.txt'
+        try:
+            with open(fileFief, 'r') as f:
+                fief.name = f.readline().strip()
+                fief.read()
+        except:
+            print ('No file found')
+
+        PlaceFiefInWorldMap(fief, serverMap)
+
         nothing = input('Continue:')
 
         screen = 'stronghold'
+        
 
     '''
 #This screen is for upgrading your home stronghold's defenses
