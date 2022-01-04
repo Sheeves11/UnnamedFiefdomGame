@@ -5,7 +5,10 @@ from classes import *
 
 #--------------------------------------------------------------------------------------------------------------
 #
-#   This is a very early development build for a world map feature.
+#   Making a map:
+#       1. Always generate a map before doing any other map commands. ('wm' at stronghold)
+#       2. Sprinkle on the fiefs. ('paf' at stronghold)
+#       3. Add in strongholds. ('ts' at stronghold)
 #
 #--------------------------------------------------------------------------------------------------------------
 
@@ -142,6 +145,9 @@ def GenerateWorldMap(seed):
 #   thing drawn... which should be in the surrounding area.
 #   This function could likely benefit from reaching two spaces out instead of just 1, but
 #   that would make it far more complex. 
+#
+#   Issues: While using a 40x40 map, the print is too large and it is not very comfortable to generate the map 
+#   this way. Need to cut it down some.
 #--------------------------------------------------------------------------------------------------------------
 def DefineSurroundings(wMap, posX, posY, freqM, freqP, freqF):
     global AUTOMATED
@@ -681,7 +687,7 @@ def PlaceFiefInWorldMap(fiefClass, mapClass):
                 if point > 0:
                     coordinates = GetPointCoordinates(fiefClass.biome, point, mapClass.worldMap)
 
-                    if CrossCheckCoordinates(coordinates):
+                    if CrossCheckFiefCoordinates(coordinates):
                         print('Successfully selected coordinates!:')
                         print(*coordinates)
                         fiefClass.setCoordinates(coordinates)
@@ -741,7 +747,7 @@ def QuietlyPlaceFiefInWorldMap(fiefClass, mapClass):
                 if point > 0:
                     coordinates = GetPointCoordinates(fiefClass.biome, point, mapClass.worldMap)
 
-                    if CrossCheckCoordinates(coordinates):
+                    if CrossCheckFiefCoordinates(coordinates):
                         print(*coordinates)
                         fiefClass.setCoordinates(coordinates)
                         UpdateUsedBiomes(fiefClass.biome, mapClass)
@@ -808,11 +814,16 @@ def GetPointCoordinates(biome, point, wMap):
     return coordinates
 
 #--------------------------------------------------------------------------------------------------------------
-#   [CrossCheckCoordinates]
+#   [CrossCheckFiefCoordinates]
 #   Parameters: coordinates
 #   Returns: True if no other fiefs have the same coordinates
+#
+#   Issues: This is a bit tedious, having to check each file this way. Another way to make this work could be
+#   to have an list stored in the Map object that contains tuples of coordinates that are occupied by fiefs.
+#   This way, strongholds could benefit from that as well. For now, I'm not so sure I want to mess with the 
+#   currently functional map class though after all the read/write woes. 
 #--------------------------------------------------------------------------------------------------------------
-def CrossCheckCoordinates(coordinates):
+def CrossCheckFiefCoordinates(coordinates):
     
     for filename in os.listdir('fiefs'):
             with open(os.path.join('fiefs', filename), 'r') as f:
