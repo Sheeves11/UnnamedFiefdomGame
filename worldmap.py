@@ -383,8 +383,11 @@ def LoadingAnimationIncrementor(cap):
 #
 #   Prints a passed string with an animation after it that changes each time the screen is refreshed.
 #   Function should be used in loops where the system is being cleared several times.
+#   I didn't end up using this, so I converted it into an artificial loading function to go before something
+#   and slow it down for no reason besides having a transition.
 #--------------------------------------------------------------------------------------------------------------
 def LoadingAnimation(thingLoading):
+    os.system("clear")
     frame = LoadingAnimationIncrementor(4)
     if frame == 0:
         print(thingLoading)
@@ -394,6 +397,7 @@ def LoadingAnimation(thingLoading):
         print(thingLoading + '..')
     else:
         print(thingLoading + '...')
+    time.sleep(0.1)
 
 #--------------------------------------------------------------------------------------------------------------
 #   [QuietlyGenerateWorldMap]
@@ -742,6 +746,7 @@ def GetPointCoordinates(biome, point, wMap):
 #   Returns: True if no other fiefs have the same coordinates
 #--------------------------------------------------------------------------------------------------------------
 def CrossCheckCoordinates(coordinates):
+    
     for filename in os.listdir('fiefs'):
             with open(os.path.join('fiefs', filename), 'r') as f:
                 tempName = filename[:-4]
@@ -752,8 +757,7 @@ def CrossCheckCoordinates(coordinates):
                 if tempName.yCoordinate == coordinates[0] and tempName.xCoordinate == coordinates[1]:
                     print('Error, same coordinates as ' + str(tempName.name) + '!')
                     return False
-                else:
-                    return True
+    return True
 
 #--------------------------------------------------------------------------------------------------------------
 #   [CheckRemainingBiomes]
