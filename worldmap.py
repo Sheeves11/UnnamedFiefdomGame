@@ -45,6 +45,7 @@ FIEF = 'X'
 STRONGHOLD = 'H'
 EMPTY = ' '
 UNEXPLORED = '0'
+LOCATION = '@'
 RANDOM = '*'
 
 #Map Icon Color
@@ -54,8 +55,9 @@ IC_MOUNTAIN = DARK_GRAY
 IC_PLAINS = YELLOW
 IC_FOREST = GREEN
 IC_FIEF = RED
-IC_STRONGHOLD = MAGENTA
+IC_STRONGHOLD = UNDERLINE
 IC_UNEXPLORED = WARNING
+IC_LOCATION = CYAN
 
 #--------------------------------------------------------------------------------------------------------------
 #   [GenerateWorldMap]
@@ -575,14 +577,15 @@ def PrintColorMap(wMap):
 #   Prints a legend for the map
 #--------------------------------------------------------------------------------------------------------------
 def PrintLegend():
-    print('- Legend ---------')
-    print('- ' + IC_WATER + WATER + RESET + ' : Water      -')
-    #print('- ' + IC_RIVER + RIVER + RESET + ' : River      -')
-    print('- ' + IC_FOREST + FOREST + RESET + ' : Forest     -')
-    print('- ' + IC_PLAINS + PLAINS + RESET + ' : Plains     -')
-    print('- ' + IC_MOUNTAIN + MOUNTAIN + RESET + ' : Mountain   -')
-    print('- ' + IC_FIEF + FIEF + RESET + ' : Fief       -')
-    print('- ' + IC_STRONGHOLD + STRONGHOLD + RESET + ' : Stronghold -')
+    print('- Legend -----------')
+    print('- ' + IC_WATER + WATER + RESET + ' : Water        -')
+    #print('- ' + IC_RIVER + RIVER + RESET + ' : River        -')
+    print('- ' + IC_FOREST + FOREST + RESET + ' : Forest       -')
+    print('- ' + IC_PLAINS + PLAINS + RESET + ' : Plains       -')
+    print('- ' + IC_MOUNTAIN + MOUNTAIN + RESET + ' : Mountain     -')
+    print('- ' + IC_FIEF + FIEF + RESET + ' : Fief         -')
+    print('- ' + IC_STRONGHOLD + STRONGHOLD + RESET + ' : Stronghold   -')
+    print('- ' + IC_LOCATION + LOCATION + RESET + ' : You are Here -')
 
 #--------------------------------------------------------------------------------------------------------------
 #   [DefineFiefBiome]
