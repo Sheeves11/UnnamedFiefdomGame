@@ -1826,8 +1826,9 @@ while (loop):
 
         print('Current Location -  Row: ' + str(userStronghold.yCoordinate) + ' Column: ' + str(userStronghold.xCoordinate))
 
-        print('World Map: \n')
         PrintLegend()
+        print('')
+        print('World Map: \n')
         print('')
         WorldMapLocation(int(userStronghold.yCoordinate), int(userStronghold.xCoordinate), serverMap)
         print('')
@@ -1869,8 +1870,9 @@ while (loop):
 
         print('Current Location -  Row: ' + str(attackFief.yCoordinate) + ' Column: ' + str(attackFief.xCoordinate))
 
-        print('World Map: \n')
         PrintLegend()
+        print('')
+        print('World Map: \n')
         print('')
         WorldMapLocation(int(attackFief.yCoordinate), int(attackFief.xCoordinate), serverMap)
         print('')
