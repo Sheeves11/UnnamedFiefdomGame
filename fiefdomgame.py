@@ -1819,8 +1819,10 @@ while (loop):
             print('First read: printing diagnostics: ')
             serverMap.read()
             firstMapRead = False
-
+            
         print('World Map: \n')
+        PrintLegend()
+        print('')
         PrintColorMap(serverMap.worldMap)
         print('')
         time.sleep(1)
