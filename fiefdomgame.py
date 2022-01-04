@@ -201,13 +201,6 @@ while (loop):
         userStronghold.defenders = str(userStronghold.defenders)
         userStronghold.write()
 
-        #Check if anything needs to be initialized
-        if FirstLaunch():
-            SilentlyGenerateWorld(serverMap)
-        elif newUserAccount:
-            serverMap.read()
-            SilentlyPlaceStrongholdInWorldMap(userStronghold, serverMap)
-
         productionCalc = 0
         maxProductionSoldiers = (int(userStronghold.goldMod) * 500)
         if int(userStronghold.defenders) > maxProductionSoldiers:
@@ -219,6 +212,14 @@ while (loop):
         if userStronghold.home != 'True':
             userStronghold.home = 'True'
             userStronghold.write()
+
+        #Check if anything needs to be initialized
+        if FirstLaunch():
+            SilentlyGenerateWorld(serverMap)
+        elif newUserAccount:
+            serverMap.name = 'serverMap'
+            serverMap.read()
+            SilentlyPlaceStrongholdInWorldMap(userStronghold, serverMap)
 
         print('     On a hilltop overlooking endless rolling fields, you see the only home you have ever known.')
         print('     The Fiefdom is home to ' + textColor.WARNING +  str(userStronghold.defenders) + textColor.RESET + ' highly skilled warriors, and dozens of loyal citizens.')
