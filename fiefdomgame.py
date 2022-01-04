@@ -1825,7 +1825,7 @@ while (loop):
             firstMapRead = False
 
         print('Current Location -  Row: ' + str(userStronghold.yCoordinate) + ' Column: ' + str(userStronghold.xCoordinate))
-
+        print('')
         PrintLegend()
         print('')
         print('World Map:')
@@ -1847,7 +1847,7 @@ while (loop):
             firstMapRead = False
 
         print('Current Location -  Row: ' + str(attackStronghold.yCoordinate) + ' Column: ' + str(attackStronghold.xCoordinate))
-
+        print('')
         PrintLegend()
         print('')
         print('World Map:')
@@ -1869,7 +1869,7 @@ while (loop):
             firstMapRead = False
 
         print('Current Location -  Row: ' + str(attackFief.yCoordinate) + ' Column: ' + str(attackFief.xCoordinate))
-
+        print('')
         PrintLegend()
         print('')
         print('World Map:')
