@@ -582,6 +582,8 @@ def PrintColorMap(wMap):
                 print(IC_FIEF + symbol + RESET, end=" ")
             elif symbol == STRONGHOLD:
                 print(IC_STRONGHOLD + symbol + RESET, end=" ")
+            elif symbol == LOCATION:
+                print(IC_LOCATION + symbol + RESET, end=" ")
         print('')
 
 #--------------------------------------------------------------------------------------------------------------
