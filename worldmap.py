@@ -23,6 +23,8 @@ DARK_GRAY = '\033[90m'
 LIGHT_GRAY = '\033[37m'
 BOLD = '\033[1m'
 UNDERLINE = '\033[4m'
+INTENSE_CYAN = "\[\033[0;96m\]"
+INTENSE_PURPLE = "\[\033[0;95m\]"
 
 #Global variables
 MAP_WIDTH = 40
@@ -55,9 +57,9 @@ IC_MOUNTAIN = DARK_GRAY
 IC_PLAINS = YELLOW
 IC_FOREST = GREEN
 IC_FIEF = RED
-IC_STRONGHOLD = UNDERLINE
+IC_STRONGHOLD = INTENSE_PURPLE
 IC_UNEXPLORED = WARNING
-IC_LOCATION = CYAN
+IC_LOCATION = INTENSE_CYAN
 
 #--------------------------------------------------------------------------------------------------------------
 #   [GenerateWorldMap]
