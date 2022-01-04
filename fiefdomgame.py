@@ -46,6 +46,7 @@ userStronghold = Stronghold()
 attackStronghold = Stronghold()
 serverMap = Map()
 firstMapRead = True
+newUserAccount = False
 
 #this begins the main game loop
 #------------------------------------------------------------------------------
@@ -166,6 +167,9 @@ while (loop):
                         time.sleep(.5)
                         print('    Logging in as: ' + username)
                         time.sleep(.5)
+
+                        newUserAccount = True
+
                         screen = 'stronghold'
                 except:
                     pass
@@ -197,8 +201,12 @@ while (loop):
         userStronghold.defenders = str(userStronghold.defenders)
         userStronghold.write()
 
+        #Check if anything needs to be initialized
         if FirstLaunch():
             SilentlyGenerateWorld(serverMap)
+        elif newUserAccount:
+            serverMap.read()
+            SilentlyPlaceStrongholdInWorldMap(userStronghold, serverMap)
 
         productionCalc = 0
         maxProductionSoldiers = (int(userStronghold.goldMod) * 500)
