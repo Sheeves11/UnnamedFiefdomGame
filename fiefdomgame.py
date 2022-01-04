@@ -1911,13 +1911,15 @@ while (loop):
         print('     -------------------------------------------------------')
         print('     {1}: Return to Stronghold')
         print('     {2}: Create Default Fiefs')
-        print('     {3}: Generate World Map (Must do this before 3-5)')
+        print('     {3}: Generate World Map (Must do this before 4-6)')
         print('     {4}: Add Fief Tool')
         print('     {5}: Add all Fiefs Tool')
         print('     {6}: Add all Strongholds Tool')
-        print('     {7}: Placeholder')
+        print('     {7}: Quick Generate World (DO NOT USE if 3-6 were used!)')
         print('     {8}: Add Gold Tool (for testing!)')
         print('     --------------------------------------------------------')
+        print('     Note: to quick generate a world, just hit 7. To go step ')
+        print('           by step, start at 3 and proceed without using 7!  ')
         print('\n')
         command = input("     Enter your command: ")
 
@@ -1941,7 +1943,7 @@ while (loop):
             screen = 'devTestPlotAllStrongholds'
 
         if command == '7':
-            screen = 'devTest'
+            screen = 'devTestGenerateWorld'
 
         if command == '8':
             screen = 'devTestAddGold'
