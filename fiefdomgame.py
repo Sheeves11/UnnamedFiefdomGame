@@ -1816,6 +1816,7 @@ while (loop):
         serverMap.name = "serverMap"
 
         if firstMapRead:
+            print('First read: printing diagnostics: ')
             serverMap.read()
             firstMapRead = False
 
