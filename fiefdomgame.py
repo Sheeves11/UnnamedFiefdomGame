@@ -1160,6 +1160,15 @@ while (loop):
                 + ' soldiers per hour.')
         print("\n")
 
+        if attackFief.biome == str('^'):
+            art_forest()
+        
+        if attackFief.biome == str('M'):
+            art_mountain()
+        
+        if attackFief.biome == str('#'):
+            art_plains()
+
         if attackFief.defLevel == str(0):
             art1()
 
@@ -1460,6 +1469,15 @@ while (loop):
         print('-------------------------------------------------------------------------')
 
         print("\n\n")
+        if attackFief.biome == str('^'):
+            art_forest()
+        
+        if attackFief.biome == str('M'):
+            art_mountain()
+        
+        if attackFief.biome == str('#'):
+            art_plains()
+
 
         if attackFief.defLevel == str(0):
             art1()
@@ -1550,6 +1568,14 @@ while (loop):
         print('-------------------------------------------------------------------------')
 
         print("\n\n")
+        if attackStronghold.biome == str('^'):
+            art_forest()
+        
+        if attackStronghold.biome == str('M'):
+            art_mountain()
+        
+        if attackStronghold.biome == str('#'):
+            art_plains()
 
         if attackStronghold.defLevel == str(0):
             art1()

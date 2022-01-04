@@ -219,6 +219,13 @@ def art_farm7():
 |~@~||~@~||~@~||~@~||~@~||~@~||~@~||~@~||~@~||~@~|
     ''')
 
+def art_mountain():
+    print(textColor.LIGHT_GRAY + '''M M M M M M M M M M M M M M M M M M M M M M M M M ''' + textColor.RESET)
+def art_forest():
+    print(textColor.GREEN + '''^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ''' + textColor.RESET)
+def art_plains():
+    print(textColor.YELLOW + '''# # # # # # # # # # # # # # # # # # # # # # # # # ''' + textColor.RESET)
+
 def FirstLaunch():
     try:
         with open('settings.txt', 'r+') as settingsFile:
