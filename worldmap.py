@@ -31,6 +31,7 @@ INTENSE_PURPLE = "\033[0;95m"
 MAGENTA_BACKGROUND = "\u001b[45m"
 INTENSE_BLACK = "\033[1;90m"
 WHITE_BACKGROUND = "\033[47m"
+CYAN_BACKGROUND = "\033[0;106m" 
 
 #Global variables
 MAP_WIDTH = 40
@@ -65,7 +66,7 @@ IC_FOREST = GREEN
 IC_FIEF = RED
 IC_STRONGHOLD = INTENSE_PURPLE
 IC_UNEXPLORED = WARNING
-IC_LOCATION = CYAN+WHITE_BACKGROUND
+IC_LOCATION = INTENSE_PURPLE+CYAN_BACKGROUND+BOLD
 
 #--------------------------------------------------------------------------------------------------------------
 #   [GenerateWorldMap]
