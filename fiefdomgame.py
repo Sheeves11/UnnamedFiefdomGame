@@ -1173,22 +1173,22 @@ while (loop):
             art_fief0(attackFief.biome)
 
         if attackFief.defLevel == str(1):
-            art_fief1()
+            art_fief1(attackFief.biome)
 
         if attackFief.defLevel == str(2):
-            art_fief2()
+            art_fief2(attackFief.biome)
 
         if attackFief.defLevel == str(3):
-            art_fief3()
+            art_fief3(attackFief.biome)
 
         if attackFief.defLevel == str(4):
-            art_fief4()
+            art_fief4(attackFief.biome)
 
         if attackFief.defLevel == str(5):
-            art_fief5()
+            art_fief5(attackFief.biome)
 
         if attackFief.defLevel == str(6):
-            art_fief6()
+            art_fief6(attackFief.biome)
 
 
         if attackFief.goldMod == str(1):
@@ -1483,22 +1483,22 @@ while (loop):
             art_fief0(attackFief.biome)
 
         if attackFief.defLevel == str(1):
-            art_fief1()
+            art_fief1(attackFief.biome)
 
         if attackFief.defLevel == str(2):
-            art_fief2()
+            art_fief2(attackFief.biome)
 
         if attackFief.defLevel == str(3):
-            art_fief3()
+            art_fief3(attackFief.biome)
 
         if attackFief.defLevel == str(4):
-            art_fief4()
+            art_fief4(attackFief.biome)
 
         if attackFief.defLevel == str(5):
-            art_fief5()
+            art_fief5(attackFief.biome)
 
         if attackFief.defLevel == str(6):
-            art_fief6()
+            art_fief6(attackFief.biome)
 
 
         if attackFief.goldMod == str(1):
@@ -1584,22 +1584,22 @@ while (loop):
             art_fief0(attackStronghold.biome)
 
         if attackStronghold.defLevel == str(1):
-            art_fief1()
+            art_fief1(attackStronghold.biome)
 
         if attackStronghold.defLevel == str(2):
-            art_fief2()
+            art_fief2(attackStronghold.biome)
 
         if attackStronghold.defLevel == str(3):
-            art_fief3()
+            art_fief3(attackStronghold.biome)
 
         if attackStronghold.defLevel == str(4):
-            art_fief4()
+            art_fief4(attackStronghold.biome)
 
         if attackStronghold.defLevel == str(5):
-            art_fief5()
+            art_fief5(attackStronghold.biome)
 
         if attackStronghold.defLevel == str(6):
-            art_fief6()
+            art_fief6(attackStronghold.biome)
 
 
         if attackStronghold.goldMod == str(1):
