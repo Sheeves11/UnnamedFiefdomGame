@@ -34,11 +34,20 @@ WHITE_BACKGROUND = "\033[47m"
 CYAN_BACKGROUND = "\033[0;106m" 
 
 #Global variables
-MAP_WIDTH = 40
-MAP_HEIGHT = 40
-DEFAULT_WEIGHT = 10     #A common weight total
-WEIGHT_INTENSITY = 5    #Higher the number, the more focused the map will be
-RANDOM_INTENSITY = 20   #Higher the number, the more chaotic the map will be
+MAP_WIDTH = 20
+MAP_HEIGHT = 20
+DEFAULT_WEIGHT = 10         #A common weight total
+WEIGHT_INTENSITY = 5        #Determines how focused the map will be
+RANDOM_INTENSITY = 20       #Determines how chaotic the map will be
+
+#River Variables
+RIVER_MAP_SCANS = 2         #Determines how many times the map is ran through when placing rivers
+RIVER_FREQUENCY = 5         #Determines how often rivers will appear
+RIVER_FORK_FREQUENCY = 3    #Determines how often rivers will fork
+RIVER_LENGTH_INTENSITY = 8  #Determines how long rivers can get
+RIVER_AVERAGE_WEIGHT = 0.0
+
+#Other Variables
 INSTANTLY_GENERATE = False
 AUTOMATED = False
 FIRST_PRINT = True
@@ -46,7 +55,7 @@ LOADING_INCREMENT = 0
 
 #Map Icons
 WATER = '~'
-RIVER = '|'
+RIVER = ['/','|','\\']
 MOUNTAIN = 'M'
 PLAINS = '#'
 FOREST = '^'
@@ -163,57 +172,68 @@ def DefineSurroundings(wMap, posX, posY, freqM, freqP, freqF):
     if not INSTANTLY_GENERATE:
         os.system("clear")
         print('posX: ' + str(posX) + ' posY: ' + str(posY))
-        try:
-            dN = wMap[posY - 1][posX]
-            print('There is a ' + dN + ' to the north!')
-        except:
-            dN = ' '
-            print('North is off the map!')
-        try:
-            dNE = wMap[posY - 1][posX + 1]
-            print('There is a ' + dNE + ' to the northeast!')
-        except:
-            dNE = ' '
-            print('Northeast is off the map!')
-        try:
-            dE = wMap[posY][posX + 1]
-            print('There is a ' + dE + ' to the east!')
-        except:
-            dE = ' '
-            print('East is off the map!')
-        try:
-            dSE = wMap[posY + 1][posX + 1]
-            print('There is a ' + dSE + ' to the southeast!')
-        except:
-            dSE = ' '
-            print('Southeast is off the map!')
-        try:
-            dS = wMap[posY + 1][posX]
-            print('There is a ' + dS + ' to the south!')
-        except:
-            dS = ' '
-            print('South is off the map!')
-        try:
-            dSW = wMap[posY + 1][posX - 1]
-            print('There is a ' + dSW + ' to the southwest!')
-        except:
-            dSW = ' '
-            print('Southwest is off the map!')
-        try:
-            dW = wMap[posY][posX - 1]
-            print('There is a ' + dW + ' to the west!')
-        except:
-            dW = ' '
-            print('West is off the map!')
-        try:
-            dNW = wMap[posY - 1][posX - 1]
-            print('There is a ' + dNW + ' to the northwest!')
-        except:
-            dNW = ' '
-            print('North is off the map!')
+        # try:
+        #     dN = wMap[posY - 1][posX]
+        #     print('There is a ' + dN + ' to the north!')
+        # except:
+        #     dN = ' '
+        #     print('North is off the map!')
+        # try:
+        #     dNE = wMap[posY - 1][posX + 1]
+        #     print('There is a ' + dNE + ' to the northeast!')
+        # except:
+        #     dNE = ' '
+        #     print('Northeast is off the map!')
+        # try:
+        #     dE = wMap[posY][posX + 1]
+        #     print('There is a ' + dE + ' to the east!')
+        # except:
+        #     dE = ' '
+        #     print('East is off the map!')
+        # try:
+        #     dSE = wMap[posY + 1][posX + 1]
+        #     print('There is a ' + dSE + ' to the southeast!')
+        # except:
+        #     dSE = ' '
+        #     print('Southeast is off the map!')
+        # try:
+        #     dS = wMap[posY + 1][posX]
+        #     print('There is a ' + dS + ' to the south!')
+        # except:
+        #     dS = ' '
+        #     print('South is off the map!')
+        # try:
+        #     dSW = wMap[posY + 1][posX - 1]
+        #     print('There is a ' + dSW + ' to the southwest!')
+        # except:
+        #     dSW = ' '
+        #     print('Southwest is off the map!')
+        # try:
+        #     dW = wMap[posY][posX - 1]
+        #     print('There is a ' + dW + ' to the west!')
+        # except:
+        #     dW = ' '
+        #     print('West is off the map!')
+        # try:
+        #     dNW = wMap[posY - 1][posX - 1]
+        #     print('There is a ' + dNW + ' to the northwest!')
+        # except:
+        #     dNW = ' '
+        #     print('North is off the map!')
     
-        #Define a list using the surrounding symbols:
-        surroundings = [dN, dNE, dE, dSE, dS, dSW, dW, dNW]
+        # #Define a list using the surrounding symbols:
+        # surroundings = [dN, dNE, dE, dSE, dS, dSW, dW, dNW]
+
+        surroundings = ScanSurroundings(wMap, posX, posY)
+        dN = surroundings[0]
+        dNE = surroundings[1]
+        dE = surroundings[2]
+        dSE = surroundings[3]
+        dS = surroundings[4]
+        dSW = surroundings[5]
+        dW = surroundings[6]
+        dNW = surroundings[7]
+
         #Print surrounding symbols in a relevant box formation
         print('\nSurroundings: ') 
         print('- - - - -')
@@ -278,40 +298,51 @@ def DefineSurroundings(wMap, posX, posY, freqM, freqP, freqF):
             os.system("clear")
             print('Generating Map...')
             FIRST_PRINT = False
-        try:
-            dN = wMap[posY - 1][posX]
-        except:
-            dN = ' '
-        try:
-            dNE = wMap[posY - 1][posX + 1]
-        except:
-            dNE = ' '
-        try:
-            dE = wMap[posY][posX + 1]
-        except:
-            dE = ' '
-        try:
-            dSE = wMap[posY + 1][posX + 1]
-        except:
-            dSE = ' '
-        try:
-            dS = wMap[posY + 1][posX]
-        except:
-            dS = ' '
-        try:
-            dSW = wMap[posY + 1][posX - 1]
-        except:
-            dSW = ' '
-        try:
-            dW = wMap[posY][posX - 1]
-        except:
-            dW = ' '
-        try:
-            dNW = wMap[posY - 1][posX - 1]
-        except:
-            dNW = ' '
-        #Define a list using the surrounding symbols:
-        surroundings = [dN, dNE, dE, dSE, dS, dSW, dW, dNW]
+        # try:
+        #     dN = wMap[posY - 1][posX]
+        # except:
+        #     dN = ' '
+        # try:
+        #     dNE = wMap[posY - 1][posX + 1]
+        # except:
+        #     dNE = ' '
+        # try:
+        #     dE = wMap[posY][posX + 1]
+        # except:
+        #     dE = ' '
+        # try:
+        #     dSE = wMap[posY + 1][posX + 1]
+        # except:
+        #     dSE = ' '
+        # try:
+        #     dS = wMap[posY + 1][posX]
+        # except:
+        #     dS = ' '
+        # try:
+        #     dSW = wMap[posY + 1][posX - 1]
+        # except:
+        #     dSW = ' '
+        # try:
+        #     dW = wMap[posY][posX - 1]
+        # except:
+        #     dW = ' '
+        # try:
+        #     dNW = wMap[posY - 1][posX - 1]
+        # except:
+        #     dNW = ' '
+        # #Define a list using the surrounding symbols:
+        # surroundings = [dN, dNE, dE, dSE, dS, dSW, dW, dNW]
+
+        surroundings = ScanSurroundings(wMap, posX, posY)
+        dN = surroundings[0]
+        dNE = surroundings[1]
+        dE = surroundings[2]
+        dSE = surroundings[3]
+        dS = surroundings[4]
+        dSW = surroundings[5]
+        dW = surroundings[6]
+        dNW = surroundings[7]
+
         #Define a list of weight totals for each:
         weights = [0, 0, 0, 0, 0, 0, 0, 0]
         #Define a value to iterate through weights with:
@@ -442,42 +473,52 @@ def SilentlyGenerateWorldMap(seed):
 #   Does the same thing as PrintSurroundings but with no prints or user interaction
 #--------------------------------------------------------------------------------------------------------------
 def SilentlyDefineSurroundings(wMap, posX, posY, freqM, freqP, freqF):
-    try:
-        dN = wMap[posY - 1][posX]
-    except:
-        dN = ' '
-    try:
-        dNE = wMap[posY - 1][posX + 1]
-    except:
-        dNE = ' '
-    try:
-        dE = wMap[posY][posX + 1]
-    except:
-        dE = ' '
-    try:
-        dSE = wMap[posY + 1][posX + 1]
-    except:
-        dSE = ' '
-    try:
-        dS = wMap[posY + 1][posX]
-    except:
-        dS = ' '
-    try:
-        dSW = wMap[posY + 1][posX - 1]
-    except:
-        dSW = ' '
-    try:
-        dW = wMap[posY][posX - 1]
-    except:
-        dW = ' '
-    try:
-        dNW = wMap[posY - 1][posX - 1]
-    except:
-        dNW = ' '
+    # try:
+    #     dN = wMap[posY - 1][posX]
+    # except:
+    #     dN = ' '
+    # try:
+    #     dNE = wMap[posY - 1][posX + 1]
+    # except:
+    #     dNE = ' '
+    # try:
+    #     dE = wMap[posY][posX + 1]
+    # except:
+    #     dE = ' '
+    # try:
+    #     dSE = wMap[posY + 1][posX + 1]
+    # except:
+    #     dSE = ' '
+    # try:
+    #     dS = wMap[posY + 1][posX]
+    # except:
+    #     dS = ' '
+    # try:
+    #     dSW = wMap[posY + 1][posX - 1]
+    # except:
+    #     dSW = ' '
+    # try:
+    #     dW = wMap[posY][posX - 1]
+    # except:
+    #     dW = ' '
+    # try:
+    #     dNW = wMap[posY - 1][posX - 1]
+    # except:
+    #     dNW = ' '
 
-    #Define a list using the surrounding symbols:
-    surroundings = [dN, dNE, dE, dSE, dS, dSW, dW, dNW]
+    # #Define a list using the surrounding symbols:
+    # surroundings = [dN, dNE, dE, dSE, dS, dSW, dW, dNW]
     
+    surroundings = ScanSurroundings(wMap, posX, posY)
+    dN = surroundings[0]
+    dNE = surroundings[1]
+    dE = surroundings[2]
+    dSE = surroundings[3]
+    dS = surroundings[4]
+    dSW = surroundings[5]
+    dW = surroundings[6]
+    dNW = surroundings[7]
+
     #Define a list of weight totals for each:
     weights = [0, 0, 0, 0, 0, 0, 0, 0]
     index = 0
@@ -1242,6 +1283,363 @@ def InsertStrongholdAtLocation(yPos, xPos, mapClass):
             if i == yPos and j == xPos:
                 mapClass.worldMap[i][j] = STRONGHOLD
     mapClass.write()
+
+
+#--------------------------------------------------------------------------------------------------------------
+#   [ScanSurroundings]
+#   Parameters: wMap, posX, posY
+#   Returns: an array of map symbols in the form: [dN, dNE, dE, dSE, dS, dSW, dW, dNW]
+#   where each symbol represents an icon.
+#--------------------------------------------------------------------------------------------------------------
+def ScanSurroundings(wMap, posX, posY):
+    try:
+        dN = wMap[posY - 1][posX]
+    except:
+        dN = ' '
+    try:
+        dNE = wMap[posY - 1][posX + 1]
+    except:
+        dNE = ' '
+    try:
+        dE = wMap[posY][posX + 1]
+    except:
+        dE = ' '
+    try:
+        dSE = wMap[posY + 1][posX + 1]
+    except:
+        dSE = ' '
+    try:
+        dS = wMap[posY + 1][posX]
+    except:
+        dS = ' '
+    try:
+        dSW = wMap[posY + 1][posX - 1]
+    except:
+        dSW = ' '
+    try:
+        dW = wMap[posY][posX - 1]
+    except:
+        dW = ' '
+    try:
+        dNW = wMap[posY - 1][posX - 1]
+    except:
+        dNW = ' '
+
+    return [dN, dNE, dE, dSE, dS, dSW, dW, dNW]
+
+#--------------------------------------------------------------------------------------------------------------
+#   [InsertRivers]
+#   Parameters: wMap, posX, posY
+#
+#   Checks surroundings to see if a river should be placed or not.
+#   Below are cases to check. 
+#   If any cases are tabbed over, then they are dependant on the cases above them.
+#       1) Mountain @ N  : + 3 chance to draw '|'
+#       2) Mountain @ NW : + 3 chance to draw '\'
+#       3) Mountain @ NE : + 3 chance to draw '/'
+#           4) Water @ S     : + 2 chance to draw '|'
+#           5) Water @ SW    : + 2 chance to draw '/'
+#           6) Water @ SE    : + 2 chance to draw '\'
+#           7) Water @ S     : + 2 chance to draw '|'
+#           8) Water @ SW    : + 2 chance to draw '/'
+#           9) Water @ SE    : + 2 chance to draw '\'
+#       10) River @ N     : + 5 chance to draw '|'
+#       11) River @ NW    : + 5 chance to draw '\'
+#       12) River @ NE    : + 5 chance to draw '/'
+#           13) Water @ S     : 0 chance to draw a river #Let rivers flow into bodies of water!
+#           14) Water @ SW    : 0 chance to draw a river
+#           15) Water @ SE    : 0 chance to draw a river
+#       16) River @ E    : 0 chance to draw a river
+#       17) River @ W    : 0 chance to draw a river
+
+
+#       All cases are on a North to South basis.
+#       Mountain to:
+#           Water: +5
+#           Plains: +3
+#           Forest: +2
+#           Mountain: +1
+#        River to:
+#           Water: NONE
+#           Plains: +5
+#           Forest: +3
+#--------------------------------------------------------------------------------------------------------------
+def InsertRivers(wMap, posX, posY):
+    riverOdds = [0, 0, 0]
+    riverOdds[0] = RIVER_FREQUENCY #odds for a '/' river
+    riverOdds[1] = RIVER_FREQUENCY #odds for a '|' river
+    riverOdds[2] = RIVER_FREQUENCY #odds for a '\' river
+    
+    forkChance = RIVER_FORK_FREQUENCY
+    skip = False
+
+    #Define a list using the surrounding symbols:
+    surroundings = ScanSurroundings(wMap, posX, posY)
+    P = wMap[posY][posX]    #Current Position
+    dN = surroundings[0]
+    dNE = surroundings[1]
+    dE = surroundings[2]
+    dSE = surroundings[3]
+    dS = surroundings[4]
+    dSW = surroundings[5]
+    dW = surroundings[6]
+    dNW = surroundings[7]
+
+    #Increase chance of river forking in plains:
+    if P == PLAINS:
+        forkChance += 3
+    
+    #If current position is a river or water, ignore it (I may have this function scan the map more than once when placing rivers)
+    if P == WATER or P == RIVER[0] or P == RIVER[1] or P == RIVER[2]:
+        skip = True
+    #Otherwise, check around it.
+    else:
+        #Series of if statements checks several cases and creates a weight based on conditions:
+        if dN == MOUNTAIN:
+            if dS == WATER:
+                riverOdds[1] += 5
+            else:
+                riverOdds[1] += 1
+            if dSW == WATER:
+                riverOdds[0] += 5
+            else:
+                riverOdds[0] += 1
+            if dSE == WATER:
+                riverOdds[2] += 5
+            else:
+                riverOdds[2] += 1
+            if P == PLAINS:
+                riverOdds[1] += 2
+            elif P == FOREST:
+                riverOdds[1] += 1
+
+        elif dN == RIVER[0] or dN == RIVER[1] or dN == RIVER[3]:
+            if P == WATER:
+                riverOdds[0] == 0
+                riverOdds[1] == 0
+                riverOdds[2] == 0
+            else:
+                riverOdds[0] += 3
+                riverOdds[1] += 5
+                riverOdds[2] += 3
+        
+        elif dN == WATER:
+            if dS == WATER:
+                riverOdds[1] += 5
+            else:
+                riverOdds[1] += 1
+            if dSW == WATER:
+                riverOdds[0] += 5
+            else:
+                riverOdds[0] += 1
+            if dSE == WATER:
+                riverOdds[2] += 5
+            else:
+                riverOdds[2] += 1
+            if P == PLAINS:
+                riverOdds[1] += 2
+            elif P == FOREST:
+                riverOdds[1] += 1
+            
+            #Water likes to flow into plains:
+            if dW == PLAINS:
+                riverOdds[0] += 2
+                riverOdds[1] += 2
+                riverOdds[2] += 2
+            if dE == PLAINS:
+                riverOdds[0] += 2
+                riverOdds[1] += 2
+                riverOdds[2] += 2
+                
+        if dNE == MOUNTAIN:
+            if dS == WATER:
+                riverOdds[0] += 5
+            else:
+                riverOdds[0] += 1
+            if P == PLAINS:
+                riverOdds[0] += 2
+            elif P == FOREST:
+                riverOdds[0] += 1
+            
+        elif dNE == WATER:
+            if dS == WATER:
+                riverOdds[1] += 2
+            else:
+                riverOdds[1] += 1
+            if dSW == WATER:
+                riverOdds[0] += 5
+            else:
+                riverOdds[0] += 3
+            if dSE == WATER:
+                riverOdds[2] += 0
+            else:
+                riverOdds[2] += 0
+            if P == PLAINS:
+                riverOdds[0] += 2
+            elif P == FOREST:
+                riverOdds[0] += 1
+            
+            #Water likes to flow into plains:
+            if dW == PLAINS:
+                riverOdds[0] += 2
+                riverOdds[1] += 2
+                riverOdds[2] += 2
+            if dE == PLAINS:
+                riverOdds[0] += 2
+                riverOdds[1] += 2
+                riverOdds[2] += 2
+
+        elif dNE == RIVER[0] or dNE == RIVER[1] or dNE == RIVER[3]:
+                riverOdds[0] += 5
+                riverOdds[1] += 3
+                riverOdds[2] += 0
+
+        if dNW == MOUNTAIN:
+            if dS == WATER:
+                riverOdds[2] += 5
+            else:
+                riverOdds[2] += 1
+            if P == PLAINS:
+                riverOdds[2] += 2
+            elif P == FOREST:
+                riverOdds[2] += 1
+            
+        elif dNW == WATER:
+            if dS == WATER:
+                riverOdds[1] += 2
+            else:
+                riverOdds[1] += 1
+            if dSW == WATER:
+                riverOdds[0] += 0
+            else:
+                riverOdds[0] += 0
+            if dSE == WATER:
+                riverOdds[2] += 5
+            else:
+                riverOdds[2] += 3
+            if P == PLAINS:
+                riverOdds[2] += 2
+            elif P == FOREST:
+                riverOdds[2] += 1
+
+            #Water likes to flow into plains:
+            if dW == PLAINS:
+                riverOdds[0] += 2
+                riverOdds[1] += 2
+                riverOdds[2] += 2
+            if dE == PLAINS:
+                riverOdds[0] += 2
+                riverOdds[1] += 2
+                riverOdds[2] += 2
+
+        elif dNW == RIVER[0] or dNW == RIVER[1] or dNW == RIVER[3]:
+                riverOdds[0] += 0
+                riverOdds[1] += 3
+                riverOdds[2] += 5
+
+        #If the current position is a mountain and there are no other mountains to flow from, don't draw a river.
+        if P == MOUNTAIN:
+            if dN != MOUNTAIN:
+                riverOdds[1] = 0
+                if dNE != MOUNTAIN:
+                    riverOdds[0] = 0
+                if dNW != MOUNTAIN:
+                    riverOdds[2] = 0
+        
+        #Handle river forking:
+        if dW == RIVER[0]:
+            riverOdds[0] = 0                            # / / No parallel rivers.
+            riverOdds[1] = RIVER_FORK_FREQUENCY         # / |
+            riverOdds[2] = RIVER_FORK_FREQUENCY         # / \
+        elif dW == RIVER[1]:
+            if dNW == MOUNTAIN and dN == MOUNTAIN:
+                riverOdds[0] = RIVER_FORK_FREQUENCY
+            else:
+                riverOdds[0] = 0                        # | / This sort of formation is very specific.
+            riverOdds[1] = 0                            # | | No parallel rivers. 
+            riverOdds[2] = RIVER_FORK_FREQUENCY         # | \
+        elif dW == RIVER[2]:
+            if dNW == MOUNTAIN and dN == MOUNTAIN:
+                riverOdds[0] = RIVER_FORK_FREQUENCY
+            else:
+                riverOdds[0] = 0                        # \ / This sort of formation is very specific.
+            if dNW == MOUNTAIN and dN == MOUNTAIN:
+                riverOdds[1] = RIVER_FORK_FREQUENCY
+            else:
+                riverOdds[1] = 0                        # \ | This sort of formation is very specific.
+            riverOdds[2] = 0                            # \ \ No parallel rivers.
+        
+        #This only comes into play after subsequent runs through this function.
+        if dE == RIVER[0]:
+            riverOdds[0] = 0                            # / /
+            if dNW == MOUNTAIN and dN == MOUNTAIN:
+                riverOdds[1] = RIVER_FORK_FREQUENCY
+            else:
+                riverOdds[1] = 0                        # | /
+            if dNE == MOUNTAIN and dN == MOUNTAIN:
+                riverOdds[2] = RIVER_FORK_FREQUENCY
+            else:
+                riverOdds[2] = 0                        # \ /
+        elif dE == RIVER[1]:
+            riverOdds[0] = RIVER_FORK_FREQUENCY         # / |
+            riverOdds[1] = 0                            # | |
+            if dNE == MOUNTAIN and dN == MOUNTAIN:
+                riverOdds[2] = RIVER_FORK_FREQUENCY
+            else:
+                riverOdds[2] = 0                        # \ |
+        elif dE == RIVER[2]:
+            riverOdds[0] = RIVER_FORK_FREQUENCY         # / \
+            riverOdds[1] = RIVER_FORK_FREQUENCY         # | \
+            riverOdds[2] = 0                            # \ \
+
+    print('Odds of / are: [' + str(riverOdds[0]) + '] Odds of | are: [' + str(riverOdds[1]) + '] Odds of \\ are: [' + str(riverOdds[2]) + ']')
+
+    RiverAverageWeight(riverOdds)
+
+    #Define a combined list of symbols and weights, including the RANDOM option.
+    #symbolTable = [(dN,weights[0]),(dNE,weights[1]),(dE,weights[2]),(dSE,weights[3]),(dS,weights[4]),(dSW,weights[5]),(dW,weights[6]),(dNW,weights[7]), (RANDOM,RANDOM_INTENSITY)]
+
+    #Define a table to extend values based on weights and pull a random choice from it
+    # pointTable = []
+    # for item, weight in symbolTable:
+    #     pointTable.extend([item]*weight)
+    # newPoint = random.choice(pointTable)
+
+    #IF the random choice is selected, get a random point.
+    # if newPoint == RANDOM:
+    #     newPoint = GetRandomPoint()
+
+    #Return the symbol
+    # return newPoint
+
+
+#--------------------------------------------------------------------------------------------------------------
+#   [RiverAverageWeightCalculator]
+#   Parameters: weights
+#   Adds to river average weight total global variable
+#--------------------------------------------------------------------------------------------------------------
+def RiverAverageWeight(weights):
+    global RIVER_AVERAGE_WEIGHT
+    totalWeight = weights[0] + weights[1] + weights[2]
+    averageWeight = totalWeight * 0.33
+    RIVER_AVERAGE_WEIGHT += averageWeight
+
+
+#--------------------------------------------------------------------------------------------------------------
+#   [SequentiallyAddRivers]
+#   Parameters: wMap, posX, posY
+#
+#   A visual char-by-char generation rivers
+#--------------------------------------------------------------------------------------------------------------
+def SequentiallyAddRivers(wMap, posX, posY):
+    for i in range(MAP_HEIGHT):
+        for j in range(MAP_WIDTH):
+            if i == posY and j == posX:
+                print(CYAN + wMap[i][j] + RESET, end=" ")
+            else:
+                print(wMap[i][j], end=" ")
+        print('')
+    time.sleep(0.1)
 
 #--------------------------------------------------------------------------------------------------------------
 #   [WorldMapLocation]
