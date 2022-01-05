@@ -28,6 +28,7 @@ BOLD = '\033[1m'
 UNDERLINE = '\033[4m'
 INTENSE_CYAN = "\033[0;96m"
 INTENSE_PURPLE = "\033[0;95m"
+MAGENTA_BACKGROUND = "\u001b[45m"
 
 #Global variables
 MAP_WIDTH = 40
@@ -62,7 +63,7 @@ IC_FOREST = GREEN
 IC_FIEF = RED
 IC_STRONGHOLD = INTENSE_PURPLE
 IC_UNEXPLORED = WARNING
-IC_LOCATION = INTENSE_CYAN
+IC_LOCATION = INTENSE_CYAN+MAGENTA_BACKGROUND
 
 #--------------------------------------------------------------------------------------------------------------
 #   [GenerateWorldMap]

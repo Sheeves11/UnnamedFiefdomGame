@@ -72,8 +72,10 @@ def biomeColor(biome):
 #==================================================
 def art_fief0(biome):
     C = biomeColor(biome)
+    if(biome == 'M'):
+        C = textColor.DIM
     R = textColor.RESET
-    W = textColor.ORANGE
+    W = textColor.RED
     G = textColor.GREEN
     Z = "\\"
     print('''
