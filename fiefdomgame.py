@@ -1170,7 +1170,7 @@ while (loop):
             art_plains()
 
         if attackFief.defLevel == str(0):
-            art_fief0()
+            art_fief0(attackFief.biome)
 
         if attackFief.defLevel == str(1):
             art_fief1()
@@ -1480,7 +1480,7 @@ while (loop):
 
 
         if attackFief.defLevel == str(0):
-            art_fief0()
+            art_fief0(attackFief.biome)
 
         if attackFief.defLevel == str(1):
             art_fief1()
@@ -1581,7 +1581,7 @@ while (loop):
             art_plains()
 
         if attackStronghold.defLevel == str(0):
-            art_fief0()
+            art_fief0(attackStronghold.biome)
 
         if attackStronghold.defLevel == str(1):
             art_fief1()
