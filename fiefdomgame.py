@@ -2036,9 +2036,9 @@ while (loop):
         userStronghold.gold = str(int(userStronghold.gold) + 1000000)
         userStronghold.write()
 
-        time.sleep(2)
+        time.sleep(0.5)
         print('...Funds Added!')
-
+        time.sleep(0.5)
         screen = 'devTest'
 
 #This is a devtool for making the world map for a server
