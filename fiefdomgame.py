@@ -685,7 +685,7 @@ while (loop):
             print('\n\n\n\n\n\n\n\n\n\n')
             command = input("     Press Enter")
 
-        screen = "stronghold"
+        screen = "homeDetails"
 
 #This is the screen for updating a fief's farm/gold production.
 #----------------------------------------------------------------------------------
@@ -755,7 +755,7 @@ while (loop):
             command = input("     Press Enter ")
 
         currentPage = 1
-        screen = "fiefdoms"
+        screen = "homeDetails"
 
 #This is the screen for updating a fief's defenses. Note: there are two screens
 #like this. One for fiefs and one for player strongholds.
