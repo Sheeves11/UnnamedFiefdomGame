@@ -46,6 +46,7 @@ userStronghold = Stronghold()
 attackStronghold = Stronghold()
 serverMap = Map()
 firstMapRead = True
+newUserAccount = False
 
 #this begins the main game loop
 #------------------------------------------------------------------------------
@@ -166,6 +167,9 @@ while (loop):
                         time.sleep(.5)
                         print('    Logging in as: ' + username)
                         time.sleep(.5)
+
+                        newUserAccount = True
+
                         screen = 'stronghold'
                 except:
                     pass
@@ -197,10 +201,6 @@ while (loop):
         userStronghold.defenders = str(userStronghold.defenders)
         userStronghold.write()
 
-        if FirstLaunch():
-            serverMap.name = 'serverMap'
-            SilentlyGenerateWorld(serverMap)
-
         productionCalc = 0
         maxProductionSoldiers = (int(userStronghold.goldMod) * 500)
         if int(userStronghold.defenders) > maxProductionSoldiers:
@@ -212,6 +212,16 @@ while (loop):
         if userStronghold.home != 'True':
             userStronghold.home = 'True'
             userStronghold.write()
+
+        #Check if anything needs to be initialized
+        if FirstLaunch():
+            SilentlyGenerateWorld(serverMap)
+        elif newUserAccount:
+            serverMap.name = 'serverMap'
+            serverMap.read()
+            SilentlyPlaceStrongholdInWorldMap(userStronghold, serverMap)
+            serverMap.read()
+            newUserAccount = False
 
         print('     On a hilltop overlooking endless rolling fields, you see the only home you have ever known.')
         print('     The Fiefdom is home to ' + textColor.WARNING +  str(userStronghold.defenders) + textColor.RESET + ' highly skilled warriors, and dozens of loyal citizens.')
@@ -1150,48 +1160,57 @@ while (loop):
                 + ' soldiers per hour.')
         print("\n")
 
+        if attackFief.biome == str('^'):
+            art_forest()
+        
+        if attackFief.biome == str('M'):
+            art_mountain()
+        
+        if attackFief.biome == str('#'):
+            art_plains()
+
         if attackFief.defLevel == str(0):
-            art1()
+            art_fief0(attackFief.biome)
 
         if attackFief.defLevel == str(1):
-            art2()
+            art_fief1()
 
         if attackFief.defLevel == str(2):
-            art3()
+            art_fief2()
 
         if attackFief.defLevel == str(3):
-            art4()
+            art_fief3()
 
         if attackFief.defLevel == str(4):
-            art5()
+            art_fief4()
 
         if attackFief.defLevel == str(5):
-            art6()
+            art_fief5()
 
         if attackFief.defLevel == str(6):
-            art7()
+            art_fief6()
 
 
         if attackFief.goldMod == str(1):
-            art_farm1()
+            art_farm0()
 
         if attackFief.goldMod == str(2):
-            art_farm2()
+            art_farm1()
 
         if attackFief.goldMod == str(3):
-            art_farm3()
+            art_farm2()
 
         if attackFief.goldMod == str(4):
-            art_farm4()
+            art_farm3()
 
         if attackFief.goldMod == str(5):
-            art_farm5()
+            art_farm4()
 
         if attackFief.goldMod == str(6):
-            art_farm6()
+            art_farm5()
 
         if attackFief.goldMod == str(7):
-            art_farm7()
+            art_farm6()
 
 
         print('\n')
@@ -1450,49 +1469,58 @@ while (loop):
         print('-------------------------------------------------------------------------')
 
         print("\n\n")
+        if attackFief.biome == str('^'):
+            art_forest()
+        
+        if attackFief.biome == str('M'):
+            art_mountain()
+        
+        if attackFief.biome == str('#'):
+            art_plains()
+
 
         if attackFief.defLevel == str(0):
-            art1()
+            art_fief0(attackFief.biome)
 
         if attackFief.defLevel == str(1):
-            art2()
+            art_fief1()
 
         if attackFief.defLevel == str(2):
-            art3()
+            art_fief2()
 
         if attackFief.defLevel == str(3):
-            art4()
+            art_fief3()
 
         if attackFief.defLevel == str(4):
-            art5()
+            art_fief4()
 
         if attackFief.defLevel == str(5):
-            art6()
+            art_fief5()
 
         if attackFief.defLevel == str(6):
-            art7()
+            art_fief6()
 
 
         if attackFief.goldMod == str(1):
-            art_farm1()
+            art_farm0()
 
         if attackFief.goldMod == str(2):
-            art_farm2()
+            art_farm1()
 
         if attackFief.goldMod == str(3):
-            art_farm3()
+            art_farm2()
 
         if attackFief.goldMod == str(4):
-            art_farm4()
+            art_farm3()
 
         if attackFief.goldMod == str(5):
-            art_farm5()
+            art_farm4()
 
         if attackFief.goldMod == str(6):
-            art_farm6()
+            art_farm5()
 
         if attackFief.goldMod == str(7):
-            art_farm7()
+            art_farm6()
 
         print("\n\n")
 
@@ -1541,48 +1569,59 @@ while (loop):
 
         print("\n\n")
 
+        #This whole section needs to be re-evaluated
+
+        if attackStronghold.biome == str('^'):
+            art_forest()
+        
+        if attackStronghold.biome == str('M'):
+            art_mountain()
+        
+        if attackStronghold.biome == str('#'):
+            art_plains()
+
         if attackStronghold.defLevel == str(0):
-            art1()
+            art_fief0(attackStronghold.biome)
 
         if attackStronghold.defLevel == str(1):
-            art2()
+            art_fief1()
 
         if attackStronghold.defLevel == str(2):
-            art3()
+            art_fief2()
 
         if attackStronghold.defLevel == str(3):
-            art4()
+            art_fief3()
 
         if attackStronghold.defLevel == str(4):
-            art5()
+            art_fief4()
 
         if attackStronghold.defLevel == str(5):
-            art6()
+            art_fief5()
 
         if attackStronghold.defLevel == str(6):
-            art7()
+            art_fief6()
 
 
         if attackStronghold.goldMod == str(1):
-            art_farm1()
+            art_farm0()
 
         if attackStronghold.goldMod == str(2):
-            art_farm2()
+            art_farm1()
 
         if attackStronghold.goldMod == str(3):
-            art_farm3()
+            art_farm2()
 
         if attackStronghold.goldMod == str(4):
-            art_farm4()
+            art_farm3()
 
         if attackStronghold.goldMod == str(5):
-            art_farm5()
+            art_farm4()
 
         if attackStronghold.goldMod == str(6):
-            art_farm6()
+            art_farm5()
 
         if attackStronghold.goldMod == str(7):
-            art_farm7()
+            art_farm6()
 
         print("\n\n")
 

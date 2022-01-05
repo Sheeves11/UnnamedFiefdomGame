@@ -1256,9 +1256,14 @@ def WorldMapLocation(yPos, xPos, mapClass):
 #   This function combines the other functions to silently generate the world in the background.
 #--------------------------------------------------------------------------------------------------------------
 def SilentlyGenerateWorld(mapClass):
-    seed = GenerateSeed()
+    mapClass.name = 'serverMap'
+    mapClass.seed = GenerateSeed()
+    mapClass.height = MAP_HEIGHT
+    mapClass.width = MAP_WIDTH
     # LoadingAnimation('Generating World Map')
-    SilentlyGenerateWorldMap(seed)
+    mapClass.worldMap = SilentlyGenerateWorldMap(mapClass.seed)
+    SetBiomeCounts(mapClass)
+    mapClass.write()
     # LoadingAnimation('Placing Fiefs and Strongholds')
     SilentlyPlotAllFiefs(mapClass)
     SilentlyPlotAllStrongholds(mapClass)
