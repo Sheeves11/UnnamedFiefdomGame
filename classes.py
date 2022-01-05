@@ -89,7 +89,7 @@ def art_fief0(biome):
   ,' | '\ '''+C+'''^'''+R+'''/ .__.. \.____'''+C+'''='''+R+'''___'''+C+'''=''.'''+R+'''\OOO  | .\    '''+C+'''`:-'''+R+'''
   ___            '''+C+'''`'^'   ';  '' ' ^'''+R+'''    .._ -
  /,' `\.                       __   o..| |'|O
- |||-- '|  '''+C+'''\.        /' '''+R+'''      [__] o.`--. [O\o  '''+C+'''_,'''+R+'''
+ '''+C+'''|||'''+R+'''-- '|  '''+C+'''\.        /' '''+R+'''      [__] o.`--. [O\o  '''+C+'''_,'''+R+'''
  '''+C+'''```-''|+ ,'''+R+'''                   /--\   `[] o..O  '''+C+'''/ `'''+R+'''
 '''+C+'''  `'   '  '``-....--`-------.-.........,-----'' \.'''+R+'''
     ''')
@@ -438,7 +438,7 @@ def art_farm6():
     ''')
 
 def art_mountain():
-    print(textColor.LIGHT_GRAY + '''M M M M M M M M M M M M M M M M M M M M M M M M M ''' + textColor.RESET)
+    print(textColor.DARK_GRAY + '''M M M M M M M M M M M M M M M M M M M M M M M M M ''' + textColor.RESET)
 def art_forest():
     print(textColor.GREEN + '''^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ''' + textColor.RESET)
 def art_plains():
