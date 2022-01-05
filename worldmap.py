@@ -65,7 +65,7 @@ IC_FOREST = GREEN
 IC_FIEF = RED
 IC_STRONGHOLD = INTENSE_PURPLE
 IC_UNEXPLORED = WARNING
-IC_LOCATION = INTENSE_BLACK+WHITE_BACKGROUND
+IC_LOCATION = CYAN+WHITE_BACKGROUND
 
 #--------------------------------------------------------------------------------------------------------------
 #   [GenerateWorldMap]
