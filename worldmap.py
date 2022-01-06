@@ -1774,7 +1774,7 @@ def DefineRiverSource(mapClass, posX, posY, scanLevel):
                 #   ? - -
                 if dNW == MOUNTAIN and dW == MOUNTAIN and dSE != MOUNTAIN and dSE != WATER and dE != MOUNTAIN and dE != WATER:
                     print('Ideal southeast-bound source point found! ' + str(posY) + ' ' + str(posX))
-                    # mapClass.worldMap[posY][posX] = '\\'
+                    mapClass.worldMap[posY][posX] = '\\'
                     # RIVER_COUNT += 1
                     RIVER_COORDS_0.append((RIVER[2], int(posY), int(posX)))
 
@@ -1783,7 +1783,7 @@ def DefineRiverSource(mapClass, posX, posY, scanLevel):
                 #   - - ?
                 elif dNE == MOUNTAIN and dE == MOUNTAIN and dSW != MOUNTAIN and dSW != WATER and dW != MOUNTAIN and dW != WATER:
                     print('Ideal southwest-bound source point found! ' + str(posY) + ' ' + str(posX))
-                    # mapClass.worldMap[posY][posX] = '/'
+                    mapClass.worldMap[posY][posX] = '/'
                     # RIVER_COUNT += 1
                     RIVER_COORDS_0.append((RIVER[0], int(posY), int(posX)))
         # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
