@@ -1894,7 +1894,12 @@ def GenerateRivers(mapClass):
     # global RIVER_MAP_SCANS
     # global RIVER_AVERAGE_WEIGHT
     # RIVER_AVERAGE_WEIGHT = 0.0
- 
+    global RIVER_COORDS_0
+    global RIVER_COORDS_1
+    global RIVER_COORDS_2
+    RIVER_COORDS_0 = []
+    RIVER_COORDS_1 = []
+    RIVER_COORDS_2 = []
     # riverSourceCoordinates = ScanForIdealSource(mapClass.worldMap)
     for i in range (SCAN_LEVEL):
         print('Scan Level:' + str(i))
