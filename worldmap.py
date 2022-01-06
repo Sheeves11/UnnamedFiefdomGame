@@ -616,7 +616,7 @@ def PrintColorMap(wMap):
                 print(symbol, end=" ")
             elif symbol == WATER:
                 print(IC_WATER + symbol + RESET, end=" ")
-            elif symbol == RIVER:
+            elif symbol == RIVER[0] or symbol == RIVER[1] or symbol == RIVER[2]:
                 print(IC_RIVER + symbol + RESET, end=" ")
             elif symbol == FOREST:
                 print(IC_FOREST + symbol + RESET, end=" ")
