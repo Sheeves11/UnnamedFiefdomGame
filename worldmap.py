@@ -34,8 +34,8 @@ WHITE_BACKGROUND = "\033[47m"
 CYAN_BACKGROUND = "\033[0;106m" 
 
 #Global variables
-MAP_WIDTH = 20
-MAP_HEIGHT = 20
+MAP_WIDTH = 40
+MAP_HEIGHT = 40
 DEFAULT_WEIGHT = 10         #A common weight total
 WEIGHT_INTENSITY = 5        #Determines how focused the map will be
 RANDOM_INTENSITY = 20       #Determines how chaotic the map will be
@@ -1899,9 +1899,11 @@ def GenerateRivers(mapClass):
     # global RIVER_MAP_SCANS
     # global RIVER_AVERAGE_WEIGHT
     # RIVER_AVERAGE_WEIGHT = 0.0
+    global RIVER_COUNT
     global RIVER_COORDS_0
     global RIVER_COORDS_1
     global RIVER_COORDS_2
+    RIVER_COUNT = 0
     RIVER_COORDS_0 = []
     RIVER_COORDS_1 = []
     RIVER_COORDS_2 = []
