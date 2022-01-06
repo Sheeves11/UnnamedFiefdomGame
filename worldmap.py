@@ -1900,7 +1900,7 @@ def GenerateRivers(mapClass):
         print('Scan Level:' + str(i))
         for y in range(MAP_HEIGHT):
             for x in range(MAP_WIDTH):
-                DefineRiverSource(mapClass, y, i)
+                DefineRiverSource(mapClass, y, x, i)
                 # print(mapClass.worldMap[y][x], end=" ")
             print('')
         print('\n')
