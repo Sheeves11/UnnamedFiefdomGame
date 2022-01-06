@@ -1393,10 +1393,11 @@ def InsertRivers(mapClass, posX, posY):
     #If current position is a river or water, ignore it (I may have this function scan the map more than once when placing rivers)
     if P == WATER or P == RIVER[0] or P == RIVER[1] or P == RIVER[2] or P == MOUNTAIN:
         skip = True
-    #Otherwise, check around it.
+    #If there aren't any mountains or water bodies to the north, then skip.
     elif dN != MOUNTAIN and dN != WATER and dNW != MOUNTAIN and dNW != WATER and dNE != MOUNTAIN and dNE != WATER:
-        skip = True
-    else:
+        if dN != RIVER[1] and dNW != RIVER[0] and dNW != RIVER[1] and dNE != RIVER[2] and dNE != RIVER[1]:
+            skip = True
+    if skip != True:
         #Series of if statements checks several cases and creates a weight based on conditions:
                 
         if dNE == MOUNTAIN:
