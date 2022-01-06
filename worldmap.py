@@ -1576,51 +1576,51 @@ def InsertRivers(mapClass, posX, posY):
                 if dNW != MOUNTAIN:
                     riverOdds[2] = 0
         
-        #Handle river forking:
-        if dW == RIVER[0]:
-            riverOdds[0] = 0                            # / / No parallel rivers.
-            riverOdds[1] = RIVER_FORK_FREQUENCY         # / |
-            riverOdds[2] = RIVER_FORK_FREQUENCY         # / \
-        elif dW == RIVER[1]:
-            if dNW == MOUNTAIN and dN == MOUNTAIN:
-                riverOdds[0] = RIVER_FORK_FREQUENCY
-            else:
-                riverOdds[0] = 0                        # | / This sort of formation is very specific.
-            riverOdds[1] = 0                            # | | No parallel rivers. 
-            riverOdds[2] = RIVER_FORK_FREQUENCY         # | \
-        elif dW == RIVER[2]:
-            if dNW == MOUNTAIN and dN == MOUNTAIN:
-                riverOdds[0] = RIVER_FORK_FREQUENCY
-            else:
-                riverOdds[0] = 0                        # \ / This sort of formation is very specific.
-            if dNW == MOUNTAIN and dN == MOUNTAIN:
-                riverOdds[1] = RIVER_FORK_FREQUENCY
-            else:
-                riverOdds[1] = 0                        # \ | This sort of formation is very specific.
-            riverOdds[2] = 0                            # \ \ No parallel rivers.
+        # #Handle river forking:
+        # if dW == RIVER[0]:
+        #     riverOdds[0] = 0                            # / / No parallel rivers.
+        #     riverOdds[1] = RIVER_FORK_FREQUENCY         # / |
+        #     riverOdds[2] = RIVER_FORK_FREQUENCY         # / \
+        # elif dW == RIVER[1]:
+        #     if dNW == MOUNTAIN and dN == MOUNTAIN:
+        #         riverOdds[0] = RIVER_FORK_FREQUENCY
+        #     else:
+        #         riverOdds[0] = 0                        # | / This sort of formation is very specific.
+        #     riverOdds[1] = 0                            # | | No parallel rivers. 
+        #     riverOdds[2] = RIVER_FORK_FREQUENCY         # | \
+        # elif dW == RIVER[2]:
+        #     if dNW == MOUNTAIN and dN == MOUNTAIN:
+        #         riverOdds[0] = RIVER_FORK_FREQUENCY
+        #     else:
+        #         riverOdds[0] = 0                        # \ / This sort of formation is very specific.
+        #     if dNW == MOUNTAIN and dN == MOUNTAIN:
+        #         riverOdds[1] = RIVER_FORK_FREQUENCY
+        #     else:
+        #         riverOdds[1] = 0                        # \ | This sort of formation is very specific.
+        #     riverOdds[2] = 0                            # \ \ No parallel rivers.
         
-        #This only comes into play after subsequent runs through this function.
-        if dE == RIVER[0]:
-            riverOdds[0] = 0                            # / /
-            if dNW == MOUNTAIN and dN == MOUNTAIN:
-                riverOdds[1] = RIVER_FORK_FREQUENCY
-            else:
-                riverOdds[1] = 0                        # | /
-            if dNE == MOUNTAIN and dN == MOUNTAIN:
-                riverOdds[2] = RIVER_FORK_FREQUENCY
-            else:
-                riverOdds[2] = 0                        # \ /
-        elif dE == RIVER[1]:
-            riverOdds[0] = RIVER_FORK_FREQUENCY         # / |
-            riverOdds[1] = 0                            # | |
-            if dNE == MOUNTAIN and dN == MOUNTAIN:
-                riverOdds[2] = RIVER_FORK_FREQUENCY
-            else:
-                riverOdds[2] = 0                        # \ |
-        elif dE == RIVER[2]:
-            riverOdds[0] = RIVER_FORK_FREQUENCY         # / \
-            riverOdds[1] = RIVER_FORK_FREQUENCY         # | \
-            riverOdds[2] = 0                            # \ \
+        # #This only comes into play after subsequent runs through this function.
+        # if dE == RIVER[0]:
+        #     riverOdds[0] = 0                            # / /
+        #     if dNW == MOUNTAIN and dN == MOUNTAIN:
+        #         riverOdds[1] = RIVER_FORK_FREQUENCY
+        #     else:
+        #         riverOdds[1] = 0                        # | /
+        #     if dNE == MOUNTAIN and dN == MOUNTAIN:
+        #         riverOdds[2] = RIVER_FORK_FREQUENCY
+        #     else:
+        #         riverOdds[2] = 0                        # \ /
+        # elif dE == RIVER[1]:
+        #     riverOdds[0] = RIVER_FORK_FREQUENCY         # / |
+        #     riverOdds[1] = 0                            # | |
+        #     if dNE == MOUNTAIN and dN == MOUNTAIN:
+        #         riverOdds[2] = RIVER_FORK_FREQUENCY
+        #     else:
+        #         riverOdds[2] = 0                        # \ |
+        # elif dE == RIVER[2]:
+        #     riverOdds[0] = RIVER_FORK_FREQUENCY         # / \
+        #     riverOdds[1] = RIVER_FORK_FREQUENCY         # | \
+        #     riverOdds[2] = 0                            # \ \
 
     # print('Odds of / are: [' + str(riverOdds[0]) + '] Odds of | are: [' + str(riverOdds[1]) + '] Odds of \\ are: [' + str(riverOdds[2]) + ']')
 
