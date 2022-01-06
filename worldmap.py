@@ -1987,13 +1987,14 @@ def PickRiverSources():
 #   Checks if SOURCES global has duplicate coordinates
 #--------------------------------------------------------------------------------------------------------------
 def DuplicateCoordinates():
-    global SOURCES
-    SOURCES = iter(SOURCES)
+    # global SOURCES
+    tempList = SOURCES
+    tempList = iter(tempList)
     # try:
-    first = next(SOURCES, None)
+    first = next(tempList, None)
     # except StopIteration:
     #     return True
-    return all(first == x for x in SOURCES)
+    return all(first == x for x in tempList)
 
 #--------------------------------------------------------------------------------------------------------------
 #   [CreateRivers]
