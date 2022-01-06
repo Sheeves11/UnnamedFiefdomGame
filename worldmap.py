@@ -1906,6 +1906,10 @@ def GenerateRivers(mapClass):
     RIVER_COORDS_1 = []
     RIVER_COORDS_2 = []
     # riverSourceCoordinates = ScanForIdealSource(mapClass.worldMap)
+    print('River coords 0 are currently:')
+    print(*RIVER_COORDS_0)
+    print('River coords 1 are currently:')
+    print(*RIVER_COORDS_1)
     for i in range (SCAN_LEVEL):
         print('Scan Level:' + str(i))
         if RIVER_COUNT < (RIVER_CAP * 2):       #Allows the function to break out of the loop if plenty of ideal spots were found.
@@ -1921,10 +1925,15 @@ def GenerateRivers(mapClass):
     print('Total matches found at scan level 1: ' + str(len(RIVER_COORDS_1)))
     print('Total matches found at scan level 2: ' + str(len(RIVER_COORDS_2)))
     # mapClass.numRivers = len(RIVER_COORDS_0) #TEMPORARY
+    print('River coords 0 are currently:')
     print(*RIVER_COORDS_0)
-
+    print('Waiting for 2 seconds then picking sources...')
+    time.sleep(2)
     PickRiverSources()  # Loads sources into SOURCES global.
-
+    print('Sources picked:')
+    print(*SOURCES)
+    print('Waiting for 2 seconds then creating rivers:')
+    time.sleep(2)
     CreateRivers(mapClass.worldMap)
     # print('Total Average River Weight Value: ' + str(RIVER_AVERAGE_WEIGHT))
     # calculatedWeight = (RIVER_AVERAGE_WEIGHT/(MAP_HEIGHT*MAP_WIDTH))/RIVER_MAP_SCANS
