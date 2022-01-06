@@ -1628,6 +1628,19 @@ def InsertRivers(mapClass, posX, posY):
 
     # print('Odds of / are: [' + str(riverOdds[0]) + '] Odds of | are: [' + str(riverOdds[1]) + '] Odds of \\ are: [' + str(riverOdds[2]) + ']')
 
+    if dN != MOUNTAIN and dN != WATER and dNW != MOUNTAIN and dNW != WATER and dNE == MOUNTAIN:
+        riverOdds[1] = 0
+        riverOdds[2] = 0
+    elif dN != MOUNTAIN and dN != WATER and dNW != MOUNTAIN and dNW != WATER and dNE == WATER:
+        riverOdds[1] = 0
+        riverOdds[2] = 0
+    elif dN != MOUNTAIN and dN != WATER and dNE != MOUNTAIN and dNE != WATER and dNW == MOUNTAIN:
+        riverOdds[1] = 0
+        riverOdds[0] = 0
+    elif dN != MOUNTAIN and dN != WATER and dNE != MOUNTAIN and dNE != WATER and dNW == WATER:
+        riverOdds[1] = 0
+        riverOdds[0] = 0
+
     RiverAverageWeight(riverOdds)
 
     if skip == False:
