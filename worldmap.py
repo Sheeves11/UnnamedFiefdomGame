@@ -1400,7 +1400,7 @@ def InsertRivers(mapClass, posX, posY):
         #Series of if statements checks several cases and creates a weight based on conditions:
                 
         if dNE == MOUNTAIN:
-            if dS == WATER:
+            if dSE == WATER:
                 riverOdds[0] += 3
             else:
                 riverOdds[0] += 1
@@ -1413,7 +1413,7 @@ def InsertRivers(mapClass, posX, posY):
             # if dS == WATER:
             #     riverOdds[1] += 2
             # else:
-            riverOdds[1] += 1
+            riverOdds[0] += 1
             # if dSW == WATER:
             #     riverOdds[0] += 5
             # else:
@@ -1451,20 +1451,20 @@ def InsertRivers(mapClass, posX, posY):
             riverOdds[2] = 0
 
         if dNW == MOUNTAIN:
-            # if dS == WATER:
-            #     riverOdds[2] += 5
-            # else:
-            riverOdds[2] += 1
+            if dSE == WATER:
+                riverOdds[2] += 3
+            else:
+                riverOdds[2] += 1
             if P == PLAINS:
                 riverOdds[2] += 2
             elif P == FOREST:
                 riverOdds[2] += 1
             
         elif dNW == WATER:
-            if dS == WATER:
-                riverOdds[1] += 2
+            # if dS == WATER:
+            #     riverOdds[1] += 2
             # else:
-            #     riverOdds[1] += 1
+            riverOdds[2] += 1
             # if dSW == WATER:
             #     riverOdds[0] += 0
             # else:
@@ -1498,22 +1498,22 @@ def InsertRivers(mapClass, posX, posY):
             riverOdds[2] += 2
         elif dNW == RIVER[2]:
             riverOdds[0] = 0
-            riverOdds[1] = 0
+            riverOdds[1] += 0
             riverOdds[2] += 5
 
         if dN == WATER:
-            if dS == WATER:
-                riverOdds[1] += 5
-            else:
-                riverOdds[1] += 1
-            if dSW == WATER:
-                riverOdds[0] += 5
-            else:
-                riverOdds[0] += 1
-            if dSE == WATER:
-                riverOdds[2] += 5
-            else:
-                riverOdds[2] += 1
+            # if dS == WATER:
+            #     riverOdds[1] += 5
+            # else:
+            riverOdds[1] += 1
+            # if dSW == WATER:
+            #     riverOdds[0] += 5
+            # else:
+            #     riverOdds[0] += 1
+            # if dSE == WATER:
+            #     riverOdds[2] += 5
+            # else:
+            #     riverOdds[2] += 1
             if P == PLAINS:
                 riverOdds[1] += 2
             elif P == FOREST:
@@ -1524,14 +1524,14 @@ def InsertRivers(mapClass, posX, posY):
                 riverOdds[1] += 3
             else:
                 riverOdds[1] += 1
-            if dSW == WATER:
-                riverOdds[0] += 3
-            else:
-                riverOdds[0] += 1
-            if dSE == WATER:
-                riverOdds[2] += 3
-            else:
-                riverOdds[2] += 1
+            # if dSW == WATER:
+            #     riverOdds[0] += 3
+            # else:
+            #     riverOdds[0] += 1
+            # if dSE == WATER:
+            #     riverOdds[2] += 3
+            # else:
+            #     riverOdds[2] += 1
             if P == PLAINS:
                 riverOdds[1] += 2
             elif P == FOREST:
@@ -1648,7 +1648,6 @@ def InsertRivers(mapClass, posX, posY):
 
     #Return the symbol
     # return newPoint
-
 
 #--------------------------------------------------------------------------------------------------------------
 #   [RiverAverageWeightCalculator]
