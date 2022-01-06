@@ -1776,7 +1776,7 @@ def DefineRiverSource(mapClass, posX, posY, scanLevel):
                     print('Ideal southeast-bound source point found! ' + str(posY) + ' ' + str(posX))
                     # mapClass.worldMap[posY][posX] = '\\'
                     # RIVER_COUNT += 1
-                    RIVER_COORDS_0.append[(RIVER[2], int(posY), int(posX))]
+                    RIVER_COORDS_0.append(RIVER[2], int(posY), int(posX))
 
                 #   ? M M
                 #   - / M
@@ -1785,7 +1785,7 @@ def DefineRiverSource(mapClass, posX, posY, scanLevel):
                     print('Ideal southwest-bound source point found! ' + str(posY) + ' ' + str(posX))
                     # mapClass.worldMap[posY][posX] = '/'
                     # RIVER_COUNT += 1
-                    RIVER_COORDS_0.append[(RIVER[0], int(posY), int(posX))]
+                    RIVER_COORDS_0.append(RIVER[0], int(posY), int(posX))
         # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
         # scanLevel 1:
         # Next, need to define what happens when the river source above was too specific. Once here, this is the phase that should be fairly sure to find a source.
