@@ -895,6 +895,7 @@ class Map:
         print('width: ' + str(self.width))
         print('height: ' + str(self.height))
         print('numWater: ' + str(self.numWater))
+        print('numRivers: ' + str(self.numRivers))
         print('numPlains: ' + str(self.numPlains))
         print('numForests: ' + str(self.numForests))
         print('numMountains: ' + str(self.numMountains))
