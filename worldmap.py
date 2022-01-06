@@ -46,6 +46,7 @@ RIVER_FREQUENCY = 5         #Determines how often rivers will appear
 RIVER_FORK_FREQUENCY = 3    #Determines how often rivers will fork
 RIVER_LENGTH_INTENSITY = 8  #Determines how long rivers can get
 RIVER_AVERAGE_WEIGHT = 0.0
+RIVER_RATIO = 15            #This is the calculated average weight ratio. Rivers will have a 50% chance of spawning when set to 15. At 30, rivers have a 33% chance (1:2 ratio) and so on.
 
 #Other Variables
 INSTANTLY_GENERATE = False
@@ -1329,7 +1330,7 @@ def ScanSurroundings(wMap, posX, posY):
 
 #--------------------------------------------------------------------------------------------------------------
 #   [InsertRivers]
-#   Parameters: wMap, posX, posY
+#   Parameters: mapClass, posX, posY
 #
 #   Checks surroundings to see if a river should be placed or not.
 #   Below are cases to check. 
@@ -1364,7 +1365,7 @@ def ScanSurroundings(wMap, posX, posY):
 #           Plains: +5
 #           Forest: +3
 #--------------------------------------------------------------------------------------------------------------
-def InsertRivers(wMap, posX, posY):
+def InsertRivers(mapClass, posX, posY):
     riverOdds = [0, 0, 0]
     riverOdds[0] = RIVER_FREQUENCY #odds for a '/' river
     riverOdds[1] = RIVER_FREQUENCY #odds for a '|' river
@@ -1374,8 +1375,8 @@ def InsertRivers(wMap, posX, posY):
     skip = False
 
     #Define a list using the surrounding symbols:
-    surroundings = ScanSurroundings(wMap, posX, posY)
-    P = wMap[posY][posX]    #Current Position
+    surroundings = ScanSurroundings(mapClass.worldMap, posX, posY)
+    P = mapClass.worldMap[posY][posX]    #Current Position
     dN = surroundings[0]
     dNE = surroundings[1]
     dE = surroundings[2]
@@ -1594,20 +1595,24 @@ def InsertRivers(wMap, posX, posY):
 
     # print('Odds of / are: [' + str(riverOdds[0]) + '] Odds of | are: [' + str(riverOdds[1]) + '] Odds of \\ are: [' + str(riverOdds[2]) + ']')
 
-    RiverAverageWeight(riverOdds)
+    # RiverAverageWeight(riverOdds)
+
+
+    symbolTable = [(RIVER[0], riverOdds[0]), (RIVER[1], riverOdds[1]), (RIVER[2], riverOdds[2]), P, RIVER_RATIO]
 
     #Define a combined list of symbols and weights, including the RANDOM option.
     #symbolTable = [(dN,weights[0]),(dNE,weights[1]),(dE,weights[2]),(dSE,weights[3]),(dS,weights[4]),(dSW,weights[5]),(dW,weights[6]),(dNW,weights[7]), (RANDOM,RANDOM_INTENSITY)]
 
     #Define a table to extend values based on weights and pull a random choice from it
-    # pointTable = []
-    # for item, weight in symbolTable:
-    #     pointTable.extend([item]*weight)
-    # newPoint = random.choice(pointTable)
+    pointTable = []
+    for item, weight in symbolTable:
+        pointTable.extend([item]*weight)
+    newPoint = random.choice(pointTable)
 
-    #IF the random choice is selected, get a random point.
-    # if newPoint == RANDOM:
-    #     newPoint = GetRandomPoint()
+    #Add river if new point isn't P:
+    if newPoint != P:
+        os.system("clear")
+        mapClass.worldMap[posY][posX] = newPoint
 
     #Return the symbol
     # return newPoint
@@ -1638,15 +1643,16 @@ def GenerateRivers(mapClass):
         print('Pass:' + str(i))
         for y in range(MAP_HEIGHT):
             for x in range(MAP_WIDTH):
-                InsertRivers(mapClass.worldMap, y, x)
-                # print(str(mapClass.worldMap[y][x], end=" "))
-                # time.sleep(0.1)
+                InsertRivers(mapClass, y, x)
+                print(str(mapClass.worldMap[y][x], end=" "))
+                time.sleep(0.1)
             print('')
         print('\n')
     print('Total Average River Weight Value: ' + str(RIVER_AVERAGE_WEIGHT))
     calculatedWeight = (RIVER_AVERAGE_WEIGHT/(MAP_HEIGHT*MAP_WIDTH))/RIVER_MAP_SCANS
     print('Total Calculated Average River Weight is: ' + str(calculatedWeight))
     print('Value for 1:1 ratio is: ' + str(int(calculatedWeight) * 3))
+    mapClass.write()
 
 #--------------------------------------------------------------------------------------------------------------
 #   [SequentiallyAddRivers]
