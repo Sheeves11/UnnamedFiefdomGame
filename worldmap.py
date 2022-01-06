@@ -1611,7 +1611,6 @@ def InsertRivers(mapClass, posX, posY):
 
     #Add river if new point isn't P:
     if newPoint != P:
-        os.system("clear")
         mapClass.worldMap[posY][posX] = newPoint
 
     #Return the symbol
@@ -1645,7 +1644,6 @@ def GenerateRivers(mapClass):
             for x in range(MAP_WIDTH):
                 InsertRivers(mapClass, y, x)
                 print(mapClass.worldMap[y][x], end=" ")
-                time.sleep(0.1)
             print('')
         print('\n')
     print('Total Average River Weight Value: ' + str(RIVER_AVERAGE_WEIGHT))
