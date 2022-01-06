@@ -1914,7 +1914,7 @@ def GenerateRivers(mapClass):
     print('Total matches found at scan level 0: ' + str(len(RIVER_COORDS_0)))
     print('Total matches found at scan level 1: ' + str(len(RIVER_COORDS_1)))
     print('Total matches found at scan level 2: ' + str(len(RIVER_COORDS_2)))
-
+    mapClass.numRivers = len(RIVER_COORDS_0) #TEMPORARY
     print(*RIVER_COORDS_0)
     # print('Total Average River Weight Value: ' + str(RIVER_AVERAGE_WEIGHT))
     # calculatedWeight = (RIVER_AVERAGE_WEIGHT/(MAP_HEIGHT*MAP_WIDTH))/RIVER_MAP_SCANS
