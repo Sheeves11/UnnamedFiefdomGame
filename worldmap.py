@@ -1094,7 +1094,7 @@ def GetBiomeCounts(wMap):
         for j in range(len(wMap[i])):
             if wMap[i][j] == WATER:
                 numWater += 1
-            if wMap[i][j] == RIVER:
+            if wMap[i][j] == RIVER[0] or wMap[i][j] == RIVER[1] or wMap[i][j] == RIVER[2]:
                 numRivers += 1
             if wMap[i][j] == FOREST:
                 numForests += 1
