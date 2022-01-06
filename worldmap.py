@@ -34,8 +34,8 @@ WHITE_BACKGROUND = "\033[47m"
 CYAN_BACKGROUND = "\033[0;106m" 
 
 #Global variables
-MAP_WIDTH = 10
-MAP_HEIGHT = 10
+MAP_WIDTH = 20
+MAP_HEIGHT = 20
 DEFAULT_WEIGHT = 10         #A common weight total
 WEIGHT_INTENSITY = 5        #Determines how focused the map will be
 RANDOM_INTENSITY = 20       #Determines how chaotic the map will be
@@ -1646,6 +1646,7 @@ def GenerateRivers(mapClass):
     print('Total Average River Weight Value: ' + str(RIVER_AVERAGE_WEIGHT))
     calculatedWeight = (RIVER_AVERAGE_WEIGHT/(MAP_HEIGHT*MAP_WIDTH))/RIVER_MAP_SCANS
     print('Total Calculated Average River Weight is: ' + str(calculatedWeight))
+    print('Value for 1:1 ratio is: ' + str(int(calculatedWeight) * 3))
 
 #--------------------------------------------------------------------------------------------------------------
 #   [SequentiallyAddRivers]
