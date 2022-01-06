@@ -1592,7 +1592,7 @@ def InsertRivers(wMap, posX, posY):
             riverOdds[1] = RIVER_FORK_FREQUENCY         # | \
             riverOdds[2] = 0                            # \ \
 
-    print('Odds of / are: [' + str(riverOdds[0]) + '] Odds of | are: [' + str(riverOdds[1]) + '] Odds of \\ are: [' + str(riverOdds[2]) + ']')
+    # print('Odds of / are: [' + str(riverOdds[0]) + '] Odds of | are: [' + str(riverOdds[1]) + '] Odds of \\ are: [' + str(riverOdds[2]) + ']')
 
     RiverAverageWeight(riverOdds)
 
@@ -1640,7 +1640,7 @@ def GenerateRivers(mapClass):
             for x in range(MAP_WIDTH):
                 InsertRivers(mapClass.worldMap, y, x)
                 # print(str(mapClass.worldMap[y][x], end=" "))
-                time.sleep(0.1)
+                # time.sleep(0.1)
             print('')
         print('\n')
     print('Total Average River Weight Value: ' + str(RIVER_AVERAGE_WEIGHT))
