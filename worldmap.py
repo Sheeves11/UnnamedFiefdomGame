@@ -1423,6 +1423,19 @@ def InsertRivers(mapClass, posX, posY):
                 riverOdds[0] += 3
                 riverOdds[1] += 5
                 riverOdds[2] += 3
+
+        elif dN == RIVER[0]:
+            riverOdds[0] = 0
+            riverOdds[1] = 0
+            riverOdds[2] += 2
+        elif dN == RIVER[1]:
+            riverOdds[0] = 0
+            riverOdds[1] += 5
+            riverOdds[2] = 0
+        elif dN == RIVER[2]:
+            riverOdds[0] += 2
+            riverOdds[1] = 0
+            riverOdds[2] = 0
         
         elif dN == WATER:
             if dS == WATER:
@@ -1490,10 +1503,18 @@ def InsertRivers(mapClass, posX, posY):
                 riverOdds[1] += 2
                 riverOdds[2] += 2
 
-        elif dNE == RIVER[0] or dNE == RIVER[1] or dNE == RIVER[2]:
-                riverOdds[0] += 5
-                riverOdds[1] += 3
-                riverOdds[2] += 0
+        elif dNE == RIVER[0]:
+            riverOdds[0] += 5
+            riverOdds[1] += 2
+            riverOdds[2] = 0
+        elif dNE == RIVER[1]:
+            riverOdds[0] += 3
+            riverOdds[1] = 0
+            riverOdds[2] = 0
+        elif dNE == RIVER[2]:
+            riverOdds[0] = 0
+            riverOdds[1] = 0
+            riverOdds[2] = 0
 
         if dNW == MOUNTAIN:
             if dS == WATER:
@@ -1533,10 +1554,18 @@ def InsertRivers(mapClass, posX, posY):
                 riverOdds[1] += 2
                 riverOdds[2] += 2
 
-        elif dNW == RIVER[0] or dNW == RIVER[1] or dNW == RIVER[2]:
-                riverOdds[0] += 0
-                riverOdds[1] += 3
-                riverOdds[2] += 5
+        elif dNW == RIVER[0]:
+            riverOdds[0] = 0
+            riverOdds[1] = 0
+            riverOdds[2] = 0
+        elif dNW == RIVER[1]:
+            riverOdds[0] = 0
+            riverOdds[1] = 0
+            riverOdds[2] += 2
+        elif dNW == RIVER[2]:
+            riverOdds[0] = 0
+            riverOdds[1] = 0
+            riverOdds[2] += 5
 
         #If the current position is a mountain and there are no other mountains to flow from, don't draw a river.
         if P == MOUNTAIN:
@@ -1595,7 +1624,7 @@ def InsertRivers(mapClass, posX, posY):
 
     # print('Odds of / are: [' + str(riverOdds[0]) + '] Odds of | are: [' + str(riverOdds[1]) + '] Odds of \\ are: [' + str(riverOdds[2]) + ']')
 
-    # RiverAverageWeight(riverOdds)
+    RiverAverageWeight(riverOdds)
 
 
     symbolTable = [(RIVER[0], riverOdds[0]), (RIVER[1], riverOdds[1]), (RIVER[2], riverOdds[2]), (P, RIVER_RATIO)]
@@ -1643,9 +1672,10 @@ def GenerateRivers(mapClass):
         for y in range(MAP_HEIGHT):
             for x in range(MAP_WIDTH):
                 InsertRivers(mapClass, y, x)
-                print(mapClass.worldMap[y][x], end=" ")
+                # print(mapClass.worldMap[y][x], end=" ")
             print('')
         print('\n')
+        PrintColorMap(mapClass.worldMap)
     print('Total Average River Weight Value: ' + str(RIVER_AVERAGE_WEIGHT))
     calculatedWeight = (RIVER_AVERAGE_WEIGHT/(MAP_HEIGHT*MAP_WIDTH))/RIVER_MAP_SCANS
     print('Total Calculated Average River Weight is: ' + str(calculatedWeight))
