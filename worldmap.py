@@ -1879,7 +1879,7 @@ def DefineRiverSource(mapClass, posX, posY, scanLevel):
 #   Looks at surroundings and reports if there is a river nearby or not.
 #--------------------------------------------------------------------------------------------------------------
 def NoAdjacentRivers(surroundings):
-    for i in range(surroundings):
+    for i in range(len(surroundings)):
         if surroundings[i] == '/' or surroundings[i] == '|' or surroundings[i] == '\\':
             return False
     return True
