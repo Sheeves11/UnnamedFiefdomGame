@@ -1644,7 +1644,7 @@ def GenerateRivers(mapClass):
         for y in range(MAP_HEIGHT):
             for x in range(MAP_WIDTH):
                 InsertRivers(mapClass, y, x)
-                print(str(mapClass.worldMap[y][x], end=" "))
+                print(str(mapClass.worldMap[y][x]), end=" "))
                 time.sleep(0.1)
             print('')
         print('\n')
