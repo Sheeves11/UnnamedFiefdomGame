@@ -2342,7 +2342,7 @@ def GenerateSeed():
     seed = ''
     x = 0
     y = 0
-    biomeMountain = random.randint(1, 9)
+    biomeMountain = random.randint(2, 7)
     biomePlains = random.randint(1, 9)
     biomeForest = random.randint(1, 9)
     
