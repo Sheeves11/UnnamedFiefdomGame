@@ -1963,6 +1963,7 @@ while (loop):
         print('     {7}: Quick Generate World (DO NOT USE if 3-6 were used!)')
         print('     {8}: Add Gold Tool (for testing!)')
         print('     {9}: World Map Diagnostic (Only run after step 3 or 7)')
+        print('     {10}: World Map River Tool')
         print('     --------------------------------------------------------')
         print('     Note: To quick generate a world, just hit 7. To go step ')
         print('           by step, start at 3 and proceed without using 7!  ')

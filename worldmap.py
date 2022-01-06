@@ -1413,7 +1413,7 @@ def InsertRivers(wMap, posX, posY):
             elif P == FOREST:
                 riverOdds[1] += 1
 
-        elif dN == RIVER[0] or dN == RIVER[1] or dN == RIVER[3]:
+        elif dN == RIVER[0] or dN == RIVER[1] or dN == RIVER[2]:
             if P == WATER:
                 riverOdds[0] == 0
                 riverOdds[1] == 0
@@ -1489,7 +1489,7 @@ def InsertRivers(wMap, posX, posY):
                 riverOdds[1] += 2
                 riverOdds[2] += 2
 
-        elif dNE == RIVER[0] or dNE == RIVER[1] or dNE == RIVER[3]:
+        elif dNE == RIVER[0] or dNE == RIVER[1] or dNE == RIVER[2]:
                 riverOdds[0] += 5
                 riverOdds[1] += 3
                 riverOdds[2] += 0
@@ -1532,7 +1532,7 @@ def InsertRivers(wMap, posX, posY):
                 riverOdds[1] += 2
                 riverOdds[2] += 2
 
-        elif dNW == RIVER[0] or dNW == RIVER[1] or dNW == RIVER[3]:
+        elif dNW == RIVER[0] or dNW == RIVER[1] or dNW == RIVER[2]:
                 riverOdds[0] += 0
                 riverOdds[1] += 3
                 riverOdds[2] += 5
