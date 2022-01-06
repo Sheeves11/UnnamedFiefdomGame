@@ -1997,6 +1997,9 @@ while (loop):
         if command == '9':
             screen = 'devTestWorldMapDiagnostics'
 
+        if command == '10':
+            screen = 'devTestRiverTool'
+
 
 #This is a "secret" page that you can use to create default Fiefdoms
 #to seed your installation with land that can be taken.
@@ -2153,6 +2156,17 @@ while (loop):
 
         nothing = input('Continue:')
 
+        screen = 'devTest'
+
+#This allows you to add rivers to a map
+#-----------------------------------------------------------------------------------
+    if screen == "devTestRiverTool":
+        os.system("clear")
+        serverMap.read()
+        GenerateRivers(serverMap)
+
+        nothing = input('Continue:')
+        
         screen = 'devTest'
 
     '''

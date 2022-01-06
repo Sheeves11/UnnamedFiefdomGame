@@ -1624,6 +1624,24 @@ def RiverAverageWeight(weights):
     averageWeight = totalWeight * 0.33
     RIVER_AVERAGE_WEIGHT += averageWeight
 
+#--------------------------------------------------------------------------------------------------------------
+#   [GenerateRivers]
+#   Parameters: seed
+#
+#   Does the same thing as GenerateWordlMap but with no prints or user interaction
+#--------------------------------------------------------------------------------------------------------------
+def GenerateRivers(mapClass):
+    global RIVER_MAP_SCANS
+    for i in range (RIVER_MAP_SCANS):
+        print('Pass:' + str(i))
+        for y in range(MAP_HEIGHT):
+            for x in range(MAP_WIDTH):
+                InsertRivers(mapClass.worldMap, y, x)
+                # print(str(mapClass.worldMap[y][x], end=" "))
+                time.sleep(0.05)
+
+            print('')
+        print('\n')
 
 #--------------------------------------------------------------------------------------------------------------
 #   [SequentiallyAddRivers]
