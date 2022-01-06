@@ -46,7 +46,7 @@ RIVER_FREQUENCY = 5         #Determines how often rivers will appear
 RIVER_FORK_FREQUENCY = 3    #Determines how often rivers will fork
 RIVER_LENGTH_INTENSITY = 8  #Determines how long rivers can get
 RIVER_AVERAGE_WEIGHT = 0.0
-RIVER_RATIO = 15            #This is the calculated average weight ratio. Rivers will have a 50% chance of spawning when set to 15. At 30, rivers have a 33% chance (1:2 ratio) and so on.
+RIVER_RATIO = 50            #This is the calculated average weight ratio. Rivers will have a 50% chance of spawning when set to 15. At 30, rivers have a 33% chance (1:2 ratio) and so on.
 
 #Other Variables
 INSTANTLY_GENERATE = False
