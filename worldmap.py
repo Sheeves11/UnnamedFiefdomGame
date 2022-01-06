@@ -1776,7 +1776,7 @@ def DefineRiverSource(mapClass, posX, posY, scanLevel):
                     print('Ideal southeast-bound source point found! ' + str(posY) + ' ' + str(posX))
                     # mapClass.worldMap[posY][posX] = '\\'
                     # RIVER_COUNT += 1
-                    RIVER_COORDS_0.append(RIVER[2], int(posY), int(posX))
+                    RIVER_COORDS_0.append((RIVER[2], int(posY), int(posX)))
 
                 #   ? M M
                 #   - / M
@@ -1785,7 +1785,7 @@ def DefineRiverSource(mapClass, posX, posY, scanLevel):
                     print('Ideal southwest-bound source point found! ' + str(posY) + ' ' + str(posX))
                     # mapClass.worldMap[posY][posX] = '/'
                     # RIVER_COUNT += 1
-                    RIVER_COORDS_0.append(RIVER[0], int(posY), int(posX))
+                    RIVER_COORDS_0.append((RIVER[0], int(posY), int(posX)))
         # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
         # scanLevel 1:
         # Next, need to define what happens when the river source above was too specific. Once here, this is the phase that should be fairly sure to find a source.
@@ -1803,7 +1803,7 @@ def DefineRiverSource(mapClass, posX, posY, scanLevel):
                     #   ? - -       ? - -
                     if dSE != MOUNTAIN and dSE != WATER and dE != MOUNTAIN and dE != WATER:
                         print('Second-best south-east bound source point found! ' + str(posY) + ' ' + str(posX))
-                        RIVER_COORDS_1.append(RIVER[2], int(posY), int(posX))
+                        RIVER_COORDS_1.append((RIVER[2], int(posY), int(posX)))
                         #RIVER_COORDS_1.append(RIVER[1], int(posY), int(posX)) #Leave this uncommented if you want the alternate | river version thronw in the mix! --For now, I'll avoid this
 
                 elif dNE == MOUNTAIN:
@@ -1812,21 +1812,21 @@ def DefineRiverSource(mapClass, posX, posY, scanLevel):
                     #   - - ?       - - ?
                     if dSW != MOUNTAIN and dSW != WATER and dW != MOUNTAIN and dW != WATER:
                         print('Second-best south-west bound source point found! ' + str(posY) + ' ' + str(posX))
-                        RIVER_COORDS_1.append(RIVER[0], int(posY), int(posX))
+                        RIVER_COORDS_1.append((RIVER[0], int(posY), int(posX)))
                         #RIVER_COORDS_1.append(RIVER[1], int(posY), int(posX)) #Leave this uncommented if you want the alternate | river version thronw in the mix! --For now, I'll avoid this
             #   M ? ?
             #   M \ -
             #   ? - -
             elif dNW == MOUNTAIN and dW == MOUNTAIN and dSE != MOUNTAIN and dSE != WATER and dE != MOUNTAIN and dE != WATER:
                 print('Second-best south-east bound source point found! ' + str(posY) + ' ' + str(posX))
-                RIVER_COORDS_1.append(RIVER[2], int(posY), int(posX))
+                RIVER_COORDS_1.append((RIVER[2], int(posY), int(posX)))
 
             #   ? ? M
             #   - / M
             #   - - ?
             elif dNE == MOUNTAIN and dE == MOUNTAIN and dSW != MOUNTAIN and dSW != WATER and dW != MOUNTAIN and dW != WATER:
                 print('Second-best south-west bound source point found! ' + str(posY) + ' ' + str(posX))
-                RIVER_COORDS_1.append(RIVER[0], int(posY), int(posX))
+                RIVER_COORDS_1.append((RIVER[0], int(posY), int(posX)))
         # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
         # scanLevel 2:
         # At this point, we'll take whatever we can get. So long as a single mountain is in the north and we have a clear shot elsewhere, we will use that. 
