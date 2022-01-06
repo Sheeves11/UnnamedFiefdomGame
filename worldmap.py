@@ -42,7 +42,7 @@ RANDOM_INTENSITY = 20       #Determines how chaotic the map will be
 
 #River Variables
 RIVER_MAP_SCANS = 1         #Determines how many times the map is ran through when placing rivers
-RIVER_FREQUENCY = 2         #Determines how often rivers will appear
+RIVER_FREQUENCY = 3         #Determines how often rivers will appear
 RIVER_FORK_FREQUENCY = 1    #Determines how often rivers will fork
 RIVER_LENGTH_INTENSITY = 6  #Determines how long rivers can get
 RIVER_AVERAGE_WEIGHT = 0.0
@@ -1391,7 +1391,7 @@ def InsertRivers(mapClass, posX, posY):
         forkChance += 3
     
     #If current position is a river or water, ignore it (I may have this function scan the map more than once when placing rivers)
-    if P == WATER or P == RIVER[0] or P == RIVER[1] or P == RIVER[2]:
+    if P == WATER or P == RIVER[0] or P == RIVER[1] or P == RIVER[2] or P == MOUNTAIN:
         skip = True
     #Otherwise, check around it.
     else:
@@ -1399,7 +1399,7 @@ def InsertRivers(mapClass, posX, posY):
                 
         if dNE == MOUNTAIN:
             if dS == WATER:
-                riverOdds[0] += 5
+                riverOdds[0] += 3
             else:
                 riverOdds[0] += 1
             if P == PLAINS:
@@ -1408,18 +1408,18 @@ def InsertRivers(mapClass, posX, posY):
                 riverOdds[0] += 1
             
         elif dNE == WATER:
-            if dS == WATER:
-                riverOdds[1] += 2
-            else:
-                riverOdds[1] += 1
-            if dSW == WATER:
-                riverOdds[0] += 5
-            else:
-                riverOdds[0] += 3
-            if dSE == WATER:
-                riverOdds[2] += 0
-            else:
-                riverOdds[2] += 0
+            # if dS == WATER:
+            #     riverOdds[1] += 2
+            # else:
+            riverOdds[1] += 1
+            # if dSW == WATER:
+            #     riverOdds[0] += 5
+            # else:
+            #     riverOdds[0] += 3
+            # if dSE == WATER:
+            #     riverOdds[2] += 0
+            # else:
+            #     riverOdds[2] += 0
             if P == PLAINS:
                 riverOdds[0] += 2
             elif P == FOREST:
@@ -1449,10 +1449,10 @@ def InsertRivers(mapClass, posX, posY):
             riverOdds[2] = 0
 
         if dNW == MOUNTAIN:
-            if dS == WATER:
-                riverOdds[2] += 5
-            else:
-                riverOdds[2] += 1
+            # if dS == WATER:
+            #     riverOdds[2] += 5
+            # else:
+            riverOdds[2] += 1
             if P == PLAINS:
                 riverOdds[2] += 2
             elif P == FOREST:
@@ -1461,16 +1461,16 @@ def InsertRivers(mapClass, posX, posY):
         elif dNW == WATER:
             if dS == WATER:
                 riverOdds[1] += 2
-            else:
-                riverOdds[1] += 1
-            if dSW == WATER:
-                riverOdds[0] += 0
-            else:
-                riverOdds[0] += 0
-            if dSE == WATER:
-                riverOdds[2] += 5
-            else:
-                riverOdds[2] += 3
+            # else:
+            #     riverOdds[1] += 1
+            # if dSW == WATER:
+            #     riverOdds[0] += 0
+            # else:
+            #     riverOdds[0] += 0
+            # if dSE == WATER:
+            #     riverOdds[2] += 5
+            # else:
+            #     riverOdds[2] += 3
             if P == PLAINS:
                 riverOdds[2] += 2
             elif P == FOREST:
@@ -1498,7 +1498,8 @@ def InsertRivers(mapClass, posX, posY):
             riverOdds[0] = 0
             riverOdds[1] = 0
             riverOdds[2] += 5
-        if dN == MOUNTAIN:
+
+        if dN == WATER:
             if dS == WATER:
                 riverOdds[1] += 5
             else:
@@ -1509,6 +1510,24 @@ def InsertRivers(mapClass, posX, posY):
                 riverOdds[0] += 1
             if dSE == WATER:
                 riverOdds[2] += 5
+            else:
+                riverOdds[2] += 1
+            if P == PLAINS:
+                riverOdds[1] += 2
+            elif P == FOREST:
+                riverOdds[1] += 1
+            
+        elif dN == MOUNTAIN:
+            if dS == WATER:
+                riverOdds[1] += 3
+            else:
+                riverOdds[1] += 1
+            if dSW == WATER:
+                riverOdds[0] += 3
+            else:
+                riverOdds[0] += 1
+            if dSE == WATER:
+                riverOdds[2] += 3
             else:
                 riverOdds[2] += 1
             if P == PLAINS:
@@ -1529,24 +1548,7 @@ def InsertRivers(mapClass, posX, posY):
             riverOdds[1] = 0
             riverOdds[2] = 0
         
-        elif dN == WATER:
-            if dS == WATER:
-                riverOdds[1] += 5
-            else:
-                riverOdds[1] += 1
-            if dSW == WATER:
-                riverOdds[0] += 5
-            else:
-                riverOdds[0] += 1
-            if dSE == WATER:
-                riverOdds[2] += 5
-            else:
-                riverOdds[2] += 1
-            if P == PLAINS:
-                riverOdds[1] += 2
-            elif P == FOREST:
-                riverOdds[1] += 1
-            
+        
             # #Water likes to flow into plains:
             # if dW == PLAINS:
             #     riverOdds[0] += 2
@@ -1557,24 +1559,24 @@ def InsertRivers(mapClass, posX, posY):
             #     riverOdds[1] += 2
             #     riverOdds[2] += 2
 
-        elif dN == RIVER[0] or dN == RIVER[1] or dN == RIVER[2]:
-            if P == WATER:
-                riverOdds[0] == 0
-                riverOdds[1] == 0
-                riverOdds[2] == 0
-            else:
-                riverOdds[0] += 3
-                riverOdds[1] += 5
-                riverOdds[2] += 3
+        # elif dN == RIVER[0] or dN == RIVER[1] or dN == RIVER[2]:
+        #     if P == WATER:
+        #         riverOdds[0] == 0
+        #         riverOdds[1] == 0
+        #         riverOdds[2] == 0
+        #     else:
+        #         riverOdds[0] += 3
+        #         riverOdds[1] += 5
+        #         riverOdds[2] += 3
 
         #If the current position is a mountain and there are no other mountains to flow from, don't draw a river.
-        if P == MOUNTAIN:
-            if dN != MOUNTAIN:
-                riverOdds[1] = 0
-                if dNE != MOUNTAIN:
-                    riverOdds[0] = 0
-                if dNW != MOUNTAIN:
-                    riverOdds[2] = 0
+        # if P == MOUNTAIN:
+        #     if dN != MOUNTAIN:
+        #         riverOdds[1] = 0
+        #         if dNE != MOUNTAIN:
+        #             riverOdds[0] = 0
+        #         if dNW != MOUNTAIN:
+        #             riverOdds[2] = 0
         
         # #Handle river forking:
         # if dW == RIVER[0]:
