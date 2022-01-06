@@ -1842,19 +1842,19 @@ def DefineRiverSource(mapClass, posX, posY, scanLevel):
             #   - - - 
             if dN == MOUNTAIN and dSW != MOUNTAIN and dSW != WATER and dSE != MOUNTAIN and dSE != WATER:
                 print('Third-best south bound source point found! ' + str(posY) + ' ' + str(posX))
-                RIVER_COORDS_2.append(RIVER[1], int(posY), int(posX))
+                RIVER_COORDS_2.append((RIVER[1], int(posY), int(posX)))
 
             #   M ? ? 
             #   ? \ ? 
             #   ? - - 
             elif dNW == MOUNTAIN and dSE != MOUNTAIN and dSE != WATER:
-                RIVER_COORDS_2.append(RIVER[2], int(posY), int(posX))
+                RIVER_COORDS_2.append((RIVER[2], int(posY), int(posX)))
 
             #   ? ? M 
             #   ? / ? 
             #   - - ? 
             elif dNW == MOUNTAIN and dSW != MOUNTAIN and dSW != WATER:
-                RIVER_COORDS_2.append(RIVER[0], int(posY), int(posX))
+                RIVER_COORDS_2.append((RIVER[0], int(posY), int(posX)))
 
 
         #As for scanLevel == 2, that is where the rivers will actually be drawn. 
@@ -1904,7 +1904,7 @@ def GenerateRivers(mapClass):
                 # print(mapClass.worldMap[y][x], end=" ")
             print('')
         print('\n')
-        PrintColorMap(mapClass.worldMap)
+        # PrintColorMap(mapClass.worldMap)
 
     print('Total matches found at scan level 0: ' + str(len(RIVER_COORDS_0)))
     print('Total matches found at scan level 1: ' + str(len(RIVER_COORDS_1)))
