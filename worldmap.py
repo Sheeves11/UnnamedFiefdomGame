@@ -39,6 +39,7 @@ MAP_HEIGHT = 20
 DEFAULT_WEIGHT = 10         #A common weight total
 WEIGHT_INTENSITY = 5        #Determines how focused the map will be
 RANDOM_INTENSITY = 20       #Determines how chaotic the map will be
+RANDOMLY = True
 
 #River Variables
 RIVER_MAP_SCANS = 1         #Determines how many times the map is ran through when placing rivers
@@ -51,9 +52,10 @@ RIVER_RATIO = 60
 SCAN_LEVEL = 3              #Don't change this. Determines how deeply the river generator should search for mountains.
 RIVER_COUNT = 0             #Keeps track of how many rivers there have been recorded so far. (For efficiency)
 RIVER_CAP = 2               #Maximum number of rivers to be chosen from the coordinates below.
-RIVER_COORDS_0 = []         #Hold 3-tuples of river-coordinates. This holds the tuples for scan level 0
-RIVER_COORDS_1 = []         #Hold 3-tuples of river-coordinates. This holds the tuples for scan level 1
-RIVER_COORDS_2 = []         #Hold 3-tuples of river-coordinates. This holds the tuples for scan level 2
+RIVER_COORDS_0 = []         #Holds 3-tuples of river-coordinates. This holds the tuples for scan level 0
+RIVER_COORDS_1 = []         #Holds 3-tuples of river-coordinates. This holds the tuples for scan level 1
+RIVER_COORDS_2 = []         #Holds 3-tuples of river-coordinates. This holds the tuples for scan level 2
+SOURCES = []                #Holds 3-tuples of river-coordinates that have been randomly picked from the above lists.
 
 #Other Variables
 INSTANTLY_GENERATE = False
@@ -1723,7 +1725,7 @@ def ScanSurroundings(wMap, posX, posY):
 #   Scans the map in search of an ideal river source, drawing one consistent river when one is found.
 #--------------------------------------------------------------------------------------------------------------
 def DefineRiverSource(mapClass, posX, posY, scanLevel):
-    # global RIVER_COUNT
+    global RIVER_COUNT
     global RIVER_COORDS_0
     global RIVER_COORDS_1
     global RIVER_COORDS_2
@@ -1774,8 +1776,8 @@ def DefineRiverSource(mapClass, posX, posY, scanLevel):
                 #   ? - -
                 if dNW == MOUNTAIN and dW == MOUNTAIN and dSE != MOUNTAIN and dSE != WATER and dE != MOUNTAIN and dE != WATER:
                     print('Ideal southeast-bound source point found! ' + str(posY) + ' ' + str(posX))
-                    mapClass.worldMap[posY][posX] = '\\'
-                    # RIVER_COUNT += 1
+                    # mapClass.worldMap[posY][posX] = '\\'
+                    RIVER_COUNT += 1
                     RIVER_COORDS_0.append((RIVER[2], int(posY), int(posX)))
 
                 #   ? M M
@@ -1784,7 +1786,7 @@ def DefineRiverSource(mapClass, posX, posY, scanLevel):
                 elif dNE == MOUNTAIN and dE == MOUNTAIN and dSW != MOUNTAIN and dSW != WATER and dW != MOUNTAIN and dW != WATER:
                     print('Ideal southwest-bound source point found! ' + str(posY) + ' ' + str(posX))
                     mapClass.worldMap[posY][posX] = '/'
-                    # RIVER_COUNT += 1
+                    RIVER_COUNT += 1
                     RIVER_COORDS_0.append((RIVER[0], int(posY), int(posX)))
         # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
         # scanLevel 1:
@@ -1803,6 +1805,7 @@ def DefineRiverSource(mapClass, posX, posY, scanLevel):
                     #   ? - -       ? - -
                     if dSE != MOUNTAIN and dSE != WATER and dE != MOUNTAIN and dE != WATER:
                         print('Second-best south-east bound source point found! ' + str(posY) + ' ' + str(posX))
+                        RIVER_COUNT += 1
                         RIVER_COORDS_1.append((RIVER[2], int(posY), int(posX)))
                         #RIVER_COORDS_1.append(RIVER[1], int(posY), int(posX)) #Leave this uncommented if you want the alternate | river version thronw in the mix! --For now, I'll avoid this
 
@@ -1811,6 +1814,7 @@ def DefineRiverSource(mapClass, posX, posY, scanLevel):
                     #   - / ?       - | ?
                     #   - - ?       - - ?
                     if dSW != MOUNTAIN and dSW != WATER and dW != MOUNTAIN and dW != WATER:
+                        RIVER_COUNT += 1
                         print('Second-best south-west bound source point found! ' + str(posY) + ' ' + str(posX))
                         RIVER_COORDS_1.append((RIVER[0], int(posY), int(posX)))
                         #RIVER_COORDS_1.append(RIVER[1], int(posY), int(posX)) #Leave this uncommented if you want the alternate | river version thronw in the mix! --For now, I'll avoid this
@@ -1819,6 +1823,7 @@ def DefineRiverSource(mapClass, posX, posY, scanLevel):
             #   ? - -
             elif dNW == MOUNTAIN and dW == MOUNTAIN and dSE != MOUNTAIN and dSE != WATER and dE != MOUNTAIN and dE != WATER:
                 print('Second-best south-east bound source point found! ' + str(posY) + ' ' + str(posX))
+                RIVER_COUNT += 1
                 RIVER_COORDS_1.append((RIVER[2], int(posY), int(posX)))
 
             #   ? ? M
@@ -1826,6 +1831,7 @@ def DefineRiverSource(mapClass, posX, posY, scanLevel):
             #   - - ?
             elif dNE == MOUNTAIN and dE == MOUNTAIN and dSW != MOUNTAIN and dSW != WATER and dW != MOUNTAIN and dW != WATER:
                 print('Second-best south-west bound source point found! ' + str(posY) + ' ' + str(posX))
+                RIVER_COUNT += 1
                 RIVER_COORDS_1.append((RIVER[0], int(posY), int(posX)))
         # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
         # scanLevel 2:
@@ -1886,9 +1892,8 @@ def NoAdjacentRivers(surroundings):
 
 #--------------------------------------------------------------------------------------------------------------
 #   [GenerateRivers]
-#   Parameters: seed
+#   Parameters: mapClass
 #
-#   Does the same thing as GenerateWordlMap but with no prints or user interaction
 #--------------------------------------------------------------------------------------------------------------
 def GenerateRivers(mapClass):
     # global RIVER_MAP_SCANS
@@ -1903,26 +1908,388 @@ def GenerateRivers(mapClass):
     # riverSourceCoordinates = ScanForIdealSource(mapClass.worldMap)
     for i in range (SCAN_LEVEL):
         print('Scan Level:' + str(i))
-        for y in range(MAP_HEIGHT):
-            for x in range(MAP_WIDTH):
-                DefineRiverSource(mapClass, y, x, i)
-                # print(mapClass.worldMap[y][x], end=" ")
-            # print('')
-        # print('\n')
-        # PrintColorMap(mapClass.worldMap)
+        if RIVER_COUNT < (RIVER_CAP * 2):       #Allows the function to break out of the loop if plenty of ideal spots were found.
+            for y in range(MAP_HEIGHT):
+                for x in range(MAP_WIDTH):
+                    DefineRiverSource(mapClass, y, x, i)
+                    # print(mapClass.worldMap[y][x], end=" ")
+                # print('')
+            # print('\n')
+            # PrintColorMap(mapClass.worldMap)
 
     print('Total matches found at scan level 0: ' + str(len(RIVER_COORDS_0)))
     print('Total matches found at scan level 1: ' + str(len(RIVER_COORDS_1)))
     print('Total matches found at scan level 2: ' + str(len(RIVER_COORDS_2)))
-    mapClass.numRivers = len(RIVER_COORDS_0) #TEMPORARY
+    # mapClass.numRivers = len(RIVER_COORDS_0) #TEMPORARY
     print(*RIVER_COORDS_0)
+
+    PickRiverSources()  # Loads sources into SOURCES global.
+
+    CreateRivers(mapClass.worldMap)
     # print('Total Average River Weight Value: ' + str(RIVER_AVERAGE_WEIGHT))
     # calculatedWeight = (RIVER_AVERAGE_WEIGHT/(MAP_HEIGHT*MAP_WIDTH))/RIVER_MAP_SCANS
     # print('Total Calculated Average River Weight is: ' + str(calculatedWeight))
     # print('Value for 1:1 ratio is: ' + str(int(calculatedWeight) * 3))
     mapClass.write()
 
+#--------------------------------------------------------------------------------------------------------------
+#   [PickRiverSources]
+#   Parameters: none
+#   Randomly selects the river sources out of the ones available until the RIVER_CAP is met.
+#   Goes from RIVER_COORDS_0 -> RIVER_COORDS_1 -> RIVER_COORDS_2
+#   The shuffle/pop method guarantees that the same coord won't be picked twice. 
+#--------------------------------------------------------------------------------------------------------------
+def PickRiverSources():
+    global SOURCES
+    global RIVER_COORDS_0
+    global RIVER_COORDS_1
+    global RIVER_COORDS_2
+    SOURCES = []
+    random.shuffle(RIVER_COORDS_0)
+    for i in range(RIVER_CAP):
+        try:
+            SOURCES.append(RIVER_COORDS_0.pop())
+        except:
+            pass
+    if len(SOURCES) <  RIVER_CAP:
+        random.shuffle(RIVER_COORDS_1)
+        for i in range(RIVER_CAP - int(len(SOURCES))):
+            try:
+                SOURCES.append(RIVER_COORDS_1.pop())
+                if DuplicateCoordinates():
+                    SOURCES.pop()
+            except:
+                pass
+    #If not enough river sources were found still:
+    if len(SOURCES) <  RIVER_CAP:
+        random.shuffle(RIVER_COORDS_2)
+        for i in range(RIVER_CAP - int(len(SOURCES))):
+            try:
+                SOURCES.append(RIVER_COORDS_2.pop())
+                if DuplicateCoordinates():
+                    SOURCES.pop()
+            except:
+                pass
 
+#--------------------------------------------------------------------------------------------------------------
+#   [DuplicateCoordinates]
+#   Parameters: none
+#
+#   Checks if SOURCES global has duplicate coordinates
+#--------------------------------------------------------------------------------------------------------------
+def DuplicateCoordinates():
+    global SOURCES
+    SOURCES = iter(SOURCES)
+    # try:
+    first = next(SOURCES, None)
+    # except StopIteration:
+    #     return True
+    return all(first == x for x in SOURCES)
+
+#--------------------------------------------------------------------------------------------------------------
+#   [CreateRivers]
+#   Parameters: wMap
+#   Calls SimulateRivers for each tuple in SOURCES
+#--------------------------------------------------------------------------------------------------------------
+def CreateRivers(wMap):
+    #Unpack SOURCES:
+    for i in range(len(SOURCES)):
+        symbol = SOURCES[i][0]
+        y = SOURCES[i][1]
+        x = SOURCES[i][2]
+        SimulateRivers(wMap, symbol, y, x)
+
+#--------------------------------------------------------------------------------------------------------------
+#   [RunSouthEast]
+#   Parameters: dS, dSE, wMap, y, x, lean
+#   Runs river southeast based on passed values
+#--------------------------------------------------------------------------------------------------------------
+def RunSouthEast(dS, dSE, wMap, y, x, lean):
+    if lean == 'none':
+        if dS == PLAINS:
+            return SimulateRivers(wMap, "|", y + 1, x)
+        if dSE == PLAINS:
+            return SimulateRivers(wMap, "\\", y + 1, x + 1)
+        if dS == FOREST:
+            return SimulateRivers(wMap, "|", y + 1, x)
+        if dSE == FOREST:
+            return SimulateRivers(wMap, "\\", y + 1, x + 1)
+    if lean == 'south':
+        if dS == PLAINS:
+            return SimulateRivers(wMap, "|", y + 1, x)
+        if dS == FOREST:
+            return SimulateRivers(wMap, "|", y + 1, x)
+        if dSE == PLAINS:
+            return SimulateRivers(wMap, "\\", y + 1, x + 1)
+        if dSE == FOREST:
+            return SimulateRivers(wMap, "\\", y + 1, x + 1)
+    if lean == 'east':
+        if dSE == PLAINS:
+            return SimulateRivers(wMap, "\\", y + 1, x + 1)
+        if dSE == FOREST:
+            return SimulateRivers(wMap, "\\", y + 1, x + 1)
+        if dS == PLAINS:
+            return SimulateRivers(wMap, "|", y + 1, x)
+        if dS == FOREST:
+            return SimulateRivers(wMap, "|", y + 1, x)
+        
+
+#--------------------------------------------------------------------------------------------------------------
+#   [RunSouthWest]
+#   Parameters: dSW, dS, wMap, y, x, lean
+#   Runs river southwest based on passed values
+#--------------------------------------------------------------------------------------------------------------
+def RunSouthWest(dSW, dS, wMap, y, x, lean):
+    if lean == 'none':
+        if dS == PLAINS:
+            return SimulateRivers(wMap, "|", y + 1, x)
+        if dSW == PLAINS:
+            return SimulateRivers(wMap, "/", y + 1, x - 1)
+        if dS == FOREST:
+            return SimulateRivers(wMap, "|", y + 1, x)
+        if dSW == FOREST:
+            return SimulateRivers(wMap, "/", y + 1, x - 1)
+    if lean == 'south':
+        if dS == PLAINS:
+            return SimulateRivers(wMap, "|", y + 1, x)
+        if dS == FOREST:
+            return SimulateRivers(wMap, "|", y + 1, x)
+        if dSW == PLAINS:
+            return SimulateRivers(wMap, "/", y + 1, x - 1)
+        if dSW == FOREST:
+            return SimulateRivers(wMap, "/", y + 1, x - 1)
+    if lean == 'west':
+        if dSW == PLAINS:
+            return SimulateRivers(wMap, "/", y + 1, x - 1)
+        if dSW == FOREST:
+            return SimulateRivers(wMap, "/", y + 1, x - 1)
+        if dS == PLAINS:
+            return SimulateRivers(wMap, "|", y + 1, x)
+        if dS == FOREST:
+            return SimulateRivers(wMap, "|", y + 1, x)
+        
+#--------------------------------------------------------------------------------------------------------------
+#   [RandomRunSouthWest]
+#   Parameters: dSW, dS, wMap, y, x
+#   Runs river southwest based on passed values
+#--------------------------------------------------------------------------------------------------------------
+def RandomRunSouthWest(dSW, dS, wMap, y, x):
+    ch2 = random.randint(1, 2)
+    #If both dS and dSW are plains:
+    if dS == PLAINS and dSW == PLAINS:
+        if ch2 == 1:
+            return SimulateRivers(wMap, "|", y + 1, x)
+        elif ch2 == 2:
+            return SimulateRivers(wMap, "/", y + 1, x - 1)
+    #If both dS and dSW are forests:
+    elif dS == FOREST and dSW == FOREST:
+        if ch2 == 1:
+            return SimulateRivers(wMap, "|", y + 1, x)
+        elif ch2 == 2:
+            return SimulateRivers(wMap, "/", y + 1, x - 1)
+
+#--------------------------------------------------------------------------------------------------------------
+#   [RandomRunSouthEast]
+#   Parameters: dSW, dS, wMap, y, x
+#   Runs river southeast based on passed values, randomly selecting
+#--------------------------------------------------------------------------------------------------------------
+def RandomRunSouthEast(dS, dSE, wMap, y, x):
+    ch2 = random.randint(1, 2)
+    #If both dS and dSE are plains:
+    if dS == PLAINS and dSE == PLAINS:
+        if ch2 == 1:
+            return SimulateRivers(wMap, "|", y + 1, x)
+        elif ch2 == 2:
+            return SimulateRivers(wMap, "\\", y + 1, x + 1)
+    #If both dS and dSE are forests:
+    elif dS == FOREST and dSE == FOREST:
+        if ch2 == 1:
+            return SimulateRivers(wMap, "|", y + 1, x)
+        elif ch2 == 2:
+            return SimulateRivers(wMap, "\\", y + 1, x + 1)
+
+#--------------------------------------------------------------------------------------------------------------
+#   [SimulateRivers]
+#   Parameters: wMap, symbol, y, x
+#   Returns: Recursively returns itself until conditions are met.
+#   Draws the rivers based on their current positions.
+#  
+#       Function prefers to spread to plains over forests.
+#       At this point, we know that if the symbol is "\", then dS and dSE are each either a forest or a plains.
+#       Additionally if the symbol is "|", then dSW, dS, and dSE are each a ^ or a # too. And finally if the 
+#       symbol is "/", we know that the same is true for dSW and dS.
+#       When multiple options are the same, however, that is when things get complex. 
+#       The preferred direction should depend on what lies on the dE and dW. 
+#       If those are in the same category (( Sources: M, ~ ), ( Spreadable: #, ^ )) then it should
+#       select randomly. 
+#--------------------------------------------------------------------------------------------------------------
+def SimulateRivers(wMap, symbol, y, x):
+    try:
+        wMap[y][x] = symbol
+    except:
+        return wMap
+
+    os.system("clear")
+    PrintColorMap(wMap)
+    time.sleep(0.1)
+    surroundings = ScanSurroundings(wMap, x, y)
+    dE = surroundings[2]
+    dSE = surroundings[3]
+    dS = surroundings[4]
+    dSW = surroundings[5]
+    dW = surroundings[6]
+
+    # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+    # If river is headed southeast:
+    # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+    if symbol == "\\":
+        #if dW and dE are in the same category:
+        if ((dW == MOUNTAIN or dW == WATER) and (dE == MOUNTAIN or dE == WATER)) or ((dW != MOUNTAIN or dW != WATER) and (dE != MOUNTAIN or dE != WATER)):
+            #First, run to see if dS and dSE are the same, and choose randomly in that case:
+            RandomRunSouthEast(dS, dE, wMap, y, x)
+            #If they were not the same, then just check for plains first:
+            RunSouthEast(dS, dE, wMap, y, x, 'none')
+
+        #Otherwise, if west is not spreadable
+        elif dW == MOUNTAIN or dW == WATER:
+            #If both dS and dSE are plains:
+            if dS == PLAINS and dSE == PLAINS:
+                #Prefer the east:
+                return SimulateRivers(wMap, "\\", y + 1, x + 1)
+            #If both dS and dSE are forests:
+            elif dS == FOREST and dSE == FOREST:
+                #Prefer the east:
+                return SimulateRivers(wMap, "\\", y + 1, x + 1)
+            #if dS and dSE are not the same:
+            else:
+                RunSouthEast(dS, dE, wMap, y, x, 'east')
+
+        #Otherwise, if east is not spreadable
+        elif dE == MOUNTAIN or dE == WATER:
+            #If both dS and dSE are plains:
+            if dS == PLAINS and dSE == PLAINS:
+                #Prefer the south:
+                return SimulateRivers(wMap, "|", y + 1, x)
+            #If both dS and dSE are forests:
+            elif dS == FOREST and dSE == FOREST:
+                #Prefer the south:
+                return SimulateRivers(wMap, "|", y + 1, x)
+            #if dS and dSE are not the same:
+            else:
+                RunSouthEast(dS, dE, wMap, y, x, 'south')
+
+    # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+    # If a river is headed southwest:
+    # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+    elif symbol == "/":
+        #if dW and dE are in the same category:
+        if ((dW == MOUNTAIN or dW == WATER) and (dE == MOUNTAIN or dE == WATER)) or ((dW != MOUNTAIN or dW != WATER) and (dE != MOUNTAIN or dE != WATER)):
+            #First, run to see if dS and dSE are the same, and choose randomly in that case:
+            RandomRunSouthWest(dSW, dS, wMap, y, x)
+            #If they were not the same, then just check for plains first:
+            RunSouthWest(dSW, dS, wMap, y, x, 'none')
+
+        #Otherwise, if east is not spreadable
+        elif dE == MOUNTAIN or dE == WATER:
+            #If both dS and dSE are plains:
+            if dS == PLAINS and dSE == PLAINS:
+                #Prefer the south:
+                return SimulateRivers(wMap, "/", y + 1, x - 1)
+            #If both dS and dSE are forests:
+            elif dS == FOREST and dSE == FOREST:
+                #Prefer the south:
+                return SimulateRivers(wMap, "/", y + 1, x - 1)
+            #if dS and dSE are not the same:
+            else:
+                RunSouthWest(dSW, dS, wMap, y, x, 'west')
+
+        #Otherwise, if west is not spreadable
+        elif dW == MOUNTAIN or dW == WATER:
+            #If both dS and dSE are plains:
+            if dS == PLAINS and dSE == PLAINS:
+                #Prefer the east:
+                return SimulateRivers(wMap, "|", y + 1, x)
+            #If both dS and dSE are forests:
+            elif dS == FOREST and dSE == FOREST:
+                #Prefer the east:
+                return SimulateRivers(wMap, "|", y + 1, x)
+            #if dS and dSE are not the same:
+            else:
+                RunSouthWest(dSW, dS, wMap, y, x, 'south')
+
+    # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+    # If a river is headed south:
+    # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+    elif symbol == "|":
+        #if neither dW nor dE are spreadable, then run south:
+        if (dW == MOUNTAIN or dW == WATER) and (dE == MOUNTAIN or dE == WATER):
+            return SimulateRivers(wMap, "|", y + 1, x)
+        #if both dW and dE are spreadable:
+        elif (dW != MOUNTAIN or dW != WATER) and (dE != MOUNTAIN or dE != WATER):
+            #If everything is the same to the south, then choose randomly between both directions:
+            if (dSW == PLAINS and dS == PLAINS and dSE == PLAINS) or (dSW == FOREST and dS == FOREST and dSE == FOREST):
+                #Then choose a random direction
+                ch2 = random.randint(1, 2)
+                if ch2 == 1:
+                    RandomRunSouthWest(dSW, dS, wMap, y, x)
+                else:
+                    RandomRunSouthEast(dS, dSE, wMap, y, x)
+            #Otherwise, check plains if one side has two plains first before deciding:
+            elif (dSW == PLAINS and dS == PLAINS):
+                RandomRunSouthWest(dSW, dS, wMap, y, x)
+            elif (dS == PLAINS and dSE == PLAINS):
+                RandomRunSouthEast(dS, dSE, wMap, y, x)
+            elif (dSW == FOREST and dS == FOREST):
+                RandomRunSouthWest(dSW, dS, wMap, y, x)
+            elif (dS == FOREST and dSE == FOREST):
+                RandomRunSouthEast(dS, dSE, wMap, y, x)
+            #Otherwise, check which side has a plains (at this point, exactly one plains must exist):
+            elif dS == PLAINS:
+                ch2 = random.randint(1, 2)
+                if ch2 == 1:
+                    RunSouthWest(dSW, dS, wMap, y, x, 'south')
+                else:
+                    RunSouthEast(dS, dSE, wMap, y, x, 'south')
+            elif dSW == PLAINS:
+                RunSouthWest(dSW, dS, wMap, y, x, 'west')
+            elif dSE == PLAINS:
+                RunSouthEast(dS, dSE, wMap, y, x, 'east')
+
+        #Otherwise, if east is not spreadable
+        elif dE == MOUNTAIN or dE == WATER:
+            #If everything is plains to the south (or so long as dSW and dS are plains), then prefer southwest.
+            if (dSW == PLAINS and dS == PLAINS and dSE == PLAINS) or (dSW == PLAINS and dS == PLAINS):
+                RandomRunSouthWest(dSW, dS, wMap, y, x)
+            #Otherwise, if dS and dE are both plains, prefer south:
+            elif dS == PLAINS and dSE == PLAINS:
+                return SimulateRivers(wMap, "|", y + 1, x)
+            #Otherwise, if dSW is the only plains, go southwest:
+            elif dSW == PLAINS:
+                return SimulateRivers(wMap, "/", y + 1, x - 1)
+            #Otherwise, if dS is the only plains, go south:
+            elif dS == PLAINS:
+                return SimulateRivers(wMap, "|", y + 1, x)
+
+            #Otherwise, everything south must just be forests, so run randomly to the southwest:
+            RandomRunSouthWest(dSW, dS, wMap, y, x)
+
+        #Otherwise, if west is not spreadable
+        elif dW == MOUNTAIN or dW == WATER:
+            #If everything is plains to the south (or so long as dSE and dS are plains), then prefer southeast.
+            if (dSW == PLAINS and dS == PLAINS and dSE == PLAINS) or (dSE == PLAINS and dS == PLAINS):
+                RandomRunSouthEast(dS, dSE, wMap, y, x)
+            #Otherwise, if dS and dW are both plains, prefer south:
+            elif dS == PLAINS and dSW == PLAINS:
+                return SimulateRivers(wMap, "|", y + 1, x)
+            #Otherwise, if dSE is the only plains, go southeast:
+            elif dSE == PLAINS:
+                return SimulateRivers(wMap, "\\", y + 1, x + 1)
+            #Otherwise, if dS is the only plains, go south:
+            elif dS == PLAINS:
+                return SimulateRivers(wMap, "|", y + 1, x)
+
+            #Otherwise, everything south must just be forests, so run randomly to the southeast:
+            RandomRunSouthEast(dS, dSE, wMap, y, x)
 
 #--------------------------------------------------------------------------------------------------------------
 #   [WorldMapLocation]
