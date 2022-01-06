@@ -1598,7 +1598,7 @@ def InsertRivers(mapClass, posX, posY):
     # RiverAverageWeight(riverOdds)
 
 
-    symbolTable = [(RIVER[0], riverOdds[0]), (RIVER[1], riverOdds[1]), (RIVER[2], riverOdds[2]), P, RIVER_RATIO]
+    symbolTable = [(RIVER[0], riverOdds[0]), (RIVER[1], riverOdds[1]), (RIVER[2], riverOdds[2]), (P, RIVER_RATIO)]
 
     #Define a combined list of symbols and weights, including the RANDOM option.
     #symbolTable = [(dN,weights[0]),(dNE,weights[1]),(dE,weights[2]),(dSE,weights[3]),(dS,weights[4]),(dSW,weights[5]),(dW,weights[6]),(dNW,weights[7]), (RANDOM,RANDOM_INTENSITY)]
