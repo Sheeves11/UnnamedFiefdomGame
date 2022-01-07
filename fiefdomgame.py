@@ -1885,44 +1885,44 @@ while (loop):
 
 
 #This page prints a menu for choosing your stronghold's color:
-if screen == "changeStrongholdColor":
-    os.system("clear")
+    if screen == "changeStrongholdColor":
+        os.system("clear")
 
-    print('\n\n\n\n\n')
-    print("      Choose a Stronghold Color:")
-    print('      -------------------------------------')
-    print('      {1}: Red')
-    print('      {2}: Green')
-    print('      {3}: Blue')
-    print('      {4}: Yellow')
-    print('      {5}: Magenta')
-    print('      {6}: Cyan')
-    print('      {7}: White')
-    print('      {8}: Gray')
-    print('      {9}: Leave color as is')
-    print('      -------------------------------------')
-    print('\n')
-    command = input("      Enter your command: ")
+        print('\n\n\n\n\n')
+        print("      Choose a Stronghold Color:")
+        print('      -------------------------------------')
+        print('      {1}: Red')
+        print('      {2}: Green')
+        print('      {3}: Blue')
+        print('      {4}: Yellow')
+        print('      {5}: Magenta')
+        print('      {6}: Cyan')
+        print('      {7}: White')
+        print('      {8}: Gray')
+        print('      {9}: Leave color as is')
+        print('      -------------------------------------')
+        print('\n')
+        command = input("      Enter your command: ")
 
-    if command == "1":
-        userStronghold.color = 'red'
-    if command == "1":
-        userStronghold.color = 'green'
-    if command == "1":
-        userStronghold.color = 'blue'
-    if command == "1":
-        userStronghold.color = 'yellow'
-    if command == "1":
-        userStronghold.color = 'magenta'
-    if command == "1":
-        userStronghold.color = 'cyan'
-    if command == "1":
-        userStronghold.color = 'white'
-    if command == "1":
-        userStronghold.color = 'gray'
-    
-    userStronghold.write()
-    screen = "stronghold"
+        if command == "1":
+            userStronghold.color = 'red'
+        if command == "1":
+            userStronghold.color = 'green'
+        if command == "1":
+            userStronghold.color = 'blue'
+        if command == "1":
+            userStronghold.color = 'yellow'
+        if command == "1":
+            userStronghold.color = 'magenta'
+        if command == "1":
+            userStronghold.color = 'cyan'
+        if command == "1":
+            userStronghold.color = 'white'
+        if command == "1":
+            userStronghold.color = 'gray'
+        
+        userStronghold.write()
+        screen = "stronghold"
 
 
 #This is the about page for the game. Keep it updated
