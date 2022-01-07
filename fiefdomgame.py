@@ -185,7 +185,7 @@ while (loop):
         #Check if anything needs to be initialized
         if FirstLaunch():
             SilentlyGenerateWorld(serverMap)
-        elif newUserAccount:
+        if  newUserAccount:
             serverMap.name = 'serverMap'
             serverMap.read()
             SilentlyPlaceStrongholdInWorldMap(userStronghold, serverMap)
