@@ -34,7 +34,7 @@ class textColor:
 
 def biomeColor(biome):
     if biome == MOUNTAIN:
-        return textColor.DIM
+        return textColor.DARK_GRAY
     elif biome == FOREST:
         return textColor.GREEN
     elif biome == PLAINS:
