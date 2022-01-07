@@ -7,6 +7,8 @@ import bcrypt
 from classes import *
 from worldmap import *
 from os.path import exists
+from art import *
+from tests.sandbox import *
 
 '''
 
@@ -45,6 +47,7 @@ attackFief = Fiefdom()
 userStronghold = Stronghold()
 attackStronghold = Stronghold()
 serverMap = Map()
+testMap = TestMap() #This is for users to have fun messing with the map generator
 firstMapRead = True
 newUserAccount = False
 
@@ -58,42 +61,9 @@ while (loop):
     # - Add password encryption
     if screen == "login":
         os.system("clear")
-        print(textColor.WARNING + '''
- _    _                                      _   ______ _       __    _                    _____
-| |  | |                                    | | |  ____(_)     / _|  | |                  / ____|
-| |  | |_ __  _ __   __ _ _ __ ___   ___  __| | | |__   _  ___| |_ __| | ___  _ __ ___   | |  __  __ _ _ __ ___   ___
-| |  | | '_ \| '_ \ / _` | '_ ` _ \ / _ \/ _` | |  __| | |/ _ \  _/ _` |/ _ \| '_ ` _ \  | | |_ |/ _` | '_ ` _ \ / _ `
-| |__| | | | | | | | (_| | | | | | |  __/ (_| | | |    | |  __/ || (_| | (_) | | | | | | | |__| | (_| | | | | | |  __/
- \____/|_| |_|_| |_|\__,_|_| |_| |_|\___|\__,_| |_|    |_|\___|_| \__,_|\___/|_| |_| |_|  \_____|\__,_|_| |_| |_|\___|
 
-~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
-        ''' + textColor.RESET + '''
-                                                  ,--,  ,.-.
-                                   ,                   \,       '-,-`,'-.' | ._
-                                  /|           \    ,   |\         }  )/  / `-,',
-                                  [ ,          |\  /|   | |        /  \|  |/`  ,`
-                                  | |       ,.`  `,` `, | |  _,...(   (      .',
-                                  \  \  __ ,-` `  ,  , `/ |,'      Y     (   /_L|
-                                   \  \_\,``,   ` , ,  /  |         )         _,/
-                                    \  '  `  ,_ _`_,-,<._.<        /         /
-                                     ', `>.,`  `  `   ,., |_      |         /
-                                       \/`  `,   `   ,`  | /__,.-`    _,   `|
-                                   -,-..\  _  \  `  /  ,  / `._) _,-\`       |
-                                    \_,,.) /\    ` /  / ) (-,, ``    ,        |
-                                   ,` )  | \_\       '-`  |  `(               |
-                                  /  /```(   , --, ,' \   |`<`    ,            |
-                                 /  /_,--`\   <\  V /> ,` )<_/)  | \      _____)
-                           ,-, ,`   `   (_,\ \    |   /) / __/  /   `----`
-                          (-, \           ) \ ('_.-._)/ /,`    /
-                          | /  `          `/    V   V, /`     /
-                       ,--\(        ,     <_/`       ||      /
-                      (   ,``-     \/|         \-A.A-`|     /
-                     ,>,_ )_,..(    )\          -,,_-`  _--`
-                    (_ \|`   _,/_  /  \_            ,--`
-                     \( `   <.,../`     `-.._   _,-`    ''' + textColor.WARNING + '''
+        art_titleScreen()
 
-~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
-        ''')
         print(textColor.RESET + '''
                 Welcome to the Unnamed Fiefdom Game!
 
@@ -216,10 +186,11 @@ while (loop):
         #Check if anything needs to be initialized
         if FirstLaunch():
             SilentlyGenerateWorld(serverMap)
-        elif newUserAccount:
+        if  newUserAccount:
             serverMap.name = 'serverMap'
             serverMap.read()
             SilentlyPlaceStrongholdInWorldMap(userStronghold, serverMap)
+            # userStronghold.write()
             serverMap.read()
             newUserAccount = False
 
@@ -231,31 +202,14 @@ while (loop):
         print('     ' + 'Production: ' + str(productionCalc) + ' gold and ' + str((int(defenderOutput) * int(attackFief.defenderMod))) + ' soldiers per hour.')
         print('     Your army of ' + textColor.WARNING + str(userStronghold.attType) + textColor.RESET + ' stands ready.')
         print('\n')
-        print('''
-                                            |>>>                        |>>>
-                                            |                           |
-                                        _  _|_  _                   _  _|_  _
-                                       | |_| |_| |                 | |_| |_| |
-                                       \  .      /                 \ .    .  /
-                                        \    ,  /                   \    .  /
-                                         | .   |_   _   _   _   _   _| ,   |
-                                         |    .| |_| |_| |_| |_| |_| |  .  |
-                                         | ,   | .    .     .      . |    .|
-                                         |   . |  .     . .   .  ,   |.    |
-                             ___----_____| .   |.   ,  _______   .   |   , |---~_____
-                        _---~            |     |  .   /+++++++\    . | .   |         ~---_
-                                         |.    | .    |+++++++| .    |   . |              ~-_
-                                      __ |   . |   ,  |+++++++|.  . _|__   |                 ~-_
-                             ____--`~    '--~~__ .    |++++ __|----~    ~`---,              ___^~-__
-                        -~--~                   ~---__|,--~'                  ~~----_____-~'   `~----~
 
-                ''')
+        art_stronghold(userStronghold.biome, userStronghold.color)
 
         print("     Avalible Commands:")
         print('     -------------------------------------------------------')
         print('     {1}: View Nearby Fiefdoms        {9}: Hire Thieves')
         print('     {2}: Hire Mercenaries            {10}: View World Map')
-        print('     {3}: Upgrade Attack')
+        print('     {3}: Upgrade Attack              {11}: Stronghold Color')
         print('     {4}: Garrison Soldiers')
         print('     {5}: About')
         print('     {6}: Upcoming Features')
@@ -295,12 +249,12 @@ while (loop):
 
         if command == '10':
             screen = 'viewMapYourStronghold'
-        
-        #The following commands are for testing only!
-        if command == 'devtest':
-            screen = 'devTest'
 
-        if command == 'dt': #SW: because I'm lazy
+        if command == '11':
+            screen = 'changeStrongholdColor'
+        
+        #The following command is for testing only!
+        if command == 'devtest' or command == 'dt':
             screen = 'devTest'
 
 #This is the screen for the message board.
@@ -755,7 +709,7 @@ while (loop):
             command = input("     Press Enter ")
 
         currentPage = 1
-        screen = "fiefdoms"
+        screen = "homeDetails"
 
 #This is the screen for updating a fief's defenses. Note: there are two screens
 #like this. One for fiefs and one for player strongholds.
@@ -824,7 +778,7 @@ while (loop):
             command = input("     Press Enter ")
 
         currentPage = 1
-        screen = "fiefdoms"
+        screen = "homeDetails"
 
 #This is the about page for the game. Keep it updated
 #------------------------------------------------------------------------------
@@ -865,12 +819,15 @@ while (loop):
         print("      Avalible Commands:")
         print('      -------------------------------------')
         print('      {1}: Return to Stronghold')
+        print('      {2}: Check Out the Map Generator')
         print('      -------------------------------------')
         print('\n')
         command = input("      Enter your command: ")
 
         if command == "1":
             screen = "stronghold"
+        if command == "2":
+            screen = "sandboxMenu"
 
 #This is the features page for the game. Keep it updated
 #------------------------------------------------------------------------------
@@ -1173,22 +1130,22 @@ while (loop):
             art_fief0(attackFief.biome)
 
         if attackFief.defLevel == str(1):
-            art_fief1()
+            art_fief1(attackFief.biome)
 
         if attackFief.defLevel == str(2):
-            art_fief2()
+            art_fief2(attackFief.biome)
 
         if attackFief.defLevel == str(3):
-            art_fief3()
+            art_fief3(attackFief.biome)
 
         if attackFief.defLevel == str(4):
-            art_fief4()
+            art_fief4(attackFief.biome)
 
         if attackFief.defLevel == str(5):
-            art_fief5()
+            art_fief5(attackFief.biome)
 
         if attackFief.defLevel == str(6):
-            art_fief6()
+            art_fief6(attackFief.biome)
 
 
         if attackFief.goldMod == str(1):
@@ -1369,9 +1326,9 @@ while (loop):
         print("\n\n")
         print('Now viewing the Fiefdom of ' + attackFief.name)
         print('\n\n')
-        time.sleep(1)
+        time.sleep(0.5)
         print(attackFief.name + ' has ' + attackFief.defenders + ' fighters.')
-        time.sleep(1)
+        time.sleep(0.5)
         print('\n')
 
         withdrawNum = input('Enter the number of soldiers you would like to return home: ')
@@ -1483,22 +1440,22 @@ while (loop):
             art_fief0(attackFief.biome)
 
         if attackFief.defLevel == str(1):
-            art_fief1()
+            art_fief1(attackFief.biome)
 
         if attackFief.defLevel == str(2):
-            art_fief2()
+            art_fief2(attackFief.biome)
 
         if attackFief.defLevel == str(3):
-            art_fief3()
+            art_fief3(attackFief.biome)
 
         if attackFief.defLevel == str(4):
-            art_fief4()
+            art_fief4(attackFief.biome)
 
         if attackFief.defLevel == str(5):
-            art_fief5()
+            art_fief5(attackFief.biome)
 
         if attackFief.defLevel == str(6):
-            art_fief6()
+            art_fief6(attackFief.biome)
 
 
         if attackFief.goldMod == str(1):
@@ -1584,22 +1541,22 @@ while (loop):
             art_fief0(attackStronghold.biome)
 
         if attackStronghold.defLevel == str(1):
-            art_fief1()
+            art_fief1(attackStronghold.biome)
 
         if attackStronghold.defLevel == str(2):
-            art_fief2()
+            art_fief2(attackStronghold.biome)
 
         if attackStronghold.defLevel == str(3):
-            art_fief3()
+            art_fief3(attackStronghold.biome)
 
         if attackStronghold.defLevel == str(4):
-            art_fief4()
+            art_fief4(attackStronghold.biome)
 
         if attackStronghold.defLevel == str(5):
-            art_fief5()
+            art_fief5(attackStronghold.biome)
 
         if attackStronghold.defLevel == str(6):
-            art_fief6()
+            art_fief6(attackStronghold.biome)
 
 
         if attackStronghold.goldMod == str(1):
@@ -1928,6 +1885,161 @@ while (loop):
             screen = "details"
 
 
+#This page prints a menu for choosing your stronghold's color:
+    if screen == "changeStrongholdColor":
+        os.system("clear")
+
+        print('\n\n\n\n\n')
+        print("      Choose a Stronghold Color:")
+        print('      -------------------------------------')
+        print('''      {1}: Red       '''+textColor.RED+'''#'''+textColor.RESET+''' ''')
+        print('''      {2}: Green     '''+textColor.GREEN+'''#'''+textColor.RESET+''' ''')
+        print('''      {3}: Blue      '''+textColor.BLUE+'''#'''+textColor.RESET+''' ''')
+        print('''      {4}: Yellow    '''+textColor.YELLOW+'''#'''+textColor.RESET+''' ''')
+        print('''      {5}: Magenta   '''+textColor.MAGENTA+'''#'''+textColor.RESET+''' ''')
+        print('''      {6}: Cyan      '''+textColor.CYAN+'''#'''+textColor.RESET+''' ''')
+        print('''      {7}: White     '''+textColor.BOLD+'''#'''+textColor.RESET+''' ''')
+        print('''      {8}: Gray      '''+textColor.DARK_GRAY+'''#'''+textColor.RESET+''' ''')
+        print('      {9}: Leave color as is')
+        print('      -------------------------------------')
+        print('\n')
+        command = input("      Enter your command: ")
+
+        if command == "1":
+            userStronghold.color = 'red'
+        if command == "2":
+            userStronghold.color = 'green'
+        if command == "3":
+            userStronghold.color = 'blue'
+        if command == "4":
+            userStronghold.color = 'yellow'
+        if command == "5":
+            userStronghold.color = 'magenta'
+        if command == "6":
+            userStronghold.color = 'cyan'
+        if command == "7":
+            userStronghold.color = 'white'
+        if command == "8":
+            userStronghold.color = 'gray'
+        
+        userStronghold.write()
+        screen = "stronghold"
+
+
+#This is the about page for the game. Keep it updated
+#------------------------------------------------------------------------------
+    if screen == "sandboxMenu":
+        os.system("clear")
+
+        header()
+        print('\n\n')
+
+        print('     Welcome to the Sandbox Menu, where uses can play with the map generator!')
+
+        art_globe()
+
+        print('\n\n\n\n\n')
+        print("      Avalible Commands:")
+        print('      -------------------------------------')
+        print('      {1}: Return to Stronghold')
+        print('      {2}: Generate a Test Map')
+        print('      {3}: Create Custom Fiefs')
+        print('      {4}: Add Fiefs to Test Map')
+        print('      {5}: View Test Map')
+        print('      -------------------------------------')
+        print('\n')
+        command = input("      Enter your command: ")
+
+        if command == "1":
+            screen = "stronghold"
+        if command == "2":
+            screen = "sbTestMap"
+        if command == "3":
+            screen = "sbCreateFief"
+        if command == "4":
+            screen = "sbPlotTestFiefs"
+        if command == "5":
+            screen = "sbViewMap"
+
+#This is a page where users can generate maps of their own
+#------------------------------------------------------------------------------
+    if screen == "sbTestMap":
+        os.system("clear")
+        
+        TestResetFiefCoordinates()
+
+        testMap.name = 'testMap'
+        testMap.seed = GenerateSeed()
+        testMap.height = MAP_HEIGHT
+        testMap.width = MAP_WIDTH
+        testMap.worldMap = GenerateWorldMap(testMap.seed)
+        SetBiomeCounts(testMap)
+        testMap.write()
+        
+        print('World Map:')
+
+        PrintColorMap(testMap.worldMap)
+
+        print('\n Getting ready to generate rivers...')
+        time.sleep(3)
+        GenerateRivers(testMap)
+
+        time.sleep(1)
+        nothing = input('\nContinue:')
+
+        screen = 'sandboxMenu'
+
+#This is a page where users can view the maps they generate
+#------------------------------------------------------------------------------
+    if screen == "sbCreateFief":
+        os.system("clear")
+        print('    Welcome to the fief creation tool!')
+        print('    Please be aware that other users may be able to see the fiefs you create!')
+        newFief = input('\n    Enter the name of your new fief: ')
+        testFief = TestFiefdom()
+        testFief.name = newFief
+        testFief.defenders = random.randint(10, 100)
+        testFief.gold = random.randint(500, 3100)
+        testFief.write()
+
+        print('    ' + str(testFief.name) + ' has been created!')
+        time.sleep(1)
+        nothing = input('\nContinue:')
+
+        screen = 'sandboxMenu'
+
+#This is a page where users can add fiefs to their test map
+#------------------------------------------------------------------------------
+    if screen == "sbPlotTestFiefs":
+        os.system("clear")
+
+        testMap.name = 'testMap'
+        testMap.read()
+        
+        TestPlotAllFiefs(testMap)
+
+        time.sleep(1)
+        nothing = input('\nContinue:')
+
+        screen = 'sandboxMenu'
+
+#This is a page where users can view the maps they generate
+#------------------------------------------------------------------------------
+    if screen == "sbViewMap":
+        os.system("clear")
+        
+        testMap.name = 'testMap'
+        testMap.read()
+        
+        print('Current Test Map:')
+
+        PrintColorMap(testMap.worldMap)
+
+        time.sleep(1)
+        nothing = input('\nContinue:')
+
+        screen = 'sandboxMenu'
+
 #This is the new devtest menu with all the devtest commands sorted out and neat
 #------------------------------------------------------------------------------
     if screen == "devTest":
@@ -1938,19 +2050,8 @@ while (loop):
 
         print('     Welcome to the dev test menu. This should only be used for testing purposes.')
         print('\n')
-        print('''
-            ___                                                                  _
-           /__/|__                                                            __//|
-           |__|/_/|__                   D E V T E S T                       _/_|_||
-           |_|___|/_/|__                                                 __/_|___||
-           |___|____|/_/|__                                           __/_|____|_||
-           |_|___|_____|/_/|_________________________________________/_|_____|___||
-           |___|___|__|___|/__/___/___/___/___/___/___/___/___/___/_|_____|____|_||
-           |_|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___||
-           |___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|_||
-           |_|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|/
-
-                ''')
+        
+        art_devBricks()
 
         print("     Avalible Commands:")
         print('     -------------------------------------------------------')
@@ -1963,6 +2064,7 @@ while (loop):
         print('     {7}: Quick Generate World (DO NOT USE if 3-6 were used!)')
         print('     {8}: Add Gold Tool (for testing!)')
         print('     {9}: World Map Diagnostic (Only run after step 3 or 7)')
+        print('     {10}: World Map River Tool')
         print('     --------------------------------------------------------')
         print('     Note: To quick generate a world, just hit 7. To go step ')
         print('           by step, start at 3 and proceed without using 7!  ')
@@ -1997,6 +2099,9 @@ while (loop):
         if command == '9':
             screen = 'devTestWorldMapDiagnostics'
 
+        if command == '10':
+            screen = 'devTestRiverTool'
+
 
 #This is a "secret" page that you can use to create default Fiefdoms
 #to seed your installation with land that can be taken.
@@ -2004,8 +2109,8 @@ while (loop):
 #It should be taken out if you ever open this game up to many players
 #----------------------------------------------------------------------------------
     if screen == "devTestCreateDefaults":
-
         os.system("clear")
+
         print('Seeding the world with default fiefdoms')
 
         names = ['Razor Hills', 'Forest of Fado', 'Emerald Cove', 'Stormgrove',
@@ -2029,16 +2134,16 @@ while (loop):
 #It should be taken out if you ever open this game up to many players
 #----------------------------------------------------------------------------------
     if screen == "devTestAddGold":
-
         os.system("clear")
+
         print('Adding Funds!...')
 
         userStronghold.gold = str(int(userStronghold.gold) + 1000000)
         userStronghold.write()
 
-        time.sleep(2)
+        time.sleep(0.5)
         print('...Funds Added!')
-
+        time.sleep(0.5)
         screen = 'devTest'
 
 #This is a devtool for making the world map for a server
@@ -2046,7 +2151,6 @@ while (loop):
 #It eventually needs to be accessed in another way
 #----------------------------------------------------------------------------------
     if screen == "devTestWorldMap":
-
         os.system("clear")
 
         serverMap.name = 'serverMap'
@@ -2153,6 +2257,17 @@ while (loop):
 
         nothing = input('Continue:')
 
+        screen = 'devTest'
+
+#This allows you to add rivers to a map
+#-----------------------------------------------------------------------------------
+    if screen == "devTestRiverTool":
+        os.system("clear")
+        serverMap.read()
+        GenerateRivers(serverMap)
+
+        nothing = input('Continue:')
+        
         screen = 'devTest'
 
     '''

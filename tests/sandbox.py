@@ -1,89 +1,14 @@
-# from _typeshed import ReadableBuffer
 import os
 import time
 import random
 
-#this is the d20 roll function
-def roll(mod):
-    d20 = random.randint(1, 20)
-    return d20 + mod
+#=====================================================
+#   This file contains classes that allow users to
+#   view the world generator and dev tools safely
+#=====================================================
 
-#define biome globals:
-MOUNTAIN = 'M'
-FOREST = '^'
-PLAINS = '#'
-
-#define some text colors
-class textColor:
-    RED = '\033[91m'
-    GREEN = '\033[92m'
-    RESET = '\033[0m'
-    DIM = '\033[2m'
-    MAGENTA = '\033[95m'
-    BLUE = '\033[94m'
-    CYAN = '\033[96m'
-    WARNING = '\033[93m'
-    YELLOW = '\033[33m'
-    DARK_GRAY = '\033[90m'
-    LIGHT_GRAY = '\033[37m'
-    PURPLE = "\033[0;95m"
-    ORANGE = "\u001b[38;5;208m"
-    BROWN = "\u001b[38;5;216m"
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
-
-def biomeColor(biome):
-    if biome == MOUNTAIN:
-        return textColor.DARK_GRAY
-    elif biome == FOREST:
-        return textColor.GREEN
-    elif biome == PLAINS:
-        return textColor.YELLOW
-
-def strongholdColor(color):
-    if color == 'red':
-        return textColor.RED
-    if color == 'green':
-        return textColor.GREEN
-    if color == 'magenta':
-        return textColor.MAGENTA
-    if color == 'white':
-        return textColor.BOLD
-    if color == 'blue':
-        return textColor.BLUE
-    if color == 'yellow':
-        return textColor.YELLOW
-    if color == 'cyan':
-        return textColor.CYAN
-    if color == 'gray':
-        return textColor.DARK_GRAY
-
-    
-
-
-def FirstLaunch():
-    try:
-        with open('settings.txt', 'r+') as settingsFile:
-            # print('Opened settings.txt')
-            line = settingsFile.readline().strip()
-            if line.endswith('no'):
-                # print('Settings.txt ends with no.')
-                settingsFile.seek(0)
-                # print('Attempting to write over line')
-                settingsFile.write('Map Initialized: yes')
-                # print('Wrote over the line!')
-                settingsFile.close()
-                return True
-            else:
-                # print('Settings did not end in no!')
-                settingsFile.close()
-                return False
-    except:
-        print('Error, something wrong with settings.txt!')
-        return False
-    
 #the fiefdom class holds variables that define a player's stats
-class Fiefdom:
+class TestFiefdom:
     name = 'Default Fiefdom'
     ruler = 'Unclaimed'
     home = False
@@ -104,12 +29,11 @@ class Fiefdom:
 
     #take the current fiefdom and write it to the /fiefs directory
     def write(self):
-        fiefFile = 'fiefs/' + self.name + '.txt'
+        fiefFile = 'testFiefs/' + self.name + '.txt'
         
         #this part creates a file if it isn't made yet        
         try:
             with open(fiefFile, 'x') as f:
-
                 f.write(self.name + '\n')
                 f.write(self.ruler + '\n')
                 f.write(str(self.home) + '\n')
@@ -155,7 +79,7 @@ class Fiefdom:
 
     #read class variables line by line
     def read(self):
-        fiefFile = 'fiefs/' + self.name + '.txt'
+        fiefFile = 'testFiefs/' + self.name + '.txt'
         try:
             with open(fiefFile, 'r') as f:
                 self.name = f.readline().strip()
@@ -182,7 +106,7 @@ class Fiefdom:
         self.xCoordinate = coordinates[1]
             
 #SW: I am splitting this to safely determine if it is necessary to keep the above stuff or not
-class Stronghold:
+class TestStronghold:
     name = 'Default Stronghold'
     ruler = 'Unclaimed'
     home = False
@@ -204,7 +128,7 @@ class Stronghold:
 
     #take the current stronghold and write it to the /strongholds directory
     def write(self):
-        strongholdFile = 'strongholds/' + self.name + '.txt'
+        strongholdFile = 'testStrongholds/' + self.name + '.txt'
         
         #this part creates a file if it isn't made yet        
         try:
@@ -256,7 +180,7 @@ class Stronghold:
 
     #read class variables line by line
     def read(self):
-        strongholdFile = 'strongholds/' + self.name + '.txt'
+        strongholdFile = 'testStrongholds/' + self.name + '.txt'
         try:
             with open(strongholdFile, 'r') as f:
                 self.name = f.readline().strip()
@@ -284,7 +208,7 @@ class Stronghold:
         self.yCoordinate = coordinates[0]
         self.xCoordinate = coordinates[1]
 
-class Map:
+class TestMap:
     seed = '00555'
     name = 'default'
     width = 5
@@ -311,7 +235,7 @@ class Map:
     #   [worldMap ROW 3], [...], [worldMap ROW height]
     #--------------------------------------------------------------------------------------------------------------
     def write(self):
-        mapFile = 'map/' + self.name + '.txt'
+        mapFile = 'maps/' + self.name + '.txt'
         
         #this part creates a file if it isn't made yet. SW: This has not been tested.
         try:
@@ -379,7 +303,7 @@ class Map:
     #   Then, each row of the map is loaded into the worldMap 2d-list.
     #--------------------------------------------------------------------------------------------------------------
     def read(self):
-        mapFile = 'map/' + self.name + '.txt'
+        mapFile = 'maps/' + self.name + '.txt'
         try:
             readMapFile = open(mapFile, 'r')
             readList = eval(readMapFile.read())
@@ -410,16 +334,6 @@ class Map:
             self.usedPlains = str(self.values[8]).lstrip("['").rstrip("']")
             self.usedForests = str(self.values[9]).lstrip("['").rstrip("']")
             self.usedMountains = str(self.values[10]).lstrip("['").rstrip("']")
-            # print('seed: ' + str(self.seed))
-            # print('width: ' + str(self.width))
-            # print('height: ' + str(self.height))
-            # print('numWater: ' + str(self.numWater))
-            # print('numPlains: ' + str(self.numPlains))
-            # print('numForests: ' + str(self.numForests))
-            # print('numMountains: ' + str(self.numMountains))
-            # print('usedPlains: ' + str(self.usedPlains))
-            # print('usedForests: ' + str(self.usedForests))
-            # print('usedMountains: ' + str(self.usedMountains))
 
     def selfDiagnostic(self):
         print('Running diagnostic on map class...')
@@ -436,7 +350,3 @@ class Map:
         print('usedPlains: ' + str(self.usedPlains))
         print('usedForests: ' + str(self.usedForests))
         print('usedMountains: ' + str(self.usedMountains))
-        # print('worldMap:')
-        # print(*self.worldMap)
-
-#eof
