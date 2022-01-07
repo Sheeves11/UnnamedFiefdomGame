@@ -1,4 +1,4 @@
-from _typeshed import ReadableBuffer
+# from _typeshed import ReadableBuffer
 import os
 import time
 import random
@@ -39,7 +39,7 @@ def biomeColor(biome):
         return textColor.GREEN
     elif biome == PLAINS:
         return textColor.YELLOW
-        
+
 def strongholdColor(color):
     if color == 'red':
         return textColor.RED
