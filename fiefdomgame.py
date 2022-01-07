@@ -1982,6 +1982,7 @@ while (loop):
         time.sleep(3)
         GenerateRivers(testMap)
 
+        time.sleep(1)
         nothing = input('\nContinue:')
 
         screen = 'sandboxMenu'

@@ -34,7 +34,6 @@ class TestFiefdom:
         #this part creates a file if it isn't made yet        
         try:
             with open(fiefFile, 'x') as f:
-
                 f.write(self.name + '\n')
                 f.write(self.ruler + '\n')
                 f.write(str(self.home) + '\n')
@@ -236,7 +235,7 @@ class TestMap:
     #   [worldMap ROW 3], [...], [worldMap ROW height]
     #--------------------------------------------------------------------------------------------------------------
     def write(self):
-        mapFile = '/maps' + self.name + '.txt'
+        mapFile = 'maps/' + self.name + '.txt'
         
         #this part creates a file if it isn't made yet. SW: This has not been tested.
         try:
