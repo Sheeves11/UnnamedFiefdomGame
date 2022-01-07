@@ -1898,7 +1898,7 @@ while (loop):
         print('''      {5}: Magenta   '''+textColor.MAGENTA+'''#'''+textColor.RESET+''' ''')
         print('''      {6}: Cyan      '''+textColor.CYAN+'''#'''+textColor.RESET+''' ''')
         print('''      {7}: White     '''+textColor.BOLD+'''#'''+textColor.RESET+''' ''')
-        print('''      {8}: Gray      '''+textColor.GRAY+'''#'''+textColor.RESET+''' ''')
+        print('''      {8}: Gray      '''+textColor.DARK_GRAY+'''#'''+textColor.RESET+''' ''')
         print('      {9}: Leave color as is')
         print('      -------------------------------------')
         print('\n')
