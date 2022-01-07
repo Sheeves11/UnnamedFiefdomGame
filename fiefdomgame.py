@@ -8,7 +8,7 @@ from classes import *
 from worldmap import *
 from os.path import exists
 from art import *
-from .. import sandbox
+from tests.sandbox import *
 
 '''
 
