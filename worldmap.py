@@ -1,6 +1,7 @@
 import os
 import time
 import random
+from tests.sandbox import *
 from classes import *
 
 #--------------------------------------------------------------------------------------------------------------
@@ -1848,5 +1849,23 @@ def GenerateSeed():
     seed += str(biomeForest)
 
     return seed
+
+
+
+#--------------------------------------------------------------------------------------------------------------
+#   [TestPlotAllFiefs]
+#   Parameters: mapClass
+#   Test Function - Plots all fief files on the world map
+#--------------------------------------------------------------------------------------------------------------
+def TestPlotAllFiefs(mapClass):
+    for filename in os.listdir('tests/testfiefs'):
+        with open(os.path.join('tests/testfiefs', filename), 'r') as f:
+            time.sleep(0.3)
+            os.system("clear")
+            fiefClass = filename[:-4]
+            fiefClass = TestFiefdom()
+            fiefClass.name = filename[:-4]
+            fiefClass.read()
+            QuietlyPlaceFiefInWorldMap(fiefClass, mapClass)
 
 #eof

@@ -1,0 +1,18 @@
+testStronghold1
+testStronghold1
+True
+100
+500
+0
+Open Camp
+0
+Angry Mob
+1
+1
+Dirt Patch
+0
+0
+0
+0
+False
+red

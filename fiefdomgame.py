@@ -8,6 +8,7 @@ from classes import *
 from worldmap import *
 from os.path import exists
 from art import *
+from .. import sandbox
 
 '''
 
@@ -1950,13 +1951,34 @@ while (loop):
         if command == "1":
             screen = "stronghold"
         if command == "2":
-            screen = "sandboxMenu"
+            screen = "sbTestMap"
         if command == "3":
             screen = "sandboxMenu"
         if command == "4":
             screen = "sandboxMenu"
         if command == "5":
             screen = "sandboxMenu"
+
+#This is the about page for the game. Keep it updated
+#------------------------------------------------------------------------------
+    if screen == "sbTestMap":
+        os.system("clear")
+        testMap = TestMap()
+        testMap.name = 'testMap'
+        testMap.seed = GenerateSeed()
+        testMap.height = MAP_HEIGHT
+        testMap.width = MAP_WIDTH
+        testMap.worldMap = GenerateWorldMap(testMap.seed)
+        SetBiomeCounts(testMap)
+        testMap.write()
+
+        print('\n')
+        PrintColorMap(testMap.worldMap)
+
+        nothing = input('\nContinue:')
+
+        screen = 'sandboxMenu'
+
 
 #This is the new devtest menu with all the devtest commands sorted out and neat
 #------------------------------------------------------------------------------
