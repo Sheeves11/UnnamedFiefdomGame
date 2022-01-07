@@ -2,6 +2,7 @@ import os
 import time
 import random
 from classes import *
+from art import *
 
 '''
 Welcome to the Unnamed Fiefdom Game!

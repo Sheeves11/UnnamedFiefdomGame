@@ -80,6 +80,7 @@ class Fiefdom:
     biome = '0'
     xCoordinate = 0
     yCoordinate = 0
+    nearWater = False
 
     #take the current fiefdom and write it to the /fiefs directory
     def write(self):
@@ -105,6 +106,7 @@ class Fiefdom:
                 f.write(str(self.biome) + '\n')
                 f.write(str(self.xCoordinate) + '\n')
                 f.write(str(self.yCoordinate) + '\n')
+                f.write(str(self.nearWater) + '\n')
         except:
             pass
 
@@ -127,6 +129,7 @@ class Fiefdom:
                 f.write(str(self.biome) + '\n')
                 f.write(str(self.xCoordinate) + '\n')
                 f.write(str(self.yCoordinate) + '\n')
+                f.write(str(self.nearWater) + '\n')
         except:
             pass
 
@@ -151,6 +154,7 @@ class Fiefdom:
                 self.biome = f.readline().strip()
                 self.xCoordinate = f.readline().strip()
                 self.yCoordinate = f.readline().strip()
+                self.nearWater = f.readline().strip()
         except:
             self.write()   
     def setCoordinates(self, coordinates):
@@ -175,6 +179,7 @@ class Stronghold:
     biome = '0'
     xCoordinate = 0
     yCoordinate = 0
+    nearWater = False
 
     #take the current stronghold and write it to the /strongholds directory
     def write(self):
@@ -199,6 +204,7 @@ class Stronghold:
                 f.write(str(self.biome) + '\n')
                 f.write(str(self.xCoordinate) + '\n')
                 f.write(str(self.yCoordinate) + '\n')
+                f.write(str(self.nearWater) + '\n')
         except:
             pass
 
@@ -221,6 +227,7 @@ class Stronghold:
                 f.write(str(self.biome) + '\n')
                 f.write(str(self.xCoordinate) + '\n')
                 f.write(str(self.yCoordinate) + '\n')
+                f.write(str(self.nearWater) + '\n')
         except:
             pass
 
@@ -245,6 +252,7 @@ class Stronghold:
                 self.biome = f.readline().strip()
                 self.xCoordinate = f.readline().strip()
                 self.yCoordinate = f.readline().strip()
+                self.nearWater = f.readline().strip()
         except:
             self.write()     
 

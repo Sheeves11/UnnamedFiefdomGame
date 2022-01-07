@@ -46,6 +46,7 @@ attackFief = Fiefdom()
 userStronghold = Stronghold()
 attackStronghold = Stronghold()
 serverMap = Map()
+testMap = Map() #This is for users to have fun messing with the map generator
 firstMapRead = True
 newUserAccount = False
 
@@ -866,12 +867,15 @@ while (loop):
         print("      Avalible Commands:")
         print('      -------------------------------------')
         print('      {1}: Return to Stronghold')
+        print('      {2}: Check Out the Map Generator')
         print('      -------------------------------------')
         print('\n')
         command = input("      Enter your command: ")
 
         if command == "1":
             screen = "stronghold"
+        if command == "2":
+            screen = "sandboxMenu"
 
 #This is the features page for the game. Keep it updated
 #------------------------------------------------------------------------------
@@ -1928,6 +1932,34 @@ while (loop):
         if str(attackFief.ruler) != str(userStronghold.ruler):
             screen = "details"
 
+#This is the about page for the game. Keep it updated
+#------------------------------------------------------------------------------
+    if screen == "sandboxMenu":
+        os.system("clear")
+
+        header()
+        print('\n\n')
+
+        print('''
+
+
+
+        ''')
+
+        print('\n\n\n\n\n')
+        print("      Avalible Commands:")
+        print('      -------------------------------------')
+        print('      {1}: Return to Stronghold')
+        print('      {2}: Generate a Test Map')
+        print('      {2}: Add Rivers')
+        print('      -------------------------------------')
+        print('\n')
+        command = input("      Enter your command: ")
+
+        if command == "1":
+            screen = "stronghold"
+        if command == "2":
+            screen = "sandboxMenu"
 
 #This is the new devtest menu with all the devtest commands sorted out and neat
 #------------------------------------------------------------------------------
