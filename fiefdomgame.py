@@ -200,6 +200,7 @@ while (loop):
         print('     ' + 'Production: ' + str(productionCalc) + ' gold and ' + str((int(defenderOutput) * int(attackFief.defenderMod))) + ' soldiers per hour.')
         print('     Your army of ' + textColor.WARNING + str(userStronghold.attType) + textColor.RESET + ' stands ready.')
         print('\n')
+        
         art_stronghold(userStronghold.biome, userStronghold.color)
 
         print("     Avalible Commands:")
