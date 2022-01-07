@@ -60,42 +60,9 @@ while (loop):
     # - Add password encryption
     if screen == "login":
         os.system("clear")
-        print(textColor.WARNING + '''
- _    _                                      _   ______ _       __    _                    _____
-| |  | |                                    | | |  ____(_)     / _|  | |                  / ____|
-| |  | |_ __  _ __   __ _ _ __ ___   ___  __| | | |__   _  ___| |_ __| | ___  _ __ ___   | |  __  __ _ _ __ ___   ___
-| |  | | '_ \| '_ \ / _` | '_ ` _ \ / _ \/ _` | |  __| | |/ _ \  _/ _` |/ _ \| '_ ` _ \  | | |_ |/ _` | '_ ` _ \ / _ `
-| |__| | | | | | | | (_| | | | | | |  __/ (_| | | |    | |  __/ || (_| | (_) | | | | | | | |__| | (_| | | | | | |  __/
- \____/|_| |_|_| |_|\__,_|_| |_| |_|\___|\__,_| |_|    |_|\___|_| \__,_|\___/|_| |_| |_|  \_____|\__,_|_| |_| |_|\___|
 
-~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
-        ''' + textColor.RESET + '''
-                                                  ,--,  ,.-.
-                                   ,                   \,       '-,-`,'-.' | ._
-                                  /|           \    ,   |\         }  )/  / `-,',
-                                  [ ,          |\  /|   | |        /  \|  |/`  ,`
-                                  | |       ,.`  `,` `, | |  _,...(   (      .',
-                                  \  \  __ ,-` `  ,  , `/ |,'      Y     (   /_L|
-                                   \  \_\,``,   ` , ,  /  |         )         _,/
-                                    \  '  `  ,_ _`_,-,<._.<        /         /
-                                     ', `>.,`  `  `   ,., |_      |         /
-                                       \/`  `,   `   ,`  | /__,.-`    _,   `|
-                                   -,-..\  _  \  `  /  ,  / `._) _,-\`       |
-                                    \_,,.) /\    ` /  / ) (-,, ``    ,        |
-                                   ,` )  | \_\       '-`  |  `(               |
-                                  /  /```(   , --, ,' \   |`<`    ,            |
-                                 /  /_,--`\   <\  V /> ,` )<_/)  | \      _____)
-                           ,-, ,`   `   (_,\ \    |   /) / __/  /   `----`
-                          (-, \           ) \ ('_.-._)/ /,`    /
-                          | /  `          `/    V   V, /`     /
-                       ,--\(        ,     <_/`       ||      /
-                      (   ,``-     \/|         \-A.A-`|     /
-                     ,>,_ )_,..(    )\          -,,_-`  _--`
-                    (_ \|`   _,/_  /  \_            ,--`
-                     \( `   <.,../`     `-.._   _,-`    ''' + textColor.WARNING + '''
+        art_titleScreen()
 
-~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~
-        ''')
         print(textColor.RESET + '''
                 Welcome to the Unnamed Fiefdom Game!
 
@@ -233,31 +200,13 @@ while (loop):
         print('     ' + 'Production: ' + str(productionCalc) + ' gold and ' + str((int(defenderOutput) * int(attackFief.defenderMod))) + ' soldiers per hour.')
         print('     Your army of ' + textColor.WARNING + str(userStronghold.attType) + textColor.RESET + ' stands ready.')
         print('\n')
-        print('''
-                                            |>>>                        |>>>
-                                            |                           |
-                                        _  _|_  _                   _  _|_  _
-                                       | |_| |_| |                 | |_| |_| |
-                                       \  .      /                 \ .    .  /
-                                        \    ,  /                   \    .  /
-                                         | .   |_   _   _   _   _   _| ,   |
-                                         |    .| |_| |_| |_| |_| |_| |  .  |
-                                         | ,   | .    .     .      . |    .|
-                                         |   . |  .     . .   .  ,   |.    |
-                             ___----_____| .   |.   ,  _______   .   |   , |---~_____
-                        _---~            |     |  .   /+++++++\    . | .   |         ~---_
-                                         |.    | .    |+++++++| .    |   . |              ~-_
-                                      __ |   . |   ,  |+++++++|.  . _|__   |                 ~-_
-                             ____--`~    '--~~__ .    |++++ __|----~    ~`---,              ___^~-__
-                        -~--~                   ~---__|,--~'                  ~~----_____-~'   `~----~
-
-                ''')
+        art_stronghold(userStronghold.biome, userStronghold.color)
 
         print("     Avalible Commands:")
         print('     -------------------------------------------------------')
         print('     {1}: View Nearby Fiefdoms        {9}: Hire Thieves')
         print('     {2}: Hire Mercenaries            {10}: View World Map')
-        print('     {3}: Upgrade Attack')
+        print('     {3}: Upgrade Attack              {11}: Stronghold Color')
         print('     {4}: Garrison Soldiers')
         print('     {5}: About')
         print('     {6}: Upcoming Features')
@@ -297,12 +246,12 @@ while (loop):
 
         if command == '10':
             screen = 'viewMapYourStronghold'
-        
-        #The following commands are for testing only!
-        if command == 'devtest':
-            screen = 'devTest'
 
-        if command == 'dt': #SW: because I'm lazy
+        if command == '11':
+            screen = 'changeStrongholdColor'
+        
+        #The following command is for testing only!
+        if command == 'devtest' or command == 'dt':
             screen = 'devTest'
 
 #This is the screen for the message board.
@@ -1940,11 +1889,7 @@ while (loop):
         header()
         print('\n\n')
 
-        print('''
-
-
-
-        ''')
+        art_globe()
 
         print('\n\n\n\n\n')
         print("      Avalible Commands:")
@@ -1971,19 +1916,8 @@ while (loop):
 
         print('     Welcome to the dev test menu. This should only be used for testing purposes.')
         print('\n')
-        print('''
-            ___                                                                  _
-           /__/|__                                                            __//|
-           |__|/_/|__                   D E V T E S T                       _/_|_||
-           |_|___|/_/|__                                                 __/_|___||
-           |___|____|/_/|__                                           __/_|____|_||
-           |_|___|_____|/_/|_________________________________________/_|_____|___||
-           |___|___|__|___|/__/___/___/___/___/___/___/___/___/___/_|_____|____|_||
-           |_|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___||
-           |___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|_||
-           |_|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|/
-
-                ''')
+        
+        art_devBricks()
 
         print("     Avalible Commands:")
         print('     -------------------------------------------------------')

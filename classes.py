@@ -1,3 +1,4 @@
+from _typeshed import ReadableBuffer
 import os
 import time
 import random
@@ -38,7 +39,25 @@ def biomeColor(biome):
         return textColor.GREEN
     elif biome == PLAINS:
         return textColor.YELLOW
+def strongholdColor(color):
+    if color == 'red':
+        return textColor.RED
+    if color == 'green':
+        return textColor.GREEN
+    if color == 'magenta':
+        return textColor.MAGENTA
+    if color == 'white':
+        return textColor.BOLD
+    if color == 'blue':
+        return textColor.BLUE
+    if color == 'yellow':
+        return textColor.YELLOW
+    if color == 'cyan':
+        return textColor.CYAN
+    if color == 'gray':
+        return textColor.DARK_GRAY
 
+    
 
 
 def FirstLaunch():
@@ -180,6 +199,7 @@ class Stronghold:
     xCoordinate = 0
     yCoordinate = 0
     nearWater = False
+    color = 'red'
 
     #take the current stronghold and write it to the /strongholds directory
     def write(self):
@@ -205,6 +225,7 @@ class Stronghold:
                 f.write(str(self.xCoordinate) + '\n')
                 f.write(str(self.yCoordinate) + '\n')
                 f.write(str(self.nearWater) + '\n')
+                f.write(str(self.color) + '\n')
         except:
             pass
 
@@ -228,6 +249,7 @@ class Stronghold:
                 f.write(str(self.xCoordinate) + '\n')
                 f.write(str(self.yCoordinate) + '\n')
                 f.write(str(self.nearWater) + '\n')
+                f.write(str(self.color) + '\n')
         except:
             pass
 
@@ -253,6 +275,7 @@ class Stronghold:
                 self.xCoordinate = f.readline().strip()
                 self.yCoordinate = f.readline().strip()
                 self.nearWater = f.readline().strip()
+                self.color = f.readline().strip()
         except:
             self.write()     
 
