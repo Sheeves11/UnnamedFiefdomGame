@@ -1325,9 +1325,9 @@ while (loop):
         print("\n\n")
         print('Now viewing the Fiefdom of ' + attackFief.name)
         print('\n\n')
-        time.sleep(1)
+        time.sleep(0.5)
         print(attackFief.name + ' has ' + attackFief.defenders + ' fighters.')
-        time.sleep(1)
+        time.sleep(0.5)
         print('\n')
 
         withdrawNum = input('Enter the number of soldiers you would like to return home: ')
@@ -1891,14 +1891,14 @@ while (loop):
         print('\n\n\n\n\n')
         print("      Choose a Stronghold Color:")
         print('      -------------------------------------')
-        print('      {1}: Red')
-        print('      {2}: Green')
-        print('      {3}: Blue')
-        print('      {4}: Yellow')
-        print('      {5}: Magenta')
-        print('      {6}: Cyan')
-        print('      {7}: White')
-        print('      {8}: Gray')
+        print('''      {1}: Red       '''+textColor.RED+'''#'''+textColor.RESET+''' ''')
+        print('''      {2}: Green     '''+textColor.GREEN+'''#'''+textColor.RESET+''' ''')
+        print('''      {3}: Blue      '''+textColor.BLUE+'''#'''+textColor.RESET+''' ''')
+        print('''      {4}: Yellow    '''+textColor.YELLOW+'''#'''+textColor.RESET+''' ''')
+        print('''      {5}: Magenta   '''+textColor.MAGENTA+'''#'''+textColor.RESET+''' ''')
+        print('''      {6}: Cyan      '''+textColor.CYAN+'''#'''+textColor.RESET+''' ''')
+        print('''      {7}: White     '''+textColor.BOLD+'''#'''+textColor.RESET+''' ''')
+        print('''      {8}: Gray      '''+textColor.GRAY+'''#'''+textColor.RESET+''' ''')
         print('      {9}: Leave color as is')
         print('      -------------------------------------')
         print('\n')
@@ -1906,19 +1906,19 @@ while (loop):
 
         if command == "1":
             userStronghold.color = 'red'
-        if command == "1":
+        if command == "2":
             userStronghold.color = 'green'
-        if command == "1":
+        if command == "3":
             userStronghold.color = 'blue'
-        if command == "1":
+        if command == "4":
             userStronghold.color = 'yellow'
-        if command == "1":
+        if command == "5":
             userStronghold.color = 'magenta'
-        if command == "1":
+        if command == "6":
             userStronghold.color = 'cyan'
-        if command == "1":
+        if command == "7":
             userStronghold.color = 'white'
-        if command == "1":
+        if command == "8":
             userStronghold.color = 'gray'
         
         userStronghold.write()
@@ -1940,7 +1940,9 @@ while (loop):
         print('      -------------------------------------')
         print('      {1}: Return to Stronghold')
         print('      {2}: Generate a Test Map')
-        print('      {2}: Add Rivers')
+        print('      {3}: Add Rivers to Test Map')
+        print('      {4}: Create Custom Fiefs')
+        print('      {5}: Add Fiefs to Test Map')
         print('      -------------------------------------')
         print('\n')
         command = input("      Enter your command: ")
@@ -1948,6 +1950,12 @@ while (loop):
         if command == "1":
             screen = "stronghold"
         if command == "2":
+            screen = "sandboxMenu"
+        if command == "3":
+            screen = "sandboxMenu"
+        if command == "4":
+            screen = "sandboxMenu"
+        if command == "5":
             screen = "sandboxMenu"
 
 #This is the new devtest menu with all the devtest commands sorted out and neat
