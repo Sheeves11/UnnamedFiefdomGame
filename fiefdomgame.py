@@ -1934,7 +1934,7 @@ while (loop):
         header()
         print('\n\n')
 
-        print('Welcome to the Sandbox Menu, where uses can play with the map generator!')
+        print('     Welcome to the Sandbox Menu, where uses can play with the map generator!')
 
         art_globe()
 
@@ -1966,6 +1966,8 @@ while (loop):
     if screen == "sbTestMap":
         os.system("clear")
         
+        TestResetFiefCoordinates()
+
         testMap.name = 'testMap'
         testMap.seed = GenerateSeed()
         testMap.height = MAP_HEIGHT
@@ -2011,8 +2013,9 @@ while (loop):
     if screen == "sbPlotTestFiefs":
         os.system("clear")
 
+        testMap.name = 'testMap'
         testMap.read()
-        TestResetFiefCoordinates()
+        
         TestPlotAllFiefs(testMap)
 
         time.sleep(1)
@@ -2025,6 +2028,7 @@ while (loop):
     if screen == "sbViewMap":
         os.system("clear")
         
+        testMap.name = 'testMap'
         testMap.read()
         
         print('Current Test Map:')
