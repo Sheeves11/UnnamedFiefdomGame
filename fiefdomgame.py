@@ -189,8 +189,7 @@ while (loop):
             serverMap.name = 'serverMap'
             serverMap.read()
             SilentlyPlaceStrongholdInWorldMap(userStronghold, serverMap)
-            print('User biome is: ' + str(userStronghold.biome))
-            userStronghold.write()
+            # userStronghold.write()
             serverMap.read()
             newUserAccount = False
 
