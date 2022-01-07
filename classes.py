@@ -39,6 +39,7 @@ def biomeColor(biome):
         return textColor.GREEN
     elif biome == PLAINS:
         return textColor.YELLOW
+        
 def strongholdColor(color):
     if color == 'red':
         return textColor.RED
