@@ -1852,6 +1852,99 @@ def GenerateSeed():
 
 
 
+
+
+
+
+#--------------------------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------------------
+#                                           TEST FUNCTIONS
+#--------------------------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------------------
+
+
+
+#--------------------------------------------------------------------------------------------------------------
+#   [TestCrossCheckFiefCoordinates]
+#   Parameters: coordinates
+#   Returns: True if no other fiefs have the same coordinates
+#
+#   Issues: This is a bit tedious, having to check each file this way. Another way to make this work could be
+#   to have an list stored in the Map object that contains tuples of coordinates that are occupied by fiefs.
+#   This way, strongholds could benefit from that as well. For now, I'm not so sure I want to mess with the 
+#   currently functional map class though after all the read/write woes. 
+#--------------------------------------------------------------------------------------------------------------
+def TestCrossCheckFiefCoordinates(coordinates):
+    
+    for filename in os.listdir('tests/testFiefs'):
+            with open(os.path.join('tests/testFiefs', filename), 'r') as f:
+                tempName = filename[:-4]
+                tempName = Fiefdom()
+                tempName.name = filename[:-4]
+                tempName.read()
+                # print('Cross checking with: ' + str(tempName.name))
+                if tempName.yCoordinate == coordinates[0] and tempName.xCoordinate == coordinates[1]:
+                    print('Error, same coordinates as ' + str(tempName.name) + '!')
+                    return False
+    return True
+
+#--------------------------------------------------------------------------------------------------------------
+#   [TestQuietlyPlaceFiefInWorldMap]
+#   Parameters: fiefClass, mapClass
+#
+#   Test Function - Sets a fief's biome based on the fief's name. If no match is found, the fief is assigned a 
+#   random biome instead. This version doesn't print as much diagnostic stuff.
+#--------------------------------------------------------------------------------------------------------------
+def TestQuietlyPlaceFiefInWorldMap(fiefClass, mapClass):
+    if (fiefClass.biome == '0') and (fiefClass.name != 'Default Fiefdom'):
+        DefineFiefBiome(fiefClass)
+        remaining = 0
+        cycle = 0
+        pickingPoint = 0
+        spotFound = False
+
+        #Check if there are still biome slots open for a particular biome.
+        #If none are available, then change the fief's biome and try again.
+        #If there aren't any open spots at all, then stop the loop.
+        while remaining == 0 and cycle < 4:
+            remaining = CheckRemainingBiomes(fiefClass.biome, mapClass)
+            if remaining == 0:
+                fiefClass.biome = CycleBiome(fiefClass.biome)
+                cycle += 1
+        if cycle > 3:
+            print('Error, no more room for fiefs left on this map!')
+        else:
+            while pickingPoint < 10:    #Tries to get a point. Fails if it manages to select an occupied point 10 times.
+                #Select one of the available biomes at random
+                point = GetRandomPointByBiome(fiefClass.biome, mapClass)
+                #If a biome was found:
+                if point > 0:
+                    coordinates = GetPointCoordinates(fiefClass.biome, point, mapClass.worldMap)
+
+                    if TestCrossCheckFiefCoordinates(coordinates):
+                        print(*coordinates)
+                        fiefClass.setCoordinates(coordinates)
+                        UpdateUsedBiomes(fiefClass.biome, mapClass)
+                        InsertFiefAtLocation(fiefClass.yCoordinate, fiefClass.xCoordinate, mapClass)
+                        
+                        PrintColorMap(mapClass.worldMap)
+
+                        fiefClass.write()
+                        pickingPoint = 10
+                        spotFound = True
+                    else:
+                        pickingPoint += 1
+            if spotFound == False:
+                print("Error, couldn't find an empty spot!")
+    else:
+        if fiefClass.name == 'Default Fiefdom':
+            print("That fiefdom doesn't exist!")
+        else:
+            print(str(fiefClass.name) + ' is already on the map!')
+
+
 #--------------------------------------------------------------------------------------------------------------
 #   [TestPlotAllFiefs]
 #   Parameters: mapClass
@@ -1860,13 +1953,13 @@ def GenerateSeed():
 def TestPlotAllFiefs(mapClass):
     for filename in os.listdir('tests/testFiefs'):
         with open(os.path.join('tests/testFiefs', filename), 'r') as f:
-            time.sleep(0.3)
+            time.sleep(1)
             os.system("clear")
             fiefClass = filename[:-4]
             fiefClass = TestFiefdom()
             fiefClass.name = filename[:-4]
             fiefClass.read()
-            QuietlyPlaceFiefInWorldMap(fiefClass, mapClass)
+            TestQuietlyPlaceFiefInWorldMap(fiefClass, mapClass)
 
 
 #--------------------------------------------------------------------------------------------------------------
@@ -1880,7 +1973,6 @@ def TestResetFiefCoordinates():
             fiefClass = filename[:-4]
             fiefClass = TestFiefdom()
             fiefClass.name = filename[:-4]
-            fiefClass.read()
             fiefClass.biome = '0'
             fiefClass.xCoordinate = 0
             fiefClass.yCoordinate = 0
