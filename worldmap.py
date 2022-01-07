@@ -1868,4 +1868,23 @@ def TestPlotAllFiefs(mapClass):
             fiefClass.read()
             QuietlyPlaceFiefInWorldMap(fiefClass, mapClass)
 
+
+#--------------------------------------------------------------------------------------------------------------
+#   [TestResetFiefCoordinates]
+#   Parameters: mapClass
+#   Test Function - Resets the coordinates of all fiefs so that they can be placed again.
+#--------------------------------------------------------------------------------------------------------------
+def TestResetFiefCoordinates():
+    for filename in os.listdir('tests/testfiefs'):
+        with open(os.path.join('tests/testfiefs', filename), 'r') as f:
+            fiefClass = filename[:-4]
+            fiefClass = TestFiefdom()
+            fiefClass.name = filename[:-4]
+            fiefClass.read()
+            fiefClass.biome = '0'
+            fiefClass.xCoordinate = 0
+            fiefClass.yCoordinate = 0
+            fiefClass.nearWater = False
+            fiefClass.write()
+
 #eof

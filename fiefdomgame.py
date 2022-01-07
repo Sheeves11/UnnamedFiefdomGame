@@ -47,7 +47,7 @@ attackFief = Fiefdom()
 userStronghold = Stronghold()
 attackStronghold = Stronghold()
 serverMap = Map()
-testMap = Map() #This is for users to have fun messing with the map generator
+testMap = TestMap() #This is for users to have fun messing with the map generator
 firstMapRead = True
 newUserAccount = False
 
@@ -1934,6 +1934,8 @@ while (loop):
         header()
         print('\n\n')
 
+        print('Welcome to the Sandbox Menu, where uses can play with the map generator!')
+
         art_globe()
 
         print('\n\n\n\n\n')
@@ -1941,9 +1943,9 @@ while (loop):
         print('      -------------------------------------')
         print('      {1}: Return to Stronghold')
         print('      {2}: Generate a Test Map')
-        print('      {3}: Add Rivers to Test Map')
-        print('      {4}: Create Custom Fiefs')
-        print('      {5}: Add Fiefs to Test Map')
+        print('      {3}: Create Custom Fiefs')
+        print('      {4}: Add Fiefs to Test Map')
+        print('      {5}: View Test Map')
         print('      -------------------------------------')
         print('\n')
         command = input("      Enter your command: ")
@@ -1953,17 +1955,17 @@ while (loop):
         if command == "2":
             screen = "sbTestMap"
         if command == "3":
-            screen = "sandboxMenu"
+            screen = "sbCreateFief"
         if command == "4":
-            screen = "sandboxMenu"
+            screen = "sbPlotTestFiefs"
         if command == "5":
-            screen = "sandboxMenu"
+            screen = "sbViewMap"
 
-#This is the about page for the game. Keep it updated
+#This is a page where users can generate maps of their own
 #------------------------------------------------------------------------------
     if screen == "sbTestMap":
         os.system("clear")
-        testMap = TestMap()
+        
         testMap.name = 'testMap'
         testMap.seed = GenerateSeed()
         testMap.height = MAP_HEIGHT
@@ -1971,14 +1973,67 @@ while (loop):
         testMap.worldMap = GenerateWorldMap(testMap.seed)
         SetBiomeCounts(testMap)
         testMap.write()
+        
+        print('World Map:')
 
-        print('\n')
         PrintColorMap(testMap.worldMap)
+
+        print('\n Now generating rivers...')
+        time.sleep(2)
+        GenerateRivers(testMap)
 
         nothing = input('\nContinue:')
 
         screen = 'sandboxMenu'
 
+#This is a page where users can view the maps they generate
+#------------------------------------------------------------------------------
+    if screen == "sbCreateFief":
+        os.system("clear")
+        print('    Welcome to the fief creation tool!')
+        print('    Please be aware that other users may be able to see the fiefs you create!')
+        newFief = input('\n    Enter the name of your new fief: ')
+        testFief = TestFiefdom()
+        testFief.name = newFief
+        testFief.defenders = random.randint(10, 100)
+        testFief.gold = random.randint(500, 3100)
+        testFief.write()
+
+        print('    ' + str(testFief.name) + ' has been created!')
+        time.sleep(1)
+        nothing = input('\nContinue:')
+
+        screen = 'sandboxMenu'
+
+#This is a page where users can add fiefs to their test map
+#------------------------------------------------------------------------------
+    if screen == "sbPlotTestFiefs":
+        os.system("clear")
+
+        testMap.read()
+        TestResetFiefCoordinates()
+        TestPlotAllFiefs(testMap)
+
+        time.sleep(1)
+        nothing = input('\nContinue:')
+
+        screen = 'sandboxMenu'
+
+#This is a page where users can view the maps they generate
+#------------------------------------------------------------------------------
+    if screen == "sbViewMap":
+        os.system("clear")
+        
+        testMap.read()
+        
+        print('Current Test Map:')
+
+        PrintColorMap(testMap)
+
+        time.sleep(1)
+        nothing = input('\nContinue:')
+
+        screen = 'sandboxMenu'
 
 #This is the new devtest menu with all the devtest commands sorted out and neat
 #------------------------------------------------------------------------------
@@ -2049,8 +2104,8 @@ while (loop):
 #It should be taken out if you ever open this game up to many players
 #----------------------------------------------------------------------------------
     if screen == "devTestCreateDefaults":
-
         os.system("clear")
+
         print('Seeding the world with default fiefdoms')
 
         names = ['Razor Hills', 'Forest of Fado', 'Emerald Cove', 'Stormgrove',
@@ -2074,8 +2129,8 @@ while (loop):
 #It should be taken out if you ever open this game up to many players
 #----------------------------------------------------------------------------------
     if screen == "devTestAddGold":
-
         os.system("clear")
+
         print('Adding Funds!...')
 
         userStronghold.gold = str(int(userStronghold.gold) + 1000000)
@@ -2091,7 +2146,6 @@ while (loop):
 #It eventually needs to be accessed in another way
 #----------------------------------------------------------------------------------
     if screen == "devTestWorldMap":
-
         os.system("clear")
 
         serverMap.name = 'serverMap'
