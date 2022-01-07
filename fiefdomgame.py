@@ -1978,8 +1978,8 @@ while (loop):
 
         PrintColorMap(testMap.worldMap)
 
-        print('\n Now generating rivers...')
-        time.sleep(2)
+        print('\n Getting ready to generate rivers...')
+        time.sleep(3)
         GenerateRivers(testMap)
 
         nothing = input('\nContinue:')
@@ -2028,7 +2028,7 @@ while (loop):
         
         print('Current Test Map:')
 
-        PrintColorMap(testMap)
+        PrintColorMap(testMap.worldMap)
 
         time.sleep(1)
         nothing = input('\nContinue:')

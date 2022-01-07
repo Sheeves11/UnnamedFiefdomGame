@@ -1858,8 +1858,8 @@ def GenerateSeed():
 #   Test Function - Plots all fief files on the world map
 #--------------------------------------------------------------------------------------------------------------
 def TestPlotAllFiefs(mapClass):
-    for filename in os.listdir('tests/testfiefs'):
-        with open(os.path.join('tests/testfiefs', filename), 'r') as f:
+    for filename in os.listdir('tests/testFiefs'):
+        with open(os.path.join('tests/testFiefs', filename), 'r') as f:
             time.sleep(0.3)
             os.system("clear")
             fiefClass = filename[:-4]
@@ -1875,8 +1875,8 @@ def TestPlotAllFiefs(mapClass):
 #   Test Function - Resets the coordinates of all fiefs so that they can be placed again.
 #--------------------------------------------------------------------------------------------------------------
 def TestResetFiefCoordinates():
-    for filename in os.listdir('tests/testfiefs'):
-        with open(os.path.join('tests/testfiefs', filename), 'r') as f:
+    for filename in os.listdir('tests/testFiefs'):
+        with open(os.path.join('tests/testFiefs', filename), 'r') as f:
             fiefClass = filename[:-4]
             fiefClass = TestFiefdom()
             fiefClass.name = filename[:-4]
