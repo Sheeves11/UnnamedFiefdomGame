@@ -2081,7 +2081,9 @@ def SilentlyGenerateWorld(mapClass):
     SetBiomeCounts(mapClass)
     mapClass.write()
     # LoadingAnimation('Placing Fiefs and Strongholds')
+    mapClass.read()
     SilentlyGenerateRivers(mapClass)
+    mapClass.read()
     SilentlyPlotAllFiefs(mapClass)
     SilentlyPlotAllStrongholds(mapClass)
 
