@@ -1847,7 +1847,7 @@ while (loop):
         serverMap.name = "serverMap"
         serverMap.read()
 
-        ListSurroundings(serverMap.wMap, attackFief.xCoordinate, attackFief.yCoordinate)
+        ListSurroundings(serverMap.worldMap, attackFief.xCoordinate, attackFief.yCoordinate)
 
         print('')
         if int(attackFief.adjacentWater) > 0:
