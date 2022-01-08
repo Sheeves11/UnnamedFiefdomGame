@@ -1867,6 +1867,10 @@ def SilentlySimulateRivers(wMap, symbol, y, x):
         return wMap
     else:
         FLOOD_COUNTER += 1
+    
+    os.system("clear")
+    PrintColorMap(wMap)
+    time.sleep(0.1)
         
     surroundings = ScanSurroundings(wMap, x, y)
     dE = surroundings[2]
