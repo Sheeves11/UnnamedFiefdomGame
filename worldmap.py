@@ -1817,6 +1817,30 @@ def WorldMapLocation(yPos, xPos, mapClass):
     mapClass.worldMap[yPos][xPos] = tempIcon
 
 #--------------------------------------------------------------------------------------------------------------
+#   [ListSurroundings]
+#   Parameters: wMap, xPos, yPos
+#   Lists out the biomes surrounding the current location.
+#--------------------------------------------------------------------------------------------------------------
+def ListSurroundings(wMap, xPos, yPos):
+    surroundings = ScanSurroundings(wMap, xPos, yPos)
+    directions = ['North', 'North-East', 'East', 'South-East', 'South', 'South-West', 'West', 'North-West']
+    for i in range(len(surroundings)):
+        if surroundings[i] == WATER:
+            print('There is a lake to the ' + directions[i] + '.')
+        if surroundings[i] == RIVER[0]:
+            print('There is a South-West bound river to the ' + directions[i] + '.')
+        if surroundings[i] == RIVER[1]:
+            print('There is a South bound river to the ' + directions[i] + '.')
+        if surroundings[i] == RIVER[2]:
+            print('There is a South-East bound river to the ' + directions[i] + '.')
+        if surroundings[i] == PLAINS:
+            print('There are plains to the ' + directions[i] + '.')
+        if surroundings[i] == FOREST:
+            print('There is a forest to the ' + directions[i] + '.')
+        if surroundings[i] == MOUNTAIN:
+            print('There are mountains to the ' + directions[i] + '.')
+
+#--------------------------------------------------------------------------------------------------------------
 #   [SilentlyGenerateWorld]
 #   Parameters: mapClass
 #   This function combines the other functions to silently generate the world in the background.

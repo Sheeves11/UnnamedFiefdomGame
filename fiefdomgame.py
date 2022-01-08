@@ -1173,8 +1173,8 @@ while (loop):
         print('\n')
         print("     Avalible Commands:")
         print('     -------------------------------------------------------')
-        print('     {1}: Return to Stronghold       {9}:View Location')
-        print('     {2}: View Nearby Fiefdoms')
+        print('     {1}: Return to Stronghold       {9}: View Location')
+        print('     {2}: View Nearby Fiefdoms       {10}: List Surroundings')
         print('     {3}: Deploy Additional Forces')
         print('     {4}: Withdraw Forces')
         print('     {5}: Withdraw Gold')
@@ -1209,6 +1209,9 @@ while (loop):
 
         if command == '9':
             screen = 'viewMapCurrentFief'
+
+        if command == '10':
+            screen = 'viewFiefSurroundings'
 
 #The withdraw gold screen allows players to withdraw gold from a ruled fiefdom
 #
@@ -1487,6 +1490,7 @@ while (loop):
         print('{2}: View Nearby Fiefdoms')
         print('{3}: Attack')
         print('{4}: View Location')
+        print('{5}: View Surroundings')
         print('-------------------------------------')
         print('\n')
 
@@ -1504,6 +1508,9 @@ while (loop):
         
         if command == "4":
             screen = 'viewMapCurrentFief'
+
+        if command == "5":
+            screen = 'viewFiefSurroundings'
 
 #This is the details page for enemy Fiefdoms
 #
@@ -1834,6 +1841,49 @@ while (loop):
         if str(attackFief.ruler) != str(userStronghold.ruler):
             screen = "details"
 
+#This page prints the world map with your stronghold's location marked on it
+    if screen == "viewFiefSurroundings":
+        os.system("clear")
+        serverMap.name = "serverMap"
+        serverMap.read()
+
+        ListSurroundings(serverMap.wMap, attackFief.xCoordinate, attackFief.yCoordinate)
+
+        print('')
+        if int(attackFief.adjacentWater) > 0:
+            if int(attackFief.adjacentWater) == 1:
+                print('There is one body of water nearby')
+            elif int(attackFief.adjacentWater) > 1:
+                print('There are ' + str(attackFief.adjacentWater) + ' bodies of water nearby')
+        if int(attackFief.adjacentRivers) > 0:
+            if int(attackFief.adjacentRivers) == 1:
+                print('There is one river nearby')
+            elif int(attackFief.adjacentRivers) > 1:
+                print('There are ' + str(attackFief.adjacentRivers) + ' rivers nearby')
+        if int(attackFief.adjacentPlains) > 0:
+            if int(attackFief.adjacentPlains) == 1:
+                print('There is one plains nearby')
+            elif int(attackFief.adjacentPlains) > 1:
+                print('There are ' + str(attackFief.adjacentPlains) + ' plains nearby')
+        if int(attackFief.adjacentForests) > 0:
+            if int(attackFief.adjacentForests) == 1:
+                print('There is one forest nearby')
+            elif int(attackFief.adjacentForests) > 1:
+                print('There are ' + str(attackFief.adjacentForests) + ' forests nearby')
+        if int(attackFief.adjacentMountains) > 0:
+            if int(attackFief.adjacentMountains) == 1:
+                print('There is one mountain nearby')
+            elif int(attackFief.adjacentMountains) > 1:
+                print('There are ' + str(attackFief.adjacentMountains) + ' mountains nearby')
+
+        print('')
+        time.sleep(1)
+        nothing = input('Continue:')
+
+        if str(attackFief.ruler) == str(userStronghold.ruler):
+            screen = 'homeDetails'
+        if str(attackFief.ruler) != str(userStronghold.ruler):
+            screen = "details"
 
 #This page prints a menu for choosing your stronghold's color:
     if screen == "changeStrongholdColor":
