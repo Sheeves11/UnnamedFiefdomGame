@@ -216,15 +216,15 @@ class Fiefdom:
     def setSurroundings(self, surroundings):
         for i in range(len(surroundings)):
             if surroundings[i] == WATER:
-                self.adjacentWater += 1
+                self.adjacentWater = str(int(self.adjacentWater) + 1)
             elif surroundings[i] == RIVER[0] or surroundings[i] == RIVER[1] or surroundings[i] == RIVER[2]:
-                self.adjacentRivers += 1
+                self.adjacentRivers = str(int(self.adjacentRivers) + 1)
             elif surroundings[i] == PLAINS:
-                self.adjacentPlains += 1
+                self.adjacentPlains = str(int(self.adjacentPlains) + 1)
             elif surroundings[i] == MOUNTAIN:
-                self.adjacentMountains += 1
+                self.adjacentMountains = str(int(self.adjacentMountains) + 1)
             elif surroundings[i] == FOREST:
-                self.adjacentForests += 1
+                self.adjacentForests = str(int(self.adjacentForests) + 1)
             
 #SW: I am splitting this to safely determine if it is necessary to keep the above stuff or not
 class Stronghold:
