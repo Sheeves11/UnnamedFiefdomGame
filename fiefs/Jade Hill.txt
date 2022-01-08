@@ -2,7 +2,10 @@ Jade Hill
 Unclaimed
 False
 100
-563
+2563
+0
+0
+0
 0
 Open Camp
 0
@@ -15,3 +18,8 @@ Dirt Patch
 0
 0
 False
+0
+0
+0
+0
+0

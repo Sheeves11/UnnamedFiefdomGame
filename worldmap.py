@@ -673,6 +673,8 @@ def PlaceFiefInWorldMap(fiefClass, mapClass):
                         print('Successfully selected coordinates!:')
                         print(*coordinates)
                         fiefClass.setCoordinates(coordinates)
+                        #This is a new addition that adds several 5 new "surroundings" variables to fiefs:
+                        fiefClass.setSurroundings(ScanSurroundings(mapClass.worldMap, fiefClass.xCoordinate, fiefClass.yCoordinate))
                         print('Successfully set coordinates!: ')
                         print('xCoordinate: ' + str(fiefClass.xCoordinate) + ' yCoordinate: ' + str(fiefClass.yCoordinate))
                         print('Updating used biomes in mapClass, biome is ' + str(fiefClass.biome) + ': ')
@@ -733,6 +735,8 @@ def QuietlyPlaceFiefInWorldMap(fiefClass, mapClass):
                     if CrossCheckFiefCoordinates(coordinates):
                         print(*coordinates)
                         fiefClass.setCoordinates(coordinates)
+                        #This is a new addition that adds several 5 new "surroundings" variables to fiefs:
+                        fiefClass.setSurroundings(ScanSurroundings(mapClass.worldMap, fiefClass.xCoordinate, fiefClass.yCoordinate))
                         UpdateUsedBiomes(fiefClass.biome, mapClass)
                         InsertFiefAtLocation(fiefClass.yCoordinate, fiefClass.xCoordinate, mapClass)
                         
@@ -787,6 +791,8 @@ def SilentlyPlaceFiefInWorldMap(fiefClass, mapClass):
                     if CrossCheckFiefCoordinates(coordinates):
                         if CrossCheckStrongholdCoordinates(coordinates):
                             fiefClass.setCoordinates(coordinates)
+                            #This is a new addition that adds several 5 new "surroundings" variables to fiefs:
+                            fiefClass.setSurroundings(ScanSurroundings(mapClass.worldMap, fiefClass.xCoordinate, fiefClass.yCoordinate))
                             UpdateUsedBiomes(fiefClass.biome, mapClass)
                             InsertFiefAtLocation(fiefClass.yCoordinate, fiefClass.xCoordinate, mapClass)
                             fiefClass.write()
