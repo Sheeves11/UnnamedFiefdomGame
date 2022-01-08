@@ -1528,57 +1528,7 @@ while (loop):
 
         #This whole section needs to be re-evaluated
 
-        if attackStronghold.biome == str('^'):
-            art_forest()
-        
-        if attackStronghold.biome == str('M'):
-            art_mountain()
-        
-        if attackStronghold.biome == str('#'):
-            art_plains()
-
-        if attackStronghold.defLevel == str(0):
-            art_fief0(attackStronghold.biome)
-
-        if attackStronghold.defLevel == str(1):
-            art_fief1(attackStronghold.biome)
-
-        if attackStronghold.defLevel == str(2):
-            art_fief2(attackStronghold.biome)
-
-        if attackStronghold.defLevel == str(3):
-            art_fief3(attackStronghold.biome)
-
-        if attackStronghold.defLevel == str(4):
-            art_fief4(attackStronghold.biome)
-
-        if attackStronghold.defLevel == str(5):
-            art_fief5(attackStronghold.biome)
-
-        if attackStronghold.defLevel == str(6):
-            art_fief6(attackStronghold.biome)
-
-
-        if attackStronghold.goldMod == str(1):
-            art_farm0()
-
-        if attackStronghold.goldMod == str(2):
-            art_farm1()
-
-        if attackStronghold.goldMod == str(3):
-            art_farm2()
-
-        if attackStronghold.goldMod == str(4):
-            art_farm3()
-
-        if attackStronghold.goldMod == str(5):
-            art_farm4()
-
-        if attackStronghold.goldMod == str(6):
-            art_farm5()
-
-        if attackStronghold.goldMod == str(7):
-            art_farm6()
+        art_stronghold(attackStronghold.biome, attackStronghold.color)
 
         print("\n\n")
 
@@ -1965,7 +1915,7 @@ while (loop):
 #------------------------------------------------------------------------------
     if screen == "sbTestMap":
         os.system("clear")
-        
+
         TestResetFiefCoordinates()
 
         testMap.name = 'testMap'
