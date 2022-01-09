@@ -1874,8 +1874,10 @@ while (loop):
         if STRONGHOLD:
             if USER_STRONGHOLD:
                 ListSurroundings(serverMap.worldMap, userStronghold.xCoordinate, userStronghold.yCoordinate)
+                screen = "stronghold"
             else:
                 ListSurroundings(serverMap.worldMap, attackStronghold.xCoordinate, attackStronghold.yCoordinate)
+                screen = "enemyStrongholdDetails"
         else:
             ListSurroundings(serverMap.worldMap, attackFief.xCoordinate, attackFief.yCoordinate)
             print('')
@@ -1904,15 +1906,16 @@ while (loop):
                     print('There is one mountain nearby')
                 elif int(attackFief.adjacentMountains) > 1:
                     print('There are ' + str(attackFief.adjacentMountains) + ' mountains nearby')
+            if str(attackFief.ruler) == str(userStronghold.ruler):
+                screen = 'homeDetails'
+            if str(attackFief.ruler) != str(userStronghold.ruler):
+                screen = "details"
 
         print('')
         time.sleep(1)
         nothing = input('Continue:')
 
-        if str(attackFief.ruler) == str(userStronghold.ruler):
-            screen = 'homeDetails'
-        if str(attackFief.ruler) != str(userStronghold.ruler):
-            screen = "details"
+        
 
 #This page prints a menu for choosing your stronghold's color:
     if screen == "changeStrongholdColor":
