@@ -2031,8 +2031,8 @@ while (loop):
         print('    {1}: Return to Stronghold')
         print('    {2}: Generate a Test Map')
         # print('    {3}: Create Custom Fiefs')
-        print('    {3}: Add Test Fiefs to Map')
-        print('    {4}: View Map (Generate First)')
+        # print('    {3}: Add Test Fiefs to Map')   #Bug that adds these to main fiefs folder. Not sure why yet.
+        print('    {3}: View Map (Generate First)')
         print('    -------------------------------------')
         print('')
         command = input("    Enter your command: ")
@@ -2043,9 +2043,9 @@ while (loop):
             screen = "sbTestMap"
         # if command == "3":
         #     screen = "sbCreateFief"
+        # if command == "3":
+            # screen = "sbPlotTestFiefs"
         if command == "3":
-            screen = "sbPlotTestFiefs"
-        if command == "4":
             screen = "sbViewMap"
 
 #This is a page where users can generate maps of their own
