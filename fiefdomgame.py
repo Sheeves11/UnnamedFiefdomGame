@@ -27,6 +27,8 @@ loop = True
 screen = "login"
 currentUsername = 'default'
 tempName = {}
+STRONGHOLD = True
+USER_STRONGHOLD = True
 
 #fiefdom page variables
 LINES_PER_PAGE = 10  #SET THIS TO 30 OR SOMETHING LATER! 10 IS FOR TESTING!
@@ -218,7 +220,7 @@ while (loop):
         print('     {1}: View Nearby Fiefdoms        {9}: Hire Thieves')
         print('     {2}: Hire Mercenaries            {10}: View World Map')
         print('     {3}: Upgrade Attack              {11}: Stronghold Color')
-        print('     {4}: Garrison Soldiers')
+        print('     {4}: Garrison Soldiers           {12}: Look Around')
         print('     {5}: About')
         print('     {6}: Upcoming Features')
         print('     {7}: Message Board')
@@ -260,6 +262,11 @@ while (loop):
 
         if command == '11':
             screen = 'changeStrongholdColor'
+
+        if command == '12':
+            screen = 'viewSurroundings'
+            USER_STRONGHOLD = True
+            STRONGHOLD = True
         
         #The following command is for testing only!
         if command == 'devtest' or command == 'dt':
@@ -1182,7 +1189,7 @@ while (loop):
         print("     Avalible Commands:")
         print('     -------------------------------------------------------')
         print('     {1}: Return to Stronghold       {9}: View Location')
-        print('     {2}: View Nearby Fiefdoms       {10}: List Surroundings')
+        print('     {2}: View Nearby Fiefdoms       {10}: Look Around')
         print('     {3}: Deploy Additional Forces')
         print('     {4}: Withdraw Forces')
         print('     {5}: Withdraw Gold')
@@ -1219,7 +1226,8 @@ while (loop):
             screen = 'viewMapCurrentFief'
 
         if command == '10':
-            screen = 'viewFiefSurroundings'
+            screen = 'viewSurroundings'
+            STRONGHOLD = False
 
 #The withdraw gold screen allows players to withdraw gold from a ruled fiefdom
 #
@@ -1498,7 +1506,7 @@ while (loop):
         print('{2}: View Nearby Fiefdoms')
         print('{3}: Attack')
         print('{4}: View Location')
-        print('{5}: View Surroundings')
+        print('{5}: Look Around')
         print('-------------------------------------')
         print('\n')
 
@@ -1518,7 +1526,8 @@ while (loop):
             screen = 'viewMapCurrentFief'
 
         if command == "5":
-            screen = 'viewFiefSurroundings'
+            screen = 'viewSurroundings'
+            STRONGHOLD = False
 
 #This is the details page for enemy Fiefdoms
 #
@@ -1553,6 +1562,7 @@ while (loop):
         print('{2}: View Nearby Fiefdoms')
         print('{3}: Send Thieves To Steal Gold')
         print('{4}: View Location')
+        print('{5}: Look Around')
         print('-------------------------------------')
         print('\n')
 
@@ -1570,6 +1580,11 @@ while (loop):
 
         if command == "4":
             screen = "viewMapEnemyStronghold"
+        
+        if command == "5":
+            screen = "viewSurroundings"
+            STRONGHOLD = True
+            USER_STRONGHOLD = False
 
 
 #This is the theif attack page, which you will see when trying
@@ -1850,39 +1865,45 @@ while (loop):
             screen = "details"
 
 #This page prints the world map with your stronghold's location marked on it
-    if screen == "viewFiefSurroundings":
+    if screen == "viewSurroundings":
         os.system("clear")
         serverMap.name = "serverMap"
         # serverMap.read()
         # attackFief.read()
-        ListSurroundings(serverMap.worldMap, attackFief.xCoordinate, attackFief.yCoordinate)
-
-        print('')
-        if int(attackFief.adjacentWater) > 0:
-            if int(attackFief.adjacentWater) == 1:
-                print('There is one body of water nearby')
-            elif int(attackFief.adjacentWater) > 1:
-                print('There are ' + str(attackFief.adjacentWater) + ' bodies of water nearby')
-        if int(attackFief.adjacentRivers) > 0:
-            if int(attackFief.adjacentRivers) == 1:
-                print('There is one river nearby')
-            elif int(attackFief.adjacentRivers) > 1:
-                print('There are ' + str(attackFief.adjacentRivers) + ' rivers nearby')
-        if int(attackFief.adjacentPlains) > 0:
-            if int(attackFief.adjacentPlains) == 1:
-                print('There is one plains nearby')
-            elif int(attackFief.adjacentPlains) > 1:
-                print('There are ' + str(attackFief.adjacentPlains) + ' plains nearby')
-        if int(attackFief.adjacentForests) > 0:
-            if int(attackFief.adjacentForests) == 1:
-                print('There is one forest nearby')
-            elif int(attackFief.adjacentForests) > 1:
-                print('There are ' + str(attackFief.adjacentForests) + ' forests nearby')
-        if int(attackFief.adjacentMountains) > 0:
-            if int(attackFief.adjacentMountains) == 1:
-                print('There is one mountain nearby')
-            elif int(attackFief.adjacentMountains) > 1:
-                print('There are ' + str(attackFief.adjacentMountains) + ' mountains nearby')
+        
+        if STRONGHOLD:
+            if USER_STRONGHOLD:
+                ListSurroundings(serverMap.worldMap, userStronghold.xCoordinate, userStronghold.yCoordinate)
+            else:
+                ListSurroundings(serverMap.worldMap, attackStronghold.xCoordinate, attackStronghold.yCoordinate)
+        else:
+            ListSurroundings(serverMap.worldMap, attackFief.xCoordinate, attackFief.yCoordinate)
+            print('')
+            if int(attackFief.adjacentWater) > 0:
+                if int(attackFief.adjacentWater) == 1:
+                    print('There is one body of water nearby')
+                elif int(attackFief.adjacentWater) > 1:
+                    print('There are ' + str(attackFief.adjacentWater) + ' bodies of water nearby')
+            if int(attackFief.adjacentRivers) > 0:
+                if int(attackFief.adjacentRivers) == 1:
+                    print('There is one river nearby')
+                elif int(attackFief.adjacentRivers) > 1:
+                    print('There are ' + str(attackFief.adjacentRivers) + ' rivers nearby')
+            if int(attackFief.adjacentPlains) > 0:
+                if int(attackFief.adjacentPlains) == 1:
+                    print('There is one plains nearby')
+                elif int(attackFief.adjacentPlains) > 1:
+                    print('There are ' + str(attackFief.adjacentPlains) + ' plains nearby')
+            if int(attackFief.adjacentForests) > 0:
+                if int(attackFief.adjacentForests) == 1:
+                    print('There is one forest nearby')
+                elif int(attackFief.adjacentForests) > 1:
+                    print('There are ' + str(attackFief.adjacentForests) + ' forests nearby')
+            if int(attackFief.adjacentMountains) > 0:
+                if int(attackFief.adjacentMountains) == 1:
+                    print('There is one mountain nearby')
+                elif int(attackFief.adjacentMountains) > 1:
+                    print('There are ' + str(attackFief.adjacentMountains) + ' mountains nearby')
 
         print('')
         time.sleep(1)
