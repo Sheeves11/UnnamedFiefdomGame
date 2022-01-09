@@ -532,14 +532,12 @@ while (loop):
                     print ('    ' + textColor.CYAN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' +
                             tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
 
-        print('     Garrison soldiers to evenly distribute them to each fief under your rule.')
-
         print('\n\n\n\n\n\n\n\n\n\n')
         print("     Avalible Commands:")
         print('     -------------------------------------')
         print('     {1}: Return to Stronghold')
         print('     {2}: View Fiefdoms')
-        print('     {3}: Garrison Soldiers')
+        print('     {3}: Distribute Soldiers')
         print('     -------------------------------------')
         print('\n')
         command = input("     Enter your command: ")
@@ -562,16 +560,16 @@ while (loop):
         header()
 
         print("\n\n")
-        print('Currently Ruled Fiefs: ' + str(userStrongholdCount))
-        print('Current Number of Soldiers in Stronghold: ' + str(userStronghold.defenders))
+        print('    Currently Ruled Fiefs: ' + str(userStrongholdCount))
+        print('    Current Number of Soldiers in Stronghold: ' + str(userStronghold.defenders))
         print('\n')
         time.sleep(1)
         if userStrongholdCount == 0:
-            print('You control no fiefs you can distribute to! \n')
+            print('    You control no fiefs you can distribute to! \n')
             time.sleep(2)
             screen = "garrison"
         else:
-            withdrawNum = input('Enter the number of soldiers you would like to evenly distrubute among these ' + str(userStrongholdCount) + ' fiefs: ')
+            withdrawNum = input('    Enter the number of soldiers you would like to evenly distrubute among these ' + str(userStrongholdCount) + ' fiefs: ')
             time.sleep(1)
 
             try:
@@ -581,30 +579,30 @@ while (loop):
 
             if int(withdrawNum) < 0:
                 os.system("clear")
-                print("You cannot distribute a negative number of soldiers. \n\nThat doesn't even make sense.")
+                print("    You cannot distribute a negative number of soldiers. \n\nThat doesn't even make sense.")
                 time.sleep(2)
                 screen = 'garrison'
 
             elif int(withdrawNum) == 0:
                 os.system("clear")
-                print("Cancelling request...")
+                print("    Cancelling request...")
                 time.sleep(1)
                 screen = 'garrison'
 
             elif int(userStronghold.defenders) < int(withdrawNum):
                 os.system("clear")
-                print("You do not have enough soldiers for that.")
+                print("    You do not have enough soldiers for that.")
                 time.sleep(2)
                 screen = 'garrison'
 
             elif int(withdrawNum) < userStrongholdCount:
                 os.system("clear")
-                print("You have more fiefs than soldiers you want to distribute!")
+                print("    You have more fiefs than soldiers you want to distribute!")
                 time.sleep(2)
                 screen = 'garrison'
 
             else:
-                print('Garrisoning ' + str(withdrawNum) + ' soldiers across ' + str(userStrongholdCount) + ' Fiefs...')
+                print('    Garrisoning ' + str(withdrawNum) + ' soldiers across ' + str(userStrongholdCount) + ' Fiefs...')
 
                 time.sleep(1)
 
@@ -612,7 +610,7 @@ while (loop):
                 outgoingSoldierGroups = round((int(withdrawNum) - benchedSoldiers)/userStrongholdCount)
 
                 if benchedSoldiers > 0:
-                    print(str(benchedSoldiers) + ' soldiers were held back to make even groups of ' + str(outgoingSoldierGroups) + '.')
+                    print('    ' + str(benchedSoldiers) + ' soldiers were held back to make even groups of ' + str(outgoingSoldierGroups) + '.')
 
                 print('\n')
 
@@ -638,7 +636,7 @@ while (loop):
                 userStronghold.defenders = int(userStronghold.defenders) - int(withdrawNum) + benchedSoldiers
                 userStronghold.write()
                 userStronghold.read()
-                print('\nNumber of Soldiers Remaining in Stronghold: ' + str(userStronghold.defenders))
+                print('\n    Number of Soldiers Remaining in Stronghold: ' + str(userStronghold.defenders))
 
                 print("\n\n\n\n\n\n\n\n\n")
 
@@ -684,20 +682,20 @@ while (loop):
 
         if userStronghold.attLevel == str('7'):
             print('\n\n')
-            print('     Your current army is made of ' + userStronghold.attType)
-            print('     This is currently the highest attack level!')
+            print('    Your current army is made of ' + userStronghold.attType)
+            print('    This is currently the highest attack level!')
             print('\n\n\n\n\n\n\n\n\n\n')
             command = input("     Press Enter to Continue")
 
         else:
             print('\n\n')
-            print('     Your current army is made of ' + userStronghold.attType)
-            print('     Would you like to upgrade to ' + attTypeNext + ' for ' + str(attUpgradeCost) + ' gold?')
+            print('    Your current army is made of ' + userStronghold.attType)
+            print('    Would you like to upgrade to ' + attTypeNext + ' for ' + str(attUpgradeCost) + ' gold?')
 
             upgradeInput = input('\n\n     Confirm Upgrade (y/n?): ')
 
             if upgradeInput == 'y' and int(userStronghold.gold) >= attUpgradeCost:
-                print("     Upgrade Complete!")
+                print("    Upgrade Complete!")
                 userStronghold.attType = attTypeNext
                 userStronghold.attLevel = str(int(userStronghold.attLevel) + 1)
                 userStronghold.gold = str(int(userStronghold.gold) - attUpgradeCost)
@@ -707,14 +705,14 @@ while (loop):
             elif upgradeInput == 'y' and int(userStronghold.gold) < attUpgradeCost:
 
                 print('\n')
-                print("     You need more gold first!\n\n\n\n")
+                print("    You need more gold first!\n\n\n\n")
 
             elif upgradeInput == 'n':
                 print('\n')
-                print("     No changes made.")
+                print("    No changes made.")
 
             print('\n\n\n\n\n\n\n\n\n\n')
-            command = input("     Press Enter to Continue")
+            command = input("    Press Enter to Continue")
 
         screen = "stronghold"
 
@@ -753,10 +751,10 @@ while (loop):
 
         if attackFief.goldMod == str('7'):
             print('\n    Your fiefdom\'s gold output is currently: ' + str((int(attackFief.goldMod) * goldOutput)) + ' per hour.')
-            print('   This is currently the highest gold output!')
+            print('    This is currently the highest gold output!')
 
             print('\n\n\n\n\n\n\n\n\n\n')
-            command = input("     Press Enter to Continue")
+            command = input("    Press Enter to Continue")
 
         else:
             print('\n    Your fiefdom\'s gold output is currently: ' + str((int(attackFief.goldMod) * goldOutput)) + ' per hour.')
@@ -783,7 +781,7 @@ while (loop):
                 print("\n    No changes made.")
 
             print('\n\n\n\n\n\n\n\n\n\n')
-            command = input("     Press Enter to Continue")
+            command = input("    Press Enter to Continue")
 
         currentPage = 1
         screen = "homeDetails"
@@ -824,10 +822,10 @@ while (loop):
             defUpgradeCost = 50000
 
         if attackFief.defLevel == str('6'):
-            print('     Your current defense style is: ' + attackFief.defType)
-            print('     This is currently the best defense style!')
+            print('    Your current defense style is: ' + attackFief.defType)
+            print('    This is currently the best defense style!')
             print('\n\n\n\n\n\n\n\n\n\n')
-            command = input("     Press Enter to Continue")
+            command = input("    Press Enter to Continue")
         else:
             print('    Your current defense style is: ' + attackFief.defType)
             print('    Would you like to upgrade to ' + defTypeNext + ' for ' + str(defUpgradeCost) + ' gold?')
@@ -852,7 +850,7 @@ while (loop):
                 print("    No changes made.")
 
             print('\n\n\n\n\n\n\n\n\n\n')
-            command = input("     Press Enter to Continue")
+            command = input("    Press Enter to Continue")
 
         currentPage = 1
         screen = "homeDetails"
@@ -947,8 +945,8 @@ while (loop):
         fiefdomMargin = 0
 
         print("\n")
-        print("Nearby Fiefdoms: ")
-        print("------------------------------------------------------------------\n")
+        print("    Nearby Fiefdoms: ")
+        print("    ------------------------------------------------------------------\n")
 
         #loop through each file in the /fiefs/ directory and print off the details  of each fief in a list
         for filename in os.listdir('fiefs'):
@@ -963,30 +961,30 @@ while (loop):
 
                 if (fiefdomMargin <= LINES_PER_PAGE) and (fiefdomMargin > 0):
                     if tempName.home != 'True' and tempName.ruler != userStronghold.name:
-                        print (textColor.YELLOW + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' +
+                        print ('    ' + textColor.YELLOW + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' +
                                 tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
 
                     if tempName.home != "True" and tempName.ruler == userStronghold.name:
-                        print (textColor.CYAN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' +
+                        print ('    ' + textColor.CYAN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' +
                                 tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
 
         if fiefdomMargin > LINES_PER_PAGE or currentPage > 1:
             print('\n/// Page ' + str(currentPage) + ' ///')
-        print("\nAvalible Commands:")
-        print('-------------------------------------')
-        print('{1}: Return to Stronghold')
-        print('{2}: Manage Your Fiefdoms')
-        print('{3}: View All Strongholds')
+        print("\n    Avalible Commands:")
+        print('    -------------------------------------')
+        print('    {1}: Return to Stronghold')
+        print('    {2}: Manage Your Fiefdoms')
+        print('    {3}: View All Strongholds')
         if fiefdomMargin > LINES_PER_PAGE:
-            print('{4}: Next Page')
+            print('    {4}: Next Page')
 
         if currentPage > 1:
-            print('{5}: Previous Page')
+            print('    {5}: Previous Page')
 
-        print('{Enter fiefdom name}: View Fiefdom Details')
-        print('-------------------------------------')
+        print('    {Enter fiefdom name}: View Fiefdom Details')
+        print('    -------------------------------------')
         print('\n')
-        command = input("Enter your command: ")
+        command = input("    Enter your command: ")
         #command = command.lower() #This won't work until file-naming schema is changed!
 
         if str(command) == '1':
@@ -1028,7 +1026,7 @@ while (loop):
                         screen = "details"
 
             except:
-                print ('the file open broke')
+                print ('    the file open broke')
 
         os.system('clear')
 
@@ -1053,8 +1051,8 @@ while (loop):
         strongholdMargin = 0
 
         print("\n")
-        print("Nearby Strongholds: ")
-        print("------------------------------------------------------------------\n")
+        print("    Nearby Strongholds: ")
+        print("    ------------------------------------------------------------------\n")
 
         #loop through each file in the /fiefs/ directory and print off the details of each stronghold in a list
         for filename in os.listdir('strongholds'):
@@ -1071,30 +1069,30 @@ while (loop):
                 if  (strongholdMargin <= LINES_PER_PAGE) and (strongholdMargin > 0):
                     if tempName.home == "True" and tempName.ruler != userStronghold.name:
                         homeStatus = "Home Stronghold"
-                        print (textColor.WARNING + 'The Stronghold of ' +  tempName.name + ' || Defenders: ' +
+                        print ('    ' + textColor.WARNING + 'The Stronghold of ' +  tempName.name + ' || Defenders: ' +
                                 tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
 
                     if tempName.home == "True" and tempName.ruler == userStronghold.name:
-                        print (textColor.GREEN + 'The Stronghold of ' + tempName.name + ' || Defenders: ' +
+                        print ('    ' + textColor.GREEN + 'The Stronghold of ' + tempName.name + ' || Defenders: ' +
                                 tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
 
         if strongholdMargin > LINES_PER_PAGE or currentPage > 1:
             print('/// Page ' + str(currentPage) + ' ///\n')
-        print("\nAvalible Commands:")
-        print('-------------------------------------')
-        print('{1}: Return to Stronghold')
-        print('{2}: Manage Your Fiefdoms')
-        print('{3}: View Fiefdoms')
+        print("\n    Avalible Commands:")
+        print('    -------------------------------------')
+        print('    {1}: Return to Stronghold')
+        print('    {2}: Manage Your Fiefdoms')
+        print('    {3}: View Fiefdoms')
         if strongholdMargin > LINES_PER_PAGE:
-            print('{4}: Next Page')
+            print('    {4}: Next Page')
 
         if currentPage > 1:
-            print('{5}: Previous Page')
+            print('    {5}: Previous Page')
 
-        print('{Enter stronghold owner name}: View Stronghold Details')
-        print('-------------------------------------')
+        print('    {Enter stronghold owner name}: View Stronghold Details')
+        print('    -------------------------------------')
         print('\n')
-        command = input("Enter your command: ")
+        command = input("    Enter your command: ")
         #command = command.lower() #This won't work until file-naming schema is changed!
 
         if str(command) == '1':
@@ -1122,7 +1120,7 @@ while (loop):
             #then, switch to a details screen
 
             fileFief = 'strongholds/' + command + '.txt'
-            print (fileFief + 'loading is happening')
+            print ('    ' + fileFief + 'loading is happening')
             try:
                 with open(fileFief, 'r') as f:
                     attackStronghold.name = f.readline().strip()
@@ -1136,7 +1134,7 @@ while (loop):
                         screen = "enemyStrongholdDetails"
 
             except:
-                print ('the file open broke')
+                print ('    the file open broke')
 
         os.system('clear')
 
@@ -1166,12 +1164,12 @@ while (loop):
             productionCalc = ((goldOutput * int(attackFief.goldMod)) + (int(attackFief.defenders) * int(attackFief.goldMod)))
 
         print("\n")
-        print('     You rule the fiefdom of ' + attackFief.name)
+        print('    You rule the fiefdom of ' + attackFief.name)
         print('\n')
-        print('     Status Report:')
-        print('\n     ' + 'Defenders: ' + attackFief.defenders + '\n     Gold: ' + attackFief.gold + ' gold.')
-        print('     ' + 'Defensive Strategy: ' + attackFief.defType)
-        print('     ' + 'Production: ' + str(productionCalc) + ' gold and ' + str(defenderOutput * int(attackFief.defenderMod))
+        print('    Status Report:')
+        print('\n    ' + 'Defenders: ' + attackFief.defenders + '\n     Gold: ' + attackFief.gold + ' gold.')
+        print('    ' + 'Defensive Strategy: ' + attackFief.defType)
+        print('    ' + 'Production: ' + str(productionCalc) + ' gold and ' + str(defenderOutput * int(attackFief.defenderMod))
                 + ' soldiers per hour.')
         print("\n")
 
@@ -1229,19 +1227,19 @@ while (loop):
 
 
         print('\n')
-        print("     Avalible Commands:")
-        print('     -------------------------------------------------------')
-        print('     {1}: Return to Stronghold')
-        print('     {2}: View Fiefdoms')
-        print('     {3}: Deploy Additional Forces')
-        print('     {4}: Withdraw Forces')
-        print('     {5}: Withdraw Gold')
-        print('     {6}: Upgrades')
-        print('     {7}: Look Around')
-        print('     {8}: World Map')
-        print('     -------------------------------------------------------')
+        print("    Avalible Commands:")
+        print('    -------------------------------------------------------')
+        print('    {1}: Return to Stronghold')
+        print('    {2}: View Fiefdoms')
+        print('    {3}: Deploy Additional Forces')
+        print('    {4}: Withdraw Forces')
+        print('    {5}: Withdraw Gold')
+        print('    {6}: Upgrades')
+        print('    {7}: Look Around')
+        print('    {8}: World Map')
+        print('    -------------------------------------------------------')
         print('\n')
-        command = input("     Enter your command: ")
+        command = input("    Enter your command: ")
 
         if command == "1":
             screen = "stronghold"
@@ -1276,15 +1274,15 @@ while (loop):
         
         header()
         print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
-        print("     Avalible Commands:")
-        print('     -------------------------------------------------------')
-        print('     {1}: Go Back')
-        print('     {2}: Upgrade Defenses')
-        print('     {3}: Upgrade Farms')
-        # print('     {4}: Upgrade Training')
-        print('     --------------------------------------------------------')
+        print("    Avalible Commands:")
+        print('    -------------------------------------------------------')
+        print('    {1}: Go Back')
+        print('    {2}: Upgrade Defenses')
+        print('    {3}: Upgrade Farms')
+        # print('    {4}: Upgrade Training')
+        print('    --------------------------------------------------------')
         print('\n')
-        command = input("     Enter your command: ")
+        command = input("    Enter your command: ")
 
         if command == '1':
             screen = 'homeDetails'
@@ -1309,14 +1307,14 @@ while (loop):
         header()
 
         print("\n")
-        print('Now viewing the Fiefdom of ' + attackFief.name)
+        print('    Now viewing the Fiefdom of ' + attackFief.name)
         print('\n')
         time.sleep(0)
-        print(attackFief.name + ' has ' + attackFief.gold + ' gold.')
+        print('    ' + attackFief.name + ' has ' + attackFief.gold + ' gold.')
         time.sleep(1)
         print('\n')
 
-        print('Sending ' + str(attackFief.gold) + ' gold back home')
+        print('    Sending ' + str(attackFief.gold) + ' gold back home')
         time.sleep(1)
         userStronghold.gold = str(int(userStronghold.gold) + int(attackFief.gold))
         attackFief.gold = str(0)
@@ -1342,13 +1340,13 @@ while (loop):
         header()
 
         print("\n\n")
-        print('Now viewing the Fiefdom of ' + attackFief.name)
+        print('    Now viewing the Fiefdom of ' + attackFief.name)
         print('\n\n')
         time.sleep(1)
-        print(attackFief.name + ' has ' + attackFief.defenders + ' fighters.')
+        print('    ' + attackFief.name + ' has ' + attackFief.defenders + ' fighters.')
         time.sleep(1)
-        print('You have ' + str(userStronghold.defenders) + ' ready to deploy.\n\n')
-        deployNum = input('Enter the number of soldiers you would like to deploy: ')
+        print('    You have ' + str(userStronghold.defenders) + ' ready to deploy.\n\n')
+        deployNum = input('    Enter the number of soldiers you would like to deploy: ')
         time.sleep(1)
 
         #print(deployNum + ' : deploynum || userStronghold.defenders : ' + userStronghold.defenders) #SW: remove this?
@@ -1360,13 +1358,13 @@ while (loop):
 
         if int(deployNum) < 0:
             os.system("clear")
-            print("You cannot deploy a negative number of soldiers. \n\nThat doesn't even make sense.")
+            print("    You cannot deploy a negative number of soldiers. \n\nThat doesn't even make sense.")
             time.sleep(2)
             screen = 'homeDetails'
 
         if (int(userStronghold.defenders) < int(deployNum)) and int(deployNum) > 0:
             os.system("clear")
-            print("You do not have enough soldiers for that")
+            print("    You do not have enough soldiers for that")
             time.sleep(2)
             screen = 'homeDetails'
 
@@ -1374,7 +1372,7 @@ while (loop):
             screen = "homeDetails"
 
         if (int(userStronghold.defenders) >= int(deployNum)) and int(deployNum) > 0:
-            print('Deploying ' + str(deployNum) + ' soldiers to ' + str(attackFief.name))
+            print('    Deploying ' + str(deployNum) + ' soldiers to ' + str(attackFief.name))
 
             attackFief.defenders = str(int(attackFief.defenders) + int(deployNum))
             attackFief.write()
@@ -1399,14 +1397,14 @@ while (loop):
         os.system("clear")
         header()
         print("\n\n")
-        print('Now viewing the Fiefdom of ' + attackFief.name)
+        print('    Now viewing the Fiefdom of ' + attackFief.name)
         print('\n\n')
         time.sleep(0.5)
-        print(attackFief.name + ' has ' + attackFief.defenders + ' fighters.')
+        print('    ' + attackFief.name + ' has ' + attackFief.defenders + ' fighters.')
         time.sleep(0.5)
         print('\n')
 
-        withdrawNum = input('Enter the number of soldiers you would like to return home: ')
+        withdrawNum = input('    Enter the number of soldiers you would like to return home: ')
         time.sleep(1)
         try:
             withdrawNum = int(withdrawNum)
@@ -1415,18 +1413,18 @@ while (loop):
 
         if int(withdrawNum) < 0:
             os.system("clear")
-            print("You cannot send home a negative number of soldiers. \n\nThat doesn't even make sense.")
+            print("    You cannot send home a negative number of soldiers. \n\nThat doesn't even make sense.")
             time.sleep(2)
             screen = 'homeDetails'
 
         if (int(attackFief.defenders) < int(withdrawNum)) and int(withdrawNum) > 0:
             os.system("clear")
-            print("You do not have enough soldiers for that")
+            print("    You do not have enough soldiers for that")
             time.sleep(2)
             screen = 'homeDetails'
 
         if (int(attackFief.defenders) >= int(withdrawNum)) and int(withdrawNum) > 0:
-            print('Returning ' + str(withdrawNum) + ' soldiers back home')
+            print('    Returning ' + str(withdrawNum) + ' soldiers back home')
 
             attackFief.defenders = str(int(attackFief.defenders) - int(withdrawNum))
             attackFief.write()
@@ -1436,11 +1434,11 @@ while (loop):
             userStronghold.write()
             userStronghold.read()
 
-            tempInput = input('    Press Enter to Continue\n    ')
+            tempInput = input('    Press Enter to Continue\n')
             screen = 'homeDetails'
 
         if int(withdrawNum) == 0:
-            print('No soldiers selected')
+            print('    No soldiers selected')
             screen = "homeDetails"
 
             attackFief.defenders = str(int(attackFief.defenders) - int(withdrawNum))
@@ -1451,7 +1449,7 @@ while (loop):
             userStronghold.write()
             userStronghold.read()
 
-            tempInput = input('    Press Enter to Continue\n    ')
+            tempInput = input('    Press Enter to Continue\n')
             screen = 'homeDetails'
 
 #This is the details page for enemy Fiefdoms
@@ -1466,13 +1464,13 @@ while (loop):
         header()
 
         print("\n\n")
-        print('Now viewing the fiefdom of ' + attackFief.name)
-        print('This fiefdom is ruled by ' + attackFief.ruler)
-        print('-------------------------------------------------------------------------')
-        print('\nYour scouts return early in the morning, bringing back reports of the enemy fiefdom.')
-        print(attackFief.name + ' looks to have ' + str(attackFief.defenders) + ' fighters.')
-        print('Defense Type: ' + attackFief.defType)
-        print('-------------------------------------------------------------------------')
+        print('    Now viewing the fiefdom of ' + attackFief.name)
+        print('    This fiefdom is ruled by ' + attackFief.ruler)
+        print('    -------------------------------------------------------------------------')
+        print('    \nYour scouts return early in the morning, bringing back reports of the enemy fiefdom.')
+        print('    ' + attackFief.name + ' looks to have ' + str(attackFief.defenders) + ' fighters.')
+        print('    Defense Type: ' + attackFief.defType)
+        print('    -------------------------------------------------------------------------')
 
         print("\n\n")
         if attackFief.biome == str('^'):
@@ -1530,17 +1528,17 @@ while (loop):
 
         print("\n\n")
 
-        print("Avalible Commands:")
-        print('-------------------------------------')
-        print('{1}: Return to Stronghold')
-        print('{2}: View Fiefdoms')
-        print('{3}: Attack')
-        print('{4}: Look Around')
-        print('{5}: World Map')
-        print('-------------------------------------')
+        print("    Avalible Commands:")
+        print('    -------------------------------------')
+        print('    {1}: Return to Stronghold')
+        print('    {2}: View Fiefdoms')
+        print('    {3}: Attack')
+        print('    {4}: Look Around')
+        print('    {5}: World Map')
+        print('    -------------------------------------')
         print('\n')
 
-        command = input("Enter your command: ")
+        command = input("    Enter your command: ")
 
         if command == "1":
             screen = "stronghold"
@@ -1570,33 +1568,31 @@ while (loop):
         os.system("clear")
         header()
         attackStronghold.read()
-        print("\n\n")
-        print('Now viewing the stronghold of ' + attackStronghold.name)
-        print('-------------------------------------------------------------------------')
-        print('\nYour scouts return early in the morning, bringing back reports of the enemy fiefdom.')
-        print(attackStronghold.name + ' looks to have ' + str(attackStronghold.defenders) + ' fighters.')
-        print('Their coffers contain ' + str(attackStronghold.gold) + ' gold.')
-        print('-------------------------------------------------------------------------')
-
-        print("\n\n")
+        print("    \n\n")
+        print('    Now viewing the stronghold of ' + attackStronghold.name)
+        print('    -------------------------------------------------------------------------')
+        print('    \nYour scouts return early in the morning, bringing back reports of the enemy fiefdom.')
+        print('    ' + attackStronghold.name + ' looks to have ' + str(attackStronghold.defenders) + ' fighters.')
+        print('    Their coffers contain ' + str(attackStronghold.gold) + ' gold.')
+        print('    -------------------------------------------------------------------------')
+        print("    \n\n")
 
         #This whole section needs to be re-evaluated
 
         art_stronghold(attackStronghold.biome, attackStronghold.color)
 
-        print("\n\n")
+        print("    \n\n")
+        print("    Avalible Commands:")
+        print('    -------------------------------------')
+        print('    {1}: Return to Stronghold')
+        print('    {2}: View Fiefdoms')
+        print('    {3}: Send Thieves To Steal Gold')
+        print('    {4}: Look Around')
+        print('    {5}: World Map')
+        print('    -------------------------------------')
+        print('    \n')
 
-        print("Avalible Commands:")
-        print('-------------------------------------')
-        print('{1}: Return to Stronghold')
-        print('{2}: View Fiefdoms')
-        print('{3}: Send Thieves To Steal Gold')
-        print('{4}: Look Around')
-        print('{5}: World Map')
-        print('-------------------------------------')
-        print('\n')
-
-        command = input("Enter your command: ")
+        command = input("    Enter your command: ")
 
         if command == "1":
             screen = "stronghold"
@@ -1626,10 +1622,12 @@ while (loop):
         header()
 
         #this is where the battle logic happens!
-        print('\n\n    ' + attackStronghold.name + '\'s Stronghold has ' + attackStronghold.defenders + ' soldiers keeping a watchful eye. You have ' + str(userStronghold.thieves) + ' who are ready for a heist.')
+        print('    \n\n')
+        print('    ' + attackStronghold.name + '\'s Stronghold has ' + attackStronghold.defenders + ' soldiers keeping a watchful eye. You have ' + str(userStronghold.thieves) + ' who are ready for a heist.')
         print('    Rumor has it that their coffers hold ' + str(attackStronghold.gold) + ' gold pieces.')
         print('    Your thieves work best in groups of 3 per 100 soldiers. Too few and they lack manpower. Too many and they draw unwanted attention.')
-        print('\n    ...\n')
+        print('    ')
+        print('        ...\n')
         time.sleep(1)
         
         desiredAttackers = 0
@@ -1645,7 +1643,7 @@ while (loop):
 #            print('desieredAttackers = ' + str(desiredAttackers))
             attackers = int(desiredAttackers)
         else:
-            print('invalid number')
+            print('    invalid number')
             attackers = 0
 
 
@@ -1739,16 +1737,16 @@ while (loop):
         #for gold
         if attackFief.home == 'True':
             os.system('clear')
-            print('You are unable to claim a player\'s home stronghold')
+            print('    You are unable to claim a player\'s home stronghold')
             time.sleep(3)
             screen = 'stronghold'
 
         #this is where the battle logic happens!
         if attackFief.home == 'False':
-            print('\n\nThis battle is between ' + attackFief.name + ' and ' + userStronghold.name)
-            print('\n\nSimulating Battle...')
+            print('\n\n    This battle is between ' + attackFief.name + ' and ' + userStronghold.name)
+            print('\n\n    Simulating Battle...')
             time.sleep(1)
-            print('\n...\n')
+            print('\n        ...\n')
             time.sleep(1)
 
             attackers = int(userStronghold.defenders)
@@ -1775,22 +1773,22 @@ while (loop):
                             attackers = attackers - 1
                             attackLosses = attackLosses + 1
 
-            print('\n')
-            print('------------------------------------------------------------------------------')
-            print('-----------------------------Battle Results-----------------------------------')
-            print('------------------------------------------------------------------------------')
-            print('\n')
-            print(userStronghold.ruler + ' lost ' + str(attackLosses) + ' soldiers')
-            print(attackFief.ruler + ' lost ' + str(defenseLosses) + ' soldiers')
-            print('\n')
-            print('------------------------------------------------------------------------------')
-            print('------------------------------------------------------------------------------')
-            print('\n\n')
+            print('    \n')
+            print('    ------------------------------------------------------------------------------')
+            print('    -----------------------------Battle Results-----------------------------------')
+            print('    ------------------------------------------------------------------------------')
+            print('    \n')
+            print('    ' + userStronghold.ruler + ' lost ' + str(attackLosses) + ' soldiers')
+            print('    ' + attackFief.ruler + ' lost ' + str(defenseLosses) + ' soldiers')
+            print('    \n')
+            print('    ------------------------------------------------------------------------------')
+            print('    ------------------------------------------------------------------------------')
+            print('    \n\n')
 
             #if the current player wins
             if attackers > defenders:
-                print('After a hard fought battle, your weary forces remain standing')
-                print('You are the new ruler of ' + attackFief.name)
+                print('    After a hard fought battle, your weary forces remain standing')
+                print('    You are the new ruler of ' + attackFief.name)
 
                 attackFief.defenders = defenders
                 attackFief.ruler = userStronghold.ruler
@@ -1800,7 +1798,7 @@ while (loop):
                 userStronghold.write()
 
                 userStronghold.gold = str(int(userStronghold.gold) + int(attackFief.gold))
-                print('You now have a total of ' + str(userStronghold.gold) + ' gold!')
+                print('    You now have a total of ' + str(userStronghold.gold) + ' gold!')
                 attackFief.gold = str('0')
 
                 userStronghold.write()
@@ -1808,8 +1806,8 @@ while (loop):
 
             #if the other player wins
             if attackers <= defenders:
-                print('Although your soldiers fought valiantly, they were unable to overcome ' + attackFief.ruler + '\'s forces')
-                print('Your forces, now many fewer in number, begin the long march home.')
+                print('    Although your soldiers fought valiantly, they were unable to overcome ' + attackFief.ruler + '\'s forces')
+                print('    Your forces, now many fewer in number, begin the long march home.')
 
                 attackFief.defenders = defenders
                 attackFief.write()
@@ -1819,7 +1817,7 @@ while (loop):
 
 
             time.sleep(1)
-            nothing = input('Press Enter to Continue\n')
+            nothing = input('    Press Enter to Continue\n')
             currentPage = 1
             screen = "fiefdoms"
 
@@ -1834,16 +1832,16 @@ while (loop):
             serverMap.read()
             firstMapRead = False
 
-        print('Current Location -  Row: ' + str(userStronghold.yCoordinate) + ' Column: ' + str(userStronghold.xCoordinate))
+        print('    Current Location -  Row: ' + str(userStronghold.yCoordinate) + ' Column: ' + str(userStronghold.xCoordinate))
         print('')
         PrintLegend()
         print('')
-        print('World Map:')
+        print('    World Map:')
         print('')
         WorldMapLocation(int(userStronghold.yCoordinate), int(userStronghold.xCoordinate), serverMap)
         print('')
         time.sleep(1)
-        nothing = input('Press Enter to Continue:')
+        nothing = input('    Press Enter to Continue:')
 
         screen = 'stronghold'
 
@@ -1858,16 +1856,16 @@ while (loop):
             serverMap.read()
             firstMapRead = False
 
-        print('Current Location -  Row: ' + str(attackStronghold.yCoordinate) + ' Column: ' + str(attackStronghold.xCoordinate))
+        print('    Current Location -  Row: ' + str(attackStronghold.yCoordinate) + ' Column: ' + str(attackStronghold.xCoordinate))
         print('')
         PrintLegend()
         print('')
-        print('World Map:')
+        print('    World Map:')
         print('')
         WorldMapLocation(int(attackStronghold.yCoordinate), int(attackStronghold.xCoordinate), serverMap)
         print('')
         time.sleep(1)
-        nothing = input('Press Enter to Continue:')
+        nothing = input('    Press Enter to Continue:')
 
         screen = 'enemyStrongholdDetails'
 
@@ -1882,16 +1880,16 @@ while (loop):
             serverMap.read()
             firstMapRead = False
 
-        print('Current Location -  Row: ' + str(attackFief.yCoordinate) + ' Column: ' + str(attackFief.xCoordinate))
+        print('    Current Location -  Row: ' + str(attackFief.yCoordinate) + ' Column: ' + str(attackFief.xCoordinate))
         print('')
         PrintLegend()
         print('')
-        print('World Map:')
+        print('    World Map:')
         print('')
         WorldMapLocation(int(attackFief.yCoordinate), int(attackFief.xCoordinate), serverMap)
         print('')
         time.sleep(1)
-        nothing = input('Press Enter to Continue:')
+        nothing = input('    Press Enter to Continue:')
 
         if str(attackFief.ruler) == str(userStronghold.ruler):
             screen = 'homeDetails'
@@ -1917,31 +1915,32 @@ while (loop):
         else:
             ListSurroundings(serverMap.worldMap, attackFief.xCoordinate, attackFief.yCoordinate)
             print('')
+            print('    In all,')
             if int(attackFief.adjacentWater) > 0:
                 if int(attackFief.adjacentWater) == 1:
-                    print('There is one body of water nearby')
+                    print('    There is one body of water nearby')
                 elif int(attackFief.adjacentWater) > 1:
-                    print('There are ' + str(attackFief.adjacentWater) + ' bodies of water nearby')
+                    print('    There are ' + str(attackFief.adjacentWater) + ' bodies of water nearby')
             if int(attackFief.adjacentRivers) > 0:
                 if int(attackFief.adjacentRivers) == 1:
-                    print('There is one river nearby')
+                    print('    There is one river nearby')
                 elif int(attackFief.adjacentRivers) > 1:
-                    print('There are ' + str(attackFief.adjacentRivers) + ' rivers nearby')
+                    print('    There are ' + str(attackFief.adjacentRivers) + ' rivers nearby')
             if int(attackFief.adjacentPlains) > 0:
                 if int(attackFief.adjacentPlains) == 1:
-                    print('There is one plains nearby')
+                    print('    There is one plains nearby')
                 elif int(attackFief.adjacentPlains) > 1:
-                    print('There are ' + str(attackFief.adjacentPlains) + ' plains nearby')
+                    print('    There are ' + str(attackFief.adjacentPlains) + ' plains nearby')
             if int(attackFief.adjacentForests) > 0:
                 if int(attackFief.adjacentForests) == 1:
-                    print('There is one forest nearby')
+                    print('    There is one forest nearby')
                 elif int(attackFief.adjacentForests) > 1:
-                    print('There are ' + str(attackFief.adjacentForests) + ' forests nearby')
+                    print('    There are ' + str(attackFief.adjacentForests) + ' forests nearby')
             if int(attackFief.adjacentMountains) > 0:
                 if int(attackFief.adjacentMountains) == 1:
-                    print('There is one mountain nearby')
+                    print('    There is one mountain nearby')
                 elif int(attackFief.adjacentMountains) > 1:
-                    print('There are ' + str(attackFief.adjacentMountains) + ' mountains nearby')
+                    print('    There are ' + str(attackFief.adjacentMountains) + ' mountains nearby')
             if str(attackFief.ruler) == str(userStronghold.ruler):
                 screen = 'homeDetails'
             if str(attackFief.ruler) != str(userStronghold.ruler):
@@ -1959,20 +1958,20 @@ while (loop):
         header()
 
         print('\n\n\n\n\n')
-        print("      Choose a Stronghold Color:")
-        print('      -------------------------------------')
-        print('''      {1}: Red       '''+textColor.RED+'''#'''+textColor.RESET+''' ''')
-        print('''      {2}: Green     '''+textColor.GREEN+'''#'''+textColor.RESET+''' ''')
-        print('''      {3}: Blue      '''+textColor.BLUE+'''#'''+textColor.RESET+''' ''')
-        print('''      {4}: Yellow    '''+textColor.YELLOW+'''#'''+textColor.RESET+''' ''')
-        print('''      {5}: Magenta   '''+textColor.MAGENTA+'''#'''+textColor.RESET+''' ''')
-        print('''      {6}: Cyan      '''+textColor.CYAN+'''#'''+textColor.RESET+''' ''')
-        print('''      {7}: White     '''+textColor.BOLD+'''#'''+textColor.RESET+''' ''')
-        print('''      {8}: Gray      '''+textColor.DARK_GRAY+'''#'''+textColor.RESET+''' ''')
-        print('      {9}: Leave color as is')
-        print('      -------------------------------------')
+        print("     Choose a Stronghold Color:")
+        print('    -------------------------------------')
+        print('''    {1}: Red       '''+textColor.RED+'''#'''+textColor.RESET+''' ''')
+        print('''    {2}: Green     '''+textColor.GREEN+'''#'''+textColor.RESET+''' ''')
+        print('''    {3}: Blue      '''+textColor.BLUE+'''#'''+textColor.RESET+''' ''')
+        print('''    {4}: Yellow    '''+textColor.YELLOW+'''#'''+textColor.RESET+''' ''')
+        print('''    {5}: Magenta   '''+textColor.MAGENTA+'''#'''+textColor.RESET+''' ''')
+        print('''    {6}: Cyan      '''+textColor.CYAN+'''#'''+textColor.RESET+''' ''')
+        print('''    {7}: White     '''+textColor.BOLD+'''#'''+textColor.RESET+''' ''')
+        print('''    {8}: Gray      '''+textColor.DARK_GRAY+'''#'''+textColor.RESET+''' ''')
+        print('    {9}: Leave color as is')
+        print('    -------------------------------------')
         print('\n')
-        command = input("      Enter your command: ")
+        command = input("    Enter your command: ")
 
         if command == "1":
             userStronghold.color = 'red'
@@ -2002,22 +2001,21 @@ while (loop):
         header()
 
         print('\n\n')
-
         print('     Welcome to the Sandbox Menu, where uses can play with the map generator!')
 
         art_globe()
 
         print('\n\n\n\n\n')
-        print("      Avalible Commands:")
-        print('      -------------------------------------')
-        print('      {1}: Return to Stronghold')
-        print('      {2}: Generate a Test Map')
-        # print('      {3}: Create Custom Fiefs')
-        print('      {3}: Add Test Fiefs to Map')
-        print('      {4}: View Map (Generate First)')
-        print('      -------------------------------------')
+        print("    Avalible Commands:")
+        print('    -------------------------------------')
+        print('    {1}: Return to Stronghold')
+        print('    {2}: Generate a Test Map')
+        # print('    {3}: Create Custom Fiefs')
+        print('    {3}: Add Test Fiefs to Map')
+        print('    {4}: View Map (Generate First)')
+        print('    -------------------------------------')
         print('\n')
-        command = input("      Enter your command: ")
+        command = input("    Enter your command: ")
 
         if command == "1":
             screen = "stronghold"
@@ -2046,16 +2044,16 @@ while (loop):
         SetBiomeCounts(testMap)
         testMap.write()
         
-        print('World Map:')
+        print('    World Map:')
 
         PrintColorMap(testMap.worldMap)
 
-        print('\n Getting ready to generate rivers...')
+        print('\n    Getting ready to generate rivers...')
         time.sleep(3)
         GenerateRivers(testMap)
 
         time.sleep(1)
-        nothing = input('\nContinue:')
+        nothing = input('\n    Continue:')
 
         screen = 'sandboxMenu'
 
@@ -2092,7 +2090,7 @@ while (loop):
         TestPlotAllFiefs(testMap)
 
         time.sleep(1)
-        nothing = input('\nContinue:')
+        nothing = input('\n    Continue:')
 
         screen = 'sandboxMenu'
 
@@ -2105,12 +2103,12 @@ while (loop):
         testMap.name = 'testMap'
         testMap.read()
         
-        print('Current Test Map:')
+        print('    Current Test Map:')
 
         PrintColorMap(testMap.worldMap)
 
         time.sleep(1)
-        nothing = input('\nContinue:')
+        nothing = input('\n    Continue:')
 
         screen = 'sandboxMenu'
 
@@ -2123,28 +2121,28 @@ while (loop):
         header()
         print("\n")
 
-        print('     Welcome to the dev test menu. This should only be used for testing purposes.')
+        print('    Welcome to the dev test menu. This should only be used for testing purposes.')
         print('\n')
         
         art_devBricks()
 
-        print("     Avalible Commands:")
-        print('     -------------------------------------------------------')
-        print('     {1}: Return to Stronghold')
-        print('     {2}: Create Default Fiefs')
-        print('     {3}: Generate World Map (Must do this before 4-6)')
-        print('     {4}: Add Fief Tool')
-        print('     {5}: Add all Fiefs Tool')
-        print('     {6}: Add all Strongholds Tool')
-        print('     {7}: Quick Generate World (DO NOT USE if 3-6 were used!)')
-        print('     {8}: Add Gold Tool (for testing!)')
-        print('     {9}: World Map Diagnostic (Only run after step 3 or 7)')
-        print('     {10}: World Map River Tool')
-        print('     --------------------------------------------------------')
-        print('     Note: To quick generate a world, just hit 7. To go step ')
-        print('           by step, start at 3 and proceed without using 7!  ')
+        print("    Avalible Commands:")
+        print('    -------------------------------------------------------')
+        print('    {1}: Return to Stronghold')
+        print('    {2}: Create Default Fiefs')
+        print('    {3}: Generate World Map (Must do this before 4-6)')
+        print('    {4}: Add Fief Tool')
+        print('    {5}: Add all Fiefs Tool')
+        print('    {6}: Add all Strongholds Tool')
+        print('    {7}: Quick Generate World (DO NOT USE if 3-6 were used!)')
+        print('    {8}: Add Gold Tool (for testing!)')
+        print('    {9}: World Map Diagnostic (Only run after step 3 or 7)')
+        print('    {10}: World Map River Tool')
+        print('    --------------------------------------------------------')
+        print('    Note: To quick generate a world, just hit 7. To go step ')
+        print('          by step, start at 3 and proceed without using 7!  ')
         print('\n')
-        command = input("     Enter your command: ")
+        command = input("    Enter your command: ")
 
         if command == '1':
             currentPage = 1
@@ -2187,7 +2185,7 @@ while (loop):
         os.system("clear")
         header()
 
-        print('Seeding the world with default fiefdoms')
+        print('    Seeding the world with default fiefdoms')
 
         names = ['Razor Hills', 'Forest of Fado', 'Emerald Cove', 'Stormgrove',
                 'Dreadwall', 'Aegirs Hall', 'Ashen Grove', 'Bellhollow', 'Howling Plains',
@@ -2201,7 +2199,7 @@ while (loop):
             currentFief.write()
 
         time.sleep(2)
-        print('Seeding Complete')
+        print('    Seeding Complete')
         currentPage = 1
         screen = "fiefdoms"
 
@@ -2213,13 +2211,13 @@ while (loop):
         os.system("clear")
         header()
 
-        print('Adding Funds!...')
+        print('    Adding Funds!...')
 
         userStronghold.gold = str(int(userStronghold.gold) + 1000000)
         userStronghold.write()
 
         time.sleep(0.5)
-        print('...Funds Added!')
+        print('    ...Funds Added!')
         time.sleep(0.5)
         screen = 'devTest'
 
@@ -2242,7 +2240,7 @@ while (loop):
         print('\n')
         PrintColorMap(serverMap.worldMap)
 
-        nothing = input('\nContinue:')
+        nothing = input('\n    Continue:')
 
         screen = 'devTest'
 
@@ -2253,7 +2251,7 @@ while (loop):
         header()
 
         fief = Fiefdom()
-        command = input('Enter a fief name to input: ')
+        command = input('    Enter a fief name to input: ')
 
         fileFief = 'fiefs/' + command + '.txt'
         try:
@@ -2261,11 +2259,11 @@ while (loop):
                 fief.name = f.readline().strip()
                 fief.read()
         except:
-            print ('No file found')
+            print ('    No file found')
 
         PlaceFiefInWorldMap(fief, serverMap)
 
-        nothing = input('Continue:')
+        nothing = input('    Continue:')
 
         screen = 'devTest'
 
@@ -2277,7 +2275,7 @@ while (loop):
 
         PlotAllFiefs(serverMap)
 
-        nothing = input('Continue:')
+        nothing = input('    Continue:')
 
         screen = 'devTest'
         
@@ -2289,7 +2287,7 @@ while (loop):
 
         PlotAllStrongholds(serverMap)
 
-        nothing = input('Continue:')
+        nothing = input('    Continue:')
 
         screen = 'devTest'
 
@@ -2315,11 +2313,11 @@ while (loop):
         PlotAllStrongholds(serverMap)
 
         os.system("clear")
-        print('World Generation Complete!')
+        print('    World Generation Complete!')
         print('')
         PrintColorMap(serverMap.worldMap)
 
-        nothing = input('Continue:')
+        nothing = input('    Continue:')
 
         screen = 'devTest'
 
@@ -2335,7 +2333,7 @@ while (loop):
         print('\n')
         PrintColorMap(serverMap.worldMap)
 
-        nothing = input('Continue:')
+        nothing = input('    Continue:')
 
         screen = 'devTest'
 
@@ -2343,11 +2341,11 @@ while (loop):
 #-----------------------------------------------------------------------------------
     if screen == "devTestRiverTool":
         os.system("clear")
-        
+
         serverMap.read()
         GenerateRivers(serverMap)
 
-        nothing = input('Continue:')
+        nothing = input('    Continue:')
         
         screen = 'devTest'
 
