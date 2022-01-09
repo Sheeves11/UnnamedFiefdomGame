@@ -1315,15 +1315,15 @@ while (loop):
         print('    ' + attackFief.name + ' has ' + attackFief.gold + ' gold.')
         time.sleep(1)
         print('\n')
-
-        print('    Sending ' + str(attackFief.gold) + ' gold back home')
-        time.sleep(1)
-        userStronghold.gold = str(int(userStronghold.gold) + int(attackFief.gold))
-        attackFief.gold = str(0)
-        attackFief.write()
-        attackFief.read()
-        userStronghold.write()
-        userStronghold.read()
+        if attackFief.gold > 0:
+            print('    Sending ' + str(attackFief.gold) + ' gold back home')
+            time.sleep(1)
+            userStronghold.gold = str(int(userStronghold.gold) + int(attackFief.gold))
+            attackFief.gold = str(0)
+            attackFief.write()
+            attackFief.read()
+            userStronghold.write()
+            userStronghold.read()
 
         currentPage = 1
         screen = "homeDetails"
