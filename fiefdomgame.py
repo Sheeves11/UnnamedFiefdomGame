@@ -1012,7 +1012,7 @@ while (loop):
             #then, switch to a details screen
 
             fileFief = 'fiefs/' + command + '.txt'
-            print (fileFief + 'loading is happening')
+            print ('    ' + fileFief + 'loading is happening')
             try:
                 with open(fileFief, 'r') as f:
                     attackFief.name = f.readline().strip()
@@ -1712,9 +1712,6 @@ while (loop):
 
         tempInput = input('    Press Enter To Continue')
         screen = "enemyStrongholdDetails"
-
-
-
 
 
 
