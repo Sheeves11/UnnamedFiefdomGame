@@ -185,12 +185,19 @@ while (loop):
 
         #Check if anything needs to be initialized
         if FirstLaunch():
+            serverMap.name = 'serverMap'
             SilentlyGenerateWorld(serverMap)
+            # SilentlyPlaceStrongholdInWorldMap(userStronghold, serverMap)
+            # serverMap.write()
+            # userStronghold.write()
+            serverMap.read()
+            newUserAccount = False
+
         if  newUserAccount:
             serverMap.name = 'serverMap'
             serverMap.read()
             SilentlyPlaceStrongholdInWorldMap(userStronghold, serverMap)
-            # userStronghold.write()
+            userStronghold.write()
             serverMap.read()
             newUserAccount = False
 
@@ -203,6 +210,7 @@ while (loop):
         print('     Your army of ' + textColor.WARNING + str(userStronghold.attType) + textColor.RESET + ' stands ready.')
         print('\n')
 
+        userStronghold.read()
         art_stronghold(userStronghold.biome, userStronghold.color)
 
         print("     Avalible Commands:")
@@ -1845,8 +1853,8 @@ while (loop):
     if screen == "viewFiefSurroundings":
         os.system("clear")
         serverMap.name = "serverMap"
-        serverMap.read()
-
+        # serverMap.read()
+        # attackFief.read()
         ListSurroundings(serverMap.worldMap, attackFief.xCoordinate, attackFief.yCoordinate)
 
         print('')

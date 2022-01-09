@@ -14,6 +14,7 @@ RIVER = ['/','|','\\']
 MOUNTAIN = 'M'
 PLAINS = '#'
 FOREST = '^'
+BACKSLASH_SUB = 'L'     #This needed to be added so the program could properly read/write '\'
 
 #define some text colors
 class textColor:
@@ -374,9 +375,15 @@ class Map:
                     f.write(str("["))
                     for j in range(int(self.width)):
                         if j < int(self.width) - 1:
-                            f.write("'" + str(self.worldMap[i][j]) + "',")
+                            if self.worldMap[i][j] == RIVER[2]:
+                                f.write("'" + BACKSLASH_SUB + "',")
+                            else:
+                                f.write("'" + str(self.worldMap[i][j]) + "',")
                         else:
-                            f.write("'" + str(self.worldMap[i][j]) + "'")
+                            if self.worldMap[i][j] == RIVER[2]:
+                                f.write("'" + BACKSLASH_SUB + "'")
+                            else:
+                                f.write("'" + str(self.worldMap[i][j]) + "'")
                     if i < int(self.height) - 1:
                         f.write(str("],"))
                     else:
@@ -404,9 +411,15 @@ class Map:
                     f.write(str("["))
                     for j in range(int(self.width)):
                         if j < int(self.width) - 1:
-                            f.write("'" + str(self.worldMap[i][j]) + "',")
+                            if self.worldMap[i][j] == RIVER[2]:
+                                f.write("'" + BACKSLASH_SUB + "',")
+                            else:
+                                f.write("'" + str(self.worldMap[i][j]) + "',")
                         else:
-                            f.write("'" + str(self.worldMap[i][j]) + "'")
+                            if self.worldMap[i][j] == RIVER[2]:
+                                f.write("'" + BACKSLASH_SUB + "'")
+                            else:
+                                f.write("'" + str(self.worldMap[i][j]) + "'")
                     if i < int(self.height) - 1:
                         f.write(str("],"))
                     else:
@@ -432,12 +445,15 @@ class Map:
                     self.values.append(readList[count])
                     
                 if count > 10:
+                    for i in range(len(readList[count])):
+                        if readList[count][i] == BACKSLASH_SUB:
+                            readList[count][i] = RIVER[2]
                     self.worldMap.append(readList[count])
 
             self.success = True
 
         except:
-            print('Could not read file!')
+            print('Could not read map file!')
             pass
 
         if self.success == True:
