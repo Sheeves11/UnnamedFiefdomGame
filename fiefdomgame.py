@@ -1545,7 +1545,7 @@ while (loop):
         print('-------------------------------------------------------------------------')
         print('\nYour scouts return early in the morning, bringing back reports of the enemy fiefdom.')
         print(attackStronghold.name + ' looks to have ' + str(attackStronghold.defenders) + ' fighters.')
-        print('Defense Type: ' + attackStronghold.defType)
+        print('Their coffers contain ' + str(attackStronghold.gold) + ' gold.')
         print('-------------------------------------------------------------------------')
 
         print("\n\n")
