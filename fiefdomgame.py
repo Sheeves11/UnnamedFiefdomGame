@@ -625,12 +625,12 @@ while (loop):
                         homeStatus = " "
 
                         if tempName.home != "True" and tempName.ruler == userStronghold.name:
-                            print(tempName.name + ' had ' + str(tempName.defenders) + ' soldier(s).')
+                            print('    ' + tempName.name + ' had ' + str(tempName.defenders) + ' soldier(s).')
                             time.sleep(0.3)
                             tempName.defenders = str(int(tempName.defenders) + outgoingSoldierGroups)
                             tempName.write()
                             tempName.read()
-                            print(tempName.name + ' now has ' + str(tempName.defenders) + ' soldiers! \n')
+                            print('    ' + tempName.name + ' now has ' + str(tempName.defenders) + ' soldiers! \n')
                             time.sleep(0.3)
 
                 userStronghold.defenders = int(userStronghold.defenders) - int(withdrawNum) + benchedSoldiers
@@ -969,7 +969,7 @@ while (loop):
                                 tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
 
         if fiefdomMargin > LINES_PER_PAGE or currentPage > 1:
-            print('\n/// Page ' + str(currentPage) + ' ///')
+            print('\n    /// Page ' + str(currentPage) + ' ///')
         print("\n    Avalible Commands:")
         print('    -------------------------------------')
         print('    {1}: Return to Stronghold')
@@ -1167,9 +1167,11 @@ while (loop):
         print('    You rule the fiefdom of ' + attackFief.name)
         print('\n')
         print('    Status Report:')
-        print('\n    ' + 'Defenders: ' + attackFief.defenders + '\n     Gold: ' + attackFief.gold + ' gold.')
-        print('    ' + 'Defensive Strategy: ' + attackFief.defType)
-        print('    ' + 'Production: ' + str(productionCalc) + ' gold and ' + str(defenderOutput * int(attackFief.defenderMod))
+        print('    ')
+        print('    Defenders: ' + attackFief.defenders)
+        print('    Gold: ' + attackFief.gold)
+        print('    Defensive Strategy: ' + attackFief.defType)
+        print('    Production: ' + str(productionCalc) + ' gold and ' + str(defenderOutput * int(attackFief.defenderMod))
                 + ' soldiers per hour.')
         print("\n")
 
@@ -1258,7 +1260,7 @@ while (loop):
             screen = 'withdrawGold'
 
         if command == '6':
-            screen = 'upgradeFiefDef'
+            screen = 'upgradeFiefMenu'
 
         if command == '7':
             screen = 'viewSurroundings'
@@ -1467,7 +1469,7 @@ while (loop):
         print('    Now viewing the fiefdom of ' + attackFief.name)
         print('    This fiefdom is ruled by ' + attackFief.ruler)
         print('    -------------------------------------------------------------------------')
-        print('    \nYour scouts return early in the morning, bringing back reports of the enemy fiefdom.')
+        print('    Your scouts return early in the morning, bringing back reports of the enemy fiefdom.')
         print('    ' + attackFief.name + ' looks to have ' + str(attackFief.defenders) + ' fighters.')
         print('    Defense Type: ' + attackFief.defType)
         print('    -------------------------------------------------------------------------')
@@ -1571,7 +1573,7 @@ while (loop):
         print("    \n\n")
         print('    Now viewing the stronghold of ' + attackStronghold.name)
         print('    -------------------------------------------------------------------------')
-        print('    \nYour scouts return early in the morning, bringing back reports of the enemy fiefdom.')
+        print('    Your scouts return early in the morning, bringing back reports of the enemy fiefdom.')
         print('    ' + attackStronghold.name + ' looks to have ' + str(attackStronghold.defenders) + ' fighters.')
         print('    Their coffers contain ' + str(attackStronghold.gold) + ' gold.')
         print('    -------------------------------------------------------------------------')
@@ -1948,7 +1950,7 @@ while (loop):
 
         print('')
         time.sleep(1)
-        nothing = input('Press Enter to Continue:')
+        nothing = input('    Press Enter to Continue:')
 
         
 

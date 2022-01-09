@@ -140,11 +140,11 @@ def GenerateWorldMap(seed):
     firstLoop = True
 
     #Print title, blank map, etc.
-    print('World Map Devtool')
-    print('worldMap before inserting anything: \n')
+    print('    World Map Devtool')
+    print('    WorldMap before inserting anything: \n')
     print(worldMap)
     print('\n')
-    print('Inserting stuff into worldMap: \n')
+    print('    Inserting stuff into worldMap: \n')
 
     while (loop):                                   #This should keep going until the map is filled (currently loops once)
         if firstLoop:                               #Check if this is the first loop (for coordinate stuff later)
@@ -157,7 +157,7 @@ def GenerateWorldMap(seed):
 
         loop = False                                #Map should be complete, stop looping.
 
-    print('\nFinished!')
+    print('\n    Finished!')
 
     return worldMap
 
@@ -184,7 +184,7 @@ def DefineSurroundings(wMap, posX, posY, freqM, freqP, freqF):
     #Prints each position at the top of the page:
     if not INSTANTLY_GENERATE:
         os.system("clear")
-        print('posX: ' + str(posX) + ' posY: ' + str(posY))
+        print('    posX: ' + str(posX) + ' posY: ' + str(posY))
 
         surroundings = ScanSurroundings(wMap, posX, posY)
         dN = surroundings[0]
@@ -197,12 +197,12 @@ def DefineSurroundings(wMap, posX, posY, freqM, freqP, freqF):
         dNW = surroundings[7]
 
         #Print surrounding symbols in a relevant box formation
-        print('\nSurroundings: ') 
-        print('- - - - -')
-        print('- ' + dNW + ' ' + dN + ' ' + dNE + ' -')
-        print('- ' + dW + '   ' + dE + ' -')
-        print('- ' + dSW + ' ' + dS + ' ' + dSE + ' -')
-        print('- - - - -')
+        print('\n    Surroundings: ') 
+        print('    - - - - -')
+        print('    - ' + dNW + ' ' + dN + ' ' + dNE + ' -')
+        print('    - ' + dW + '   ' + dE + ' -')
+        print('    - ' + dSW + ' ' + dS + ' ' + dSE + ' -')
+        print('    - - - - -')
 
         #Define a list of weight totals for each:
         weights = [0, 0, 0, 0, 0, 0, 0, 0]
@@ -232,14 +232,14 @@ def DefineSurroundings(wMap, posX, posY, freqM, freqP, freqF):
             index = index + 1
 
         #Print weights:
-        print('\nWeights: ') 
+        print('\n    Weights: ') 
         print(*weights)
 
         #Define a combined list of symbols and weights:
         symbolTable = [(dN,weights[0]),(dNE,weights[1]),(dE,weights[2]),(dSE,weights[3]),(dS,weights[4]),(dSW,weights[5]),(dW,weights[6]),(dNW,weights[7]), (RANDOM,RANDOM_INTENSITY)]
 
         #Print new combined list:
-        print('\nSymbol Table: ') 
+        print('\n    Symbol Table: ') 
         print(*symbolTable)
 
         #Define an expanded list of the combined list:
@@ -251,14 +251,14 @@ def DefineSurroundings(wMap, posX, posY, freqM, freqP, freqF):
         newPoint = random.choice(pointTable)
 
         #Print the randomly selected symbol:
-        print('\nNew Point: ') 
+        print('\n    New Point: ') 
         print(*newPoint)
         print('')
     #If the option to instantly generate the map is selected, no print statements are made:
     else:
         if FIRST_PRINT:
             os.system("clear")
-            print('Generating Map...')
+            print('    Generating Map...')
             FIRST_PRINT = False
 
         surroundings = ScanSurroundings(wMap, posX, posY)
@@ -316,14 +316,14 @@ def DefineSurroundings(wMap, posX, posY, freqM, freqP, freqF):
     #While the map making process isn't automated:
     if not AUTOMATED:
         #Offer the user the option to make each symbol at a time, or automate the process.
-        userInput=input('\nContinue with manual input? press (enter) or type (auto): ')
+        userInput=input('\n    Continue with manual input? press (enter) or type (auto): ')
 
         if userInput == 'auto':
             AUTOMATED = True
             #Additionally, if the user decides to automate the process, ask if they want it 
             #to be generated instantly:
             if not INSTANTLY_GENERATE:
-                userInput=input('Would you like to instantly generate this map? (y/n): ')
+                userInput=input('    Would you like to instantly generate this map? (y/n): ')
                 if userInput == 'y':
                     INSTANTLY_GENERATE = True
 
@@ -528,15 +528,15 @@ def PrintColorMap(wMap):
 #   Prints a legend for the map
 #--------------------------------------------------------------------------------------------------------------
 def PrintLegend():
-    print('- Legend -----------')
-    print('- ' + IC_WATER + WATER + RESET + ' : Water        -')
-    #print('- ' + IC_RIVER + RIVER + RESET + ' : River        -')
-    print('- ' + IC_FOREST + FOREST + RESET + ' : Forest       -')
-    print('- ' + IC_PLAINS + PLAINS + RESET + ' : Plains       -')
-    print('- ' + IC_MOUNTAIN + MOUNTAIN + RESET + ' : Mountain     -')
-    print('- ' + IC_FIEF + FIEF + RESET + ' : Fief         -')
-    print('- ' + IC_STRONGHOLD + STRONGHOLD + RESET + ' : Stronghold   -')
-    print('- ' + IC_LOCATION + LOCATION + RESET + ' : You are Here -')
+    print('    - Legend -----------------')
+    print('    - ' + IC_WATER + WATER + RESET + ' : Water              -')
+    print('    - ' + IC_RIVER + RIVER[0] + ', ' + RIVER[1] + ', ' + RIVER[2] + RESET + ' : River        -')
+    print('    - ' + IC_FOREST + FOREST + RESET + ' : Forest             -')
+    print('    - ' + IC_PLAINS + PLAINS + RESET + ' : Plains             -')
+    print('    - ' + IC_MOUNTAIN + MOUNTAIN + RESET + ' : Mountain           -')
+    print('    - ' + IC_FIEF + FIEF + RESET + ' : Fief         -')
+    print('    - ' + IC_STRONGHOLD + STRONGHOLD + RESET + ' : Stronghold        -')
+    print('    - ' + IC_LOCATION + LOCATION + RESET + ' : You are Here       -')
 
 #--------------------------------------------------------------------------------------------------------------
 #   [DefineFiefBiome]
@@ -550,25 +550,25 @@ def DefineFiefBiome(fiefClass):
     plainsBiomeNames = ['plain', 'field', 'prairie', 'flat', 'expanse', 'grass', 'meadow', 'steppe', 'plateau', 'heath', 'moor', 'hollow']
     mountainBiomeNames = ['mount', 'alp', 'bluff', 'cliff', 'crag', 'mesa', 'peak', 'range', 'ridge', 'pike', 'hill', 'butte', 'height']
 
-    print('Fief name: ' + str(fiefClass.name))
+    print('    Fief name: ' + str(fiefClass.name))
     #Check if the name sounds like a forest
     for i in range(len(forestBiomeNames)):
         if forestBiomeNames[i] in str(fiefClass.name).lower():
-            print('Name contains ' + str(forestBiomeNames[i]) + ", so it's a forest!")
+            print('    Name contains ' + str(forestBiomeNames[i]) + ", so it's a forest!")
             fiefClass.biome = FOREST
     #Check if the name sounds like a mountain
     for i in range(len(mountainBiomeNames)):
         if mountainBiomeNames[i] in str(fiefClass.name).lower():
-            print('Name contains ' + str(mountainBiomeNames[i]) + ", so it's a mountain!")
+            print('    Name contains ' + str(mountainBiomeNames[i]) + ", so it's a mountain!")
             fiefClass.biome = MOUNTAIN
     #Check if the name sounds like a plains
     for i in range(len(plainsBiomeNames)):
         if plainsBiomeNames[i] in str(fiefClass.name).lower():
-            print('Name contains ' + str(plainsBiomeNames[i]) + ", so it's a plains!")
+            print('    Name contains ' + str(plainsBiomeNames[i]) + ", so it's a plains!")
             fiefClass.biome = PLAINS
     #Select randomly if the name doesn't sound like any of the previous biomes
     if fiefClass.biome == '0':
-        print('Fief name does not contain a specific biome type, setting a random biome.')
+        print('    Fief name does not contain a specific biome type, setting a random biome.')
         fiefClass.biome = GetRandomLandPoint()
 
     #Update the fiefClass file
@@ -643,7 +643,7 @@ def SilentlyPlotAllFiefs(mapClass):
 def PlaceFiefInWorldMap(fiefClass, mapClass):
     if (fiefClass.biome == '0') and (fiefClass.name != 'Default Fiefdom'):
         DefineFiefBiome(fiefClass)
-        print('Defined Biome as: ' + str(fiefClass.biome))
+        print('    Defined Biome as: ' + str(fiefClass.biome))
         remaining = 0
         cycle = 0
         pickingPoint = 0
@@ -657,32 +657,32 @@ def PlaceFiefInWorldMap(fiefClass, mapClass):
                 fiefClass.biome = CycleBiome(fiefClass.biome)
                 cycle += 1
         if cycle > 3:
-            print('Error, no more room for fiefs left on this map!')
+            print('    Error, no more room for fiefs left on this map!')
         else:
             while pickingPoint < 10:    #Tries to get a point. Fails if it manages to select an occupied point 10 times.
             #Select one of the available biomes at random
-                print('Picking a random ' + str(fiefClass.biome) + ' biome out of the ones available:')
+                print('    Picking a random ' + str(fiefClass.biome) + ' biome out of the ones available:')
                 point = GetRandomPointByBiome(fiefClass.biome, mapClass)
-                print('Picked point: ' + str(point))
+                print('    Picked point: ' + str(point))
 
                 #If a biome was found:
                 if point > 0:
                     coordinates = GetPointCoordinates(fiefClass.biome, point, mapClass.worldMap)
 
                     if CrossCheckFiefCoordinates(coordinates):
-                        print('Successfully selected coordinates!:')
+                        print('    Successfully selected coordinates!:')
                         print(*coordinates)
                         fiefClass.setCoordinates(coordinates)
                         #This is a new addition that adds several 5 new "surroundings" variables to fiefs:
                         fiefClass.setSurroundings(ScanSurroundings(mapClass.worldMap, fiefClass.xCoordinate, fiefClass.yCoordinate))
-                        print('Successfully set coordinates!: ')
-                        print('xCoordinate: ' + str(fiefClass.xCoordinate) + ' yCoordinate: ' + str(fiefClass.yCoordinate))
-                        print('Updating used biomes in mapClass, biome is ' + str(fiefClass.biome) + ': ')
+                        print('    Successfully set coordinates!: ')
+                        print('    xCoordinate: ' + str(fiefClass.xCoordinate) + ' yCoordinate: ' + str(fiefClass.yCoordinate))
+                        print('    Updating used biomes in mapClass, biome is ' + str(fiefClass.biome) + ': ')
                         UpdateUsedBiomes(fiefClass.biome, mapClass)
-                        print('Used Forests: ' + str(mapClass.usedForests))
-                        print('Used Plains: ' + str(mapClass.usedPlains))
-                        print('Used Mountains: ' + str(mapClass.usedMountains))
-                        print('Inserting Fief into map:')
+                        print('    Used Forests: ' + str(mapClass.usedForests))
+                        print('    Used Plains: ' + str(mapClass.usedPlains))
+                        print('    Used Mountains: ' + str(mapClass.usedMountains))
+                        print('    Inserting Fief into map:')
                         InsertFiefAtLocation(fiefClass.yCoordinate, fiefClass.xCoordinate, mapClass)
                         
                         PrintColorMap(mapClass.worldMap)
@@ -694,9 +694,9 @@ def PlaceFiefInWorldMap(fiefClass, mapClass):
                         pickingPoint += 1
     else:
         if fiefClass.name == 'Default Fiefdom':
-            print("That fiefdom doesn't exist!")
+            print("    That fiefdom doesn't exist!")
         else:
-            print('That fief is already on the map!')
+            print('    That fief is already on the map!')
 
 
 #--------------------------------------------------------------------------------------------------------------
@@ -723,7 +723,7 @@ def QuietlyPlaceFiefInWorldMap(fiefClass, mapClass):
                 fiefClass.biome = CycleBiome(fiefClass.biome)
                 cycle += 1
         if cycle > 3:
-            print('Error, no more room for fiefs left on this map!')
+            print('    Error, no more room for fiefs left on this map!')
         else:
             while pickingPoint < 10:    #Tries to get a point. Fails if it manages to select an occupied point 10 times.
                 #Select one of the available biomes at random
@@ -748,12 +748,12 @@ def QuietlyPlaceFiefInWorldMap(fiefClass, mapClass):
                     else:
                         pickingPoint += 1
             if spotFound == False:
-                print("Error, couldn't find an empty spot!")
+                print("    Error, couldn't find an empty spot!")
     else:
         if fiefClass.name == 'Default Fiefdom':
-            print("That fiefdom doesn't exist!")
+            print("    That fiefdom doesn't exist!")
         else:
-            print(str(fiefClass.name) + ' is already on the map!')
+            print('    ' + str(fiefClass.name) + ' is already on the map!')
 
 #--------------------------------------------------------------------------------------------------------------
 #   [SilentlyPlaceFiefInWorldMap]
@@ -779,7 +779,7 @@ def SilentlyPlaceFiefInWorldMap(fiefClass, mapClass):
                 fiefClass.biome = CycleBiome(fiefClass.biome)
                 cycle += 1
         if cycle > 3:
-            print('Error, no more room for fiefs left on this map!')
+            print('    Error, no more room for fiefs left on this map!')
         else:
             while pickingPoint < 10:    #Tries to get a point. Fails if it manages to select an occupied point 10 times.
                 #Select one of the available biomes at random
@@ -803,12 +803,12 @@ def SilentlyPlaceFiefInWorldMap(fiefClass, mapClass):
                     else:
                         pickingPoint += 1
             if spotFound == False:
-                print("Error, couldn't find an empty spot!")
+                print("    Error, couldn't find an empty spot!")
     else:
         if fiefClass.name == 'Default Fiefdom':
-            print("That fiefdom doesn't exist!")
+            print("    That fiefdom doesn't exist!")
         else:
-            print(str(fiefClass.name) + ' is already on the map!')
+            print('    ' + str(fiefClass.name) + ' is already on the map!')
 
 #--------------------------------------------------------------------------------------------------------------
 #   [InsertFiefAtLocation]
@@ -896,7 +896,7 @@ def CrossCheckStrongholdCoordinates(coordinates):
                 tempName.read()
                 # print('Cross checking with: ' + str(tempName.name))
                 if tempName.yCoordinate == coordinates[0] and tempName.xCoordinate == coordinates[1]:
-                    print('Error, same coordinates as ' + str(tempName.name) + '!')
+                    print('    Error, same coordinates as ' + str(tempName.name) + '!')
                     return False
     return True
 
@@ -935,13 +935,13 @@ def GetRandomPointByBiome(biome, mapClass):
 #--------------------------------------------------------------------------------------------------------------
 def CycleBiome(biome):
     if biome == FOREST:
-        print('No forests left, changing biome to a mountain:')
+        print('    No forests left, changing biome to a mountain:')
         return MOUNTAIN
     elif biome == MOUNTAIN:
-        print('No mountains left, changing biome to a plains:')
+        print('    No mountains left, changing biome to a plains:')
         return PLAINS
     elif biome == PLAINS:
-        print('No plains left, changing biome to a forest:')
+        print('    No plains left, changing biome to a forest:')
         return FOREST
 
 #--------------------------------------------------------------------------------------------------------------
@@ -1076,7 +1076,7 @@ def QuietlyPlaceStrongholdInWorldMap(strongholdClass, mapClass):
                 strongholdClass.biome = CycleBiome(strongholdClass.biome)
                 cycle += 1
         if cycle > 3:
-            print('Error, no more room left on this map!')
+            print('    Error, no more room left on this map!')
         else:
             while pickingPoint < 10:    #Tries to get a point. Fails if it manages to select an occupied point 10 times.
                 #Select one of the available biomes at random
@@ -1090,7 +1090,7 @@ def QuietlyPlaceStrongholdInWorldMap(strongholdClass, mapClass):
                         #If the coordinates aren't the same as some other stronghold:                                        
                         if CrossCheckStrongholdCoordinates(coordinates):   
                             #Update map and stronghold:  
-                            print('Adding ' + str(strongholdClass.name) + "'s stronghold to the map!")                           
+                            print('    Adding ' + str(strongholdClass.name) + "'s stronghold to the map!")                           
                             print(*coordinates)
                             strongholdClass.setCoordinates(coordinates)
                             UpdateUsedBiomes(strongholdClass.biome, mapClass)
@@ -1106,12 +1106,12 @@ def QuietlyPlaceStrongholdInWorldMap(strongholdClass, mapClass):
                     else:
                         pickingPoint += 1
             if spotFound == False:
-                print("Error, couldn't find an empty spot!")
+                print("    Error, couldn't find an empty spot!")
     else:
         if strongholdClass.name == 'Default Stronghold':
-            print("That stronghold doesn't exist!")
+            print("    That stronghold doesn't exist!")
         else:
-            print(str(strongholdClass.name) + "'s stronghold is already on the map!")
+            print('    ' + str(strongholdClass.name) + "'s stronghold is already on the map!")
 
 #--------------------------------------------------------------------------------------------------------------
 #   [SilentlyPlaceStrongholdInWorldMap]
@@ -1138,7 +1138,7 @@ def SilentlyPlaceStrongholdInWorldMap(strongholdClass, mapClass):
                 strongholdClass.biome = CycleBiome(strongholdClass.biome)
                 cycle += 1
         if cycle > 3:
-            print('Error, no more room left on this map!')
+            print('    Error, no more room left on this map!')
         else:
             while pickingPoint < 10:    #Tries to get a point. Fails if it manages to select an occupied point 10 times.
                 #Select one of the available biomes at random
@@ -1164,12 +1164,12 @@ def SilentlyPlaceStrongholdInWorldMap(strongholdClass, mapClass):
                     else:
                         pickingPoint += 1
             if spotFound == False:
-                print("Error, couldn't find an empty spot!")
+                print("    Error, couldn't find an empty spot!")
     else:
         if strongholdClass.name == 'Default Stronghold':
-            print("That stronghold doesn't exist!")
+            print("    That stronghold doesn't exist!")
         else:
-            print(str(strongholdClass.name) + "'s stronghold is already on the map!")
+            print('    ' + str(strongholdClass.name) + "'s stronghold is already on the map!")
 #--------------------------------------------------------------------------------------------------------------
 #   [InsertStrongholdAtLocation]
 #   Parameters: yPos, xPos, mapClass
@@ -1406,7 +1406,7 @@ def GenerateRivers(mapClass):
     # print('River coords 1 are currently:')
     # print(*RIVER_COORDS_1)
     for i in range (SCAN_LEVEL):
-        print('Scan Level:' + str(i))
+        print('    Scan Level:' + str(i))
         if RIVER_COUNT < (RIVER_CAP * 2):       #Allows the function to break out of the loop if plenty of ideal spots were found.
             for y in range(MAP_HEIGHT):
                 for x in range(MAP_WIDTH):
@@ -1416,18 +1416,18 @@ def GenerateRivers(mapClass):
             # print('\n')
             # PrintColorMap(mapClass.worldMap)
 
-    print('Total matches found at scan level 0: ' + str(len(RIVER_COORDS_0)))
-    print('Total matches found at scan level 1: ' + str(len(RIVER_COORDS_1)))
-    print('Total matches found at scan level 2: ' + str(len(RIVER_COORDS_2)))
+    print('    Total matches found at scan level 0: ' + str(len(RIVER_COORDS_0)))
+    print('    Total matches found at scan level 1: ' + str(len(RIVER_COORDS_1)))
+    print('    Total matches found at scan level 2: ' + str(len(RIVER_COORDS_2)))
     # mapClass.numRivers = len(RIVER_COORDS_0) #TEMPORARY
-    print('The best river source picks are:')
+    print('    The best river source picks are:')
     print(*RIVER_COORDS_0)
-    print('Waiting for 1 second then picking sources...')
+    print('    Waiting for 1 second then picking sources...')
     time.sleep(1)
     PickRiverSources()  # Loads sources into SOURCES global.
-    print('Sources picked:')
+    print('    Sources picked:')
     print(*SOURCES)
-    print('Waiting for 1 second then creating rivers:')
+    print('    Waiting for 1 second then creating rivers:')
     time.sleep(1)
     CreateRivers(mapClass.worldMap)
     # print('Total Average River Weight Value: ' + str(RIVER_AVERAGE_WEIGHT))
@@ -2050,21 +2050,21 @@ def ListSurroundings(wMap, xPos, yPos):
     directions = ['North', 'North-East', 'East', 'South-East', 'South', 'South-West', 'West', 'North-West']
     for i in range(len(surroundings)):
         if surroundings[i] == WATER:
-            print('There is a lake to the ' + str(directions[i]) + '.')
+            print('    There is a ' + IC_WATER + 'lake' + RESET + ' to the ' + str(directions[i]) + '.')
         if surroundings[i] == RIVER[0]:
-            print('There is a South-West bound river to the ' + str(directions[i]) + '.')
+            print('    There is a South-West bound ' + IC_RIVER + 'river' + RESET + ' to the ' + str(directions[i]) + '.')
         if surroundings[i] == RIVER[1]:
-            print('There is a South bound river to the ' + str(directions[i]) + '.')
+            print('    There is a South bound ' + IC_RIVER + 'river' + RESET + ' to the ' + str(directions[i]) + '.')
         if surroundings[i] == RIVER[2]:
-            print('There is a South-East bound river to the ' + str(directions[i]) + '.')
+            print('    There is a South-East bound ' + IC_RIVER + 'river' + RESET + ' to the ' + str(directions[i]) + '.')
         if surroundings[i] == PLAINS:
-            print('There are plains to the ' + str(directions[i]) + '.')
+            print('    There are ' + IC_PLAINS + 'plains' + RESET + ' to the ' + str(directions[i]) + '.')
         if surroundings[i] == FOREST:
-            print('There is a forest to the ' + str(directions[i]) + '.')
+            print('    There is a ' + IC_FOREST + 'forest' + RESET + ' to the ' + str(directions[i]) + '.')
         if surroundings[i] == MOUNTAIN:
-            print('There are mountains to the ' + str(directions[i]) + '.')
+            print('    There are ' + IC_MOUNTAIN + 'mountains' + RESET + ' to the ' + str(directions[i]) + '.')
         if surroundings[i] == ' ':
-            print('There is a vast wasteland to the ' + str(directions[i]) + '.')
+            print('    There is a vast wasteland to the ' + str(directions[i]) + '.')
 
 #--------------------------------------------------------------------------------------------------------------
 #   [SilentlyGenerateWorld]
@@ -2266,7 +2266,7 @@ def TestCrossCheckFiefCoordinates(coordinates):
                 tempName.read()
                 # print('Cross checking with: ' + str(tempName.name))
                 if tempName.yCoordinate == coordinates[0] and tempName.xCoordinate == coordinates[1]:
-                    print('Error, same coordinates as ' + str(tempName.name) + '!')
+                    print('    Error, same coordinates as ' + str(tempName.name) + '!')
                     return False
     return True
 
@@ -2294,7 +2294,7 @@ def TestQuietlyPlaceFiefInWorldMap(fiefClass, mapClass):
                 fiefClass.biome = CycleBiome(fiefClass.biome)
                 cycle += 1
         if cycle > 3:
-            print('Error, no more room for fiefs left on this map!')
+            print('    Error, no more room for fiefs left on this map!')
         else:
             while pickingPoint < 10:    #Tries to get a point. Fails if it manages to select an occupied point 10 times.
                 #Select one of the available biomes at random
@@ -2317,12 +2317,12 @@ def TestQuietlyPlaceFiefInWorldMap(fiefClass, mapClass):
                     else:
                         pickingPoint += 1
             if spotFound == False:
-                print("Error, couldn't find an empty spot!")
+                print("    Error, couldn't find an empty spot!")
     else:
         if fiefClass.name == 'Default Fiefdom':
-            print("That fiefdom doesn't exist!")
+            print("    That fiefdom doesn't exist!")
         else:
-            print(str(fiefClass.name) + ' is already on the map!')
+            print('    ' + str(fiefClass.name) + ' is already on the map!')
 
 
 #--------------------------------------------------------------------------------------------------------------
