@@ -292,7 +292,7 @@ while (loop):
         print('     -------------------------------------------------------')
         print('     {1}: Return to Stronghold')
         print('     {2}: Hire Mercenaries')
-        print('     {3}: Hire Theives')
+        print('     {3}: Hire Thieves')
         print('     --------------------------------------------------------')
         print('\n')
         command = input("     Enter your command: ")
@@ -385,7 +385,7 @@ while (loop):
         print('\n    Pre-Release (12/20/21): Steelwing\n')
         print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
 
-        tempInput = input('    Press Enter to Continue\n    ')
+        tempInput = input('    Press Enter to Continue')
         screen = 'moreCommands'
 
 
@@ -640,7 +640,7 @@ while (loop):
 
                 print("\n\n\n\n\n\n\n\n\n")
 
-        tempInput = input('    Press Enter to Continue\n    ')
+        tempInput = input('    Press Enter to Continue')
         screen = 'garrison'
 
 #This is the screen for updating a user's attack power.
@@ -685,7 +685,7 @@ while (loop):
             print('    Your current army is made of ' + userStronghold.attType)
             print('    This is currently the highest attack level!')
             print('\n\n\n\n\n\n\n\n\n\n')
-            command = input("     Press Enter to Continue")
+            command = input("    Press Enter to Continue")
 
         else:
             print('\n\n')
@@ -890,7 +890,7 @@ while (loop):
 
         ''')
 
-        tempInput = input('    Press Enter to Continue\n    ')
+        tempInput = input('    Press Enter to Continue')
         screen = 'moreCommands'
 
 #This is the features page for the game. Keep it updated
@@ -923,7 +923,7 @@ while (loop):
 
         ''')
 
-        tempInput = input('    Press Enter to Continue\n    ')
+        tempInput = input('    Press Enter to Continue')
         screen = 'moreCommands'
 
 #The fiefdoms page contains a list of Fiefdoms generated from the /fiefs directory
@@ -1385,7 +1385,7 @@ while (loop):
             userStronghold.read()
             attackFief.read()
             print('')
-            tempInput = input('    Press Enter to Continue\n    ')
+            tempInput = input('    Press Enter to Continue')
             screen = 'homeDetails'
 
         time.sleep(1)
@@ -1436,7 +1436,7 @@ while (loop):
             userStronghold.write()
             userStronghold.read()
 
-            tempInput = input('    Press Enter to Continue\n')
+            tempInput = input('    Press Enter to Continue')
             screen = 'homeDetails'
 
         if int(withdrawNum) == 0:
@@ -1451,7 +1451,7 @@ while (loop):
             userStronghold.write()
             userStronghold.read()
 
-            tempInput = input('    Press Enter to Continue\n')
+            tempInput = input('    Press Enter to Continue')
             screen = 'homeDetails'
 
 #This is the details page for enemy Fiefdoms
@@ -1635,78 +1635,82 @@ while (loop):
         desiredAttackers = 0
         attackers = 0
 
-        try:
-            desiredAttackers = int(input('    Enter the number of thieves you would like to send on this mission: '))
-        except:
-            print('\n\n    That is not a valid option, sorry!')
-            Attackers = 0
+        if userStronghold.thieves > 0:
+            try:
+                desiredAttackers = int(input('    Enter the number of thieves you would like to send on this mission: '))
+            except:
+                print('\n\n    That is not a valid option, sorry!')
+                Attackers = 0
 
-        if int(desiredAttackers) <= int(userStronghold.thieves)  and int(desiredAttackers) > 0:
-#            print('desieredAttackers = ' + str(desiredAttackers))
-            attackers = int(desiredAttackers)
+            if int(desiredAttackers) <= int(userStronghold.thieves)  and int(desiredAttackers) > 0:
+    #            print('desieredAttackers = ' + str(desiredAttackers))
+                attackers = int(desiredAttackers)
+            else:
+                print('    invalid number')
+                attackers = 0
+        
+
+            goldToSteal = attackStronghold.gold
+
+    #        print('Thieves Attacking: ' + str(attackers))
+    #        print('Defending Stronghold: ' + attackStronghold.name)
+    #        print('Attacking Stronghold: ' + str(userStronghold.name))
+    #        print('Potential Gold To Be Stolen: ' + str(attackStronghold.gold))
+    #        print('Defenders: ' + str(attackStronghold.defenders))
+    #        print('\n\nThief Logic Time: ')
+            
+            thiefs = float(attackers)
+            defs = float(attackStronghold.defenders)
+            potentialGold = float(attackStronghold.gold)
+            maxCarriedGold = 0
+            
+            ratio = float(thiefs / defs)
+
+            chance = float(4.4 + (ratio * 4180) + (-61607 * (ratio * ratio)))
+
+            maxCarriedGold = thiefs * (potentialGold // 10)
+            maxCarriedGold = maxCarriedGold * (1 + thiefs // 2)
+
+            
+    #        print('Percent Chance of Success: ' + str(chance))
+    #        print('Max Stolen Gold = ' + str(maxCarriedGold))
+            
+            if int(maxCarriedGold) > int(attackStronghold.gold):
+                maxCarriedGold = int(attackStronghold.gold)
+            
+            randomNum = roll(0) * 5
+    #        print('\nRandom Roll is: ' + str(randomNum))
+
+            if int(randomNum) > int(chance) and int(attackers) > 0:
+                
+                print('    Despite their valient efforts, your thieves have been captured.\n    This mission is a failure.')
+                
+                userStronghold.thieves = int(userStronghold.thieves) - int(attackers)
+                userStronghold.write()
+                userStronghold.read()
+
+                print('    You have ' + str(userStronghold.thieves) + ' thieves remaining.')
+
+            elif int(randomNum) <= int(chance) and int(attackers) > 0:
+                print('    Success! Your thieves return with pocketsfull of gold!\n    Your thieves managed to secure ' + str(maxCarriedGold) + ' gold for the stronghold!')
+                
+                userStronghold.gold = int(maxCarriedGold) + int(userStronghold.gold)
+                userStronghold.write()
+                userStronghold.read()
+
+                attackStronghold.gold = int(attackStronghold.gold) - int(maxCarriedGold)
+                attackStronghold.write()
+                attackStronghold.read()
+
+                print('    You now have ' + str(userStronghold.gold) + ' gold.')
+
+            else:
+                print('    Nothing Happened')
+        
         else:
-            print('    invalid number')
-            attackers = 0
+            print("    You don't have any thieves hired!")
 
-
-        goldToSteal = attackStronghold.gold
-
-#        print('Thieves Attacking: ' + str(attackers))
-#        print('Defending Stronghold: ' + attackStronghold.name)
-#        print('Attacking Stronghold: ' + str(userStronghold.name))
-#        print('Potential Gold To Be Stolen: ' + str(attackStronghold.gold))
-#        print('Defenders: ' + str(attackStronghold.defenders))
-#        print('\n\nThief Logic Time: ')
-        
-        thiefs = float(attackers)
-        defs = float(attackStronghold.defenders)
-        potentialGold = float(attackStronghold.gold)
-        maxCarriedGold = 0
-        
-        ratio = float(thiefs / defs)
-
-        chance = float(4.4 + (ratio * 4180) + (-61607 * (ratio * ratio)))
-
-        maxCarriedGold = thiefs * (potentialGold // 10)
-        maxCarriedGold = maxCarriedGold * (1 + thiefs // 2)
-
-        
-#        print('Percent Chance of Success: ' + str(chance))
-#        print('Max Stolen Gold = ' + str(maxCarriedGold))
-        
-        if int(maxCarriedGold) > int(attackStronghold.gold):
-            maxCarriedGold = int(attackStronghold.gold)
-        
-        randomNum = roll(0) * 5
-#        print('\nRandom Roll is: ' + str(randomNum))
-
-        if int(randomNum) > int(chance) and int(attackers) > 0:
-            
-            print('    Despite their valient efforts, your thieves have been captured.\n    This mission is a failure.')
-            
-            userStronghold.thieves = int(userStronghold.thieves) - int(attackers)
-            userStronghold.write()
-            userStronghold.read()
-
-            print('    You have ' + str(userStronghold.thieves) + ' thieves remaining.')
-
-        elif int(randomNum) <= int(chance) and int(attackers) > 0:
-            print('    Success! Your thieves return with pocketsfull of gold!\n    Your thieves managed to secure ' + str(maxCarriedGold) + ' gold for the stronghold!')
-            
-            userStronghold.gold = int(maxCarriedGold) + int(userStronghold.gold)
-            userStronghold.write()
-            userStronghold.read()
-
-            attackStronghold.gold = int(attackStronghold.gold) - int(maxCarriedGold)
-            attackStronghold.write()
-            attackStronghold.read()
-
-            print('    You now have ' + str(userStronghold.gold) + ' gold.')
-
-        else:
-            print('    Nothing Happened')
-
-        tempInput = input('    Press Enter To Continue:\n ')
+        tempInput = input('    Press Enter To Continue')
         screen = "enemyStrongholdDetails"
 
 
@@ -1819,7 +1823,7 @@ while (loop):
 
 
             time.sleep(1)
-            nothing = input('    Press Enter to Continue\n')
+            nothing = input('    Press Enter to Continue')
             currentPage = 1
             screen = "fiefdoms"
 
@@ -1843,7 +1847,7 @@ while (loop):
         WorldMapLocation(int(userStronghold.yCoordinate), int(userStronghold.xCoordinate), serverMap)
         print('')
         time.sleep(1)
-        nothing = input('    Press Enter to Continue:')
+        nothing = input('    Press Enter to Continue')
 
         screen = 'stronghold'
 
@@ -1867,7 +1871,7 @@ while (loop):
         WorldMapLocation(int(attackStronghold.yCoordinate), int(attackStronghold.xCoordinate), serverMap)
         print('')
         time.sleep(1)
-        nothing = input('    Press Enter to Continue:')
+        nothing = input('    Press Enter to Continue')
 
         screen = 'enemyStrongholdDetails'
 
@@ -1891,7 +1895,7 @@ while (loop):
         WorldMapLocation(int(attackFief.yCoordinate), int(attackFief.xCoordinate), serverMap)
         print('')
         time.sleep(1)
-        nothing = input('    Press Enter to Continue:')
+        nothing = input('    Press Enter to Continue')
 
         if str(attackFief.ruler) == str(userStronghold.ruler):
             screen = 'homeDetails'
@@ -1950,7 +1954,7 @@ while (loop):
 
         print('')
         time.sleep(1)
-        nothing = input('    Press Enter to Continue:')
+        nothing = input('    Press Enter to Continue')
 
         
 
