@@ -1228,7 +1228,7 @@ while (loop):
             art_farm6()
 
 
-        print('\n')
+        print('')
         print("    Avalible Commands:")
         print('    -------------------------------------------------------')
         print('    {1}: Return to Stronghold')
@@ -1366,6 +1366,7 @@ while (loop):
 
         if (int(userStronghold.defenders) < int(deployNum)) and int(deployNum) > 0:
             os.system("clear")
+            header()
             print("    You do not have enough soldiers for that")
             time.sleep(2)
             screen = 'homeDetails'
@@ -1474,7 +1475,7 @@ while (loop):
         print('    Defense Type: ' + attackFief.defType)
         print('    -------------------------------------------------------------------------')
 
-        print("\n\n")
+        print("\n")
         if attackFief.biome == str('^'):
             art_forest()
         
@@ -1528,7 +1529,7 @@ while (loop):
         if attackFief.goldMod == str(7):
             art_farm6()
 
-        print("\n\n")
+        print("")
 
         print("    Avalible Commands:")
         print('    -------------------------------------')
