@@ -2063,8 +2063,12 @@ def ListSurroundings(wMap, xPos, yPos):
             print('    There is a ' + IC_FOREST + 'forest' + RESET + ' to the ' + str(directions[i]) + '.')
         if surroundings[i] == MOUNTAIN:
             print('    There are ' + IC_MOUNTAIN + 'mountains' + RESET + ' to the ' + str(directions[i]) + '.')
+        if surroundings[i] == FIEF:
+            print('    There is a ' + IC_FIEF + 'fiefdom' + RESET + ' to the ' + str(directions[i]) + '.')
+        if surroundings[i] == STRONGHOLD:
+            print('    There is a ' + IC_STRONGHOLD + 'stronghold' + RESET + ' to the ' + str(directions[i]) + '.')
         if surroundings[i] == ' ':
-            print('    There is a vast wasteland to the ' + str(directions[i]) + '.')
+            print('    There is a vast wasteland to the ' +  str(directions[i]) + '.')
 
 #--------------------------------------------------------------------------------------------------------------
 #   [SilentlyGenerateWorld]
