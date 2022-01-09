@@ -261,6 +261,8 @@ while (loop):
     if screen == "upgradeStronghold":
         os.system("clear")
 
+        header()
+        print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
         print("     Avalible Commands:")
         print('     -------------------------------------------------------')
         print('     {1}: Return to Stronghold')
@@ -284,6 +286,8 @@ while (loop):
     if screen == "hireAndRecruit":
         os.system("clear")
 
+        header()
+        print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
         print("     Avalible Commands:")
         print('     -------------------------------------------------------')
         print('     {1}: Return to Stronghold')
@@ -307,6 +311,8 @@ while (loop):
     if screen == "moreCommands":
         os.system("clear")
 
+        header()
+        print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
         print("     Avalible Commands:")
         print('     -------------------------------------------------------')
         print('     {1}: Return to Stronghold')
@@ -1267,7 +1273,9 @@ while (loop):
 #----------------------------------------------------------------------------------
     if screen == "upgradeFiefMenu":
         os.system("clear")
-
+        
+        header()
+        print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
         print("     Avalible Commands:")
         print('     -------------------------------------------------------')
         print('     {1}: Go Back')
@@ -1818,6 +1826,8 @@ while (loop):
 #This page prints the world map with your stronghold's location marked on it
     if screen == "viewMapYourStronghold":
         os.system("clear")
+        header()
+
         serverMap.name = "serverMap"
 
         if firstMapRead:
@@ -1840,6 +1850,8 @@ while (loop):
 #This page prints the world map with your stronghold's location marked on it
     if screen == "viewMapEnemyStronghold":
         os.system("clear")
+        header()
+
         serverMap.name = "serverMap"
 
         if firstMapRead:
@@ -1862,6 +1874,8 @@ while (loop):
 #This page prints the world map with your stronghold's location marked on it
     if screen == "viewMapCurrentFief":
         os.system("clear")
+        header()
+
         serverMap.name = "serverMap"
 
         if firstMapRead:
@@ -1887,6 +1901,8 @@ while (loop):
 #This page prints the world map with your stronghold's location marked on it
     if screen == "viewSurroundings":
         os.system("clear")
+        header()
+
         serverMap.name = "serverMap"
         # serverMap.read()
         # attackFief.read()
@@ -1940,6 +1956,7 @@ while (loop):
 #This page prints a menu for choosing your stronghold's color:
     if screen == "changeStrongholdColor":
         os.system("clear")
+        header()
 
         print('\n\n\n\n\n')
         print("      Choose a Stronghold Color:")
@@ -1982,8 +1999,8 @@ while (loop):
 #------------------------------------------------------------------------------
     if screen == "sandboxMenu":
         os.system("clear")
-
         header()
+
         print('\n\n')
 
         print('     Welcome to the Sandbox Menu, where uses can play with the map generator!')
@@ -2017,6 +2034,7 @@ while (loop):
 #------------------------------------------------------------------------------
     if screen == "sbTestMap":
         os.system("clear")
+        header()
 
         TestResetFiefCoordinates()
 
@@ -2045,6 +2063,8 @@ while (loop):
 #------------------------------------------------------------------------------
     if screen == "sbCreateFief":
         os.system("clear")
+        header()
+
         print('    Welcome to the fief creation tool!')
         print('    Please be aware that other users may be able to see the fiefs you create!')
         newFief = input('\n    Enter the name of your new fief: ')
@@ -2064,6 +2084,7 @@ while (loop):
 #------------------------------------------------------------------------------
     if screen == "sbPlotTestFiefs":
         os.system("clear")
+        header()
 
         testMap.name = 'testMap'
         testMap.read()
@@ -2079,6 +2100,7 @@ while (loop):
 #------------------------------------------------------------------------------
     if screen == "sbViewMap":
         os.system("clear")
+        header()
         
         testMap.name = 'testMap'
         testMap.read()
@@ -2096,6 +2118,7 @@ while (loop):
 #------------------------------------------------------------------------------
     if screen == "devTest":
         os.system("clear")
+        header()
 
         header()
         print("\n")
@@ -2162,6 +2185,7 @@ while (loop):
 #----------------------------------------------------------------------------------
     if screen == "devTestCreateDefaults":
         os.system("clear")
+        header()
 
         print('Seeding the world with default fiefdoms')
 
@@ -2187,6 +2211,7 @@ while (loop):
 #----------------------------------------------------------------------------------
     if screen == "devTestAddGold":
         os.system("clear")
+        header()
 
         print('Adding Funds!...')
 
@@ -2204,6 +2229,7 @@ while (loop):
 #----------------------------------------------------------------------------------
     if screen == "devTestWorldMap":
         os.system("clear")
+        header()
 
         serverMap.name = 'serverMap'
         serverMap.seed = GenerateSeed()
@@ -2223,8 +2249,8 @@ while (loop):
 #This is currently just a test page to see if fief placement in the world map works as intended
 #----------------------------------------------------------------------------------
     if screen == "devTestFiefPlacement":
-
         os.system("clear")
+        header()
 
         fief = Fiefdom()
         command = input('Enter a fief name to input: ')
@@ -2246,8 +2272,8 @@ while (loop):
 #This plots all fiefs on the server at once
 #----------------------------------------------------------------------------------
     if screen == "devTestPlotAllFiefs":
-
         os.system("clear")
+        header()
 
         PlotAllFiefs(serverMap)
 
@@ -2258,8 +2284,9 @@ while (loop):
 #This plots all strongholds on the server at once
 #----------------------------------------------------------------------------------
     if screen == "devTestPlotAllStrongholds":
-
         os.system("clear")
+        header()
+
         PlotAllStrongholds(serverMap)
 
         nothing = input('Continue:')
@@ -2270,8 +2297,9 @@ while (loop):
 #This impelments all the map related functions in one go
 #----------------------------------------------------------------------------------
     if screen == "devTestGenerateWorld":
-
         os.system("clear")
+        header()
+
         serverMap.name = 'serverMap'
         serverMap.seed = GenerateSeed()
         serverMap.height = MAP_HEIGHT
@@ -2298,8 +2326,8 @@ while (loop):
 #This impelments all the map related functions in one go
 #----------------------------------------------------------------------------------
     if screen == "devTestWorldMapDiagnostics":
-
         os.system("clear")
+        header()
 
         serverMap.selfDiagnostic()
         # print('\n')
@@ -2315,6 +2343,7 @@ while (loop):
 #-----------------------------------------------------------------------------------
     if screen == "devTestRiverTool":
         os.system("clear")
+        
         serverMap.read()
         GenerateRivers(serverMap)
 
