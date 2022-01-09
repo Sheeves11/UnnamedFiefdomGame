@@ -304,7 +304,7 @@ while (loop):
             screen = 'mercs'
 
         if command == '3':
-            screen = 'theives'
+            screen = 'thieves'
 
 #This is a menu for additional features
 #----------------------------------------------------------------------------------
@@ -467,11 +467,12 @@ while (loop):
         os.system("clear")
         header()
 
-        print('You currently have ' + str(userStronghold.defenders) + ' soldiers and ' +  str(userStronghold.gold) + ' gold.')
+        print('\n\n\n')
+        print('    You currently have ' + str(userStronghold.defenders) + ' soldiers and ' +  str(userStronghold.gold) + ' gold.')
 
-        print('You can hire mercinaries for ' + str(mercCost) + ' gold each?')
+        print('    You can hire mercinaries for ' + str(mercCost) + ' gold each?')
 
-        upgradeInput = input('\nHow many mercinaries would you like to hire?\n')
+        upgradeInput = input('\n    How many mercinaries would you like to hire?\n')
 
         try:
             int(upgradeInput)
@@ -479,10 +480,10 @@ while (loop):
             upgradeInput = '0'
 
         if int(upgradeInput) == 0:
-            print("No changes were made!")
+            print("    No changes were made!")
 
         elif int(upgradeInput) < 0:
-            print("You can't hire a negative number of soldiers")
+            print("    You can't hire a negative number of soldiers")
 
         elif (int(upgradeInput) * mercCost) <=  int(userStronghold.gold):
             userStronghold.defenders = str(int(userStronghold.defenders) + int(upgradeInput))
@@ -491,17 +492,16 @@ while (loop):
             userStronghold.read()
 
         else:
-            print("You need more gold first!")
+            print("    You need more gold first!")
 
         print("\n\n\n\n\n\n\n\n\n")
-
-        print("Avalible Commands:")
-        print('-------------------------------------')
-        print('{1}: Return to Stronghold')
-        print('{2}: View Fiefdoms')
-        print('-------------------------------------')
+        print("    Avalible Commands:")
+        print('    -------------------------------------')
+        print('    {1}: Return to Stronghold')
+        print('    {2}: View Fiefdoms')
+        print('    -------------------------------------')
         print('\n')
-        command = input("Enter your command: ")
+        command = input("    Enter your command: ")
 
         if command == "1":
             screen = "stronghold"
