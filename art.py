@@ -7,7 +7,7 @@ def header():
                                              UNNAMED FIEFDOM GAME
 -=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=--=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-'''
     + textColor.WARNING + '\n            Announcement: The Pre-Release has concluded! Congrats Steelwing! || Season 1 begins on 1/3/2021!'
-    + textColor.RESET)
+    + textColor.RESET + '\n')
 
 #Define Art:
 def art_titleScreen():
