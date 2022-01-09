@@ -1919,32 +1919,32 @@ while (loop):
         else:
             ListSurroundings(serverMap.worldMap, attackFief.xCoordinate, attackFief.yCoordinate)
             print('')
-            print('    In all,')
+            print('    In all:')
             if int(attackFief.adjacentWater) > 0:
                 if int(attackFief.adjacentWater) == 1:
-                    print('    There is one body of water nearby')
+                    print('      There is one body of ' + textColor.BLUE + 'water' + textColor.RESET + ' nearby')
                 elif int(attackFief.adjacentWater) > 1:
-                    print('    There are ' + str(attackFief.adjacentWater) + ' bodies of water nearby')
+                    print('      There are ' + str(attackFief.adjacentWater) + ' bodies of ' + textColor.BLUE + 'water' + textColor.RESET + ' nearby')
             if int(attackFief.adjacentRivers) > 0:
                 if int(attackFief.adjacentRivers) == 1:
-                    print('    There is one river nearby')
+                    print('      There is one ' + textColor.BLUE + 'river' + textColor.RESET + ' nearby')
                 elif int(attackFief.adjacentRivers) > 1:
-                    print('    There are ' + str(attackFief.adjacentRivers) + ' rivers nearby')
+                    print('      There are ' + str(attackFief.adjacentRivers) + ' ' + textColor.BLUE + 'rivers' + textColor.RESET + ' nearby')
             if int(attackFief.adjacentPlains) > 0:
                 if int(attackFief.adjacentPlains) == 1:
-                    print('    There is one plains nearby')
+                    print('      There is one ' + textColor.YELLOW + 'plains' + textColor.RESET + ' nearby')
                 elif int(attackFief.adjacentPlains) > 1:
-                    print('    There are ' + str(attackFief.adjacentPlains) + ' plains nearby')
+                    print('      There are ' + str(attackFief.adjacentPlains) + ' ' + textColor.YELLOW + 'plains' + textColor.RESET + ' nearby')
             if int(attackFief.adjacentForests) > 0:
                 if int(attackFief.adjacentForests) == 1:
-                    print('    There is one forest nearby')
+                    print('      There is one ' + textColor.GREEN + 'forest' + textColor.RESET + ' nearby')
                 elif int(attackFief.adjacentForests) > 1:
-                    print('    There are ' + str(attackFief.adjacentForests) + ' forests nearby')
+                    print('      There are ' + str(attackFief.adjacentForests) + ' ' + textColor.GREEN + 'forests' + textColor.RESET + ' nearby')
             if int(attackFief.adjacentMountains) > 0:
                 if int(attackFief.adjacentMountains) == 1:
-                    print('    There is one mountain nearby')
+                    print('      There is one ' + textColor.DARK_GRAY + 'mountain' + textColor.RESET + ' nearby')
                 elif int(attackFief.adjacentMountains) > 1:
-                    print('    There are ' + str(attackFief.adjacentMountains) + ' mountains nearby')
+                    print('      There are ' + str(attackFief.adjacentMountains) + ' ' + textColor.DARK_GRAY + 'mountains' + textColor.RESET + ' nearby')
             if str(attackFief.ruler) == str(userStronghold.ruler):
                 screen = 'homeDetails'
             if str(attackFief.ruler) != str(userStronghold.ruler):
