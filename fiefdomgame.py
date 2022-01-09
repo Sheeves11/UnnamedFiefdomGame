@@ -225,7 +225,7 @@ while (loop):
         print('     {6}: Message Board')
         print('     {7}: More')
         print('     --------------------------------------------------------')
-        print('\n')
+        print('')
         command = input("     Enter your command: ")
 
         if command == '1':
@@ -269,7 +269,7 @@ while (loop):
         print('     {2}: Upgrade Attack')
         print('     {3}: Change Stronghold Color')
         print('     --------------------------------------------------------')
-        print('\n')
+        print('')
         command = input("     Enter your command: ")
 
         if command == '1':
@@ -294,7 +294,7 @@ while (loop):
         print('     {2}: Hire Mercenaries')
         print('     {3}: Hire Thieves')
         print('     --------------------------------------------------------')
-        print('\n')
+        print('')
         command = input("     Enter your command: ")
 
         if command == '1':
@@ -321,7 +321,7 @@ while (loop):
         print('     {4}: About')
         print('     {5}: Sandbox Mode')
         print('     --------------------------------------------------------')
-        print('\n')
+        print('')
         command = input("     Enter your command: ")
 
         if command == '1':
@@ -445,7 +445,7 @@ while (loop):
         print('        {2}: View Fiefdoms')
         print('        {3}: View All Strongholds')
         print('        -------------------------------------')
-        print('\n')
+        print('')
         command = input("        Enter your command: ")
 
         if command == "1":
@@ -472,7 +472,7 @@ while (loop):
 
         print('    You can hire mercinaries for ' + str(mercCost) + ' gold each?')
 
-        upgradeInput = input('\n    How many mercinaries would you like to hire?\n')
+        upgradeInput = input('\n    How many mercinaries would you like to hire? : ')
 
         try:
             int(upgradeInput)
@@ -500,7 +500,7 @@ while (loop):
         print('    {1}: Return to Stronghold')
         print('    {2}: View Fiefdoms')
         print('    -------------------------------------')
-        print('\n')
+        print('')
         command = input("    Enter your command: ")
 
         if command == "1":
@@ -539,7 +539,7 @@ while (loop):
         print('     {2}: View Fiefdoms')
         print('     {3}: Distribute Soldiers')
         print('     -------------------------------------')
-        print('\n')
+        print('')
         command = input("     Enter your command: ")
 
         if command == "1":
@@ -983,7 +983,7 @@ while (loop):
 
         print('    {Enter fiefdom name}: View Fiefdom Details')
         print('    -------------------------------------')
-        print('\n')
+        print('')
         command = input("    Enter your command: ")
         #command = command.lower() #This won't work until file-naming schema is changed!
 
@@ -1012,7 +1012,7 @@ while (loop):
             #then, switch to a details screen
 
             fileFief = 'fiefs/' + command + '.txt'
-            print ('    ' + fileFief + 'loading is happening')
+            # print ('    ' + fileFief + 'loading is happening')
             try:
                 with open(fileFief, 'r') as f:
                     attackFief.name = f.readline().strip()
@@ -1091,7 +1091,7 @@ while (loop):
 
         print('    {Enter stronghold owner name}: View Stronghold Details')
         print('    -------------------------------------')
-        print('\n')
+        print('')
         command = input("    Enter your command: ")
         #command = command.lower() #This won't work until file-naming schema is changed!
 
@@ -1120,7 +1120,7 @@ while (loop):
             #then, switch to a details screen
 
             fileFief = 'strongholds/' + command + '.txt'
-            print ('    ' + fileFief + 'loading is happening')
+            # print ('    ' + fileFief + 'loading is happening')
             try:
                 with open(fileFief, 'r') as f:
                     attackStronghold.name = f.readline().strip()
@@ -1163,9 +1163,9 @@ while (loop):
         else:
             productionCalc = ((goldOutput * int(attackFief.goldMod)) + (int(attackFief.defenders) * int(attackFief.goldMod)))
 
-        print("\n")
+        print('')
         print('    You rule the fiefdom of ' + attackFief.name)
-        print('\n')
+        print('')
         print('    Status Report:')
         print('    ')
         print('    Defenders: ' + attackFief.defenders)
@@ -1240,7 +1240,7 @@ while (loop):
         print('    {7}: Look Around')
         print('    {8}: World Map')
         print('    -------------------------------------------------------')
-        print('\n')
+        print('')
         command = input("    Enter your command: ")
 
         if command == "1":
@@ -1283,7 +1283,7 @@ while (loop):
         print('    {3}: Upgrade Farms')
         # print('    {4}: Upgrade Training')
         print('    --------------------------------------------------------')
-        print('\n')
+        print('')
         command = input("    Enter your command: ")
 
         if command == '1':
@@ -1326,7 +1326,7 @@ while (loop):
         userStronghold.read()
 
         currentPage = 1
-        screen = "fiefdoms"
+        screen = "homeDetails"
 
 #The deploy screen allows players to deploy defenders to a Fiefdom that they
 #currently control.
@@ -1538,7 +1538,7 @@ while (loop):
         print('    {4}: Look Around')
         print('    {5}: World Map')
         print('    -------------------------------------')
-        print('\n')
+        print('')
 
         command = input("    Enter your command: ")
 
@@ -1592,7 +1592,7 @@ while (loop):
         print('    {4}: Look Around')
         print('    {5}: World Map')
         print('    -------------------------------------')
-        print('    \n')
+        print('')
 
         command = input("    Enter your command: ")
 
@@ -1973,7 +1973,7 @@ while (loop):
         print('''    {8}: Gray      '''+textColor.DARK_GRAY+'''#'''+textColor.RESET+''' ''')
         print('    {9}: Leave color as is')
         print('    -------------------------------------')
-        print('\n')
+        print('')
         command = input("    Enter your command: ")
 
         if command == "1":
@@ -2017,7 +2017,7 @@ while (loop):
         print('    {3}: Add Test Fiefs to Map')
         print('    {4}: View Map (Generate First)')
         print('    -------------------------------------')
-        print('\n')
+        print('')
         command = input("    Enter your command: ")
 
         if command == "1":
@@ -2144,7 +2144,7 @@ while (loop):
         print('    --------------------------------------------------------')
         print('    Note: To quick generate a world, just hit 7. To go step ')
         print('          by step, start at 3 and proceed without using 7!  ')
-        print('\n')
+        print('')
         command = input("    Enter your command: ")
 
         if command == '1':
@@ -2412,7 +2412,7 @@ while (loop):
         print('-------------------------------------')
         print('{1}: Return to Stronghold')
         print('-------------------------------------')
-        print('\n')
+        print('')
         command = input("Enter your command: ")
 
         if command == "1":
