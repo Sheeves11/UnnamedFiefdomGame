@@ -458,7 +458,7 @@ while (loop):
 
                 if tempName.home != "True" and tempName.ruler == userStronghold.name:
                     userStrongholdCount = userStrongholdCount + 1
-                    print (textColor.CYAN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' +
+                    print ('    ' + textColor.CYAN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' +
                             tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
 
         print('\n\n\n\n\n\n\n\n\n\n')
