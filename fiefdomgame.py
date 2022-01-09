@@ -217,14 +217,13 @@ while (loop):
 
         print("     Avalible Commands:")
         print('     -------------------------------------------------------')
-        print('     {1}: View Nearby Fiefdoms        {9}: Hire Thieves')
-        print('     {2}: Hire Mercenaries            {10}: View World Map')
-        print('     {3}: Upgrade Attack              {11}: Stronghold Color')
-        print('     {4}: Garrison Soldiers           {12}: Look Around')
-        print('     {5}: About')
-        print('     {6}: Upcoming Features')
-        print('     {7}: Message Board')
-        print('     {8}: View Past Winners')
+        print('     {1}: View Fiefdoms')
+        print('     {2}: Hire and Recruit')
+        print('     {3}: Upgrade and Customize')
+        print('     {4}: Look Around')
+        print('     {5}: World Map')
+        print('     {6}: Message Board')
+        print('     {7}: More')
         print('     --------------------------------------------------------')
         print('\n')
         command = input("     Enter your command: ")
@@ -234,47 +233,109 @@ while (loop):
             screen = "fiefdoms"
 
         if command == '2':
-            screen = 'mercs'
+            screen = 'hireAndRecruit'
 
         if command == '3':
-            screen = 'upgradeFiefAtt'
-
+            screen = 'upgradeStronghold'
+        
         if command == '4':
-            screen = 'garrison'
-
-        if command == '5':
-            screen = 'about'
-
-        if command == '6':
-            screen = 'features'
-
-        if command == '7':
-            screen = 'board'
-
-        if command == '8':
-            screen = 'pastWinners'
-
-        if command == '9':
-            screen = 'thieves'
-
-        if command == '10':
-            screen = 'viewMapYourStronghold'
-
-        if command == '11':
-            screen = 'changeStrongholdColor'
-
-        if command == '12':
             screen = 'viewSurroundings'
             USER_STRONGHOLD = True
             STRONGHOLD = True
+
+        if command == '5':
+            screen = 'viewMapYourStronghold'
+
+        if command == '6':
+            screen = 'messageBoard'
+
+        if command == '7':
+            screen = 'moreCommands'
         
         #The following command is for testing only!
         if command == 'devtest' or command == 'dt':
             screen = 'devTest'
 
+#This is the screen for upgrading and customizing your stronghold
+#----------------------------------------------------------------------------------
+    if screen == "upgradeStronghold":
+        os.system("clear")
+
+        print("     Avalible Commands:")
+        print('     -------------------------------------------------------')
+        print('     {1}: Return to Stronghold')
+        print('     {2}: Upgrade Attack')
+        print('     {3}: Change Stronghold Color')
+        print('     --------------------------------------------------------')
+        print('\n')
+        command = input("     Enter your command: ")
+
+        if command == '1':
+            screen = 'stronghold'
+
+        if command == '2':
+            screen = 'upgradeFiefAtt'
+
+        if command == '3':
+            screen = 'changeStrongholdColor'
+
+#This is a menu for hiring and recruiting troops
+#----------------------------------------------------------------------------------
+    if screen == "hireAndRecruit":
+        os.system("clear")
+
+        print("     Avalible Commands:")
+        print('     -------------------------------------------------------')
+        print('     {1}: Return to Stronghold')
+        print('     {2}: Hire Mercenaries')
+        print('     {3}: Hire Theives')
+        print('     --------------------------------------------------------')
+        print('\n')
+        command = input("     Enter your command: ")
+
+        if command == '1':
+            screen = 'stronghold'
+
+        if command == '2':
+            screen = 'mercs'
+
+        if command == '3':
+            screen = 'theives'
+
+#This is a menu for additional features
+#----------------------------------------------------------------------------------
+    if screen == "moreCommands":
+        os.system("clear")
+
+        print("     Avalible Commands:")
+        print('     -------------------------------------------------------')
+        print('     {1}: Return to Stronghold')
+        print('     {2}: Past Winners')
+        print('     {3}: Upcoming Features')
+        print('     {4}: About')
+        print('     {5}: Sandbox Mode')
+        print('     --------------------------------------------------------')
+        print('\n')
+        command = input("     Enter your command: ")
+
+        if command == '1':
+            screen = 'stronghold'
+
+        if command == '2':
+            screen = 'pastWinners'
+
+        if command == '3':
+            screen = 'features'
+
+        if command == '4':
+            screen = 'about'
+
+        if command == '5':
+            screen = 'sandboxMenu'
+
 #This is the screen for the message board.
 #----------------------------------------------------------------------------------
-    if screen == "board":
+    if screen == "messageBoard":
         os.system("clear")
 
         header()
@@ -306,7 +367,7 @@ while (loop):
                 log.write(userStronghold.name + ': ' + str(tempMessage) + '\n')
 
             #refresh this page
-            screen = 'board'
+            screen = 'messageBoard'
 
 # This is the screen for displaying past winners. Update it whenever we have a new winner
 #----------------------------------------------------------------------------------
@@ -318,8 +379,8 @@ while (loop):
         print('\n    Pre-Release (12/20/21): Steelwing\n')
         print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
 
-        tempInput = input('    Press Enter To Return To Stronghold\n    ')
-        screen = 'stronghold'
+        tempInput = input('    Press Enter to Continue\n    ')
+        screen = 'moreCommands'
 
 
 
@@ -375,7 +436,8 @@ while (loop):
         print("        Avalible Commands:")
         print('        -------------------------------------')
         print('        {1}: Return to Stronghold')
-        print('        {2}: View Nearby Fiefdoms')
+        print('        {2}: View Fiefdoms')
+        print('        {3}: View All Strongholds')
         print('        -------------------------------------')
         print('\n')
         command = input("        Enter your command: ")
@@ -385,6 +447,9 @@ while (loop):
         if command == "2":
             currentPage = 1
             screen = "fiefdoms"
+        if command == "3":
+            currentPage = 1
+            screen = "playerStrongholds"
 
 
 #This is the screen for purchacing soldiers
@@ -427,7 +492,7 @@ while (loop):
         print("Avalible Commands:")
         print('-------------------------------------')
         print('{1}: Return to Stronghold')
-        print('{2}: View Nearby Fiefdoms')
+        print('{2}: View Fiefdoms')
         print('-------------------------------------')
         print('\n')
         command = input("Enter your command: ")
@@ -461,25 +526,27 @@ while (loop):
                     print ('    ' + textColor.CYAN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' +
                             tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
 
+        print('     Garrison soldiers to evenly distribute them to each fief under your rule.')
+
         print('\n\n\n\n\n\n\n\n\n\n')
         print("     Avalible Commands:")
         print('     -------------------------------------')
-        print('     {1}: Select Soldiers to Garrison')
-        print('     {2}: Return to Stronghold')
-        print('     {3}: View Nearby Fiefdoms')
+        print('     {1}: Return to Stronghold')
+        print('     {2}: View Fiefdoms')
+        print('     {3}: Garrison Soldiers')
         print('     -------------------------------------')
         print('\n')
         command = input("     Enter your command: ")
 
         if command == "1":
-            screen = "garrisonSorter"
+            screen = "stronghold"
 
         if command == "2":
-            screen = "stronghold"
+            screen = "fiefdoms"
 
         if command == "3":
             currentPage = 1
-            screen = "fiefdoms"
+            screen = "garrisonSorter"
 
 #This is the screen for distributing a user's soldiers evenly among fiefs they control
 #----------------------------------------------------------------------------------
@@ -569,19 +636,8 @@ while (loop):
 
                 print("\n\n\n\n\n\n\n\n\n")
 
-                print("Avalible Commands:")
-                print('-------------------------------------')
-                print('{1}: Return to Stronghold')
-                print('{2}: View Nearby Fiefdoms')
-                print('-------------------------------------')
-                print('\n')
-                command = input("Enter your command: ")
-
-                if command == "1":
-                    screen = "stronghold"
-                if command == "2":
-                    currentPage = 1
-                    screen = "fiefdoms"
+        tempInput = input('    Press Enter to Continue\n    ')
+        screen = 'garrison'
 
 #This is the screen for updating a user's attack power.
 #----------------------------------------------------------------------------------
@@ -625,7 +681,7 @@ while (loop):
             print('     Your current army is made of ' + userStronghold.attType)
             print('     This is currently the highest attack level!')
             print('\n\n\n\n\n\n\n\n\n\n')
-            command = input("     Press Enter")
+            command = input("     Press Enter to Continue")
 
         else:
             print('\n\n')
@@ -652,7 +708,7 @@ while (loop):
                 print("     No changes made.")
 
             print('\n\n\n\n\n\n\n\n\n\n')
-            command = input("     Press Enter")
+            command = input("     Press Enter to Continue")
 
         screen = "stronghold"
 
@@ -694,7 +750,7 @@ while (loop):
             print('   This is currently the highest gold output!')
 
             print('\n\n\n\n\n\n\n\n\n\n')
-            command = input("     Press Enter ")
+            command = input("     Press Enter to Continue")
 
         else:
             print('\n    Your fiefdom\'s gold output is currently: ' + str((int(attackFief.goldMod) * goldOutput)) + ' per hour.')
@@ -721,7 +777,7 @@ while (loop):
                 print("\n    No changes made.")
 
             print('\n\n\n\n\n\n\n\n\n\n')
-            command = input("     Press Enter ")
+            command = input("     Press Enter to Continue")
 
         currentPage = 1
         screen = "homeDetails"
@@ -765,7 +821,7 @@ while (loop):
             print('     Your current defense style is: ' + attackFief.defType)
             print('     This is currently the best defense style!')
             print('\n\n\n\n\n\n\n\n\n\n')
-            command = input("     Press Enter ")
+            command = input("     Press Enter to Continue")
         else:
             print('    Your current defense style is: ' + attackFief.defType)
             print('    Would you like to upgrade to ' + defTypeNext + ' for ' + str(defUpgradeCost) + ' gold?')
@@ -790,7 +846,7 @@ while (loop):
                 print("    No changes made.")
 
             print('\n\n\n\n\n\n\n\n\n\n')
-            command = input("     Press Enter ")
+            command = input("     Press Enter to Continue")
 
         currentPage = 1
         screen = "homeDetails"
@@ -830,19 +886,8 @@ while (loop):
 
         ''')
 
-        print('\n\n\n\n\n')
-        print("      Avalible Commands:")
-        print('      -------------------------------------')
-        print('      {1}: Return to Stronghold')
-        print('      {2}: Check Out the Map Generator')
-        print('      -------------------------------------')
-        print('\n')
-        command = input("      Enter your command: ")
-
-        if command == "1":
-            screen = "stronghold"
-        if command == "2":
-            screen = "sandboxMenu"
+        tempInput = input('    Press Enter to Continue\n    ')
+        screen = 'moreCommands'
 
 #This is the features page for the game. Keep it updated
 #------------------------------------------------------------------------------
@@ -874,16 +919,8 @@ while (loop):
 
         ''')
 
-        print('\n\n\n\n\n')
-        print("      Avalible Commands:")
-        print('      -------------------------------------')
-        print('      {1}: Return to Stronghold')
-        print('      -------------------------------------')
-        print('\n')
-        command = input("      Enter your command: ")
-
-        if command == "1":
-            screen = "stronghold"
+        tempInput = input('    Press Enter to Continue\n    ')
+        screen = 'moreCommands'
 
 #The fiefdoms page contains a list of Fiefdoms generated from the /fiefs directory
 #
@@ -932,8 +969,8 @@ while (loop):
         print("\nAvalible Commands:")
         print('-------------------------------------')
         print('{1}: Return to Stronghold')
-        print('{2}: Garrison Soldiers')
-        print('{3}: View Nearby Strongholds')
+        print('{2}: Manage Your Fiefdoms')
+        print('{3}: View All Strongholds')
         if fiefdomMargin > LINES_PER_PAGE:
             print('{4}: Next Page')
 
@@ -1040,8 +1077,8 @@ while (loop):
         print("\nAvalible Commands:")
         print('-------------------------------------')
         print('{1}: Return to Stronghold')
-        print('{2}: Garrison Soldiers')
-        print('{3}: View Nearby Fiefdoms')
+        print('{2}: Manage Your Fiefdoms')
+        print('{3}: View Fiefdoms')
         if strongholdMargin > LINES_PER_PAGE:
             print('{4}: Next Page')
 
@@ -1188,14 +1225,14 @@ while (loop):
         print('\n')
         print("     Avalible Commands:")
         print('     -------------------------------------------------------')
-        print('     {1}: Return to Stronghold       {9}: View Location')
-        print('     {2}: View Nearby Fiefdoms       {10}: Look Around')
+        print('     {1}: Return to Stronghold')
+        print('     {2}: View Fiefdoms')
         print('     {3}: Deploy Additional Forces')
         print('     {4}: Withdraw Forces')
         print('     {5}: Withdraw Gold')
-        print('     {6}: Upgrade Defenses')
-        print('     {7}: Upgrade Farms')
-        print('     {8}: Upgrade Training')
+        print('     {6}: Upgrades')
+        print('     {7}: Look Around')
+        print('     {8}: World Map')
         print('     -------------------------------------------------------')
         print('\n')
         command = input("     Enter your command: ")
@@ -1220,14 +1257,38 @@ while (loop):
             screen = 'upgradeFiefDef'
 
         if command == '7':
-            screen = 'farm'
-
-        if command == '9':
-            screen = 'viewMapCurrentFief'
-
-        if command == '10':
             screen = 'viewSurroundings'
             STRONGHOLD = False
+
+        if command == '8':
+            screen = 'viewMapCurrentFief'
+
+#This is a menu for additional features
+#----------------------------------------------------------------------------------
+    if screen == "upgradeFiefMenu":
+        os.system("clear")
+
+        print("     Avalible Commands:")
+        print('     -------------------------------------------------------')
+        print('     {1}: Go Back')
+        print('     {2}: Upgrade Defenses')
+        print('     {3}: Upgrade Farms')
+        # print('     {4}: Upgrade Training')
+        print('     --------------------------------------------------------')
+        print('\n')
+        command = input("     Enter your command: ")
+
+        if command == '1':
+            screen = 'homeDetails'
+
+        if command == '2':
+            screen = 'upgradeFiefDef'
+
+        if command == '3':
+            screen = 'farm'
+
+        if command == '4':
+            screen = 'upgradeFiefMenu'
 
 #The withdraw gold screen allows players to withdraw gold from a ruled fiefdom
 #
@@ -1315,24 +1376,11 @@ while (loop):
             userStronghold.write()
             userStronghold.read()
             attackFief.read()
+            print('')
+            tempInput = input('    Press Enter to Continue\n    ')
+            screen = 'homeDetails'
 
-            print("\n\n\n\n\n\n\n\n\n")
-
-            print("Avalible Commands:")
-            print('-------------------------------------')
-            print('{1}: Return to Stronghold')
-            print('{2}: View Nearby Fiefdoms')
-            print('-------------------------------------')
-            print('\n')
-            command = input("Enter your command: ")
-
-            if command == "1":
-                screen = "stronghold"
-            if command == "2":
-                currentPage = 1
-                screen = "fiefdoms"
-
-        time.sleep(3)
+        time.sleep(1)
 #The withdraw screen allows players to withdraw forces from a ruled fiefdom
 #
 #To Do
@@ -1380,21 +1428,8 @@ while (loop):
             userStronghold.write()
             userStronghold.read()
 
-            print("\n\n\n\n\n\n\n\n\n")
-
-            print("Avalible Commands:")
-            print('-------------------------------------')
-            print('{1}: Return to Stronghold')
-            print('{2}: View Nearby Fiefdoms')
-            print('-------------------------------------')
-            print('\n')
-            command = input("Enter your command: ")
-
-            if command == "1":
-                screen = "stronghold"
-            if command == "2":
-                currentPage = 1
-                screen = "fiefdoms"
+            tempInput = input('    Press Enter to Continue\n    ')
+            screen = 'homeDetails'
 
         if int(withdrawNum) == 0:
             print('No soldiers selected')
@@ -1408,21 +1443,8 @@ while (loop):
             userStronghold.write()
             userStronghold.read()
 
-            print("\n\n\n\n\n\n\n\n\n")
-
-            print("Avalible Commands:")
-            print('-------------------------------------')
-            print('{1}: Return to Stronghold')
-            print('{2}: View Nearby Fiefdoms')
-            print('-------------------------------------')
-            print('\n')
-            command = input("Enter your command: ")
-
-            if command == "1":
-                screen = "stronghold"
-            if command == "2":
-                currentPage = 1
-                screen = "fiefdoms"
+            tempInput = input('    Press Enter to Continue\n    ')
+            screen = 'homeDetails'
 
 #This is the details page for enemy Fiefdoms
 #
@@ -1503,10 +1525,10 @@ while (loop):
         print("Avalible Commands:")
         print('-------------------------------------')
         print('{1}: Return to Stronghold')
-        print('{2}: View Nearby Fiefdoms')
+        print('{2}: View Fiefdoms')
         print('{3}: Attack')
-        print('{4}: View Location')
-        print('{5}: Look Around')
+        print('{4}: Look Around')
+        print('{5}: World Map')
         print('-------------------------------------')
         print('\n')
 
@@ -1523,11 +1545,11 @@ while (loop):
             screen = 'battle'
         
         if command == "4":
-            screen = 'viewMapCurrentFief'
-
-        if command == "5":
             screen = 'viewSurroundings'
             STRONGHOLD = False
+
+        if command == "5":
+            screen = 'viewMapCurrentFief'
 
 #This is the details page for enemy Fiefdoms
 #
@@ -1559,10 +1581,10 @@ while (loop):
         print("Avalible Commands:")
         print('-------------------------------------')
         print('{1}: Return to Stronghold')
-        print('{2}: View Nearby Fiefdoms')
+        print('{2}: View Fiefdoms')
         print('{3}: Send Thieves To Steal Gold')
-        print('{4}: View Location')
-        print('{5}: Look Around')
+        print('{4}: Look Around')
+        print('{5}: World Map')
         print('-------------------------------------')
         print('\n')
 
@@ -1579,12 +1601,12 @@ while (loop):
             screen = "thiefPage"
 
         if command == "4":
-            screen = "viewMapEnemyStronghold"
-        
-        if command == "5":
             screen = "viewSurroundings"
             STRONGHOLD = True
             USER_STRONGHOLD = False
+            
+        if command == "5":
+            screen = "viewMapEnemyStronghold"
 
 
 #This is the theif attack page, which you will see when trying
@@ -1676,9 +1698,7 @@ while (loop):
         else:
             print('    Nothing Happened')
 
-
-
-        tempInput = input('    Press Enter To Continue: ')
+        tempInput = input('    Press Enter To Continue:\n ')
         screen = "enemyStrongholdDetails"
 
 
@@ -1791,7 +1811,7 @@ while (loop):
 
 
             time.sleep(1)
-            nothing = input('Continue:')
+            nothing = input('Press Enter to Continue\n')
             currentPage = 1
             screen = "fiefdoms"
 
@@ -1813,7 +1833,7 @@ while (loop):
         WorldMapLocation(int(userStronghold.yCoordinate), int(userStronghold.xCoordinate), serverMap)
         print('')
         time.sleep(1)
-        nothing = input('Continue:')
+        nothing = input('Press Enter to Continue:')
 
         screen = 'stronghold'
 
@@ -1835,7 +1855,7 @@ while (loop):
         WorldMapLocation(int(attackStronghold.yCoordinate), int(attackStronghold.xCoordinate), serverMap)
         print('')
         time.sleep(1)
-        nothing = input('Continue:')
+        nothing = input('Press Enter to Continue:')
 
         screen = 'enemyStrongholdDetails'
 
@@ -1857,7 +1877,7 @@ while (loop):
         WorldMapLocation(int(attackFief.yCoordinate), int(attackFief.xCoordinate), serverMap)
         print('')
         time.sleep(1)
-        nothing = input('Continue:')
+        nothing = input('Press Enter to Continue:')
 
         if str(attackFief.ruler) == str(userStronghold.ruler):
             screen = 'homeDetails'
@@ -1913,7 +1933,7 @@ while (loop):
 
         print('')
         time.sleep(1)
-        nothing = input('Continue:')
+        nothing = input('Press Enter to Continue:')
 
         
 
@@ -1975,9 +1995,9 @@ while (loop):
         print('      -------------------------------------')
         print('      {1}: Return to Stronghold')
         print('      {2}: Generate a Test Map')
-        print('      {3}: Create Custom Fiefs')
-        print('      {4}: Add Fiefs to Test Map')
-        print('      {5}: View Test Map')
+        # print('      {3}: Create Custom Fiefs')
+        print('      {3}: Add Test Fiefs to Map')
+        print('      {4}: View Map (Generate First)')
         print('      -------------------------------------')
         print('\n')
         command = input("      Enter your command: ")
@@ -1986,11 +2006,11 @@ while (loop):
             screen = "stronghold"
         if command == "2":
             screen = "sbTestMap"
+        # if command == "3":
+        #     screen = "sbCreateFief"
         if command == "3":
-            screen = "sbCreateFief"
-        if command == "4":
             screen = "sbPlotTestFiefs"
-        if command == "5":
+        if command == "4":
             screen = "sbViewMap"
 
 #This is a page where users can generate maps of their own
