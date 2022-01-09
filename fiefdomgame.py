@@ -1163,6 +1163,13 @@ while (loop):
         else:
             productionCalc = ((goldOutput * int(attackFief.goldMod)) + (int(attackFief.defenders) * int(attackFief.goldMod)))
 
+        if attackFief.biome == MOUNTAIN:
+            currentBiome = 'Mountain'
+        elif attackFief.biome == PLAINS:
+            currentBiome = 'Plains'
+        elif attackFief.biome == FOREST:
+            currentBiome = 'Forest'
+
         print('')
         print('    You rule the fiefdom of ' + attackFief.name)
         print('')
@@ -1171,6 +1178,7 @@ while (loop):
         print('    Defenders: ' + attackFief.defenders)
         print('    Gold: ' + attackFief.gold)
         print('    Defensive Strategy: ' + attackFief.defType)
+        print('    Biome: ' + currentBiome)
         print('    Production: ' + str(productionCalc) + ' gold and ' + str(defenderOutput * int(attackFief.defenderMod))
                 + ' soldiers per hour.')
         print("\n")
@@ -1466,6 +1474,13 @@ while (loop):
         os.system("clear")
         header()
 
+        if attackFief.biome == MOUNTAIN:
+            currentBiome = 'Mountain'
+        elif attackFief.biome == PLAINS:
+            currentBiome = 'Plains'
+        elif attackFief.biome == FOREST:
+            currentBiome = 'Forest'
+
         print("\n\n")
         print('    Now viewing the fiefdom of ' + attackFief.name)
         print('    This fiefdom is ruled by ' + attackFief.ruler)
@@ -1473,6 +1488,7 @@ while (loop):
         print('    Your scouts return early in the morning, bringing back reports of the enemy fiefdom.')
         print('    ' + attackFief.name + ' looks to have ' + str(attackFief.defenders) + ' fighters.')
         print('    Defense Type: ' + attackFief.defType)
+        print('    Biome: ' + currentBiome)
         print('    -------------------------------------------------------------------------')
 
         print("\n")
