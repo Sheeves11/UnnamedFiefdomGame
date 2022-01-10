@@ -954,7 +954,7 @@ while (loop):
         fiefdomCount = 0
         fiefdomMargin = 0
 
-        print("\n")
+        print("")
         print("    Nearby Fiefdoms: ")
         print("    ------------------------------------------------------------------\n")
 
@@ -1060,7 +1060,7 @@ while (loop):
         strongholdCount = 0
         strongholdMargin = 0
 
-        print("\n")
+        print("")
         print("    Nearby Strongholds: ")
         print("    ------------------------------------------------------------------\n")
 
@@ -1597,7 +1597,7 @@ while (loop):
         os.system("clear")
         header()
         attackStronghold.read()
-        print("    \n\n")
+        print("")
         print('    Now viewing the stronghold of ' + attackStronghold.name)
         print('    -------------------------------------------------------------------------')
         print('    Your scouts return early in the morning, bringing back reports of the enemy fiefdom.')
