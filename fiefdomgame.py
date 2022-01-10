@@ -452,7 +452,7 @@ while (loop):
         print('        -------------------------------------')
         print('        {1}: Return to Stronghold')
         print('        {2}: View Fiefdoms')
-        print('        {3}: View All Strongholds')
+        print('        {3}: View Player Strongholds')
         print('        -------------------------------------')
         print('')
         command = input("        Enter your command: ")
@@ -984,7 +984,7 @@ while (loop):
         print('    -------------------------------------')
         print('    {1}: Return to Stronghold')
         print('    {2}: Manage Your Fiefdoms')
-        print('    {3}: View All Strongholds')
+        print('    {3}: View Player Strongholds')
         if fiefdomMargin > LINES_PER_PAGE:
             print('    {4}: Next Page')
 
