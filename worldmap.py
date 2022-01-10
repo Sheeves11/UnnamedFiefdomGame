@@ -501,26 +501,48 @@ def PrintColorMap(wMap):
     for i in range(MAP_HEIGHT):
         for j in range(MAP_WIDTH):
             symbol = wMap[i][j]
-            if symbol == UNEXPLORED:
-                print(IC_UNEXPLORED + symbol + RESET, end=" ")
-            elif symbol == EMPTY:
-                print(symbol, end=" ")
-            elif symbol == WATER:
-                print(IC_WATER + symbol + RESET, end=" ")
-            elif symbol == RIVER[0] or symbol == RIVER[1] or symbol == RIVER[2]:
-                print(IC_RIVER + symbol + RESET, end=" ")
-            elif symbol == FOREST:
-                print(IC_FOREST + symbol + RESET, end=" ")
-            elif symbol == PLAINS:
-                print(IC_PLAINS + symbol + RESET, end=" ")
-            elif symbol == MOUNTAIN:
-                print(IC_MOUNTAIN + symbol + RESET, end=" ")
-            elif symbol == FIEF:
-                print(IC_FIEF + symbol + RESET, end=" ")
-            elif symbol == STRONGHOLD:
-                print(IC_STRONGHOLD + symbol + RESET, end=" ")
-            elif symbol == LOCATION:
-                print(IC_LOCATION + symbol + RESET, end=" ")
+            if j == 0:
+                if symbol == UNEXPLORED:
+                    print('    ' + IC_UNEXPLORED + symbol + RESET, end=" ")
+                elif symbol == EMPTY:
+                    print('    ' + symbol, end=" ")
+                elif symbol == WATER:
+                    print('    ' + IC_WATER + symbol + RESET, end=" ")
+                elif symbol == RIVER[0] or symbol == RIVER[1] or symbol == RIVER[2]:
+                    print('    ' + IC_RIVER + symbol + RESET, end=" ")
+                elif symbol == FOREST:
+                    print('    ' + IC_FOREST + symbol + RESET, end=" ")
+                elif symbol == PLAINS:
+                    print('    ' + IC_PLAINS + symbol + RESET, end=" ")
+                elif symbol == MOUNTAIN:
+                    print('    ' + IC_MOUNTAIN + symbol + RESET, end=" ")
+                elif symbol == FIEF:
+                    print('    ' + IC_FIEF + symbol + RESET, end=" ")
+                elif symbol == STRONGHOLD:
+                    print('    ' + IC_STRONGHOLD + symbol + RESET, end=" ")
+                elif symbol == LOCATION:
+                    print('    ' + IC_LOCATION + symbol + RESET, end=" ")
+            else:
+                if symbol == UNEXPLORED:
+                    print(IC_UNEXPLORED + symbol + RESET, end=" ")
+                elif symbol == EMPTY:
+                    print(symbol, end=" ")
+                elif symbol == WATER:
+                    print(IC_WATER + symbol + RESET, end=" ")
+                elif symbol == RIVER[0] or symbol == RIVER[1] or symbol == RIVER[2]:
+                    print(IC_RIVER + symbol + RESET, end=" ")
+                elif symbol == FOREST:
+                    print(IC_FOREST + symbol + RESET, end=" ")
+                elif symbol == PLAINS:
+                    print(IC_PLAINS + symbol + RESET, end=" ")
+                elif symbol == MOUNTAIN:
+                    print(IC_MOUNTAIN + symbol + RESET, end=" ")
+                elif symbol == FIEF:
+                    print(IC_FIEF + symbol + RESET, end=" ")
+                elif symbol == STRONGHOLD:
+                    print(IC_STRONGHOLD + symbol + RESET, end=" ")
+                elif symbol == LOCATION:
+                    print(IC_LOCATION + symbol + RESET, end=" ")
         print('')
 
 #--------------------------------------------------------------------------------------------------------------
@@ -528,15 +550,15 @@ def PrintColorMap(wMap):
 #   Prints a legend for the map
 #--------------------------------------------------------------------------------------------------------------
 def PrintLegend():
-    print('    - Legend ------------------')
-    print('    -  Water        : ' + IC_WATER + WATER + RESET + '       -')
-    print('    -  Rivers       : ' + IC_RIVER + RIVER[0] + RESET + ', ' + IC_RIVER + RIVER[1] + RESET + ', ' + IC_RIVER + RIVER[2] + RESET + ' -')
-    print('    -  Forest       : ' + IC_FOREST + FOREST + RESET + '       -')
-    print('    -  Plains       : ' + IC_PLAINS + PLAINS + RESET + '       -')
-    print('    -  Mountain     : ' + IC_MOUNTAIN + MOUNTAIN + RESET + '       -')
+    print('    - Legend ----------------')
+    print('    -  Water        : ' + IC_WATER + WATER + RESET + '     -')
+    print('    -  Rivers       : ' + IC_RIVER + RIVER[0] + RESET + ' ' + IC_RIVER + RIVER[1] + RESET + ' ' + IC_RIVER + RIVER[2] + RESET + ' -')
+    print('    -  Forest       : ' + IC_FOREST + FOREST + RESET + '     -')
+    print('    -  Plains       : ' + IC_PLAINS + PLAINS + RESET + '     -')
+    print('    -  Mountain     : ' + IC_MOUNTAIN + MOUNTAIN + RESET + '     -')
     print('    -  Fief         : ' + IC_FIEF + FIEF + RESET + '       -')
-    print('    -  Stronghold   : ' + IC_STRONGHOLD + STRONGHOLD + RESET + '       -')
-    print('    -  You are Here : ' + IC_LOCATION + LOCATION + RESET + '       -')
+    print('    -  Stronghold   : ' + IC_STRONGHOLD + STRONGHOLD + RESET + '     -')
+    print('    -  You are Here : ' + IC_LOCATION + LOCATION + RESET + '     -')
 
 #--------------------------------------------------------------------------------------------------------------
 #   [DefineFiefBiome]
