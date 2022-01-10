@@ -979,7 +979,7 @@ while (loop):
                                 tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
 
         if fiefdomMargin > LINES_PER_PAGE or currentPage > 1:
-            print('\n    /// Page ' + str(currentPage) + ' ///')
+            print('\n    /// ' + YELLOW + 'Page ' + str(currentPage) + RESET + ' ///')
         print("\n    Avalible Commands:")
         print('    -------------------------------------')
         print('    {1}: Return to Stronghold')
@@ -1087,7 +1087,7 @@ while (loop):
                                 tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
 
         if strongholdMargin > LINES_PER_PAGE or currentPage > 1:
-            print('/// Page ' + str(currentPage) + ' ///\n')
+            print('/// ' + YELLOW + 'Page ' + str(currentPage) + RESET + ' ///\n')
         print("\n    Avalible Commands:")
         print('    -------------------------------------')
         print('    {1}: Return to Stronghold')
