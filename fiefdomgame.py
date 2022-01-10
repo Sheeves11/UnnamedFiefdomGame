@@ -31,7 +31,7 @@ STRONGHOLD = True           #Used to differentiate strongholds/fiefs
 USER_STRONGHOLD = True      #Used to differentiate attack/user strongholds
 
 #fiefdom page variables
-LINES_PER_PAGE = 20         #The number of fiefs/strongholds that appear in the list
+LINES_PER_PAGE = 15         #The number of fiefs/strongholds that appear in the list
 currentPage = 1             #Used to keep track of the page the user should be on
 userFiefCount = 0           #Used to keep track of how many fiefs the user controls.
 
@@ -519,6 +519,7 @@ while (loop):
         userFiefCount = 0
 
         print('\n    Fiefs under your rule: \n')
+        print("    ------------------------------------------------------------------\n")
         for filename in os.listdir('fiefs'):
             with open(os.path.join('fiefs', filename), 'r') as f:
 
@@ -533,12 +534,12 @@ while (loop):
                             tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
 
         print('\n\n\n\n\n\n\n\n\n\n')
-        print("     Avalible Commands:")
-        print('     -------------------------------------')
-        print('     {1}: Return to Stronghold')
-        print('     {2}: View Fiefdoms')
-        print('     {3}: Distribute Soldiers')
-        print('     -------------------------------------')
+        print("    Avalible Commands:")
+        print('    -------------------------------------')
+        print('    {1}: Return to Stronghold')
+        print('    {2}: View Fiefdoms')
+        print('    {3}: Distribute Soldiers')
+        print('    -------------------------------------')
         print('')
         command = input("     Enter your command: ")
 
