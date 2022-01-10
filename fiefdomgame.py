@@ -151,10 +151,11 @@ while (loop):
                 else:
                     screen = "login"
             else:
-                if username == "" or username == " ": #may need to add more logic for this, as "   " might work, etc.
+                if username.strip() == "":
                     print("Error, name can't be blank!")
                 else:
                     print("Error, name can't be " + str(username) + "!")
+                time.sleep(1)
                 screen = "login"
 
 #The stronghold screen is homebase for players. The page also writes the current username
