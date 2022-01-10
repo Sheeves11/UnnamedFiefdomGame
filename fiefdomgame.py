@@ -1322,7 +1322,7 @@ while (loop):
 # -
 #
 #------------------------------------------------------------------------------
-    if screen == 'withdrawGold':
+    if screen == "withdrawGold":
         os.system("clear")
         header()
 
@@ -1343,8 +1343,7 @@ while (loop):
             userStronghold.write()
             userStronghold.read()
 
-        currentPage = 1
-        screen = "homeDetails"
+        screen = "fiefdoms"
 
 #The deploy screen allows players to deploy defenders to a Fiefdom that they
 #currently control.
@@ -1354,7 +1353,7 @@ while (loop):
 # - verify that the player has the troops avalible for deployment
 # - prevent negative numbers
 #------------------------------------------------------------------------------
-    if screen == 'deploy':
+    if screen == "deploy":
         os.system("clear")
 
         header()
@@ -1414,7 +1413,7 @@ while (loop):
 # -
 #
 #------------------------------------------------------------------------------
-    if screen == 'withdraw':
+    if screen == "withdraw":
         os.system("clear")
         header()
         print("\n\n")
