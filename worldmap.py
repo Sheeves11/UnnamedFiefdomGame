@@ -550,15 +550,15 @@ def PrintColorMap(wMap):
 #   Prints a legend for the map
 #--------------------------------------------------------------------------------------------------------------
 def PrintLegend():
-    print('    - Legend ----------------')
-    print('    -  Water        : ' + IC_WATER + WATER + RESET + '     -')
-    print('    -  Rivers       : ' + IC_RIVER + RIVER[0] + RESET + ' ' + IC_RIVER + RIVER[1] + RESET + ' ' + IC_RIVER + RIVER[2] + RESET + ' -')
-    print('    -  Forest       : ' + IC_FOREST + FOREST + RESET + '     -')
-    print('    -  Plains       : ' + IC_PLAINS + PLAINS + RESET + '     -')
-    print('    -  Mountain     : ' + IC_MOUNTAIN + MOUNTAIN + RESET + '     -')
-    print('    -  Fief         : ' + IC_FIEF + FIEF + RESET + '       -')
-    print('    -  Stronghold   : ' + IC_STRONGHOLD + STRONGHOLD + RESET + '     -')
-    print('    -  You are Here : ' + IC_LOCATION + LOCATION + RESET + '     -')
+    print('    -[ Legend ]--------------')
+    print('    -  ' + WARNING + 'Water        ' + RESET + ':   ' + IC_WATER + WATER + RESET + '   -')
+    print('    -  ' + WARNING + 'Rivers       ' + RESET + ': ' + IC_RIVER + RIVER[0] + RESET + ' ' + IC_RIVER + RIVER[1] + RESET + ' ' + IC_RIVER + RIVER[2] + RESET + ' -')
+    print('    -  ' + WARNING + 'Forest       ' + RESET + ':   ' + IC_FOREST + FOREST + RESET + '   -')
+    print('    -  ' + WARNING + 'Plains       ' + RESET + ':   ' + IC_PLAINS + PLAINS + RESET + '   -')
+    print('    -  ' + WARNING + 'Mountain     ' + RESET + ':   ' + IC_MOUNTAIN + MOUNTAIN + RESET + '   -')
+    print('    -  ' + WARNING + 'Fief         ' + RESET + ':   ' + IC_FIEF + FIEF + RESET + '   -')
+    print('    -  ' + WARNING + 'Stronghold   ' + RESET + ':   ' + IC_STRONGHOLD + STRONGHOLD + RESET + '   -')
+    print('    -  ' + WARNING + 'You are Here ' + RESET + ':   ' + IC_LOCATION + LOCATION + RESET + '   -')
 
 #--------------------------------------------------------------------------------------------------------------
 #   [DefineFiefBiome]
