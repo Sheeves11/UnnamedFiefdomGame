@@ -6,10 +6,7 @@ from classes import *
 
 #--------------------------------------------------------------------------------------------------------------
 #
-#   Making a map:
-#       1. Always generate a map before doing any other map commands. ('wm' at stronghold)
-#       2. Sprinkle on the fiefs. ('paf' at stronghold)
-#       3. Add in strongholds. ('ts' at stronghold)
+#   Map has been added into the fiefdomgame generation automatically, it is fully functional!
 #
 #--------------------------------------------------------------------------------------------------------------
 

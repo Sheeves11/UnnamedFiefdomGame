@@ -173,7 +173,7 @@ while (loop):
 
         header()
         print("")
-        print('     ' + textColor.WARNING + username + "'s Stronghold" + textColor.RESET)
+        print('    ' + textColor.WARNING + username + "'s Stronghold" + textColor.RESET)
         print("\n")
 
         userStronghold.name = username
@@ -212,30 +212,30 @@ while (loop):
             serverMap.read()
             newUserAccount = False
 
-        print('     On a hilltop overlooking endless rolling fields, you see the only home you have ever known.')
-        print('     The Fiefdom is home to ' + textColor.WARNING +  str(userStronghold.defenders) + textColor.RESET + ' highly skilled warriors, and dozens of loyal citizens.')
-        print('     You also employ the services of ' + textColor.WARNING +  str(userStronghold.thieves) + textColor.RESET + ' well-trained thieves.')
-        print('\n     Grow your forces to overcome the enemy. Do not let your citizens down')
-        print('\n     Within your coffers, you have ' + textColor.WARNING + str(userStronghold.gold) + textColor.RESET + ' gold.')
-        print('     ' + 'Production: ' + str(productionCalc) + ' gold and ' + str((int(defenderOutput) * int(attackFief.defenderMod))) + ' soldiers per hour.')
-        print('     Your army of ' + textColor.WARNING + str(userStronghold.attType) + textColor.RESET + ' stands ready.')
+        print('    On a hilltop overlooking endless rolling fields, you see the only home you have ever known.')
+        print('    The Fiefdom is home to ' + textColor.WARNING +  str(userStronghold.defenders) + textColor.RESET + ' highly skilled warriors, and dozens of loyal citizens.')
+        print('    You also employ the services of ' + textColor.WARNING +  str(userStronghold.thieves) + textColor.RESET + ' well-trained thieves.')
+        print('\n    Grow your forces to overcome the enemy. Do not let your citizens down')
+        print('\n    Within your coffers, you have ' + textColor.WARNING + str(userStronghold.gold) + textColor.RESET + ' gold.')
+        print('    ' + 'Production: ' + str(productionCalc) + ' gold and ' + str((int(defenderOutput) * int(attackFief.defenderMod))) + ' soldiers per hour.')
+        print('    Your army of ' + textColor.WARNING + str(userStronghold.attType) + textColor.RESET + ' stands ready.')
         print('\n')
 
         userStronghold.read()
         art_stronghold(userStronghold.biome, userStronghold.color)
 
-        print("     Avalible Commands:")
-        print('     -------------------------------------------------------')
-        print('     {1}: View Fiefdoms')
-        print('     {2}: Hire and Recruit')
-        print('     {3}: Upgrade and Customize')
-        print('     {4}: Look Around')
-        print('     {5}: World Map')
-        print('     {6}: Message Board')
-        print('     {7}: More')
-        print('     --------------------------------------------------------')
+        print("    Avalible Commands:")
+        print('    -------------------------------------------------------')
+        print('    {1}: View Fiefdoms')
+        print('    {2}: Hire and Recruit')
+        print('    {3}: Upgrade and Customize')
+        print('    {4}: Look Around')
+        print('    {5}: World Map')
+        print('    {6}: Message Board')
+        print('    {7}: More')
+        print('    --------------------------------------------------------')
         print('')
-        command = input("     Enter your command: ")
+        command = input("    Enter your command: ")
 
         if command == '1':
             currentPage = 1
@@ -1491,7 +1491,7 @@ while (loop):
         elif attackFief.biome == FOREST:
             currentBiome = 'Forest'
 
-        print("\n\n")
+        print("")
         print('    Now viewing the fiefdom of ' + attackFief.name)
         print('    This fiefdom is ruled by ' + attackFief.ruler)
         print('    -------------------------------------------------------------------------')
