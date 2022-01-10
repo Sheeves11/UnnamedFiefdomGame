@@ -971,7 +971,7 @@ while (loop):
 
                 if (fiefdomMargin <= LINES_PER_PAGE) and (fiefdomMargin > 0):
                     if tempName.home != 'True' and tempName.ruler != userStronghold.name:
-                        print ('    ' + textColor.YELLOW + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' +
+                        print ('    ' + textColor.WARNING + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' +
                                 tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
 
                     if tempName.home != "True" and tempName.ruler == userStronghold.name:
@@ -979,7 +979,7 @@ while (loop):
                                 tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
 
         if fiefdomMargin > LINES_PER_PAGE or currentPage > 1:
-            print('\n    /// ' + YELLOW + 'Page ' + str(currentPage) + RESET + ' ///')
+            print('\n    /// ' + WARNING + 'Page ' + str(currentPage) + RESET + ' ///')
         print("\n    Avalible Commands:")
         print('    -------------------------------------')
         print('    {1}: Return to Stronghold')
@@ -1087,7 +1087,7 @@ while (loop):
                                 tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
 
         if strongholdMargin > LINES_PER_PAGE or currentPage > 1:
-            print('/// ' + YELLOW + 'Page ' + str(currentPage) + RESET + ' ///\n')
+            print('/// ' + WARNING + 'Page ' + str(currentPage) + RESET + ' ///\n')
         print("\n    Avalible Commands:")
         print('    -------------------------------------')
         print('    {1}: Return to Stronghold')
