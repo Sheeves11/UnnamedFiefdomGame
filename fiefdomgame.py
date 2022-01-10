@@ -152,7 +152,7 @@ while (loop):
                     screen = "login"
             else:
                 if username == "" or username == " ": #may need to add more logic for this, as "   " might work, etc.
-                    print "Error, name can't be blank!"
+                    print("Error, name can't be blank!")
                 else:
                     print("Error, name can't be " + str(username) + "!")
                 screen = "login"
