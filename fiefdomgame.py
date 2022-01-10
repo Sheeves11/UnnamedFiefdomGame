@@ -172,7 +172,7 @@ while (loop):
         os.system("clear")
 
         header()
-        print("\n")
+        print("")
         print('     ' + textColor.WARNING + username + "'s Stronghold" + textColor.RESET)
         print("\n")
 
