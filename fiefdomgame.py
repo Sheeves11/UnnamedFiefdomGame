@@ -107,46 +107,54 @@ while (loop):
                     screen = 'login'
 
         else:
-            #if "username.txt" does not exist, create it. The file only contains a name and password for now.
-            newUser = input('\n                New user detected. Make a new account? (y/n): ')
+            if CheckLegalUsername(username):
+                #if "username.txt" does not exist, create it. The file only contains a name and password for now.
+                newUser = input('\n                New user detected. Make a new account? (y/n): ')
+                
+                if newUser == 'y':
+                    try:
+                        usernameFile = "users/" + username + ".txt"
+                        with open(usernameFile, 'x') as f:
+                            f.write(username + '\n')
+                            os.system('clear')
+                            header()
+                    
+                            print('\n\n')
+                            print(textColor.WARNING + '    WELCOME NEW PLAYER' + textColor.RESET)
+                            print('    -------------------------------------------------------------------------------------------------------------')
+                            print('\n    Creating new account for ' + str(username) + '!')
+                            password = "default"
+                            email = "default"
+
+                            password = input('\n\n\n    Please choose your password: ')
+                            email = input('\n    Please enter your email address: ')
+
+                            salt = bcrypt.gensalt()
+                            hashed = bcrypt.hashpw(password, salt)
+                    
+                            print('\n\n')
+                    
+                            f.write(hashed + '\n')
+                            f.write(email)
+                            print('    Creating new account...')
+                            time.sleep(.5)
+                            print('    Logging in as: ' + username)
+                            time.sleep(.5)
+
+                            newUserAccount = True
+
+                            screen = 'stronghold'
+                    except:
+                        pass
             
-            if newUser == 'y':
-                try:
-                    usernameFile = "users/" + username + ".txt"
-                    with open(usernameFile, 'x') as f:
-                        f.write(username + '\n')
-                        os.system('clear')
-                        header()
-                
-                        print('\n\n')
-                        print(textColor.WARNING + '    WELCOME NEW PLAYER' + textColor.RESET)
-                        print('    -------------------------------------------------------------------------------------------------------------')
-                        print('\n    Creating new account for ' + str(username) + '!')
-                        password = "default"
-                        email = "default"
 
-                        password = input('\n\n\n    Please choose your password: ')
-                        email = input('\n    Please enter your email address: ')
-
-                        salt = bcrypt.gensalt()
-                        hashed = bcrypt.hashpw(password, salt)
-                
-                        print('\n\n')
-                
-                        f.write(hashed + '\n')
-                        f.write(email)
-                        print('    Creating new account...')
-                        time.sleep(.5)
-                        print('    Logging in as: ' + username)
-                        time.sleep(.5)
-
-                        newUserAccount = True
-
-                        screen = 'stronghold'
-                except:
-                    pass
-
+                else:
+                    screen = "login"
             else:
+                if username == "" or username == " ": #may need to add more logic for this, as "   " might work, etc.
+                    print "Error, name can't be blank!"
+                else:
+                    print("Error, name can't be " + str(username) + "!")
                 screen = "login"
 
 #The stronghold screen is homebase for players. The page also writes the current username

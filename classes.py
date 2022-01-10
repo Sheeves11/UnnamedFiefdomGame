@@ -84,6 +84,14 @@ def FirstLaunch():
     except:
         print('Error, something wrong with settings.txt!')
         return False
+
+
+def CheckLegalUsername(username):
+    illegalUserNames = ['', ' ', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15']
+    for i in range(len(illegalUserNames)):
+        if username == illegalUserNames[i]:
+            return False
+    return True
     
 #the fiefdom class holds variables that define a player's stats
 class Fiefdom:
