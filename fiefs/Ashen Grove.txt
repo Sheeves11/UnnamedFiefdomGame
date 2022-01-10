@@ -4,6 +4,9 @@ False
 98
 1286
 0
+0
+0
+0
 Open Camp
 0
 Angry Mob
@@ -14,4 +17,8 @@ Dirt Patch
 0
 0
 0
-False
+0
+0
+0
+0
+0

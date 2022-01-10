@@ -9,9 +9,12 @@ def roll(mod):
     return d20 + mod
 
 #define biome globals:
+WATER = '~'
+RIVER = ['/','|','\\']
 MOUNTAIN = 'M'
-FOREST = '^'
 PLAINS = '#'
+FOREST = '^'
+BACKSLASH_SUB = 'L'     #This needed to be added so the program could properly read/write '\'
 
 #define some text colors
 class textColor:
@@ -81,6 +84,16 @@ def FirstLaunch():
     except:
         print('Error, something wrong with settings.txt!')
         return False
+
+
+def CheckLegalUsername(username):
+    illegalUserNames = ['', ' ', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15']
+    if username.strip() == "":
+        return False
+    for i in range(len(illegalUserNames)):
+        if username == illegalUserNames[i]:
+            return False
+    return True
     
 #the fiefdom class holds variables that define a player's stats
 class Fiefdom:
@@ -89,6 +102,9 @@ class Fiefdom:
     home = False
     defenders = 100
     gold = 500
+    wood = 0
+    stone = 0
+    food = 0
     defLevel = 0
     defType = "Open Camp"
     attLevel = 0
@@ -100,7 +116,11 @@ class Fiefdom:
     biome = '0'
     xCoordinate = 0
     yCoordinate = 0
-    nearWater = False
+    adjacentWater = 0
+    adjacentRivers = 0
+    adjacentMountains = 0
+    adjacentForests = 0
+    adjacentPlains = 0
 
     #take the current fiefdom and write it to the /fiefs directory
     def write(self):
@@ -109,12 +129,14 @@ class Fiefdom:
         #this part creates a file if it isn't made yet        
         try:
             with open(fiefFile, 'x') as f:
-
                 f.write(self.name + '\n')
                 f.write(self.ruler + '\n')
                 f.write(str(self.home) + '\n')
                 f.write(str(self.defenders) + '\n')
                 f.write(str(self.gold) + '\n')
+                f.write(str(self.wood) + '\n')
+                f.write(str(self.stone) + '\n')
+                f.write(str(self.food) + '\n')
                 f.write(str(self.defLevel) + '\n')
                 f.write(str(self.defType) + '\n')
                 f.write(str(self.attLevel) + '\n')
@@ -126,7 +148,12 @@ class Fiefdom:
                 f.write(str(self.biome) + '\n')
                 f.write(str(self.xCoordinate) + '\n')
                 f.write(str(self.yCoordinate) + '\n')
-                f.write(str(self.nearWater) + '\n')
+                f.write(str(self.adjacentWater) + '\n')
+                f.write(str(self.adjacentRivers) + '\n')
+                f.write(str(self.adjacentMountains) + '\n')
+                f.write(str(self.adjacentForests) + '\n')
+                f.write(str(self.adjacentPlains) + '\n')
+
         except:
             pass
 
@@ -138,6 +165,9 @@ class Fiefdom:
                 f.write(str(self.home) + '\n')
                 f.write(str(self.defenders) + '\n')
                 f.write(str(self.gold) + '\n')
+                f.write(str(self.wood) + '\n')
+                f.write(str(self.stone) + '\n')
+                f.write(str(self.food) + '\n')
                 f.write(str(self.defLevel) + '\n')
                 f.write(str(self.defType) + '\n')
                 f.write(str(self.attLevel) + '\n')
@@ -149,7 +179,12 @@ class Fiefdom:
                 f.write(str(self.biome) + '\n')
                 f.write(str(self.xCoordinate) + '\n')
                 f.write(str(self.yCoordinate) + '\n')
-                f.write(str(self.nearWater) + '\n')
+                f.write(str(self.adjacentWater) + '\n')
+                f.write(str(self.adjacentRivers) + '\n')
+                f.write(str(self.adjacentMountains) + '\n')
+                f.write(str(self.adjacentForests) + '\n')
+                f.write(str(self.adjacentPlains) + '\n')
+
         except:
             pass
 
@@ -163,6 +198,9 @@ class Fiefdom:
                 self.home = f.readline().strip()
                 self.defenders = f.readline().strip()
                 self.gold = f.readline().strip()
+                self.wood = f.readline().strip()
+                self.stone = f.readline().strip()
+                self.food = f.readline().strip()
                 self.defLevel = f.readline().strip()
                 self.defType = f.readline().strip()
                 self.attLevel = f.readline().strip()
@@ -174,12 +212,30 @@ class Fiefdom:
                 self.biome = f.readline().strip()
                 self.xCoordinate = f.readline().strip()
                 self.yCoordinate = f.readline().strip()
-                self.nearWater = f.readline().strip()
+                self.adjacentWater = f.readline().strip()
+                self.adjacentRivers = f.readline().strip()
+                self.adjacentMountains = f.readline().strip()
+                self.adjacentForests = f.readline().strip()
+                self.adjacentPlains = f.readline().strip()
+
         except:
             self.write()   
     def setCoordinates(self, coordinates):
         self.yCoordinate = coordinates[0]
         self.xCoordinate = coordinates[1]
+
+    def setSurroundings(self, surroundings):
+        for i in range(len(surroundings)):
+            if surroundings[i] == WATER:
+                self.adjacentWater = str(int(self.adjacentWater) + 1)
+            elif surroundings[i] == RIVER[0] or surroundings[i] == RIVER[1] or surroundings[i] == RIVER[2]:
+                self.adjacentRivers = str(int(self.adjacentRivers) + 1)
+            elif surroundings[i] == PLAINS:
+                self.adjacentPlains = str(int(self.adjacentPlains) + 1)
+            elif surroundings[i] == MOUNTAIN:
+                self.adjacentMountains = str(int(self.adjacentMountains) + 1)
+            elif surroundings[i] == FOREST:
+                self.adjacentForests = str(int(self.adjacentForests) + 1)
             
 #SW: I am splitting this to safely determine if it is necessary to keep the above stuff or not
 class Stronghold:
@@ -199,7 +255,6 @@ class Stronghold:
     biome = '0'
     xCoordinate = 0
     yCoordinate = 0
-    nearWater = False
     color = 'red'
 
     #take the current stronghold and write it to the /strongholds directory
@@ -225,7 +280,6 @@ class Stronghold:
                 f.write(str(self.biome) + '\n')
                 f.write(str(self.xCoordinate) + '\n')
                 f.write(str(self.yCoordinate) + '\n')
-                f.write(str(self.nearWater) + '\n')
                 f.write(str(self.color) + '\n')
         except:
             pass
@@ -249,7 +303,6 @@ class Stronghold:
                 f.write(str(self.biome) + '\n')
                 f.write(str(self.xCoordinate) + '\n')
                 f.write(str(self.yCoordinate) + '\n')
-                f.write(str(self.nearWater) + '\n')
                 f.write(str(self.color) + '\n')
         except:
             pass
@@ -275,7 +328,6 @@ class Stronghold:
                 self.biome = f.readline().strip()
                 self.xCoordinate = f.readline().strip()
                 self.yCoordinate = f.readline().strip()
-                self.nearWater = f.readline().strip()
                 self.color = f.readline().strip()
         except:
             self.write()     
@@ -283,6 +335,7 @@ class Stronghold:
     def setCoordinates(self, coordinates):
         self.yCoordinate = coordinates[0]
         self.xCoordinate = coordinates[1]
+
 
 class Map:
     seed = '00555'
@@ -332,9 +385,15 @@ class Map:
                     f.write(str("["))
                     for j in range(int(self.width)):
                         if j < int(self.width) - 1:
-                            f.write("'" + str(self.worldMap[i][j]) + "',")
+                            if self.worldMap[i][j] == RIVER[2]:
+                                f.write("'" + BACKSLASH_SUB + "',")
+                            else:
+                                f.write("'" + str(self.worldMap[i][j]) + "',")
                         else:
-                            f.write("'" + str(self.worldMap[i][j]) + "'")
+                            if self.worldMap[i][j] == RIVER[2]:
+                                f.write("'" + BACKSLASH_SUB + "'")
+                            else:
+                                f.write("'" + str(self.worldMap[i][j]) + "'")
                     if i < int(self.height) - 1:
                         f.write(str("],"))
                     else:
@@ -362,9 +421,15 @@ class Map:
                     f.write(str("["))
                     for j in range(int(self.width)):
                         if j < int(self.width) - 1:
-                            f.write("'" + str(self.worldMap[i][j]) + "',")
+                            if self.worldMap[i][j] == RIVER[2]:
+                                f.write("'" + BACKSLASH_SUB + "',")
+                            else:
+                                f.write("'" + str(self.worldMap[i][j]) + "',")
                         else:
-                            f.write("'" + str(self.worldMap[i][j]) + "'")
+                            if self.worldMap[i][j] == RIVER[2]:
+                                f.write("'" + BACKSLASH_SUB + "'")
+                            else:
+                                f.write("'" + str(self.worldMap[i][j]) + "'")
                     if i < int(self.height) - 1:
                         f.write(str("],"))
                     else:
@@ -390,12 +455,15 @@ class Map:
                     self.values.append(readList[count])
                     
                 if count > 10:
+                    for i in range(len(readList[count])):
+                        if readList[count][i] == BACKSLASH_SUB:
+                            readList[count][i] = RIVER[2]
                     self.worldMap.append(readList[count])
 
             self.success = True
 
         except:
-            print('Could not read file!')
+            print('Could not read map file!')
             pass
 
         if self.success == True:
