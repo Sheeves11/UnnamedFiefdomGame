@@ -2022,8 +2022,8 @@ while (loop):
         header()
 
         print('\n\n')
-        print('     Welcome to the Sandbox Menu, where uses can play with the map generator!')
-
+        print('     Welcome to the Sandbox Menu!')
+        print('     Here, you can generate a test map to see how it works.')
         art_globe()
 
         print('\n\n\n\n\n')

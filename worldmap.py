@@ -184,7 +184,6 @@ def DefineSurroundings(wMap, posX, posY, freqM, freqP, freqF):
     #Prints each position at the top of the page:
     if not INSTANTLY_GENERATE:
         os.system("clear")
-        print('    posX: ' + str(posX) + ' posY: ' + str(posY))
 
         surroundings = ScanSurroundings(wMap, posX, posY)
         dN = surroundings[0]
@@ -197,7 +196,7 @@ def DefineSurroundings(wMap, posX, posY, freqM, freqP, freqF):
         dNW = surroundings[7]
 
         #Print surrounding symbols in a relevant box formation
-        print('\n    Surroundings: ') 
+        print('    Surroundings: ' + '    [ posX: ' + str(posX) + ' posY: ' + str(posY) + ' ]') 
         print('    - - - - -')
         print('    - ' + dNW + ' ' + dN + ' ' + dNE + ' -')
         print('    - ' + dW + '   ' + dE + ' -')
@@ -251,8 +250,7 @@ def DefineSurroundings(wMap, posX, posY, freqM, freqP, freqF):
         newPoint = random.choice(pointTable)
 
         #Print the randomly selected symbol:
-        print('\n    New Point: ') 
-        print(*newPoint)
+        print('\n    New Point: ' + str(newPoint))
         print('')
     #If the option to instantly generate the map is selected, no print statements are made:
     else:
@@ -2058,7 +2056,7 @@ def SilentlySimulateRivers(wMap, symbol, y, x):
 def WorldMapLocation(yPos, xPos, mapClass):
     tempIcon = mapClass.worldMap[yPos][xPos]
     mapClass.worldMap[yPos][xPos] = LOCATION
-    PrintColorMap(mapClass.worldMap)
+    PrintColorMapWithFiefs(mapClass.worldMap)
     mapClass.worldMap[yPos][xPos] = tempIcon
 
 #--------------------------------------------------------------------------------------------------------------
@@ -2256,10 +2254,128 @@ def SilentlyRandomRunSouthEast(dS, dSE, wMap, y, x):
             return SilentlySimulateRivers(wMap, RIVER[2], y + 1, x + 1)
 
 
+#--------------------------------------------------------------------------------------------------------------
+#   [PrintColorMapWithFiefs]
+#   Parameters: wMap
+#
+#   Iterates through a WorldMap and prints a color version. Also prints fiefs along side
+#--------------------------------------------------------------------------------------------------------------
+def PrintColorMapWithFiefs(wMap):
+    for i in range(MAP_HEIGHT):
+        fiefsInRow = GetFiefRow(i)
+        strongholdsInRow = GetStrongholdRow(i)
+        for j in range(MAP_WIDTH):
+            symbol = wMap[i][j]
+            if j == 0:
+                if symbol == UNEXPLORED:
+                    print('    ' + IC_UNEXPLORED + symbol + RESET, end=" ")
+                elif symbol == EMPTY:
+                    print('    ' + symbol, end=" ")
+                elif symbol == WATER:
+                    print('    ' + IC_WATER + symbol + RESET, end=" ")
+                elif symbol == RIVER[0] or symbol == RIVER[1] or symbol == RIVER[2]:
+                    print('    ' + IC_RIVER + symbol + RESET, end=" ")
+                elif symbol == FOREST:
+                    print('    ' + IC_FOREST + symbol + RESET, end=" ")
+                elif symbol == PLAINS:
+                    print('    ' + IC_PLAINS + symbol + RESET, end=" ")
+                elif symbol == MOUNTAIN:
+                    print('    ' + IC_MOUNTAIN + symbol + RESET, end=" ")
+                elif symbol == FIEF:
+                    print('    ' + IC_FIEF + symbol + RESET, end=" ")
+                elif symbol == STRONGHOLD:
+                    print('    ' + IC_STRONGHOLD + symbol + RESET, end=" ")
+                elif symbol == LOCATION:
+                    print('    ' + IC_LOCATION + symbol + RESET, end=" ")
+            elif j == MAP_WIDTH - 1:
+                if symbol == UNEXPLORED:
+                    print(IC_UNEXPLORED + symbol + RESET, *fiefsInRow, *strongholdsInRow, end=" ")
+                elif symbol == EMPTY:
+                    print(symbol, *fiefsInRow, *strongholdsInRow, end=" ")
+                elif symbol == WATER:
+                    print(IC_WATER + symbol + RESET, *fiefsInRow, *strongholdsInRow, end=" ")
+                elif symbol == RIVER[0] or symbol == RIVER[1] or symbol == RIVER[2]:
+                    print(IC_RIVER + symbol + RESET, *fiefsInRow, *strongholdsInRow, end=" ")
+                elif symbol == FOREST:
+                    print(IC_FOREST + symbol + RESET, *fiefsInRow, *strongholdsInRow, end=" ")
+                elif symbol == PLAINS:
+                    print(IC_PLAINS + symbol + RESET, *fiefsInRow, *strongholdsInRow, end=" ")
+                elif symbol == MOUNTAIN:
+                    print(IC_MOUNTAIN + symbol + RESET, *fiefsInRow, *strongholdsInRow, end=" ")
+                elif symbol == FIEF:
+                    print(IC_FIEF + symbol + RESET, *fiefsInRow, *strongholdsInRow, end=" ")
+                elif symbol == STRONGHOLD:
+                    print(IC_STRONGHOLD + symbol + RESET, *fiefsInRow, *strongholdsInRow, end=" ")
+                elif symbol == LOCATION:
+                    print(IC_LOCATION + symbol + RESET, *fiefsInRow, *strongholdsInRow, end=" ")
+            else:
+                if symbol == UNEXPLORED:
+                    print(IC_UNEXPLORED + symbol + RESET, end=" ")
+                elif symbol == EMPTY:
+                    print(symbol, end=" ")
+                elif symbol == WATER:
+                    print(IC_WATER + symbol + RESET, end=" ")
+                elif symbol == RIVER[0] or symbol == RIVER[1] or symbol == RIVER[2]:
+                    print(IC_RIVER + symbol + RESET, end=" ")
+                elif symbol == FOREST:
+                    print(IC_FOREST + symbol + RESET, end=" ")
+                elif symbol == PLAINS:
+                    print(IC_PLAINS + symbol + RESET, end=" ")
+                elif symbol == MOUNTAIN:
+                    print(IC_MOUNTAIN + symbol + RESET, end=" ")
+                elif symbol == FIEF:
+                    print(IC_FIEF + symbol + RESET, end=" ")
+                elif symbol == STRONGHOLD:
+                    print(IC_STRONGHOLD + symbol + RESET, end=" ")
+                elif symbol == LOCATION:
+                    print(IC_LOCATION + symbol + RESET, end=" ")
+        print('')
 
+#--------------------------------------------------------------------------------------------------------------
+#   [GetFiefRow]
+#   Parameters: row
+#   Returns: list of fiefs
+#--------------------------------------------------------------------------------------------------------------
+def GetFiefRow(row):
+    fiefsInRow = []
+    numInRow = 0
+    for filename in os.listdir('fiefs'):
+            with open(os.path.join('fiefs', filename), 'r') as f:
+                tempName = filename[:-4]
+                tempName = Fiefdom()
+                tempName.name = filename[:-4]
+                tempName.read()
+                # print('Cross checking with: ' + str(tempName.name))
+                if int(tempName.yCoordinate) == row:
+                    numInRow += 1
+                    if numInRow == 1:
+                        fiefsInRow.append("| " + IC_FIEF + tempName.name + RESET)
+                    else:
+                        fiefsInRow.append("| " + IC_FIEF + tempName.name + RESET + " ")
+    return fiefsInRow
 
-
-
+#--------------------------------------------------------------------------------------------------------------
+#   [GetStrongholdRow]
+#   Parameters: row
+#   Returns: list of strongholds
+#--------------------------------------------------------------------------------------------------------------
+def GetStrongholdRow(row):
+    strongholdsInRow = []
+    numInRow = 0
+    for filename in os.listdir('strongholds'):
+            with open(os.path.join('strongholds', filename), 'r') as f:
+                tempName = filename[:-4]
+                tempName = Stronghold()
+                tempName.name = filename[:-4]
+                tempName.read()
+                # print('Cross checking with: ' + str(tempName.name))
+                if int(tempName.yCoordinate) == row:
+                    numInRow += 1
+                    if numInRow == 1:
+                        strongholdsInRow.append("| " + IC_STRONGHOLD + tempName.name + RESET)
+                    else:
+                        strongholdsInRow.append("|" + IC_STRONGHOLD + tempName.name + RESET + " ")
+    return strongholdsInRow
 
 
 #--------------------------------------------------------------------------------------------------------------
