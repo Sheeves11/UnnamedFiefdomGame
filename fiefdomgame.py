@@ -152,9 +152,9 @@ while (loop):
                     screen = "login"
             else:
                 if username.strip() == "":
-                    print("Error, name can't be blank!")
+                    print("                Error, name can't be blank!")
                 else:
-                    print("Error, name can't be " + str(username) + "!")
+                    print("                Error, name can't be " + str(username) + "!")
                 time.sleep(1)
                 screen = "login"
 
