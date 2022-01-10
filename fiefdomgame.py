@@ -527,7 +527,7 @@ while (loop):
 
         userFiefCount = 0
 
-        print('\n    Fiefs under your rule: \n')
+        print('\n    Fiefs under your rule:')
         print("    ------------------------------------------------------------------\n")
         for filename in os.listdir('fiefs'):
             with open(os.path.join('fiefs', filename), 'r') as f:
@@ -550,7 +550,7 @@ while (loop):
         print('    {3}: Distribute Soldiers')
         print('    -------------------------------------')
         print('')
-        command = input("     Enter your command: ")
+        command = input("    Enter your command: ")
 
         if command == "1":
             screen = "stronghold"
