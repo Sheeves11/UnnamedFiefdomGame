@@ -26,14 +26,14 @@ github.com/Sheeves11/UnnamedFiefdomGame
 loop = True
 screen = "login"
 currentUsername = 'default'
-tempName = {}
-STRONGHOLD = True
-USER_STRONGHOLD = True
+# tempName = {}
+STRONGHOLD = True           #Used to differentiate strongholds/fiefs
+USER_STRONGHOLD = True      #Used to differentiate attack/user strongholds
 
 #fiefdom page variables
-LINES_PER_PAGE = 10  #SET THIS TO 30 OR SOMETHING LATER! 10 IS FOR TESTING!
-currentPage = 1
-userStrongholdCount = 0
+LINES_PER_PAGE = 20         #The number of fiefs/strongholds that appear in the list
+currentPage = 1             #Used to keep track of the page the user should be on
+userFiefCount = 0           #Used to keep track of how many fiefs the user controls.
 
 
 #hourly production values
@@ -516,7 +516,7 @@ while (loop):
 
         header()
 
-        userStrongholdCount = 0
+        userFiefCount = 0
 
         print('\n    Fiefs under your rule: \n')
         for filename in os.listdir('fiefs'):
@@ -528,7 +528,7 @@ while (loop):
                 tempName.read()
 
                 if tempName.home != "True" and tempName.ruler == userStronghold.name:
-                    userStrongholdCount = userStrongholdCount + 1
+                    userFiefCount = userFiefCount + 1
                     print ('    ' + textColor.CYAN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' +
                             tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
 
@@ -560,16 +560,16 @@ while (loop):
         header()
 
         print("\n\n")
-        print('    Currently Ruled Fiefs: ' + str(userStrongholdCount))
+        print('    Currently Ruled Fiefs: ' + str(userFiefCount))
         print('    Current Number of Soldiers in Stronghold: ' + str(userStronghold.defenders))
         print('\n')
         time.sleep(1)
-        if userStrongholdCount == 0:
+        if userFiefCount == 0:
             print('    You control no fiefs you can distribute to! \n')
             time.sleep(2)
             screen = "garrison"
         else:
-            withdrawNum = input('    Enter the number of soldiers you would like to evenly distrubute among these ' + str(userStrongholdCount) + ' fiefs: ')
+            withdrawNum = input('    Enter the number of soldiers you would like to evenly distrubute among these ' + str(userFiefCount) + ' fiefs: ')
             time.sleep(1)
 
             try:
@@ -595,19 +595,19 @@ while (loop):
                 time.sleep(2)
                 screen = 'garrison'
 
-            elif int(withdrawNum) < userStrongholdCount:
+            elif int(withdrawNum) < userFiefCount:
                 os.system("clear")
                 print("    You have more fiefs than soldiers you want to distribute!")
                 time.sleep(2)
                 screen = 'garrison'
 
             else:
-                print('    Garrisoning ' + str(withdrawNum) + ' soldiers across ' + str(userStrongholdCount) + ' Fiefs...')
+                print('    Garrisoning ' + str(withdrawNum) + ' soldiers across ' + str(userFiefCount) + ' Fiefs...')
 
                 time.sleep(1)
 
-                benchedSoldiers = int(withdrawNum) % userStrongholdCount
-                outgoingSoldierGroups = round((int(withdrawNum) - benchedSoldiers)/userStrongholdCount)
+                benchedSoldiers = int(withdrawNum) % userFiefCount
+                outgoingSoldierGroups = round((int(withdrawNum) - benchedSoldiers)/userFiefCount)
 
                 if benchedSoldiers > 0:
                     print('    ' + str(benchedSoldiers) + ' soldiers were held back to make even groups of ' + str(outgoingSoldierGroups) + '.')
