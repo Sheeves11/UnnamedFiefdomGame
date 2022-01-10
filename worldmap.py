@@ -6,10 +6,7 @@ from classes import *
 
 #--------------------------------------------------------------------------------------------------------------
 #
-#   Making a map:
-#       1. Always generate a map before doing any other map commands. ('wm' at stronghold)
-#       2. Sprinkle on the fiefs. ('paf' at stronghold)
-#       3. Add in strongholds. ('ts' at stronghold)
+#   Map has been added into the fiefdomgame generation automatically, it is fully functional!
 #
 #--------------------------------------------------------------------------------------------------------------
 
@@ -554,7 +551,7 @@ def PrintLegend():
     print('    -  ' + WARNING + 'Forest       ' + RESET + ':   ' + IC_FOREST + FOREST + RESET + '   -')
     print('    -  ' + WARNING + 'Plains       ' + RESET + ':   ' + IC_PLAINS + PLAINS + RESET + '   -')
     print('    -  ' + WARNING + 'Mountain     ' + RESET + ':   ' + IC_MOUNTAIN + MOUNTAIN + RESET + '   -')
-    print('    -  ' + WARNING + 'Fief         ' + RESET + ':   ' + IC_FIEF + FIEF + RESET + '   -')
+    print('    -  ' + WARNING + 'Fief         ' + RESET + ':  ' + IC_FIEF + FIEF + ' ' + CYAN + FIEF + RESET + '  -')
     print('    -  ' + WARNING + 'Stronghold   ' + RESET + ':   ' + IC_STRONGHOLD + STRONGHOLD + RESET + '   -')
     print('    -  ' + WARNING + 'You are Here ' + RESET + ':   ' + IC_LOCATION + LOCATION + RESET + '   -')
 
@@ -2053,10 +2050,10 @@ def SilentlySimulateRivers(wMap, symbol, y, x):
 #   Parameters: yPos, xPos, mapClass
 #   Replaces current x and y position in the world map with a new icon, prints the map, then reverts the map.
 #--------------------------------------------------------------------------------------------------------------
-def WorldMapLocation(yPos, xPos, mapClass):
+def WorldMapLocation(yPos, xPos, mapClass, userName):
     tempIcon = mapClass.worldMap[yPos][xPos]
     mapClass.worldMap[yPos][xPos] = LOCATION
-    PrintColorMapWithFiefs(mapClass.worldMap)
+    PrintColorMapWithFiefs(mapClass.worldMap, userName)
     mapClass.worldMap[yPos][xPos] = tempIcon
 
 #--------------------------------------------------------------------------------------------------------------
@@ -2260,10 +2257,10 @@ def SilentlyRandomRunSouthEast(dS, dSE, wMap, y, x):
 #
 #   Iterates through a WorldMap and prints a color version. Also prints fiefs along side
 #--------------------------------------------------------------------------------------------------------------
-def PrintColorMapWithFiefs(wMap):
+def PrintColorMapWithFiefs(wMap, userName):
     for i in range(MAP_HEIGHT):
-        fiefsInRow = GetFiefRow(i)
-        strongholdsInRow = GetStrongholdRow(i)
+        fiefsInRow = GetFiefRow(i, userName)
+        strongholdsInRow = GetStrongholdRow(i, userName)
         for j in range(MAP_WIDTH):
             symbol = wMap[i][j]
             if j == 0:
@@ -2282,7 +2279,7 @@ def PrintColorMapWithFiefs(wMap):
                 elif symbol == MOUNTAIN:
                     print('    ' + IC_MOUNTAIN + symbol + RESET, end=" ")
                 elif symbol == FIEF:
-                    print('    ' + IC_FIEF + symbol + RESET, end=" ")
+                    print('    ' + GetFiefByOwner(i, j, userName) + RESET, end=" ")
                 elif symbol == STRONGHOLD:
                     print('    ' + IC_STRONGHOLD + symbol + RESET, end=" ")
                 elif symbol == LOCATION:
@@ -2303,7 +2300,7 @@ def PrintColorMapWithFiefs(wMap):
                 elif symbol == MOUNTAIN:
                     print(IC_MOUNTAIN + symbol + RESET, *fiefsInRow, *strongholdsInRow, end=" ")
                 elif symbol == FIEF:
-                    print(IC_FIEF + symbol + RESET, *fiefsInRow, *strongholdsInRow, end=" ")
+                    print(GetFiefByOwner(i, j, userName) + RESET, *fiefsInRow, *strongholdsInRow, end=" ")
                 elif symbol == STRONGHOLD:
                     print(IC_STRONGHOLD + symbol + RESET, *fiefsInRow, *strongholdsInRow, end=" ")
                 elif symbol == LOCATION:
@@ -2324,7 +2321,7 @@ def PrintColorMapWithFiefs(wMap):
                 elif symbol == MOUNTAIN:
                     print(IC_MOUNTAIN + symbol + RESET, end=" ")
                 elif symbol == FIEF:
-                    print(IC_FIEF + symbol + RESET, end=" ")
+                    print(GetFiefByOwner(i, j, userName) + RESET, end=" ")
                 elif symbol == STRONGHOLD:
                     print(IC_STRONGHOLD + symbol + RESET, end=" ")
                 elif symbol == LOCATION:
@@ -2333,12 +2330,12 @@ def PrintColorMapWithFiefs(wMap):
 
 #--------------------------------------------------------------------------------------------------------------
 #   [GetFiefRow]
-#   Parameters: row
+#   Parameters: row, userName
 #   Returns: list of fiefs
 #--------------------------------------------------------------------------------------------------------------
-def GetFiefRow(row):
+def GetFiefRow(row, userName):
     fiefsInRow = []
-    numInRow = 0
+    # numInRow = 0
     for filename in os.listdir('fiefs'):
             with open(os.path.join('fiefs', filename), 'r') as f:
                 tempName = filename[:-4]
@@ -2347,19 +2344,38 @@ def GetFiefRow(row):
                 tempName.read()
                 # print('Cross checking with: ' + str(tempName.name))
                 if int(tempName.yCoordinate) == row:
-                    numInRow += 1
-                    if numInRow == 1:
-                        fiefsInRow.append("| " + IC_FIEF + tempName.name + RESET)
+                    # numInRow += 1
+                    if userName == tempName.ruler:
+                        fiefsInRow.append("| " + CYAN + tempName.name + RESET)
                     else:
-                        fiefsInRow.append("| " + IC_FIEF + tempName.name + RESET + " ")
+                        fiefsInRow.append("| " + IC_FIEF + tempName.name + RESET)
     return fiefsInRow
+
+#--------------------------------------------------------------------------------------------------------------
+#   [GetFiefByOwner]
+#   Parameters: userName
+#   Returns: list of fiefs
+#--------------------------------------------------------------------------------------------------------------
+def GetFiefByOwner(yPos, xPos, userName):
+    fief = IC_FIEF + 'X'
+    for filename in os.listdir('fiefs'):
+            with open(os.path.join('fiefs', filename), 'r') as f:
+                tempName = filename[:-4]
+                tempName = Fiefdom()
+                tempName.name = filename[:-4]
+                tempName.read()
+                # print('Cross checking with: ' + str(tempName.name))
+                if int(tempName.yCoordinate) == yPos and int(tempName.xCoordinate) == xPos and userName == tempName.ruler:
+                    fief = CYAN + 'X'
+
+    return fief
 
 #--------------------------------------------------------------------------------------------------------------
 #   [GetStrongholdRow]
 #   Parameters: row
 #   Returns: list of strongholds
 #--------------------------------------------------------------------------------------------------------------
-def GetStrongholdRow(row):
+def GetStrongholdRow(row, userName):
     strongholdsInRow = []
     numInRow = 0
     for filename in os.listdir('strongholds'):
@@ -2370,11 +2386,11 @@ def GetStrongholdRow(row):
                 tempName.read()
                 # print('Cross checking with: ' + str(tempName.name))
                 if int(tempName.yCoordinate) == row:
-                    numInRow += 1
-                    if numInRow == 1:
-                        strongholdsInRow.append("| " + IC_STRONGHOLD + tempName.name + RESET)
-                    else:
-                        strongholdsInRow.append("|" + IC_STRONGHOLD + tempName.name + RESET + " ")
+                    # numInRow += 1
+                    # if numInRow == 1:
+                        # strongholdsInRow.append("| " + IC_STRONGHOLD + tempName.name + RESET)
+                    # else:
+                    strongholdsInRow.append("| " + IC_STRONGHOLD + tempName.name + RESET + " ")
     return strongholdsInRow
 
 

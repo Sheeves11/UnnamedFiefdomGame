@@ -173,7 +173,7 @@ while (loop):
 
         header()
         print("")
-        print('     ' + textColor.WARNING + username + "'s Stronghold" + textColor.RESET)
+        print('    ' + textColor.WARNING + username + "'s Stronghold" + textColor.RESET)
         print("\n")
 
         userStronghold.name = username
@@ -212,30 +212,30 @@ while (loop):
             serverMap.read()
             newUserAccount = False
 
-        print('     On a hilltop overlooking endless rolling fields, you see the only home you have ever known.')
-        print('     The Fiefdom is home to ' + textColor.WARNING +  str(userStronghold.defenders) + textColor.RESET + ' highly skilled warriors, and dozens of loyal citizens.')
-        print('     You also employ the services of ' + textColor.WARNING +  str(userStronghold.thieves) + textColor.RESET + ' well-trained thieves.')
-        print('\n     Grow your forces to overcome the enemy. Do not let your citizens down')
-        print('\n     Within your coffers, you have ' + textColor.WARNING + str(userStronghold.gold) + textColor.RESET + ' gold.')
-        print('     ' + 'Production: ' + str(productionCalc) + ' gold and ' + str((int(defenderOutput) * int(attackFief.defenderMod))) + ' soldiers per hour.')
-        print('     Your army of ' + textColor.WARNING + str(userStronghold.attType) + textColor.RESET + ' stands ready.')
+        print('    On a hilltop overlooking endless rolling fields, you see the only home you have ever known.')
+        print('    The Fiefdom is home to ' + textColor.WARNING +  str(userStronghold.defenders) + textColor.RESET + ' highly skilled warriors, and dozens of loyal citizens.')
+        print('    You also employ the services of ' + textColor.WARNING +  str(userStronghold.thieves) + textColor.RESET + ' well-trained thieves.')
+        print('\n    Grow your forces to overcome the enemy. Do not let your citizens down')
+        print('\n    Within your coffers, you have ' + textColor.WARNING + str(userStronghold.gold) + textColor.RESET + ' gold.')
+        print('    ' + 'Production: ' + str(productionCalc) + ' gold and ' + str((int(defenderOutput) * int(attackFief.defenderMod))) + ' soldiers per hour.')
+        print('    Your army of ' + textColor.WARNING + str(userStronghold.attType) + textColor.RESET + ' stands ready.')
         print('\n')
 
         userStronghold.read()
         art_stronghold(userStronghold.biome, userStronghold.color)
 
-        print("     Avalible Commands:")
-        print('     -------------------------------------------------------')
-        print('     {1}: View Fiefdoms')
-        print('     {2}: Hire and Recruit')
-        print('     {3}: Upgrade and Customize')
-        print('     {4}: Look Around')
-        print('     {5}: World Map')
-        print('     {6}: Message Board')
-        print('     {7}: More')
-        print('     --------------------------------------------------------')
+        print("    Avalible Commands:")
+        print('    -------------------------------------------------------')
+        print('    {1}: View Fiefdoms')
+        print('    {2}: Hire and Recruit')
+        print('    {3}: Upgrade and Customize')
+        print('    {4}: Look Around')
+        print('    {5}: World Map')
+        print('    {6}: Message Board')
+        print('    {7}: More')
+        print('    --------------------------------------------------------')
         print('')
-        command = input("     Enter your command: ")
+        command = input("    Enter your command: ")
 
         if command == '1':
             currentPage = 1
@@ -954,7 +954,7 @@ while (loop):
         fiefdomCount = 0
         fiefdomMargin = 0
 
-        print("\n")
+        print("")
         print("    Nearby Fiefdoms: ")
         print("    ------------------------------------------------------------------\n")
 
@@ -971,7 +971,7 @@ while (loop):
 
                 if (fiefdomMargin <= LINES_PER_PAGE) and (fiefdomMargin > 0):
                     if tempName.home != 'True' and tempName.ruler != userStronghold.name:
-                        print ('    ' + textColor.YELLOW + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' +
+                        print ('    ' + textColor.WARNING + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' +
                                 tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
 
                     if tempName.home != "True" and tempName.ruler == userStronghold.name:
@@ -979,7 +979,7 @@ while (loop):
                                 tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
 
         if fiefdomMargin > LINES_PER_PAGE or currentPage > 1:
-            print('\n    /// Page ' + str(currentPage) + ' ///')
+            print('\n    /// ' + WARNING + 'Page ' + str(currentPage) + RESET + ' ///')
         print("\n    Avalible Commands:")
         print('    -------------------------------------')
         print('    {1}: Return to Stronghold')
@@ -1060,7 +1060,7 @@ while (loop):
         strongholdCount = 0
         strongholdMargin = 0
 
-        print("\n")
+        print("")
         print("    Nearby Strongholds: ")
         print("    ------------------------------------------------------------------\n")
 
@@ -1087,7 +1087,7 @@ while (loop):
                                 tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
 
         if strongholdMargin > LINES_PER_PAGE or currentPage > 1:
-            print('/// Page ' + str(currentPage) + ' ///\n')
+            print('/// ' + WARNING + 'Page ' + str(currentPage) + RESET + ' ///\n')
         print("\n    Avalible Commands:")
         print('    -------------------------------------')
         print('    {1}: Return to Stronghold')
@@ -1322,7 +1322,7 @@ while (loop):
 # -
 #
 #------------------------------------------------------------------------------
-    if screen == 'withdrawGold':
+    if screen == "withdrawGold":
         os.system("clear")
         header()
 
@@ -1343,8 +1343,7 @@ while (loop):
             userStronghold.write()
             userStronghold.read()
 
-        currentPage = 1
-        screen = "homeDetails"
+        screen = "fiefdoms"
 
 #The deploy screen allows players to deploy defenders to a Fiefdom that they
 #currently control.
@@ -1354,7 +1353,7 @@ while (loop):
 # - verify that the player has the troops avalible for deployment
 # - prevent negative numbers
 #------------------------------------------------------------------------------
-    if screen == 'deploy':
+    if screen == "deploy":
         os.system("clear")
 
         header()
@@ -1414,7 +1413,7 @@ while (loop):
 # -
 #
 #------------------------------------------------------------------------------
-    if screen == 'withdraw':
+    if screen == "withdraw":
         os.system("clear")
         header()
         print("\n\n")
@@ -1491,7 +1490,7 @@ while (loop):
         elif attackFief.biome == FOREST:
             currentBiome = 'Forest'
 
-        print("\n\n")
+        print("")
         print('    Now viewing the fiefdom of ' + attackFief.name)
         print('    This fiefdom is ruled by ' + attackFief.ruler)
         print('    -------------------------------------------------------------------------')
@@ -1597,7 +1596,7 @@ while (loop):
         os.system("clear")
         header()
         attackStronghold.read()
-        print("    \n\n")
+        print("")
         print('    Now viewing the stronghold of ' + attackStronghold.name)
         print('    -------------------------------------------------------------------------')
         print('    Your scouts return early in the morning, bringing back reports of the enemy fiefdom.')
@@ -1865,7 +1864,7 @@ while (loop):
         PrintLegend()
         print('')
         print('    ' + UNDERLINE + WARNING + 'World Map' + RESET + ':    [Current Location -  Row: ' + WARNING + str(userStronghold.yCoordinate) + RESET + '   Column: ' + WARNING + str(userStronghold.xCoordinate) + RESET + ']')
-        WorldMapLocation(int(userStronghold.yCoordinate), int(userStronghold.xCoordinate), serverMap)
+        WorldMapLocation(int(userStronghold.yCoordinate), int(userStronghold.xCoordinate), serverMap, userStronghold.name)
         print('')
         time.sleep(1)
         nothing = input('    Press Enter to Continue')
@@ -1886,7 +1885,7 @@ while (loop):
         PrintLegend()
         print('')
         print('    ' + UNDERLINE + WARNING + 'World Map' + RESET + ':    [Current Location -  Row: ' + WARNING + str(attackStronghold.yCoordinate) + RESET + '   Column: ' + WARNING + str(attackStronghold.xCoordinate) + RESET + ']')
-        WorldMapLocation(int(attackStronghold.yCoordinate), int(attackStronghold.xCoordinate), serverMap)
+        WorldMapLocation(int(attackStronghold.yCoordinate), int(attackStronghold.xCoordinate), serverMap, userStronghold.name)
         print('')
         time.sleep(1)
         nothing = input('    Press Enter to Continue')
@@ -1907,7 +1906,7 @@ while (loop):
         PrintLegend()
         print('')
         print('    ' + UNDERLINE + WARNING + 'World Map' + RESET + ':    [Current Location -  Row: ' + WARNING + str(attackFief.yCoordinate) + RESET + '   Column: ' + WARNING + str(attackFief.xCoordinate) + RESET + ']')
-        WorldMapLocation(int(attackFief.yCoordinate), int(attackFief.xCoordinate), serverMap)
+        WorldMapLocation(int(attackFief.yCoordinate), int(attackFief.xCoordinate), serverMap, userStronghold.name)
         print('')
         time.sleep(1)
         nothing = input('    Press Enter to Continue')
