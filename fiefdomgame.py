@@ -87,7 +87,7 @@ while (loop):
             usernameFile = "users/" + username + ".txt"
             with open(usernameFile, 'r') as f:
                 os.system('clear')
-                header()
+                header(username)
                 
                 temp1 = f.readline().strip()
                 hashed = f.readline().strip()
@@ -117,7 +117,7 @@ while (loop):
                         with open(usernameFile, 'x') as f:
                             f.write(username + '\n')
                             os.system('clear')
-                            header()
+                            header(userStronghold.name)
                     
                             print('\n\n')
                             print(textColor.WARNING + '    WELCOME NEW PLAYER' + textColor.RESET)
@@ -171,16 +171,18 @@ while (loop):
     if screen == "stronghold":
         os.system("clear")
 
-        header()
-        print("")
-        print('    ' + textColor.WARNING + username + "'s Stronghold" + textColor.RESET)
-        print("\n")
-
         userStronghold.name = username
         userStronghold.read()
         userStronghold.ruler = username
         userStronghold.defenders = str(userStronghold.defenders)
         userStronghold.write()
+
+        header(userStronghold.name)
+        print("")
+        print('    ' + textColor.WARNING + username + "'s Stronghold" + textColor.RESET)
+        print("\n")
+
+
 
         productionCalc = 0
         maxProductionSoldiers = (int(userStronghold.goldMod) * 500)
@@ -270,7 +272,7 @@ while (loop):
     if screen == "upgradeStronghold":
         os.system("clear")
 
-        header()
+        header(userStronghold.name)
         print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
         print("     Avalible Commands:")
         print('     -------------------------------------------------------')
@@ -295,7 +297,7 @@ while (loop):
     if screen == "hireAndRecruit":
         os.system("clear")
 
-        header()
+        header(userStronghold.name)
         print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
         print("     Avalible Commands:")
         print('     -------------------------------------------------------')
@@ -320,7 +322,7 @@ while (loop):
     if screen == "moreCommands":
         os.system("clear")
 
-        header()
+        header(userStronghold.name)
         print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
         print("     Avalible Commands:")
         print('     -------------------------------------------------------')
@@ -353,7 +355,7 @@ while (loop):
     if screen == "messageBoard":
         os.system("clear")
 
-        header()
+        header(userStronghold.name)
 
         print('\n    Welcome to the message board! Keep it friendly :)')
         print('\n    --------------------------------------------------------------------------------------\n')
@@ -388,7 +390,7 @@ while (loop):
 #----------------------------------------------------------------------------------
     if screen == "pastWinners":
         os.system("clear")
-        header()
+        header(userStronghold.name)
         print('\n    These are your honorable past winners of Unnamed Fiefdom Game')
         print('\n    --------------------------------------------------------------------------------------\n')
         print('\n    Pre-Release (12/20/21): Steelwing\n')
@@ -407,7 +409,7 @@ while (loop):
         thiefCost = 1000
 
         os.system("clear")
-        header()
+        header(userStronghold.name)
 
         print('''
             
@@ -474,7 +476,7 @@ while (loop):
         mercCost = 10
 
         os.system("clear")
-        header()
+        header(userStronghold.name)
 
         print('\n\n\n')
         print('    You currently have ' + str(userStronghold.defenders) + ' soldiers and ' +  str(userStronghold.gold) + ' gold.')
@@ -523,7 +525,7 @@ while (loop):
     if screen == "garrison":
         os.system("clear")
 
-        header()
+        header(userStronghold.name)
 
         userFiefCount = 0
 
@@ -567,7 +569,7 @@ while (loop):
     if screen == "garrisonSorter":
         os.system("clear")
 
-        header()
+        header(userStronghold.name)
 
         print("\n\n")
         print('    Currently Ruled Fiefs: ' + str(userFiefCount))
@@ -657,7 +659,7 @@ while (loop):
 #----------------------------------------------------------------------------------
     if screen == "upgradeFiefAtt":
         os.system("clear")
-        header()
+        header(userStronghold.name)
 
         attTypeNext = 'undefined'
         attUpgradeCost = 0
@@ -733,7 +735,7 @@ while (loop):
         farmTypeNext = 'undefined'
         farmUpgradeCost = 0
         os.system("clear")
-        header()
+        header(userStronghold.name)
 
         if attackFief.goldMod == str('1'):
             farmTypeNext = 'Watering Cans'
@@ -802,7 +804,7 @@ while (loop):
     if screen == "upgradeFiefDef":
         os.system("clear")
 
-        header()
+        header(userStronghold.name)
 
         defTypeNext = 'undefined'
         defUpgradeCost = 0
@@ -870,7 +872,7 @@ while (loop):
     if screen == "about":
         os.system("clear")
 
-        header()
+        header(userStronghold.name)
         print('\n\n')
 
         print('''
@@ -908,7 +910,7 @@ while (loop):
     if screen == "features":
         os.system("clear")
 
-        header()
+        header(userStronghold.name)
         print('\n\n')
 
         print('''
@@ -949,7 +951,7 @@ while (loop):
 #-------------------------------------------------------------------------------
     if screen == "fiefdoms":
         os.system("clear")
-        header()
+        header(userStronghold.name)
 
         fiefdomCount = 0
         fiefdomMargin = 0
@@ -1055,7 +1057,7 @@ while (loop):
 
         os.system("clear")
 
-        header()
+        header(userStronghold.name)
 
         strongholdCount = 0
         strongholdMargin = 0
@@ -1160,7 +1162,7 @@ while (loop):
 
     if screen == "homeDetails":
         os.system("clear")
-        header()
+        header(userStronghold.name)
         attackFief.read()
 
         productionCalc = 0
@@ -1292,7 +1294,7 @@ while (loop):
     if screen == "upgradeFiefMenu":
         os.system("clear")
         
-        header()
+        header(userStronghold.name)
         print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
         print("    Avalible Commands:")
         print('    -------------------------------------------------------')
@@ -1324,7 +1326,7 @@ while (loop):
 #------------------------------------------------------------------------------
     if screen == "withdrawGold":
         os.system("clear")
-        header()
+        header(userStronghold.name)
 
         print("\n")
         print('    Now viewing the Fiefdom of ' + attackFief.name)
@@ -1356,7 +1358,7 @@ while (loop):
     if screen == "deploy":
         os.system("clear")
 
-        header()
+        header(userStronghold.name)
 
         print("\n\n")
         print('    Now viewing the Fiefdom of ' + attackFief.name)
@@ -1383,7 +1385,7 @@ while (loop):
 
         if (int(userStronghold.defenders) < int(deployNum)) and int(deployNum) > 0:
             os.system("clear")
-            header()
+            header(userStronghold.name)
             print("    You do not have enough soldiers for that")
             time.sleep(2)
             screen = 'homeDetails'
@@ -1415,7 +1417,7 @@ while (loop):
 #------------------------------------------------------------------------------
     if screen == "withdraw":
         os.system("clear")
-        header()
+        header(userStronghold.name)
         print("\n\n")
         print('    Now viewing the Fiefdom of ' + attackFief.name)
         print('\n\n')
@@ -1481,7 +1483,7 @@ while (loop):
 #------------------------------------------------------------------------------
     if screen == "details":
         os.system("clear")
-        header()
+        header(userStronghold.name)
 
         if attackFief.biome == MOUNTAIN:
             currentBiome = 'Mountain'
@@ -1594,7 +1596,7 @@ while (loop):
 #------------------------------------------------------------------------------
     if screen == "enemyStrongholdDetails":
         os.system("clear")
-        header()
+        header(userStronghold.name)
         attackStronghold.read()
         print("")
         print('    Now viewing the stronghold of ' + attackStronghold.name)
@@ -1647,7 +1649,7 @@ while (loop):
 #------------------------------------------------------------------------------
     if screen == "thiefPage":
         os.system("clear")
-        header()
+        header(userStronghold.name)
 
         #this is where the battle logic happens!
         print('    \n\n')
@@ -1755,7 +1757,7 @@ while (loop):
 #------------------------------------------------------------------------------
     if screen == "battle":
         os.system("clear")
-        header()
+        header(userStronghold.name)
 
         #Idea: We're going to do a DnD style battle using D20s and modifiers.
         #roll(mod) is going to give the result of a roll plus modifiers and is
@@ -1853,7 +1855,7 @@ while (loop):
 #This page prints the world map with your stronghold's location marked on it
     if screen == "viewMapYourStronghold":
         os.system("clear")
-        header()
+        header(userStronghold.name)
 
         serverMap.name = "serverMap"
 
@@ -1874,7 +1876,7 @@ while (loop):
 #This page prints the world map with your stronghold's location marked on it
     if screen == "viewMapEnemyStronghold":
         os.system("clear")
-        header()
+        header(userStronghold.name)
 
         serverMap.name = "serverMap"
 
@@ -1895,7 +1897,7 @@ while (loop):
 #This page prints the world map with your stronghold's location marked on it
     if screen == "viewMapCurrentFief":
         os.system("clear")
-        header()
+        header(userStronghold.name)
 
         serverMap.name = "serverMap"
 
@@ -1919,7 +1921,7 @@ while (loop):
 #This page prints the world map with your stronghold's location marked on it
     if screen == "viewSurroundings":
         os.system("clear")
-        header()
+        header(userStronghold.name)
 
         serverMap.name = "serverMap"
         # serverMap.read()
@@ -1975,7 +1977,7 @@ while (loop):
 #This page prints a menu for choosing your stronghold's color:
     if screen == "changeStrongholdColor":
         os.system("clear")
-        header()
+        header(userStronghold.name)
 
         print('\n\n\n\n\n')
         print("     Choose a Stronghold Color:")
@@ -2018,7 +2020,7 @@ while (loop):
 #------------------------------------------------------------------------------
     if screen == "sandboxMenu":
         os.system("clear")
-        header()
+        header(userStronghold.name)
 
         print('\n\n')
         print('     Welcome to the Sandbox Menu!')
@@ -2052,7 +2054,7 @@ while (loop):
 #------------------------------------------------------------------------------
     if screen == "sbTestMap":
         os.system("clear")
-        header()
+        header(userStronghold.name)
 
         TestResetFiefCoordinates()
 
@@ -2081,7 +2083,7 @@ while (loop):
 #------------------------------------------------------------------------------
     if screen == "sbCreateFief":
         os.system("clear")
-        header()
+        header(userStronghold.name)
 
         print('    Welcome to the fief creation tool!')
         print('    Please be aware that other users may be able to see the fiefs you create!')
@@ -2102,7 +2104,7 @@ while (loop):
 #------------------------------------------------------------------------------
     if screen == "sbPlotTestFiefs":
         os.system("clear")
-        header()
+        header(userStronghold.name)
 
         testMap.name = 'testMap'
         testMap.read()
@@ -2118,7 +2120,7 @@ while (loop):
 #------------------------------------------------------------------------------
     if screen == "sbViewMap":
         os.system("clear")
-        header()
+        header(userStronghold.name)
         
         testMap.name = 'testMap'
         testMap.read()
@@ -2136,9 +2138,9 @@ while (loop):
 #------------------------------------------------------------------------------
     if screen == "devTest":
         os.system("clear")
-        header()
+        header(userStronghold.name)
 
-        header()
+        header(userStronghold.name)
         print("\n")
 
         print('    Welcome to the dev test menu. This should only be used for testing purposes.')
@@ -2203,7 +2205,7 @@ while (loop):
 #----------------------------------------------------------------------------------
     if screen == "devTestCreateDefaults":
         os.system("clear")
-        header()
+        header(userStronghold.name)
 
         print('    Seeding the world with default fiefdoms')
 
@@ -2229,7 +2231,7 @@ while (loop):
 #----------------------------------------------------------------------------------
     if screen == "devTestAddGold":
         os.system("clear")
-        header()
+        header(userStronghold.name)
 
         print('    Adding Funds!...')
 
@@ -2247,7 +2249,7 @@ while (loop):
 #----------------------------------------------------------------------------------
     if screen == "devTestWorldMap":
         os.system("clear")
-        header()
+        header(userStronghold.name)
 
         serverMap.name = 'serverMap'
         serverMap.seed = GenerateSeed()
@@ -2268,7 +2270,7 @@ while (loop):
 #----------------------------------------------------------------------------------
     if screen == "devTestFiefPlacement":
         os.system("clear")
-        header()
+        header(userStronghold.name)
 
         fief = Fiefdom()
         command = input('    Enter a fief name to input: ')
@@ -2291,7 +2293,7 @@ while (loop):
 #----------------------------------------------------------------------------------
     if screen == "devTestPlotAllFiefs":
         os.system("clear")
-        header()
+        header(userStronghold.name)
 
         PlotAllFiefs(serverMap)
 
@@ -2303,7 +2305,7 @@ while (loop):
 #----------------------------------------------------------------------------------
     if screen == "devTestPlotAllStrongholds":
         os.system("clear")
-        header()
+        header(userStronghold.name)
 
         PlotAllStrongholds(serverMap)
 
@@ -2316,7 +2318,7 @@ while (loop):
 #----------------------------------------------------------------------------------
     if screen == "devTestGenerateWorld":
         os.system("clear")
-        header()
+        header(userStronghold.name)
 
         serverMap.name = 'serverMap'
         serverMap.seed = GenerateSeed()
@@ -2345,7 +2347,7 @@ while (loop):
 #----------------------------------------------------------------------------------
     if screen == "devTestWorldMapDiagnostics":
         os.system("clear")
-        header()
+        header(userStronghold.name)
 
         serverMap.selfDiagnostic()
         # print('\n')
@@ -2376,7 +2378,7 @@ while (loop):
     if screen == "upgradeDef":
         os.system("clear")
 
-        header()
+        header(userStronghold.name)
 
         defTypeNext = 'undefined'
         defUpgradeCost = 0

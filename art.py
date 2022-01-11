@@ -1,14 +1,36 @@
 from classes import *
 
-#header() should be called on every page
-def header():
-    print('''
--=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=--=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-
-                                             UNNAMED FIEFDOM GAME
--=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=--=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-=x=-'''
-    + textColor.WARNING + '\n' +
-'                                      Announcement: This is a test build                                                   '
-    + textColor.RESET + '\n')
+#==============================================================================================================
+#   Header Layout
+#==============================================================================================================
+#
+#                                                  __        _             __         
+#                         | |__ __  _ __  _  _|   |_  o  _ _|_ _| _ __    /__ _ __  _ 
+#                         |_|| || |(_||||(/_(_|   |   | (/_ | (_|(_)|||   \_|(_||||(/_
+# ==============================================================================================================
+#                        Player: Sheeves    Gold: 500    Warriors: 123    Thieves: 0                                                                                             
+# ==============================================================================================================
+#                                    Announcement: This is a test build          
+# 
+
+
+
+#header() should be called on every page. You will need to pass a username into it. Usually "header(userStronghold.name)"
+def header(username):
+    headerStronghold = Stronghold()
+    headerStronghold.name = username
+    headerStronghold.read()
+
+    line5 = str("Player: " + headerStronghold.name + "    Gold: " + headerStronghold.gold + "    Warriors: " + str(headerStronghold.defenders) + "    Thieves: " + str(headerStronghold.thieves))
+    announcement = "Announcement: This is a test build"
+    print('\n' +
+'                                                  __        _             __           \n' +
+'                         | |__ __  _ __  _  _|   |_  o  _ _|_ _| _ __    /__ _ __  _    \n' +
+'                         |_|| || |(_||||(/_(_|   |   | (/_ | (_|(_)|||   \_|(_||||(/_   \n' +
+'   ' + '\n' +       
+                                        (line5.center(110)) + '\n' +
+'   ' + '\n' +
+                                    (announcement.center(110)) + '\n')
 
 #Define Art:
 def art_titleScreen():
