@@ -1922,7 +1922,7 @@ while (loop):
         header()
 
         serverMap.name = "serverMap"
-        # serverMap.read()
+        serverMap.read()
         # attackFief.read()
         
         if STRONGHOLD:
