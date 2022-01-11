@@ -105,6 +105,7 @@ class Fiefdom:
     wood = 0
     stone = 0
     food = 0
+    ore = 0
     defLevel = 0
     defType = "Open Camp"
     attLevel = 0
@@ -121,6 +122,12 @@ class Fiefdom:
     adjacentMountains = 0
     adjacentForests = 0
     adjacentPlains = 0
+    #values in lists below are:
+    #       [Tier, Primary/hr, Secondary/hr, Number built, placeholder]
+    farmlands = [0, 0, 0, 0, 0]
+    fisheries = [0, 0, 0, 0, 0]
+    mines = [0, 0, 0, 0, 0]
+    lumberMills = [0, 0, 0, 0, 0]
 
     #take the current fiefdom and write it to the /fiefs directory
     def write(self):
@@ -137,6 +144,7 @@ class Fiefdom:
                 f.write(str(self.wood) + '\n')
                 f.write(str(self.stone) + '\n')
                 f.write(str(self.food) + '\n')
+                f.write(str(self.ore) + '\n')
                 f.write(str(self.defLevel) + '\n')
                 f.write(str(self.defType) + '\n')
                 f.write(str(self.attLevel) + '\n')
@@ -153,6 +161,10 @@ class Fiefdom:
                 f.write(str(self.adjacentMountains) + '\n')
                 f.write(str(self.adjacentForests) + '\n')
                 f.write(str(self.adjacentPlains) + '\n')
+                f.write(str(self.farmlands) + '\n')
+                f.write(str(self.fisheries) + '\n')
+                f.write(str(self.mines) + '\n')
+                f.write(str(self.lumberMills) + '\n')
 
         except:
             pass
@@ -168,6 +180,7 @@ class Fiefdom:
                 f.write(str(self.wood) + '\n')
                 f.write(str(self.stone) + '\n')
                 f.write(str(self.food) + '\n')
+                f.write(str(self.ore) + '\n')
                 f.write(str(self.defLevel) + '\n')
                 f.write(str(self.defType) + '\n')
                 f.write(str(self.attLevel) + '\n')
@@ -184,6 +197,10 @@ class Fiefdom:
                 f.write(str(self.adjacentMountains) + '\n')
                 f.write(str(self.adjacentForests) + '\n')
                 f.write(str(self.adjacentPlains) + '\n')
+                f.write(str(self.farmlands) + '\n')
+                f.write(str(self.fisheries) + '\n')
+                f.write(str(self.mines) + '\n')
+                f.write(str(self.lumberMills) + '\n')
 
         except:
             pass
@@ -201,6 +218,7 @@ class Fiefdom:
                 self.wood = f.readline().strip()
                 self.stone = f.readline().strip()
                 self.food = f.readline().strip()
+                self.ore = f.readline().strip()
                 self.defLevel = f.readline().strip()
                 self.defType = f.readline().strip()
                 self.attLevel = f.readline().strip()
@@ -217,9 +235,14 @@ class Fiefdom:
                 self.adjacentMountains = f.readline().strip()
                 self.adjacentForests = f.readline().strip()
                 self.adjacentPlains = f.readline().strip()
+                self.farmlands = f.readline().strip()
+                self.fisheries = f.readline().strip()
+                self.mines = f.readline().strip()
+                self.lumberMills = f.readline().strip()
 
         except:
             self.write()   
+
     def setCoordinates(self, coordinates):
         self.yCoordinate = coordinates[0]
         self.xCoordinate = coordinates[1]
@@ -244,6 +267,10 @@ class Stronghold:
     home = False
     defenders = 100
     gold = 500
+    wood = 0
+    stone = 0
+    food = 0
+    ore = 0
     defLevel = 0
     defType = "Open Camp"
     attLevel = 0
@@ -269,6 +296,10 @@ class Stronghold:
                 f.write(str(self.home) + '\n')
                 f.write(str(self.defenders) + '\n')
                 f.write(str(self.gold) + '\n')
+                f.write(str(self.wood) + '\n')
+                f.write(str(self.stone) + '\n')
+                f.write(str(self.food) + '\n')
+                f.write(str(self.ore) + '\n')
                 f.write(str(self.defLevel) + '\n')
                 f.write(str(self.defType) + '\n')
                 f.write(str(self.attLevel) + '\n')
@@ -292,6 +323,10 @@ class Stronghold:
                 f.write(str(self.home) + '\n')
                 f.write(str(self.defenders) + '\n')
                 f.write(str(self.gold) + '\n')
+                f.write(str(self.wood) + '\n')
+                f.write(str(self.stone) + '\n')
+                f.write(str(self.food) + '\n')
+                f.write(str(self.ore) + '\n')
                 f.write(str(self.defLevel) + '\n')
                 f.write(str(self.defType) + '\n')
                 f.write(str(self.attLevel) + '\n')
@@ -317,6 +352,10 @@ class Stronghold:
                 self.home = f.readline().strip()
                 self.defenders = f.readline().strip()
                 self.gold = f.readline().strip()
+                self.wood = f.readline().strip()
+                self.stone = f.readline().strip()
+                self.food = f.readline().strip()
+                self.ore = f.readline().strip()
                 self.defLevel = f.readline().strip()
                 self.defType = f.readline().strip()
                 self.attLevel = f.readline().strip()

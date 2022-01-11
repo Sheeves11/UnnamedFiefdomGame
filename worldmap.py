@@ -326,129 +326,6 @@ def DefineSurroundings(wMap, posX, posY, freqM, freqP, freqF):
     return newPoint
 
 #--------------------------------------------------------------------------------------------------------------
-#   [LoadingAnimationIncrementor]
-#   Parameter: cap
-#
-#   Uses a global variable to cycle through a loading animation and returns a number based on the cap passed
-#--------------------------------------------------------------------------------------------------------------
-def LoadingAnimationIncrementor(cap):
-    global LOADING_INCREMENT
-
-    if LOADING_INCREMENT > cap:
-        LOADING_INCREMENT = 0
-    else:
-        LOADING_INCREMENT += 1
-
-    return LOADING_INCREMENT
-
-#--------------------------------------------------------------------------------------------------------------
-#   [LoadingAnimation]
-#   Parameter: thingLoading
-#
-#   Prints a passed string with an animation after it that changes each time the screen is refreshed.
-#   Function should be used in loops where the system is being cleared several times.
-#   I didn't end up using this, so I converted it into an artificial loading function to go before something
-#   and slow it down for no reason besides having a transition.
-#--------------------------------------------------------------------------------------------------------------
-def LoadingAnimation(thingLoading):
-    os.system("clear")
-    frame = LoadingAnimationIncrementor(4)
-    if frame == 0:
-        print(thingLoading)
-    elif frame == 1:
-        print(thingLoading + '.')
-    elif frame == 2:
-        print(thingLoading + '..')
-    else:
-        print(thingLoading + '...')
-    time.sleep(0.1)
-
-#--------------------------------------------------------------------------------------------------------------
-#   [SilentlyGenerateWorldMap]
-#   Parameters: seed
-#
-#   Does the same thing as GenerateWordlMap but with no prints or user interaction
-#--------------------------------------------------------------------------------------------------------------
-def SilentlyGenerateWorldMap(seed):
-    worldMap = [['0' for x in range(MAP_WIDTH)] for y in range(MAP_HEIGHT)]
-    sPosX = int(seed[0])
-    sPosY = int(seed[1])
-    freqMountain = int(seed[2])
-    freqPlains = int(seed[3])
-    freqForest = int(seed[4])
-    
-    loop = True
-    firstLoop = True
-    while (loop):
-        if firstLoop:
-            for y in range(MAP_HEIGHT):
-                for x in range(MAP_WIDTH):
-                    worldMap[y][x] = SilentlyDefineSurroundings(worldMap, x, y, freqMountain, freqPlains, freqForest)
-
-            firstLoop = False
-        loop = False
-    return worldMap
-
-#--------------------------------------------------------------------------------------------------------------
-#   [SilentlyDefineSurroundings]
-#   Parameters: wMap, posX, posY, freqM, freqP, freqF
-#
-#   Does the same thing as PrintSurroundings but with no prints or user interaction
-#--------------------------------------------------------------------------------------------------------------
-def SilentlyDefineSurroundings(wMap, posX, posY, freqM, freqP, freqF):
-    surroundings = ScanSurroundings(wMap, posX, posY)
-    dN = surroundings[0]
-    dNE = surroundings[1]
-    dE = surroundings[2]
-    dSE = surroundings[3]
-    dS = surroundings[4]
-    dSW = surroundings[5]
-    dW = surroundings[6]
-    dNW = surroundings[7]
-
-    #Define a list of weight totals for each:
-    weights = [0, 0, 0, 0, 0, 0, 0, 0]
-    index = 0
-
-    #Calculate the weight totals:
-    for i in surroundings:
-        if i == UNEXPLORED:
-            weights[index] = 0
-        elif i == EMPTY:
-            weights[index] = 0
-        elif i == WATER:
-            weights[index] = 10
-        elif i == RIVER:
-            weights[index] = 10
-        elif i == FOREST:
-            weights[index] = freqF * WEIGHT_INTENSITY
-        elif i == PLAINS:
-            weights[index] = freqP * WEIGHT_INTENSITY
-        elif i == MOUNTAIN:
-            weights[index] =  freqM * WEIGHT_INTENSITY
-        elif i == FIEF:
-            weights[index] = 0
-        elif i == STRONGHOLD:
-            weights[index] = 0
-        index = index + 1
-
-    #Define a combined list of symbols and weights, including the RANDOM option.
-    symbolTable = [(dN,weights[0]),(dNE,weights[1]),(dE,weights[2]),(dSE,weights[3]),(dS,weights[4]),(dSW,weights[5]),(dW,weights[6]),(dNW,weights[7]), (RANDOM,RANDOM_INTENSITY)]
-
-    #Define a table to extend values based on weights and pull a random choice from it
-    pointTable = []
-    for item, weight in symbolTable:
-        pointTable.extend([item]*weight)
-    newPoint = random.choice(pointTable)
-
-    #IF the random choice is selected, get a random point.
-    if newPoint == RANDOM:
-        newPoint = GetRandomPoint()
-
-    #Return the symbol
-    return newPoint
-
-#--------------------------------------------------------------------------------------------------------------
 #   [GetRandomPoint]
 #   Returns: A random biome symbol
 #--------------------------------------------------------------------------------------------------------------
@@ -541,6 +418,148 @@ def PrintColorMap(wMap):
         print('')
 
 #--------------------------------------------------------------------------------------------------------------
+#   [PrintColorMapWithFiefs]
+#   Parameters: wMap
+#
+#   Iterates through a WorldMap and prints a color version. Also prints fiefs along side
+#--------------------------------------------------------------------------------------------------------------
+def PrintColorMapWithFiefs(wMap, userName):
+    for i in range(MAP_HEIGHT):
+        fiefsInRow = GetFiefRow(i, userName)
+        strongholdsInRow = GetStrongholdRow(i, userName)
+        for j in range(MAP_WIDTH):
+            symbol = wMap[i][j]
+            if j == 0:
+                if symbol == UNEXPLORED:
+                    print('    ' + IC_UNEXPLORED + symbol + RESET, end=" ")
+                elif symbol == EMPTY:
+                    print('    ' + symbol, end=" ")
+                elif symbol == WATER:
+                    print('    ' + IC_WATER + symbol + RESET, end=" ")
+                elif symbol == RIVER[0] or symbol == RIVER[1] or symbol == RIVER[2]:
+                    print('    ' + IC_RIVER + symbol + RESET, end=" ")
+                elif symbol == FOREST:
+                    print('    ' + IC_FOREST + symbol + RESET, end=" ")
+                elif symbol == PLAINS:
+                    print('    ' + IC_PLAINS + symbol + RESET, end=" ")
+                elif symbol == MOUNTAIN:
+                    print('    ' + IC_MOUNTAIN + symbol + RESET, end=" ")
+                elif symbol == FIEF:
+                    print('    ' + GetFiefByOwner(i, j, userName) + RESET, end=" ")
+                elif symbol == STRONGHOLD:
+                    print('    ' + IC_STRONGHOLD + symbol + RESET, end=" ")
+                elif symbol == LOCATION:
+                    print('    ' + IC_LOCATION + symbol + RESET, end=" ")
+            elif j == MAP_WIDTH - 1:
+                if symbol == UNEXPLORED:
+                    print(IC_UNEXPLORED + symbol + RESET, *fiefsInRow, *strongholdsInRow, end=" ")
+                elif symbol == EMPTY:
+                    print(symbol, *fiefsInRow, *strongholdsInRow, end=" ")
+                elif symbol == WATER:
+                    print(IC_WATER + symbol + RESET, *fiefsInRow, *strongholdsInRow, end=" ")
+                elif symbol == RIVER[0] or symbol == RIVER[1] or symbol == RIVER[2]:
+                    print(IC_RIVER + symbol + RESET, *fiefsInRow, *strongholdsInRow, end=" ")
+                elif symbol == FOREST:
+                    print(IC_FOREST + symbol + RESET, *fiefsInRow, *strongholdsInRow, end=" ")
+                elif symbol == PLAINS:
+                    print(IC_PLAINS + symbol + RESET, *fiefsInRow, *strongholdsInRow, end=" ")
+                elif symbol == MOUNTAIN:
+                    print(IC_MOUNTAIN + symbol + RESET, *fiefsInRow, *strongholdsInRow, end=" ")
+                elif symbol == FIEF:
+                    print(GetFiefByOwner(i, j, userName) + RESET, *fiefsInRow, *strongholdsInRow, end=" ")
+                elif symbol == STRONGHOLD:
+                    print(IC_STRONGHOLD + symbol + RESET, *fiefsInRow, *strongholdsInRow, end=" ")
+                elif symbol == LOCATION:
+                    print(IC_LOCATION + symbol + RESET, *fiefsInRow, *strongholdsInRow, end=" ")
+            else:
+                if symbol == UNEXPLORED:
+                    print(IC_UNEXPLORED + symbol + RESET, end=" ")
+                elif symbol == EMPTY:
+                    print(symbol, end=" ")
+                elif symbol == WATER:
+                    print(IC_WATER + symbol + RESET, end=" ")
+                elif symbol == RIVER[0] or symbol == RIVER[1] or symbol == RIVER[2]:
+                    print(IC_RIVER + symbol + RESET, end=" ")
+                elif symbol == FOREST:
+                    print(IC_FOREST + symbol + RESET, end=" ")
+                elif symbol == PLAINS:
+                    print(IC_PLAINS + symbol + RESET, end=" ")
+                elif symbol == MOUNTAIN:
+                    print(IC_MOUNTAIN + symbol + RESET, end=" ")
+                elif symbol == FIEF:
+                    print(GetFiefByOwner(i, j, userName) + RESET, end=" ")
+                elif symbol == STRONGHOLD:
+                    print(IC_STRONGHOLD + symbol + RESET, end=" ")
+                elif symbol == LOCATION:
+                    print(IC_LOCATION + symbol + RESET, end=" ")
+        print('')
+
+#--------------------------------------------------------------------------------------------------------------
+#   [GetFiefRow]
+#   Parameters: row, userName
+#   Returns: list of fiefs
+#--------------------------------------------------------------------------------------------------------------
+def GetFiefRow(row, userName):
+    fiefsInRow = []
+    # numInRow = 0
+    for filename in os.listdir('fiefs'):
+            with open(os.path.join('fiefs', filename), 'r') as f:
+                tempName = filename[:-4]
+                tempName = Fiefdom()
+                tempName.name = filename[:-4]
+                tempName.read()
+                # print('Cross checking with: ' + str(tempName.name))
+                if int(tempName.yCoordinate) == row:
+                    # numInRow += 1
+                    if userName == tempName.ruler:
+                        fiefsInRow.append("| " + CYAN + tempName.name + RESET)
+                    else:
+                        fiefsInRow.append("| " + IC_FIEF + tempName.name + RESET)
+    return fiefsInRow
+
+#--------------------------------------------------------------------------------------------------------------
+#   [GetFiefByOwner]
+#   Parameters: userName
+#   Returns: list of fiefs
+#--------------------------------------------------------------------------------------------------------------
+def GetFiefByOwner(yPos, xPos, userName):
+    fief = IC_FIEF + 'X'
+    for filename in os.listdir('fiefs'):
+            with open(os.path.join('fiefs', filename), 'r') as f:
+                tempName = filename[:-4]
+                tempName = Fiefdom()
+                tempName.name = filename[:-4]
+                tempName.read()
+                # print('Cross checking with: ' + str(tempName.name))
+                if int(tempName.yCoordinate) == yPos and int(tempName.xCoordinate) == xPos and userName == tempName.ruler:
+                    fief = CYAN + 'X'
+
+    return fief
+
+#--------------------------------------------------------------------------------------------------------------
+#   [GetStrongholdRow]
+#   Parameters: row
+#   Returns: list of strongholds
+#--------------------------------------------------------------------------------------------------------------
+def GetStrongholdRow(row, userName):
+    strongholdsInRow = []
+    numInRow = 0
+    for filename in os.listdir('strongholds'):
+            with open(os.path.join('strongholds', filename), 'r') as f:
+                tempName = filename[:-4]
+                tempName = Stronghold()
+                tempName.name = filename[:-4]
+                tempName.read()
+                # print('Cross checking with: ' + str(tempName.name))
+                if int(tempName.yCoordinate) == row:
+                    # numInRow += 1
+                    # if numInRow == 1:
+                        # strongholdsInRow.append("| " + IC_STRONGHOLD + tempName.name + RESET)
+                    # else:
+                    strongholdsInRow.append("| " + IC_STRONGHOLD + tempName.name + RESET + " ")
+    return strongholdsInRow
+
+#--------------------------------------------------------------------------------------------------------------
 #   [PrintLegend]
 #   Prints a legend for the map
 #--------------------------------------------------------------------------------------------------------------
@@ -592,35 +611,6 @@ def DefineFiefBiome(fiefClass):
     fiefClass.write()
 
 #--------------------------------------------------------------------------------------------------------------
-#   [SilentlyDefineFiefBiome]
-#   Parameters: fiefClass
-#
-#   Sets a fief's biome based on the fief's name. If no match is found, the fief is assigned a random biome 
-#   instead. Does this without printing anything
-#--------------------------------------------------------------------------------------------------------------
-def SilentlyDefineFiefBiome(fiefClass):
-    forestBiomeNames = ['forest', 'wood', 'root', 'grove', 'thicket', 'glade', 'pine', 'timber', 'covert', 'canopy']
-    plainsBiomeNames = ['plain', 'field', 'prairie', 'flat', 'expanse', 'grass', 'meadow', 'steppe', 'plateau', 'heath', 'moor', 'hollow']
-    mountainBiomeNames = ['mount', 'alp', 'bluff', 'cliff', 'crag', 'mesa', 'peak', 'range', 'ridge', 'pike', 'hill', 'butte', 'height']
-    #Check if the name sounds like a forest
-    for i in range(len(forestBiomeNames)):
-        if forestBiomeNames[i] in str(fiefClass.name).lower():
-            fiefClass.biome = FOREST
-    #Check if the name sounds like a mountain
-    for i in range(len(mountainBiomeNames)):
-        if mountainBiomeNames[i] in str(fiefClass.name).lower():
-            fiefClass.biome = MOUNTAIN
-    #Check if the name sounds like a plains
-    for i in range(len(plainsBiomeNames)):
-        if plainsBiomeNames[i] in str(fiefClass.name).lower():
-            fiefClass.biome = PLAINS
-    #Select randomly if the name doesn't sound like any of the previous biomes
-    if fiefClass.biome == '0':
-        fiefClass.biome = GetRandomLandPoint()
-    #Update the fiefClass file
-    fiefClass.write()
-
-#--------------------------------------------------------------------------------------------------------------
 #   [PlotAllFiefs]
 #   Parameters: mapClass
 #   Plots all fief files on the world map
@@ -636,19 +626,7 @@ def PlotAllFiefs(mapClass):
             fiefClass.read()
             QuietlyPlaceFiefInWorldMap(fiefClass, mapClass)
 
-#--------------------------------------------------------------------------------------------------------------
-#   [SilentlyPlotAllFiefs]
-#   Parameters: mapClass
-#   Plots all fief files on the world map
-#--------------------------------------------------------------------------------------------------------------
-def SilentlyPlotAllFiefs(mapClass):
-    for filename in os.listdir('fiefs'):
-        with open(os.path.join('fiefs', filename), 'r') as f:
-            fiefClass = filename[:-4]
-            fiefClass = Fiefdom()
-            fiefClass.name = filename[:-4]
-            fiefClass.read()
-            SilentlyPlaceFiefInWorldMap(fiefClass, mapClass)
+
 
 #--------------------------------------------------------------------------------------------------------------
 #   [PlaceFiefInWorldMap]
@@ -762,61 +740,6 @@ def QuietlyPlaceFiefInWorldMap(fiefClass, mapClass):
                         fiefClass.write()
                         pickingPoint = 10
                         spotFound = True
-                    else:
-                        pickingPoint += 1
-            if spotFound == False:
-                print("    Error, couldn't find an empty spot!")
-    else:
-        if fiefClass.name == 'Default Fiefdom':
-            print("    That fiefdom doesn't exist!")
-        else:
-            print('    ' + str(fiefClass.name) + ' is already on the map!')
-
-#--------------------------------------------------------------------------------------------------------------
-#   [SilentlyPlaceFiefInWorldMap]
-#   Parameters: fiefClass, mapClass
-#
-#   Sets a fief's biome based on the fief's name. If no match is found, the fief is assigned a random biome 
-#   instead. This version doesn't print anything unless an error occurs.
-#--------------------------------------------------------------------------------------------------------------
-def SilentlyPlaceFiefInWorldMap(fiefClass, mapClass):
-    if (fiefClass.biome == '0') and (fiefClass.name != 'Default Fiefdom'):
-        SilentlyDefineFiefBiome(fiefClass)
-        remaining = 0
-        cycle = 0
-        pickingPoint = 0
-        spotFound = False
-
-        #Check if there are still biome slots open for a particular biome.
-        #If none are available, then change the fief's biome and try again.
-        #If there aren't any open spots at all, then stop the loop.
-        while remaining == 0 and cycle < 4:
-            remaining = CheckRemainingBiomes(fiefClass.biome, mapClass)
-            if remaining == 0:
-                fiefClass.biome = CycleBiome(fiefClass.biome)
-                cycle += 1
-        if cycle > 3:
-            print('    Error, no more room for fiefs left on this map!')
-        else:
-            while pickingPoint < 10:    #Tries to get a point. Fails if it manages to select an occupied point 10 times.
-                #Select one of the available biomes at random
-                point = GetRandomPointByBiome(fiefClass.biome, mapClass)
-                #If a biome was found:
-                if point > 0:
-                    coordinates = GetPointCoordinates(fiefClass.biome, point, mapClass.worldMap)
-
-                    if CrossCheckFiefCoordinates(coordinates):
-                        if CrossCheckStrongholdCoordinates(coordinates):
-                            fiefClass.setCoordinates(coordinates)
-                            #This is a new addition that adds several 5 new "surroundings" variables to fiefs:
-                            fiefClass.setSurroundings(ScanSurroundings(mapClass.worldMap, fiefClass.xCoordinate, fiefClass.yCoordinate))
-                            UpdateUsedBiomes(fiefClass.biome, mapClass)
-                            InsertFiefAtLocation(fiefClass.yCoordinate, fiefClass.xCoordinate, mapClass)
-                            fiefClass.write()
-                            pickingPoint = 10
-                            spotFound = True
-                        else:
-                            pickingPoint += 1
                     else:
                         pickingPoint += 1
             if spotFound == False:
@@ -1054,20 +977,7 @@ def PlotAllStrongholds(mapClass):
             strongholdClass.read()
             QuietlyPlaceStrongholdInWorldMap(strongholdClass, mapClass)
 
-#--------------------------------------------------------------------------------------------------------------
-#   [SilentlyPlotAllStrongholds]
-#   Parameters: mapClass
-#   Plots all stronghold files on the world map (this won't be used too often, since strongholds will
-#   typically be added one at a time as new users are made). This version has no prints.
-#--------------------------------------------------------------------------------------------------------------
-def SilentlyPlotAllStrongholds(mapClass):
-    for filename in os.listdir('strongholds'):
-        with open(os.path.join('strongholds', filename), 'r') as f:
-            strongholdClass = filename[:-4]
-            strongholdClass = Stronghold()
-            strongholdClass.name = filename[:-4]
-            strongholdClass.read()
-            SilentlyPlaceStrongholdInWorldMap(strongholdClass, mapClass)
+
 
 #--------------------------------------------------------------------------------------------------------------
 #   [QuietlyPlaceStrongholdInWorldMap]
@@ -1130,63 +1040,7 @@ def QuietlyPlaceStrongholdInWorldMap(strongholdClass, mapClass):
         else:
             print('    ' + str(strongholdClass.name) + "'s stronghold is already on the map!")
 
-#--------------------------------------------------------------------------------------------------------------
-#   [SilentlyPlaceStrongholdInWorldMap]
-#   Parameters: strongholdClass, mapClass
-#
-#   These are getting redundant, I know. 
-#   Sets a fief's biome based on the fief's name. If no match is found, the fief is assigned a random biome 
-#   instead. This version doesn't print a single thing unless an error happens.
-#--------------------------------------------------------------------------------------------------------------
-def SilentlyPlaceStrongholdInWorldMap(strongholdClass, mapClass):
-    if (strongholdClass.biome == '0') and (strongholdClass.name != 'Default Stronghold'):
-        DefineStrongholdBiome(strongholdClass)
-        remaining = 0
-        cycle = 0
-        pickingPoint = 0
-        spotFound = False
 
-        #Check if there are still biome slots open for a particular biome.
-        #If none are available, then change the stronghold's biome and try again.
-        #If there aren't any open spots at all, then stop the loop.
-        while remaining == 0 and cycle < 4:
-            remaining = CheckRemainingBiomes(strongholdClass.biome, mapClass)
-            if remaining == 0:
-                strongholdClass.biome = CycleBiome(strongholdClass.biome)
-                cycle += 1
-        if cycle > 3:
-            print('    Error, no more room left on this map!')
-        else:
-            while pickingPoint < 10:    #Tries to get a point. Fails if it manages to select an occupied point 10 times.
-                #Select one of the available biomes at random
-                point = GetRandomPointByBiome(strongholdClass.biome, mapClass)
-                #If a biome was found:
-                if point > 0:
-                    #Grab some coordinates:
-                    coordinates = GetPointCoordinates(strongholdClass.biome, point, mapClass.worldMap)  
-                    #If coordinates aren't the same as some fief:
-                    if CrossCheckFiefCoordinates(coordinates):  
-                        #If the coordinates aren't the same as some other stronghold:                                        
-                        if CrossCheckStrongholdCoordinates(coordinates):   
-                            #Update map and stronghold:  
-                            strongholdClass.setCoordinates(coordinates)
-                            UpdateUsedBiomes(strongholdClass.biome, mapClass)
-                            InsertStrongholdAtLocation(strongholdClass.yCoordinate, strongholdClass.xCoordinate, mapClass)
-
-                            strongholdClass.write()
-                            pickingPoint = 10
-                            spotFound = True
-                        else:
-                            pickingPoint += 1
-                    else:
-                        pickingPoint += 1
-            if spotFound == False:
-                print("    Error, couldn't find an empty spot!")
-    else:
-        if strongholdClass.name == 'Default Stronghold':
-            print("    That stronghold doesn't exist!")
-        else:
-            print('    ' + str(strongholdClass.name) + "'s stronghold is already on the map!")
 #--------------------------------------------------------------------------------------------------------------
 #   [InsertStrongholdAtLocation]
 #   Parameters: yPos, xPos, mapClass
@@ -1453,28 +1307,6 @@ def GenerateRivers(mapClass):
     # print('Value for 1:1 ratio is: ' + str(int(calculatedWeight) * 3))
     mapClass.write()
 
-#--------------------------------------------------------------------------------------------------------------
-#   [SilentlyGenerateRivers]
-#   Parameters: mapClass
-#
-#--------------------------------------------------------------------------------------------------------------
-def SilentlyGenerateRivers(mapClass):
-    global RIVER_COUNT
-    global RIVER_COORDS_0
-    global RIVER_COORDS_1
-    global RIVER_COORDS_2
-    RIVER_COUNT = 0
-    RIVER_COORDS_0 = []
-    RIVER_COORDS_1 = []
-    RIVER_COORDS_2 = []
-    for i in range (SCAN_LEVEL):
-        if RIVER_COUNT < (RIVER_CAP * 2):       #Allows the function to break out of the loop if plenty of ideal spots were found.
-            for y in range(MAP_HEIGHT):
-                for x in range(MAP_WIDTH):
-                    DefineRiverSource(mapClass, y, x, i)
-    PickRiverSources()
-    SilentlyCreateRivers(mapClass.worldMap)
-    mapClass.write()
 
 #--------------------------------------------------------------------------------------------------------------
 #   [PickRiverSources]
@@ -1545,21 +1377,6 @@ def CreateRivers(wMap):
         y = SOURCES[i][1]
         x = SOURCES[i][2]
         SimulateRivers(wMap, symbol, y, x)
-
-#--------------------------------------------------------------------------------------------------------------
-#   [SilentlyCreateRivers]
-#   Parameters: wMap
-#   Calls SimulateRivers for each tuple in SOURCES
-#--------------------------------------------------------------------------------------------------------------
-def SilentlyCreateRivers(wMap):
-    #Unpack SOURCES:
-    global FLOOD_COUNTER
-    for i in range(len(SOURCES)):
-        FLOOD_COUNTER = 0
-        symbol = SOURCES[i][0]
-        y = SOURCES[i][1]
-        x = SOURCES[i][2]
-        SilentlySimulateRivers(wMap, symbol, y, x)
 
 #--------------------------------------------------------------------------------------------------------------
 #   [RunSouthEast]
@@ -1859,6 +1676,508 @@ def SimulateRivers(wMap, symbol, y, x):
             #Otherwise, everything south must just be forests, so run randomly to the southeast:
             RandomRunSouthEast(dS, dSE, wMap, y, x)
 
+
+
+#--------------------------------------------------------------------------------------------------------------
+#   [WorldMapLocation]
+#   Parameters: yPos, xPos, mapClass
+#   Replaces current x and y position in the world map with a new icon, prints the map, then reverts the map.
+#--------------------------------------------------------------------------------------------------------------
+def WorldMapLocation(yPos, xPos, mapClass, userName):
+    tempIcon = mapClass.worldMap[yPos][xPos]
+    mapClass.worldMap[yPos][xPos] = LOCATION
+    PrintColorMapWithFiefs(mapClass.worldMap, userName)
+    mapClass.worldMap[yPos][xPos] = tempIcon
+
+#--------------------------------------------------------------------------------------------------------------
+#   [ListSurroundings]
+#   Parameters: wMap, xPos, yPos
+#   Lists out the biomes surrounding the current location.
+#--------------------------------------------------------------------------------------------------------------
+def ListSurroundings(wMap, xPos, yPos):
+    surroundings = ScanSurroundings(wMap, int(xPos), int(yPos))
+
+    directions = ['North', 'North-East', 'East', 'South-East', 'South', 'South-West', 'West', 'North-West']
+    for i in range(len(surroundings)):
+        if surroundings[i] == WATER:
+            print('    There is a ' + IC_WATER + 'lake' + RESET + ' to the ' + str(directions[i]) + '.')
+        if surroundings[i] == RIVER[0]:
+            print('    There is a South-West bound ' + IC_RIVER + 'river' + RESET + ' to the ' + str(directions[i]) + '.')
+        if surroundings[i] == RIVER[1]:
+            print('    There is a South bound ' + IC_RIVER + 'river' + RESET + ' to the ' + str(directions[i]) + '.')
+        if surroundings[i] == RIVER[2]:
+            print('    There is a South-East bound ' + IC_RIVER + 'river' + RESET + ' to the ' + str(directions[i]) + '.')
+        if surroundings[i] == PLAINS:
+            print('    There are ' + IC_PLAINS + 'plains' + RESET + ' to the ' + str(directions[i]) + '.')
+        if surroundings[i] == FOREST:
+            print('    There is a ' + IC_FOREST + 'forest' + RESET + ' to the ' + str(directions[i]) + '.')
+        if surroundings[i] == MOUNTAIN:
+            print('    There are ' + IC_MOUNTAIN + 'mountains' + RESET + ' to the ' + str(directions[i]) + '.')
+        if surroundings[i] == FIEF:
+            print('    There is a ' + IC_FIEF + 'fiefdom' + RESET + ' to the ' + str(directions[i]) + '.')
+        if surroundings[i] == STRONGHOLD:
+            print('    There is a ' + IC_STRONGHOLD + 'stronghold' + RESET + ' to the ' + str(directions[i]) + '.')
+        if surroundings[i] == ' ':
+            print('    There is a vast wasteland to the ' +  str(directions[i]) + '.')
+
+#--------------------------------------------------------------------------------------------------------------
+#   [GenerateSeed]
+#
+#   Generates a random "seed" value for the map to add further variation in map generation.
+#   Currently not very intuitive, likely land-heavy. Needs fine-tuning!
+#--------------------------------------------------------------------------------------------------------------
+def GenerateSeed():
+    seed = ''
+    x = 0
+    y = 0
+    biomeMountain = random.randint(2, 7)
+    biomePlains = random.randint(1, 9)
+    biomeForest = random.randint(1, 9)
+    
+    seed += str(x)
+    seed += str(y)
+    seed += str(biomeMountain)
+    seed += str(biomePlains)
+    seed += str(biomeForest)
+
+    return seed
+
+    
+
+#--------------------------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------------------
+#                               SILENT FUNCTIONS (GET RID OF THESE AT SOME POINT...)
+#--------------------------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------------------------------------
+#   [SilentlyGenerateWorld]
+#   Parameters: mapClass
+#   This function combines the other functions to silently generate the world in the background.
+#--------------------------------------------------------------------------------------------------------------
+def SilentlyGenerateWorld(mapClass):
+    mapClass.name = 'serverMap'
+    mapClass.seed = GenerateSeed()
+    mapClass.height = MAP_HEIGHT
+    mapClass.width = MAP_WIDTH
+    # LoadingAnimation('Generating World Map')
+    mapClass.worldMap = SilentlyGenerateWorldMap(mapClass.seed)
+    SilentlyGenerateRivers(mapClass)
+    SetBiomeCounts(mapClass)
+    mapClass.write()
+    # LoadingAnimation('Placing Fiefs and Strongholds')
+    # mapClass.read()
+    # mapClass.read()
+    SilentlyPlotAllFiefs(mapClass)
+    SilentlyPlotAllStrongholds(mapClass)
+
+
+#--------------------------------------------------------------------------------------------------------------
+#   [SilentlyGenerateWorldMap]
+#   Parameters: seed
+#
+#   Does the same thing as GenerateWordlMap but with no prints or user interaction
+#--------------------------------------------------------------------------------------------------------------
+def SilentlyGenerateWorldMap(seed):
+    worldMap = [['0' for x in range(MAP_WIDTH)] for y in range(MAP_HEIGHT)]
+    sPosX = int(seed[0])
+    sPosY = int(seed[1])
+    freqMountain = int(seed[2])
+    freqPlains = int(seed[3])
+    freqForest = int(seed[4])
+    
+    loop = True
+    firstLoop = True
+    while (loop):
+        if firstLoop:
+            for y in range(MAP_HEIGHT):
+                for x in range(MAP_WIDTH):
+                    worldMap[y][x] = SilentlyDefineSurroundings(worldMap, x, y, freqMountain, freqPlains, freqForest)
+
+            firstLoop = False
+        loop = False
+    return worldMap
+
+#--------------------------------------------------------------------------------------------------------------
+#   [SilentlyCreateRivers]
+#   Parameters: wMap
+#   Calls SimulateRivers for each tuple in SOURCES
+#--------------------------------------------------------------------------------------------------------------
+def SilentlyCreateRivers(wMap):
+    #Unpack SOURCES:
+    global FLOOD_COUNTER
+    for i in range(len(SOURCES)):
+        FLOOD_COUNTER = 0
+        symbol = SOURCES[i][0]
+        y = SOURCES[i][1]
+        x = SOURCES[i][2]
+        SilentlySimulateRivers(wMap, symbol, y, x)
+
+#--------------------------------------------------------------------------------------------------------------
+#   [SilentlyGenerateRivers]
+#   Parameters: mapClass
+#
+#--------------------------------------------------------------------------------------------------------------
+def SilentlyGenerateRivers(mapClass):
+    global RIVER_COUNT
+    global RIVER_COORDS_0
+    global RIVER_COORDS_1
+    global RIVER_COORDS_2
+    RIVER_COUNT = 0
+    RIVER_COORDS_0 = []
+    RIVER_COORDS_1 = []
+    RIVER_COORDS_2 = []
+    for i in range (SCAN_LEVEL):
+        if RIVER_COUNT < (RIVER_CAP * 2):       #Allows the function to break out of the loop if plenty of ideal spots were found.
+            for y in range(MAP_HEIGHT):
+                for x in range(MAP_WIDTH):
+                    DefineRiverSource(mapClass, y, x, i)
+    PickRiverSources()
+    SilentlyCreateRivers(mapClass.worldMap)
+    mapClass.write()
+
+#--------------------------------------------------------------------------------------------------------------
+#   [SilentlyDefineSurroundings]
+#   Parameters: wMap, posX, posY, freqM, freqP, freqF
+#
+#   Does the same thing as PrintSurroundings but with no prints or user interaction
+#--------------------------------------------------------------------------------------------------------------
+def SilentlyDefineSurroundings(wMap, posX, posY, freqM, freqP, freqF):
+    surroundings = ScanSurroundings(wMap, posX, posY)
+    dN = surroundings[0]
+    dNE = surroundings[1]
+    dE = surroundings[2]
+    dSE = surroundings[3]
+    dS = surroundings[4]
+    dSW = surroundings[5]
+    dW = surroundings[6]
+    dNW = surroundings[7]
+
+    #Define a list of weight totals for each:
+    weights = [0, 0, 0, 0, 0, 0, 0, 0]
+    index = 0
+
+    #Calculate the weight totals:
+    for i in surroundings:
+        if i == UNEXPLORED:
+            weights[index] = 0
+        elif i == EMPTY:
+            weights[index] = 0
+        elif i == WATER:
+            weights[index] = 10
+        elif i == RIVER:
+            weights[index] = 10
+        elif i == FOREST:
+            weights[index] = freqF * WEIGHT_INTENSITY
+        elif i == PLAINS:
+            weights[index] = freqP * WEIGHT_INTENSITY
+        elif i == MOUNTAIN:
+            weights[index] =  freqM * WEIGHT_INTENSITY
+        elif i == FIEF:
+            weights[index] = 0
+        elif i == STRONGHOLD:
+            weights[index] = 0
+        index = index + 1
+
+    #Define a combined list of symbols and weights, including the RANDOM option.
+    symbolTable = [(dN,weights[0]),(dNE,weights[1]),(dE,weights[2]),(dSE,weights[3]),(dS,weights[4]),(dSW,weights[5]),(dW,weights[6]),(dNW,weights[7]), (RANDOM,RANDOM_INTENSITY)]
+
+    #Define a table to extend values based on weights and pull a random choice from it
+    pointTable = []
+    for item, weight in symbolTable:
+        pointTable.extend([item]*weight)
+    newPoint = random.choice(pointTable)
+
+    #IF the random choice is selected, get a random point.
+    if newPoint == RANDOM:
+        newPoint = GetRandomPoint()
+
+    #Return the symbol
+    return newPoint
+
+#--------------------------------------------------------------------------------------------------------------
+#   [SilentlyPlaceStrongholdInWorldMap]
+#   Parameters: strongholdClass, mapClass
+#
+#   These are getting redundant, I know. 
+#   Sets a fief's biome based on the fief's name. If no match is found, the fief is assigned a random biome 
+#   instead. This version doesn't print a single thing unless an error happens.
+#--------------------------------------------------------------------------------------------------------------
+def SilentlyPlaceStrongholdInWorldMap(strongholdClass, mapClass):
+    if (strongholdClass.biome == '0') and (strongholdClass.name != 'Default Stronghold'):
+        DefineStrongholdBiome(strongholdClass)
+        remaining = 0
+        cycle = 0
+        pickingPoint = 0
+        spotFound = False
+
+        #Check if there are still biome slots open for a particular biome.
+        #If none are available, then change the stronghold's biome and try again.
+        #If there aren't any open spots at all, then stop the loop.
+        while remaining == 0 and cycle < 4:
+            remaining = CheckRemainingBiomes(strongholdClass.biome, mapClass)
+            if remaining == 0:
+                strongholdClass.biome = CycleBiome(strongholdClass.biome)
+                cycle += 1
+        if cycle > 3:
+            print('    Error, no more room left on this map!')
+        else:
+            while pickingPoint < 10:    #Tries to get a point. Fails if it manages to select an occupied point 10 times.
+                #Select one of the available biomes at random
+                point = GetRandomPointByBiome(strongholdClass.biome, mapClass)
+                #If a biome was found:
+                if point > 0:
+                    #Grab some coordinates:
+                    coordinates = GetPointCoordinates(strongholdClass.biome, point, mapClass.worldMap)  
+                    #If coordinates aren't the same as some fief:
+                    if CrossCheckFiefCoordinates(coordinates):  
+                        #If the coordinates aren't the same as some other stronghold:                                        
+                        if CrossCheckStrongholdCoordinates(coordinates):   
+                            #Update map and stronghold:  
+                            strongholdClass.setCoordinates(coordinates)
+                            UpdateUsedBiomes(strongholdClass.biome, mapClass)
+                            InsertStrongholdAtLocation(strongholdClass.yCoordinate, strongholdClass.xCoordinate, mapClass)
+
+                            strongholdClass.write()
+                            pickingPoint = 10
+                            spotFound = True
+                        else:
+                            pickingPoint += 1
+                    else:
+                        pickingPoint += 1
+            if spotFound == False:
+                print("    Error, couldn't find an empty spot!")
+    else:
+        if strongholdClass.name == 'Default Stronghold':
+            print("    That stronghold doesn't exist!")
+        else:
+            print('    ' + str(strongholdClass.name) + "'s stronghold is already on the map!")
+
+#--------------------------------------------------------------------------------------------------------------
+#   [SilentlyPlaceFiefInWorldMap]
+#   Parameters: fiefClass, mapClass
+#
+#   Sets a fief's biome based on the fief's name. If no match is found, the fief is assigned a random biome 
+#   instead. This version doesn't print anything unless an error occurs.
+#--------------------------------------------------------------------------------------------------------------
+def SilentlyPlaceFiefInWorldMap(fiefClass, mapClass):
+    if (fiefClass.biome == '0') and (fiefClass.name != 'Default Fiefdom'):
+        SilentlyDefineFiefBiome(fiefClass)
+        remaining = 0
+        cycle = 0
+        pickingPoint = 0
+        spotFound = False
+
+        #Check if there are still biome slots open for a particular biome.
+        #If none are available, then change the fief's biome and try again.
+        #If there aren't any open spots at all, then stop the loop.
+        while remaining == 0 and cycle < 4:
+            remaining = CheckRemainingBiomes(fiefClass.biome, mapClass)
+            if remaining == 0:
+                fiefClass.biome = CycleBiome(fiefClass.biome)
+                cycle += 1
+        if cycle > 3:
+            print('    Error, no more room for fiefs left on this map!')
+        else:
+            while pickingPoint < 10:    #Tries to get a point. Fails if it manages to select an occupied point 10 times.
+                #Select one of the available biomes at random
+                point = GetRandomPointByBiome(fiefClass.biome, mapClass)
+                #If a biome was found:
+                if point > 0:
+                    coordinates = GetPointCoordinates(fiefClass.biome, point, mapClass.worldMap)
+
+                    if CrossCheckFiefCoordinates(coordinates):
+                        if CrossCheckStrongholdCoordinates(coordinates):
+                            fiefClass.setCoordinates(coordinates)
+                            #This is a new addition that adds several 5 new "surroundings" variables to fiefs:
+                            fiefClass.setSurroundings(ScanSurroundings(mapClass.worldMap, fiefClass.xCoordinate, fiefClass.yCoordinate))
+                            UpdateUsedBiomes(fiefClass.biome, mapClass)
+                            InsertFiefAtLocation(fiefClass.yCoordinate, fiefClass.xCoordinate, mapClass)
+                            fiefClass.write()
+                            pickingPoint = 10
+                            spotFound = True
+                        else:
+                            pickingPoint += 1
+                    else:
+                        pickingPoint += 1
+            if spotFound == False:
+                print("    Error, couldn't find an empty spot!")
+    else:
+        if fiefClass.name == 'Default Fiefdom':
+            print("    That fiefdom doesn't exist!")
+        else:
+            print('    ' + str(fiefClass.name) + ' is already on the map!')
+
+#--------------------------------------------------------------------------------------------------------------
+#   [SilentlyPlotAllFiefs]
+#   Parameters: mapClass
+#   Plots all fief files on the world map
+#--------------------------------------------------------------------------------------------------------------
+def SilentlyPlotAllFiefs(mapClass):
+    for filename in os.listdir('fiefs'):
+        with open(os.path.join('fiefs', filename), 'r') as f:
+            fiefClass = filename[:-4]
+            fiefClass = Fiefdom()
+            fiefClass.name = filename[:-4]
+            fiefClass.read()
+            SilentlyPlaceFiefInWorldMap(fiefClass, mapClass)
+
+#--------------------------------------------------------------------------------------------------------------
+#   [SilentlyPlotAllStrongholds]
+#   Parameters: mapClass
+#   Plots all stronghold files on the world map (this won't be used too often, since strongholds will
+#   typically be added one at a time as new users are made). This version has no prints.
+#--------------------------------------------------------------------------------------------------------------
+def SilentlyPlotAllStrongholds(mapClass):
+    for filename in os.listdir('strongholds'):
+        with open(os.path.join('strongholds', filename), 'r') as f:
+            strongholdClass = filename[:-4]
+            strongholdClass = Stronghold()
+            strongholdClass.name = filename[:-4]
+            strongholdClass.read()
+            SilentlyPlaceStrongholdInWorldMap(strongholdClass, mapClass)
+
+#--------------------------------------------------------------------------------------------------------------
+#   [SilentlyDefineFiefBiome]
+#   Parameters: fiefClass
+#
+#   Sets a fief's biome based on the fief's name. If no match is found, the fief is assigned a random biome 
+#   instead. Does this without printing anything
+#--------------------------------------------------------------------------------------------------------------
+def SilentlyDefineFiefBiome(fiefClass):
+    forestBiomeNames = ['forest', 'wood', 'root', 'grove', 'thicket', 'glade', 'pine', 'timber', 'covert', 'canopy']
+    plainsBiomeNames = ['plain', 'field', 'prairie', 'flat', 'expanse', 'grass', 'meadow', 'steppe', 'plateau', 'heath', 'moor', 'hollow']
+    mountainBiomeNames = ['mount', 'alp', 'bluff', 'cliff', 'crag', 'mesa', 'peak', 'range', 'ridge', 'pike', 'hill', 'butte', 'height']
+    #Check if the name sounds like a forest
+    for i in range(len(forestBiomeNames)):
+        if forestBiomeNames[i] in str(fiefClass.name).lower():
+            fiefClass.biome = FOREST
+    #Check if the name sounds like a mountain
+    for i in range(len(mountainBiomeNames)):
+        if mountainBiomeNames[i] in str(fiefClass.name).lower():
+            fiefClass.biome = MOUNTAIN
+    #Check if the name sounds like a plains
+    for i in range(len(plainsBiomeNames)):
+        if plainsBiomeNames[i] in str(fiefClass.name).lower():
+            fiefClass.biome = PLAINS
+    #Select randomly if the name doesn't sound like any of the previous biomes
+    if fiefClass.biome == '0':
+        fiefClass.biome = GetRandomLandPoint()
+    #Update the fiefClass file
+    fiefClass.write()
+
+
+#--------------------------------------------------------------------------------------------------------------
+#   [SilentlyRunSouthEast]
+#   Parameters: dS, dSE, wMap, y, x, lean
+#   Runs river southeast based on passed values
+#--------------------------------------------------------------------------------------------------------------
+def SilentlyRunSouthEast(dS, dSE, wMap, y, x, lean):
+    if lean == 'none':
+        if dS == PLAINS:
+            return SilentlySimulateRivers(wMap, RIVER[1], y + 1, x)
+        if dSE == PLAINS:
+            return SilentlySimulateRivers(wMap, RIVER[2], y + 1, x + 1)
+        if dS == FOREST:
+            return SilentlySimulateRivers(wMap, RIVER[1], y + 1, x)
+        if dSE == FOREST:
+            return SilentlySimulateRivers(wMap, RIVER[2], y + 1, x + 1)
+    if lean == 'south':
+        if dS == PLAINS:
+            return SilentlySimulateRivers(wMap, RIVER[1], y + 1, x)
+        if dS == FOREST:
+            return SilentlySimulateRivers(wMap, RIVER[1], y + 1, x)
+        if dSE == PLAINS:
+            return SilentlySimulateRivers(wMap, RIVER[2], y + 1, x + 1)
+        if dSE == FOREST:
+            return SilentlySimulateRivers(wMap, RIVER[2], y + 1, x + 1)
+    if lean == 'east':
+        if dSE == PLAINS:
+            return SilentlySimulateRivers(wMap, RIVER[2], y + 1, x + 1)
+        if dSE == FOREST:
+            return SilentlySimulateRivers(wMap, RIVER[2], y + 1, x + 1)
+        if dS == PLAINS:
+            return SilentlySimulateRivers(wMap, RIVER[1], y + 1, x)
+        if dS == FOREST:
+            return SilentlySimulateRivers(wMap, RIVER[1], y + 1, x)
+        
+
+#--------------------------------------------------------------------------------------------------------------
+#   [SilentlyRunSouthWest]
+#   Parameters: dSW, dS, wMap, y, x, lean
+#   Runs river southwest based on passed values
+#--------------------------------------------------------------------------------------------------------------
+def SilentlyRunSouthWest(dSW, dS, wMap, y, x, lean):
+    if lean == 'none':
+        if dS == PLAINS:
+            return SilentlySimulateRivers(wMap, RIVER[1], y + 1, x)
+        if dSW == PLAINS:
+            return SilentlySimulateRivers(wMap, RIVER[0], y + 1, x - 1)
+        if dS == FOREST:
+            return SilentlySimulateRivers(wMap, RIVER[1], y + 1, x)
+        if dSW == FOREST:
+            return SilentlySimulateRivers(wMap, RIVER[0], y + 1, x - 1)
+    if lean == 'south':
+        if dS == PLAINS:
+            return SilentlySimulateRivers(wMap, RIVER[1], y + 1, x)
+        if dS == FOREST:
+            return SilentlySimulateRivers(wMap, RIVER[1], y + 1, x)
+        if dSW == PLAINS:
+            return SilentlySimulateRivers(wMap, RIVER[0], y + 1, x - 1)
+        if dSW == FOREST:
+            return SilentlySimulateRivers(wMap, RIVER[0], y + 1, x - 1)
+    if lean == 'west':
+        if dSW == PLAINS:
+            return SilentlySimulateRivers(wMap, RIVER[0], y + 1, x - 1)
+        if dSW == FOREST:
+            return SilentlySimulateRivers(wMap, RIVER[0], y + 1, x - 1)
+        if dS == PLAINS:
+            return SilentlySimulateRivers(wMap, RIVER[1], y + 1, x)
+        if dS == FOREST:
+            return SilentlySimulateRivers(wMap, RIVER[1], y + 1, x)
+        
+#--------------------------------------------------------------------------------------------------------------
+#   [SilentlyRandomRunSouthWest]
+#   Parameters: dSW, dS, wMap, y, x
+#   Runs river southwest based on passed values
+#--------------------------------------------------------------------------------------------------------------
+def SilentlyRandomRunSouthWest(dSW, dS, wMap, y, x):
+    ch2 = random.randint(1, 2)
+    #If both dS and dSW are plains:
+    if dS == PLAINS and dSW == PLAINS:
+        if ch2 == 1:
+            return SilentlySimulateRivers(wMap, RIVER[1], y + 1, x)
+        elif ch2 == 2:
+            return SilentlySimulateRivers(wMap, RIVER[0], y + 1, x - 1)
+    #If both dS and dSW are forests:
+    elif dS == FOREST and dSW == FOREST:
+        if ch2 == 1:
+            return SilentlySimulateRivers(wMap, RIVER[1], y + 1, x)
+        elif ch2 == 2:
+            return SilentlySimulateRivers(wMap, RIVER[0], y + 1, x - 1)
+
+#--------------------------------------------------------------------------------------------------------------
+#   [SilentlyRandomRunSouthEast]
+#   Parameters: dSW, dS, wMap, y, x
+#   Runs river southeast based on passed values, randomly selecting
+#--------------------------------------------------------------------------------------------------------------
+def SilentlyRandomRunSouthEast(dS, dSE, wMap, y, x):
+    ch2 = random.randint(1, 2)
+    #If both dS and dSE are plains:
+    if dS == PLAINS and dSE == PLAINS:
+        if ch2 == 1:
+            return SilentlySimulateRivers(wMap, RIVER[1], y + 1, x)
+        elif ch2 == 2:
+            return SilentlySimulateRivers(wMap, RIVER[2], y + 1, x + 1)
+    #If both dS and dSE are forests:
+    elif dS == FOREST and dSE == FOREST:
+        if ch2 == 1:
+            return SilentlySimulateRivers(wMap, RIVER[1], y + 1, x)
+        elif ch2 == 2:
+            return SilentlySimulateRivers(wMap, RIVER[2], y + 1, x + 1)
+
 #--------------------------------------------------------------------------------------------------------------
 #   [SilentlySimulateRivers]
 #   Parameters: wMap, symbol, y, x
@@ -2045,353 +2364,6 @@ def SilentlySimulateRivers(wMap, symbol, y, x):
             #Otherwise, everything south must just be forests, so run randomly to the southeast:
             SilentlyRandomRunSouthEast(dS, dSE, wMap, y, x)
 
-#--------------------------------------------------------------------------------------------------------------
-#   [WorldMapLocation]
-#   Parameters: yPos, xPos, mapClass
-#   Replaces current x and y position in the world map with a new icon, prints the map, then reverts the map.
-#--------------------------------------------------------------------------------------------------------------
-def WorldMapLocation(yPos, xPos, mapClass, userName):
-    tempIcon = mapClass.worldMap[yPos][xPos]
-    mapClass.worldMap[yPos][xPos] = LOCATION
-    PrintColorMapWithFiefs(mapClass.worldMap, userName)
-    mapClass.worldMap[yPos][xPos] = tempIcon
-
-#--------------------------------------------------------------------------------------------------------------
-#   [ListSurroundings]
-#   Parameters: wMap, xPos, yPos
-#   Lists out the biomes surrounding the current location.
-#--------------------------------------------------------------------------------------------------------------
-def ListSurroundings(wMap, xPos, yPos):
-    surroundings = ScanSurroundings(wMap, int(xPos), int(yPos))
-
-    directions = ['North', 'North-East', 'East', 'South-East', 'South', 'South-West', 'West', 'North-West']
-    for i in range(len(surroundings)):
-        if surroundings[i] == WATER:
-            print('    There is a ' + IC_WATER + 'lake' + RESET + ' to the ' + str(directions[i]) + '.')
-        if surroundings[i] == RIVER[0]:
-            print('    There is a South-West bound ' + IC_RIVER + 'river' + RESET + ' to the ' + str(directions[i]) + '.')
-        if surroundings[i] == RIVER[1]:
-            print('    There is a South bound ' + IC_RIVER + 'river' + RESET + ' to the ' + str(directions[i]) + '.')
-        if surroundings[i] == RIVER[2]:
-            print('    There is a South-East bound ' + IC_RIVER + 'river' + RESET + ' to the ' + str(directions[i]) + '.')
-        if surroundings[i] == PLAINS:
-            print('    There are ' + IC_PLAINS + 'plains' + RESET + ' to the ' + str(directions[i]) + '.')
-        if surroundings[i] == FOREST:
-            print('    There is a ' + IC_FOREST + 'forest' + RESET + ' to the ' + str(directions[i]) + '.')
-        if surroundings[i] == MOUNTAIN:
-            print('    There are ' + IC_MOUNTAIN + 'mountains' + RESET + ' to the ' + str(directions[i]) + '.')
-        if surroundings[i] == FIEF:
-            print('    There is a ' + IC_FIEF + 'fiefdom' + RESET + ' to the ' + str(directions[i]) + '.')
-        if surroundings[i] == STRONGHOLD:
-            print('    There is a ' + IC_STRONGHOLD + 'stronghold' + RESET + ' to the ' + str(directions[i]) + '.')
-        if surroundings[i] == ' ':
-            print('    There is a vast wasteland to the ' +  str(directions[i]) + '.')
-
-#--------------------------------------------------------------------------------------------------------------
-#   [SilentlyGenerateWorld]
-#   Parameters: mapClass
-#   This function combines the other functions to silently generate the world in the background.
-#--------------------------------------------------------------------------------------------------------------
-def SilentlyGenerateWorld(mapClass):
-    mapClass.name = 'serverMap'
-    mapClass.seed = GenerateSeed()
-    mapClass.height = MAP_HEIGHT
-    mapClass.width = MAP_WIDTH
-    # LoadingAnimation('Generating World Map')
-    mapClass.worldMap = SilentlyGenerateWorldMap(mapClass.seed)
-    SilentlyGenerateRivers(mapClass)
-    SetBiomeCounts(mapClass)
-    mapClass.write()
-    # LoadingAnimation('Placing Fiefs and Strongholds')
-    # mapClass.read()
-    # mapClass.read()
-    SilentlyPlotAllFiefs(mapClass)
-    SilentlyPlotAllStrongholds(mapClass)
-
-#--------------------------------------------------------------------------------------------------------------
-#   [GenerateSeed]
-#
-#   Generates a random "seed" value for the map to add further variation in map generation.
-#   Currently not very intuitive, likely land-heavy. Needs fine-tuning!
-#--------------------------------------------------------------------------------------------------------------
-def GenerateSeed():
-    seed = ''
-    x = 0
-    y = 0
-    biomeMountain = random.randint(2, 7)
-    biomePlains = random.randint(1, 9)
-    biomeForest = random.randint(1, 9)
-    
-    seed += str(x)
-    seed += str(y)
-    seed += str(biomeMountain)
-    seed += str(biomePlains)
-    seed += str(biomeForest)
-
-    return seed
-
-    
-
-#--------------------------------------------------------------------------------------------------------------
-#--------------------------------------------------------------------------------------------------------------
-#--------------------------------------------------------------------------------------------------------------
-#                               SILENT FUNCTIONS (GET RID OF THESE AT SOME POINT...)
-#--------------------------------------------------------------------------------------------------------------
-#--------------------------------------------------------------------------------------------------------------
-#--------------------------------------------------------------------------------------------------------------
-
-
-#--------------------------------------------------------------------------------------------------------------
-#   [SilentlyRunSouthEast]
-#   Parameters: dS, dSE, wMap, y, x, lean
-#   Runs river southeast based on passed values
-#--------------------------------------------------------------------------------------------------------------
-def SilentlyRunSouthEast(dS, dSE, wMap, y, x, lean):
-    if lean == 'none':
-        if dS == PLAINS:
-            return SilentlySimulateRivers(wMap, RIVER[1], y + 1, x)
-        if dSE == PLAINS:
-            return SilentlySimulateRivers(wMap, RIVER[2], y + 1, x + 1)
-        if dS == FOREST:
-            return SilentlySimulateRivers(wMap, RIVER[1], y + 1, x)
-        if dSE == FOREST:
-            return SilentlySimulateRivers(wMap, RIVER[2], y + 1, x + 1)
-    if lean == 'south':
-        if dS == PLAINS:
-            return SilentlySimulateRivers(wMap, RIVER[1], y + 1, x)
-        if dS == FOREST:
-            return SilentlySimulateRivers(wMap, RIVER[1], y + 1, x)
-        if dSE == PLAINS:
-            return SilentlySimulateRivers(wMap, RIVER[2], y + 1, x + 1)
-        if dSE == FOREST:
-            return SilentlySimulateRivers(wMap, RIVER[2], y + 1, x + 1)
-    if lean == 'east':
-        if dSE == PLAINS:
-            return SilentlySimulateRivers(wMap, RIVER[2], y + 1, x + 1)
-        if dSE == FOREST:
-            return SilentlySimulateRivers(wMap, RIVER[2], y + 1, x + 1)
-        if dS == PLAINS:
-            return SilentlySimulateRivers(wMap, RIVER[1], y + 1, x)
-        if dS == FOREST:
-            return SilentlySimulateRivers(wMap, RIVER[1], y + 1, x)
-        
-
-#--------------------------------------------------------------------------------------------------------------
-#   [SilentlyRunSouthWest]
-#   Parameters: dSW, dS, wMap, y, x, lean
-#   Runs river southwest based on passed values
-#--------------------------------------------------------------------------------------------------------------
-def SilentlyRunSouthWest(dSW, dS, wMap, y, x, lean):
-    if lean == 'none':
-        if dS == PLAINS:
-            return SilentlySimulateRivers(wMap, RIVER[1], y + 1, x)
-        if dSW == PLAINS:
-            return SilentlySimulateRivers(wMap, RIVER[0], y + 1, x - 1)
-        if dS == FOREST:
-            return SilentlySimulateRivers(wMap, RIVER[1], y + 1, x)
-        if dSW == FOREST:
-            return SilentlySimulateRivers(wMap, RIVER[0], y + 1, x - 1)
-    if lean == 'south':
-        if dS == PLAINS:
-            return SilentlySimulateRivers(wMap, RIVER[1], y + 1, x)
-        if dS == FOREST:
-            return SilentlySimulateRivers(wMap, RIVER[1], y + 1, x)
-        if dSW == PLAINS:
-            return SilentlySimulateRivers(wMap, RIVER[0], y + 1, x - 1)
-        if dSW == FOREST:
-            return SilentlySimulateRivers(wMap, RIVER[0], y + 1, x - 1)
-    if lean == 'west':
-        if dSW == PLAINS:
-            return SilentlySimulateRivers(wMap, RIVER[0], y + 1, x - 1)
-        if dSW == FOREST:
-            return SilentlySimulateRivers(wMap, RIVER[0], y + 1, x - 1)
-        if dS == PLAINS:
-            return SilentlySimulateRivers(wMap, RIVER[1], y + 1, x)
-        if dS == FOREST:
-            return SilentlySimulateRivers(wMap, RIVER[1], y + 1, x)
-        
-#--------------------------------------------------------------------------------------------------------------
-#   [SilentlyRandomRunSouthWest]
-#   Parameters: dSW, dS, wMap, y, x
-#   Runs river southwest based on passed values
-#--------------------------------------------------------------------------------------------------------------
-def SilentlyRandomRunSouthWest(dSW, dS, wMap, y, x):
-    ch2 = random.randint(1, 2)
-    #If both dS and dSW are plains:
-    if dS == PLAINS and dSW == PLAINS:
-        if ch2 == 1:
-            return SilentlySimulateRivers(wMap, RIVER[1], y + 1, x)
-        elif ch2 == 2:
-            return SilentlySimulateRivers(wMap, RIVER[0], y + 1, x - 1)
-    #If both dS and dSW are forests:
-    elif dS == FOREST and dSW == FOREST:
-        if ch2 == 1:
-            return SilentlySimulateRivers(wMap, RIVER[1], y + 1, x)
-        elif ch2 == 2:
-            return SilentlySimulateRivers(wMap, RIVER[0], y + 1, x - 1)
-
-#--------------------------------------------------------------------------------------------------------------
-#   [SilentlyRandomRunSouthEast]
-#   Parameters: dSW, dS, wMap, y, x
-#   Runs river southeast based on passed values, randomly selecting
-#--------------------------------------------------------------------------------------------------------------
-def SilentlyRandomRunSouthEast(dS, dSE, wMap, y, x):
-    ch2 = random.randint(1, 2)
-    #If both dS and dSE are plains:
-    if dS == PLAINS and dSE == PLAINS:
-        if ch2 == 1:
-            return SilentlySimulateRivers(wMap, RIVER[1], y + 1, x)
-        elif ch2 == 2:
-            return SilentlySimulateRivers(wMap, RIVER[2], y + 1, x + 1)
-    #If both dS and dSE are forests:
-    elif dS == FOREST and dSE == FOREST:
-        if ch2 == 1:
-            return SilentlySimulateRivers(wMap, RIVER[1], y + 1, x)
-        elif ch2 == 2:
-            return SilentlySimulateRivers(wMap, RIVER[2], y + 1, x + 1)
-
-
-#--------------------------------------------------------------------------------------------------------------
-#   [PrintColorMapWithFiefs]
-#   Parameters: wMap
-#
-#   Iterates through a WorldMap and prints a color version. Also prints fiefs along side
-#--------------------------------------------------------------------------------------------------------------
-def PrintColorMapWithFiefs(wMap, userName):
-    for i in range(MAP_HEIGHT):
-        fiefsInRow = GetFiefRow(i, userName)
-        strongholdsInRow = GetStrongholdRow(i, userName)
-        for j in range(MAP_WIDTH):
-            symbol = wMap[i][j]
-            if j == 0:
-                if symbol == UNEXPLORED:
-                    print('    ' + IC_UNEXPLORED + symbol + RESET, end=" ")
-                elif symbol == EMPTY:
-                    print('    ' + symbol, end=" ")
-                elif symbol == WATER:
-                    print('    ' + IC_WATER + symbol + RESET, end=" ")
-                elif symbol == RIVER[0] or symbol == RIVER[1] or symbol == RIVER[2]:
-                    print('    ' + IC_RIVER + symbol + RESET, end=" ")
-                elif symbol == FOREST:
-                    print('    ' + IC_FOREST + symbol + RESET, end=" ")
-                elif symbol == PLAINS:
-                    print('    ' + IC_PLAINS + symbol + RESET, end=" ")
-                elif symbol == MOUNTAIN:
-                    print('    ' + IC_MOUNTAIN + symbol + RESET, end=" ")
-                elif symbol == FIEF:
-                    print('    ' + GetFiefByOwner(i, j, userName) + RESET, end=" ")
-                elif symbol == STRONGHOLD:
-                    print('    ' + IC_STRONGHOLD + symbol + RESET, end=" ")
-                elif symbol == LOCATION:
-                    print('    ' + IC_LOCATION + symbol + RESET, end=" ")
-            elif j == MAP_WIDTH - 1:
-                if symbol == UNEXPLORED:
-                    print(IC_UNEXPLORED + symbol + RESET, *fiefsInRow, *strongholdsInRow, end=" ")
-                elif symbol == EMPTY:
-                    print(symbol, *fiefsInRow, *strongholdsInRow, end=" ")
-                elif symbol == WATER:
-                    print(IC_WATER + symbol + RESET, *fiefsInRow, *strongholdsInRow, end=" ")
-                elif symbol == RIVER[0] or symbol == RIVER[1] or symbol == RIVER[2]:
-                    print(IC_RIVER + symbol + RESET, *fiefsInRow, *strongholdsInRow, end=" ")
-                elif symbol == FOREST:
-                    print(IC_FOREST + symbol + RESET, *fiefsInRow, *strongholdsInRow, end=" ")
-                elif symbol == PLAINS:
-                    print(IC_PLAINS + symbol + RESET, *fiefsInRow, *strongholdsInRow, end=" ")
-                elif symbol == MOUNTAIN:
-                    print(IC_MOUNTAIN + symbol + RESET, *fiefsInRow, *strongholdsInRow, end=" ")
-                elif symbol == FIEF:
-                    print(GetFiefByOwner(i, j, userName) + RESET, *fiefsInRow, *strongholdsInRow, end=" ")
-                elif symbol == STRONGHOLD:
-                    print(IC_STRONGHOLD + symbol + RESET, *fiefsInRow, *strongholdsInRow, end=" ")
-                elif symbol == LOCATION:
-                    print(IC_LOCATION + symbol + RESET, *fiefsInRow, *strongholdsInRow, end=" ")
-            else:
-                if symbol == UNEXPLORED:
-                    print(IC_UNEXPLORED + symbol + RESET, end=" ")
-                elif symbol == EMPTY:
-                    print(symbol, end=" ")
-                elif symbol == WATER:
-                    print(IC_WATER + symbol + RESET, end=" ")
-                elif symbol == RIVER[0] or symbol == RIVER[1] or symbol == RIVER[2]:
-                    print(IC_RIVER + symbol + RESET, end=" ")
-                elif symbol == FOREST:
-                    print(IC_FOREST + symbol + RESET, end=" ")
-                elif symbol == PLAINS:
-                    print(IC_PLAINS + symbol + RESET, end=" ")
-                elif symbol == MOUNTAIN:
-                    print(IC_MOUNTAIN + symbol + RESET, end=" ")
-                elif symbol == FIEF:
-                    print(GetFiefByOwner(i, j, userName) + RESET, end=" ")
-                elif symbol == STRONGHOLD:
-                    print(IC_STRONGHOLD + symbol + RESET, end=" ")
-                elif symbol == LOCATION:
-                    print(IC_LOCATION + symbol + RESET, end=" ")
-        print('')
-
-#--------------------------------------------------------------------------------------------------------------
-#   [GetFiefRow]
-#   Parameters: row, userName
-#   Returns: list of fiefs
-#--------------------------------------------------------------------------------------------------------------
-def GetFiefRow(row, userName):
-    fiefsInRow = []
-    # numInRow = 0
-    for filename in os.listdir('fiefs'):
-            with open(os.path.join('fiefs', filename), 'r') as f:
-                tempName = filename[:-4]
-                tempName = Fiefdom()
-                tempName.name = filename[:-4]
-                tempName.read()
-                # print('Cross checking with: ' + str(tempName.name))
-                if int(tempName.yCoordinate) == row:
-                    # numInRow += 1
-                    if userName == tempName.ruler:
-                        fiefsInRow.append("| " + CYAN + tempName.name + RESET)
-                    else:
-                        fiefsInRow.append("| " + IC_FIEF + tempName.name + RESET)
-    return fiefsInRow
-
-#--------------------------------------------------------------------------------------------------------------
-#   [GetFiefByOwner]
-#   Parameters: userName
-#   Returns: list of fiefs
-#--------------------------------------------------------------------------------------------------------------
-def GetFiefByOwner(yPos, xPos, userName):
-    fief = IC_FIEF + 'X'
-    for filename in os.listdir('fiefs'):
-            with open(os.path.join('fiefs', filename), 'r') as f:
-                tempName = filename[:-4]
-                tempName = Fiefdom()
-                tempName.name = filename[:-4]
-                tempName.read()
-                # print('Cross checking with: ' + str(tempName.name))
-                if int(tempName.yCoordinate) == yPos and int(tempName.xCoordinate) == xPos and userName == tempName.ruler:
-                    fief = CYAN + 'X'
-
-    return fief
-
-#--------------------------------------------------------------------------------------------------------------
-#   [GetStrongholdRow]
-#   Parameters: row
-#   Returns: list of strongholds
-#--------------------------------------------------------------------------------------------------------------
-def GetStrongholdRow(row, userName):
-    strongholdsInRow = []
-    numInRow = 0
-    for filename in os.listdir('strongholds'):
-            with open(os.path.join('strongholds', filename), 'r') as f:
-                tempName = filename[:-4]
-                tempName = Stronghold()
-                tempName.name = filename[:-4]
-                tempName.read()
-                # print('Cross checking with: ' + str(tempName.name))
-                if int(tempName.yCoordinate) == row:
-                    # numInRow += 1
-                    # if numInRow == 1:
-                        # strongholdsInRow.append("| " + IC_STRONGHOLD + tempName.name + RESET)
-                    # else:
-                    strongholdsInRow.append("| " + IC_STRONGHOLD + tempName.name + RESET + " ")
-    return strongholdsInRow
 
 
 #--------------------------------------------------------------------------------------------------------------
@@ -2516,5 +2488,58 @@ def TestResetFiefCoordinates():
             fiefClass.yCoordinate = 0
             fiefClass.nearWater = False
             fiefClass.write()
+
+
+
+
+
+
+
+
+#--------------------------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------------------
+#                                           Misc. Functions
+#--------------------------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------------------------------------
+#   [LoadingAnimationIncrementor]
+#   Parameter: cap
+#
+#   Uses a global variable to cycle through a loading animation and returns a number based on the cap passed
+#--------------------------------------------------------------------------------------------------------------
+def LoadingAnimationIncrementor(cap):
+    global LOADING_INCREMENT
+
+    if LOADING_INCREMENT > cap:
+        LOADING_INCREMENT = 0
+    else:
+        LOADING_INCREMENT += 1
+
+    return LOADING_INCREMENT
+
+#--------------------------------------------------------------------------------------------------------------
+#   [LoadingAnimation]
+#   Parameter: thingLoading
+#
+#   Prints a passed string with an animation after it that changes each time the screen is refreshed.
+#   Function should be used in loops where the system is being cleared several times.
+#   I didn't end up using this, so I converted it into an artificial loading function to go before something
+#   and slow it down for no reason besides having a transition.
+#--------------------------------------------------------------------------------------------------------------
+def LoadingAnimation(thingLoading):
+    os.system("clear")
+    frame = LoadingAnimationIncrementor(4)
+    if frame == 0:
+        print(thingLoading)
+    elif frame == 1:
+        print(thingLoading + '.')
+    elif frame == 2:
+        print(thingLoading + '..')
+    else:
+        print(thingLoading + '...')
+    time.sleep(0.1)
 
 #eof

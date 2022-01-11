@@ -542,7 +542,7 @@ while (loop):
                     print ('    ' + textColor.CYAN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' +
                             tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
 
-        print('\n\n\n\n\n\n\n\n\n\n')
+        print('\n')
         print("    Avalible Commands:")
         print('    -------------------------------------')
         print('    {1}: Return to Stronghold')
