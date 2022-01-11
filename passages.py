@@ -129,7 +129,7 @@ def pas_e1_2():
 
 #... etc. These encounters may have logic or y/n questions added too. Like below:
 
-def pas_el1_3():
+def pas_e1_3():
     print("You come across a big sword in a rock.")
     #You can ask a yes or no question in a passage by typing it like this:
     if yesOrNo("Pull the sword out of the rock?"): 
