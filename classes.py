@@ -121,6 +121,7 @@ class Fiefdom:
     adjacentMountains = 0
     adjacentForests = 0
     adjacentPlains = 0
+    strongholdMessage = 'Message Not Set'
 
     #take the current fiefdom and write it to the /fiefs directory
     def write(self):
@@ -153,6 +154,7 @@ class Fiefdom:
                 f.write(str(self.adjacentMountains) + '\n')
                 f.write(str(self.adjacentForests) + '\n')
                 f.write(str(self.adjacentPlains) + '\n')
+                f.write(str(self.strongholdMessage) + '\n')
 
         except:
             pass
@@ -184,6 +186,7 @@ class Fiefdom:
                 f.write(str(self.adjacentMountains) + '\n')
                 f.write(str(self.adjacentForests) + '\n')
                 f.write(str(self.adjacentPlains) + '\n')
+                f.write(str(self.strongholdMessage) + '\n')
 
         except:
             pass
@@ -217,6 +220,7 @@ class Fiefdom:
                 self.adjacentMountains = f.readline().strip()
                 self.adjacentForests = f.readline().strip()
                 self.adjacentPlains = f.readline().strip()
+                self.strongholdMessage = f.readline().strip()
 
         except:
             self.write()   
@@ -256,6 +260,7 @@ class Stronghold:
     xCoordinate = 0
     yCoordinate = 0
     color = 'red'
+    strongholdMessage = 'message not set'
 
     #take the current stronghold and write it to the /strongholds directory
     def write(self):
@@ -281,6 +286,7 @@ class Stronghold:
                 f.write(str(self.xCoordinate) + '\n')
                 f.write(str(self.yCoordinate) + '\n')
                 f.write(str(self.color) + '\n')
+                f.write(str(self.strongholdMessage) + '\n')
         except:
             pass
 
@@ -304,6 +310,7 @@ class Stronghold:
                 f.write(str(self.xCoordinate) + '\n')
                 f.write(str(self.yCoordinate) + '\n')
                 f.write(str(self.color) + '\n')
+                f.write(str(self.strongholdMessage) + '\n')
         except:
             pass
 
@@ -329,6 +336,7 @@ class Stronghold:
                 self.xCoordinate = f.readline().strip()
                 self.yCoordinate = f.readline().strip()
                 self.color = f.readline().strip()
+                self.strongholdMessage = f.readline().strip()
         except:
             self.write()     
 
