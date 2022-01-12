@@ -1,11 +1,17 @@
 from globals import *
 
+#This document contains screens for:
+#   viewMapYourStronghold
+#   viewMapEnemyStronghold
+#   viewMapCurrentFief
+#   viewSurroundings
+
 def ViewMapAndSurroundings(screen):
     global firstMapRead
     #This page prints the world map with your stronghold's location marked on it
     if screen == "viewMapYourStronghold":
         os.system("clear")
-        header()
+        header(currentUsername)
 
         serverMap.name = "serverMap"
 
@@ -26,7 +32,7 @@ def ViewMapAndSurroundings(screen):
 #This page prints the world map with your stronghold's location marked on it
     if screen == "viewMapEnemyStronghold":
         os.system("clear")
-        header()
+        header(currentUsername)
 
         serverMap.name = "serverMap"
 
@@ -47,7 +53,7 @@ def ViewMapAndSurroundings(screen):
 #This page prints the world map with your stronghold's location marked on it
     if screen == "viewMapCurrentFief":
         os.system("clear")
-        header()
+        header(currentUsername)
 
         serverMap.name = "serverMap"
 
@@ -66,12 +72,12 @@ def ViewMapAndSurroundings(screen):
         if str(attackFief.ruler) == str(userStronghold.ruler):
             return 'homeDetails'
         if str(attackFief.ruler) != str(userStronghold.ruler):
-            return "details"
+            return "enemyFiefDetails"
 
 #This page prints the world map with your stronghold's location marked on it
     if screen == "viewSurroundings":
         os.system("clear")
-        header()
+        header(currentUsername)
 
         serverMap.name = "serverMap"
         serverMap.read()
@@ -80,9 +86,15 @@ def ViewMapAndSurroundings(screen):
         if STRONGHOLD:
             if USER_STRONGHOLD:
                 ListSurroundings(serverMap.worldMap, userStronghold.xCoordinate, userStronghold.yCoordinate)
+                print('')
+                time.sleep(1)
+                nothing = input('    Press Enter to Continue')
                 return "stronghold"
             else:
                 ListSurroundings(serverMap.worldMap, attackStronghold.xCoordinate, attackStronghold.yCoordinate)
+                print('')
+                time.sleep(1)
+                nothing = input('    Press Enter to Continue')
                 return "enemyStrongholdDetails"
         else:
             ListSurroundings(serverMap.worldMap, attackFief.xCoordinate, attackFief.yCoordinate)
@@ -114,12 +126,14 @@ def ViewMapAndSurroundings(screen):
                 elif int(attackFief.adjacentMountains) > 1:
                     print('      There are ' + str(attackFief.adjacentMountains) + ' ' + textColor.DARK_GRAY + 'mountains' + textColor.RESET + ' nearby')
             if str(attackFief.ruler) == str(userStronghold.ruler):
+                print('')
+                time.sleep(1)
+                nothing = input('    Press Enter to Continue')
                 return 'homeDetails'
             if str(attackFief.ruler) != str(userStronghold.ruler):
-                return "details"
-
-        print('')
-        time.sleep(1)
-        nothing = input('    Press Enter to Continue')
+                print('')
+                time.sleep(1)
+                nothing = input('    Press Enter to Continue')
+                return "enemyFiefDetails"
 
     return screen

@@ -1,11 +1,23 @@
 from globals import *
 
+#This document contains screens for:
+#   devTest
+#   devTestCreateDefaults
+#   devTestWorldMap
+#   devTestFiefPlacement
+#   devTestPlotAllFiefs
+#   devTestPlotAllStrongholds
+#   devTestGenerateWorld
+#   devTestAddGold
+#   devTestWorldMapDiagnostics
+#   devTestRiverTool
+
 def DevTestMenu(screen):
 #This is the new devtest menu with all the devtest commands sorted out and neat
 #------------------------------------------------------------------------------
     if screen == "devTest":
         os.system("clear")
-        header()
+        header(currentUsername)
         print("\n")
 
         print('    Welcome to the dev test menu. This should only be used for testing purposes.')
@@ -70,7 +82,7 @@ def DevTestMenu(screen):
 #----------------------------------------------------------------------------------
     if screen == "devTestCreateDefaults":
         os.system("clear")
-        header()
+        header(currentUsername)
 
         print('    Seeding the world with default fiefdoms')
 
@@ -96,7 +108,7 @@ def DevTestMenu(screen):
 #----------------------------------------------------------------------------------
     if screen == "devTestAddGold":
         os.system("clear")
-        header()
+        header(currentUsername)
 
         print('    Adding Funds!...')
 
@@ -114,7 +126,7 @@ def DevTestMenu(screen):
 #----------------------------------------------------------------------------------
     if screen == "devTestWorldMap":
         os.system("clear")
-        header()
+        header(currentUsername)
 
         serverMap.name = 'serverMap'
         serverMap.seed = GenerateSeed()
@@ -135,7 +147,7 @@ def DevTestMenu(screen):
 #----------------------------------------------------------------------------------
     if screen == "devTestFiefPlacement":
         os.system("clear")
-        header()
+        header(currentUsername)
 
         fief = Fiefdom()
         command = input('    Enter a fief name to input: ')
@@ -158,7 +170,7 @@ def DevTestMenu(screen):
 #----------------------------------------------------------------------------------
     if screen == "devTestPlotAllFiefs":
         os.system("clear")
-        header()
+        header(currentUsername)
 
         PlotAllFiefs(serverMap)
 
@@ -170,7 +182,7 @@ def DevTestMenu(screen):
 #----------------------------------------------------------------------------------
     if screen == "devTestPlotAllStrongholds":
         os.system("clear")
-        header()
+        header(currentUsername)
 
         PlotAllStrongholds(serverMap)
 
@@ -183,7 +195,7 @@ def DevTestMenu(screen):
 #----------------------------------------------------------------------------------
     if screen == "devTestGenerateWorld":
         os.system("clear")
-        header()
+        header(currentUsername)
 
         serverMap.name = 'serverMap'
         serverMap.seed = GenerateSeed()
@@ -212,7 +224,7 @@ def DevTestMenu(screen):
 #----------------------------------------------------------------------------------
     if screen == "devTestWorldMapDiagnostics":
         os.system("clear")
-        header()
+        header(currentUsername)
 
         serverMap.selfDiagnostic()
         # print('\n')

@@ -5,6 +5,9 @@ import bcrypt
 from menu_devtest import *
 from menu_sandbox import *
 from menu_viewMapAndSurroundings import *
+from menu_more import *
+from menu_upgradesAndCustomizations import *
+from menu_hire import *
 
 '''
 
@@ -17,6 +20,52 @@ More info can be found at
 github.com/Sheeves11/UnnamedFiefdomGame
 
 '''
+
+#------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
+#                           New Menu Organization
+#------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
+#   menu_more.py:
+#           moreCommands
+#           messageBoard
+#           pastWinners
+#           about
+#           features
+#   menu_sandbox.py:
+#           sandboxMenu
+#           sbTestMap
+#           sbCreateFief
+#           sbPlotTestFiefs
+#           sbViewMap
+#   menu_viewMapAndSurroundings.py:
+#           viewMapYourStronghold
+#           viewMapEnemyStronghold
+#           viewMapCurrentFief
+#           viewSurroundings
+#   menu_devtest.py:
+#           devTest
+#           devTestCreateDefaults
+#           devTestWorldMap
+#           devTestFiefPlacement
+#           devTestPlotAllFiefs
+#           devTestPlotAllStrongholds
+#           devTestGenerateWorld
+#           devTestAddGold
+#           devTestWorldMapDiagnostics
+#           devTestRiverTool
+#   menu_upgradesAndCustomizations.py:
+#           upgradeStronghold
+#           upgradeAttack
+#           upgradeFarm
+#           upgradeDefense
+#           changeStrongholdColor
+#   menu_hire.py:
+#           hireAndRecruit
+#           thieves
+#           mercs
+#------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
 
 #initial screen clear
 os.system("clear")
@@ -624,289 +673,6 @@ while (loop):
         tempInput = input('    Press Enter to Continue')
         screen = 'garrison'
 
-#This is the screen for updating a user's attack power.
-#----------------------------------------------------------------------------------
-    if screen == "upgradeFiefAtt":
-        os.system("clear")
-        header(userStronghold.name)
-
-        attTypeNext = 'undefined'
-        attUpgradeCost = 0
-
-        if userStronghold.attLevel == str('0'):
-            attTypeNext = 'Angry Villagers with Sharpened Pitchforks'
-            attUpgradeCost = 500
-
-        if userStronghold.attLevel == str('1'):
-            attTypeNext = 'Semi-trained Longbow Archers'
-            attUpgradeCost = 3500
-
-        if userStronghold.attLevel == str('2'):
-            attTypeNext = 'Military Recruits'
-            attUpgradeCost = 10000
-
-        if userStronghold.attLevel == str('3'):
-            attTypeNext = 'Fairly Well-trained Archers with Flaming Arrows'
-            attUpgradeCost = 45000
-
-        if userStronghold.attLevel == str('4'):
-            attTypeNext = 'Drunks with Trebuchets'
-            attUpgradeCost = 75000
-
-        if userStronghold.attLevel == str('5'):
-            attTypeNext = 'Scientists who are Experiementing with Biological Warfare'
-            attUpgradeCost = 200000
-
-        if userStronghold.attLevel == str('6'):
-            attTypeNext = 'Peasents with Guns'
-            attUpgradeCost = 400000
-
-        if userStronghold.attLevel == str('7'):
-            print('\n\n')
-            print('    Your current army is made of ' + userStronghold.attType)
-            print('    This is currently the highest attack level!')
-            print('\n\n\n\n\n\n\n\n\n\n')
-            command = input("    Press Enter to Continue")
-
-        else:
-            print('\n\n')
-            print('    Your current army is made of ' + userStronghold.attType)
-            print('    Would you like to upgrade to ' + attTypeNext + ' for ' + str(attUpgradeCost) + ' gold?')
-
-            upgradeInput = input('\n\n     Confirm Upgrade (y/n?): ')
-
-            if upgradeInput == 'y' and int(userStronghold.gold) >= attUpgradeCost:
-                print("    Upgrade Complete!")
-                userStronghold.attType = attTypeNext
-                userStronghold.attLevel = str(int(userStronghold.attLevel) + 1)
-                userStronghold.gold = str(int(userStronghold.gold) - attUpgradeCost)
-                userStronghold.write()
-                userStronghold.read()
-
-            elif upgradeInput == 'y' and int(userStronghold.gold) < attUpgradeCost:
-
-                print('\n')
-                print("    You need more gold first!\n\n\n\n")
-
-            elif upgradeInput == 'n':
-                print('\n')
-                print("    No changes made.")
-
-            print('\n\n\n\n\n\n\n\n\n\n')
-            command = input("    Press Enter to Continue")
-
-        screen = "stronghold"
-
-#This is the screen for updating a fief's farm/gold production.
-#----------------------------------------------------------------------------------
-    if screen == "farm":
-        #these variables define the next upgrade level and the cost of that level
-        farmTypeNext = 'undefined'
-        farmUpgradeCost = 0
-        os.system("clear")
-        header(userStronghold.name)
-
-        if attackFief.goldMod == str('1'):
-            farmTypeNext = 'Watering Cans'
-            farmUpgradeCost = 500
-
-        if attackFief.goldMod == str('2'):
-            farmTypeNext = 'Wheelbarrows'
-            farmUpgradeCost = 2000
-
-        if attackFief.goldMod == str('3'):
-            farmTypeNext = 'Fertilizer'
-            farmUpgradeCost = 5000
-
-        if attackFief.goldMod == str('4'):
-            farmTypeNext = 'Horse Plows'
-            farmUpgradeCost = 10000
-
-        if attackFief.goldMod == str('5'):
-            farmTypeNext = 'Crop Rotation'
-            farmUpgradeCost = 20000
-
-        if attackFief.goldMod == str('6'):
-            farmTypeNext = 'Artificial Selection'
-            farmUpgradeCost = 40000
-
-        if attackFief.goldMod == str('7'):
-            print('\n    Your fiefdom\'s gold output is currently: ' + str((int(attackFief.goldMod) * goldOutput)) + ' per hour.')
-            print('    This is currently the highest gold output!')
-
-            print('\n\n\n\n\n\n\n\n\n\n')
-            command = input("    Press Enter to Continue")
-
-        else:
-            print('\n    Your fiefdom\'s gold output is currently: ' + str((int(attackFief.goldMod) * goldOutput)) + ' per hour.')
-            print('    Would you like to upgrade to ' + farmTypeNext + ' for ' + str(farmUpgradeCost) + ' gold?')
-
-            upgradeInput = input('\n    y/n: ')
-
-            if upgradeInput == 'y' and int(userStronghold.gold) >= farmUpgradeCost:
-                print("\n    Upgrade Complete!")
-                attackFief.farmType = farmTypeNext
-                attackFief.goldMod = str(int(attackFief.goldMod) + 1)
-                userStronghold.gold = str(int(userStronghold.gold) - farmUpgradeCost)
-                attackFief.write()
-                attackFief.read()
-                userStronghold.write()
-                userStronghold.read()
-                currentPage = 1
-                screen = "fiefdoms"
-
-            elif upgradeInput == 'y' and int(userStronghold.gold) < farmUpgradeCost:
-                print("\n    You need more gold first!")
-
-            elif upgradeInput == 'n':
-                print("\n    No changes made.")
-
-            print('\n\n\n\n\n\n\n\n\n\n')
-            command = input("    Press Enter to Continue")
-
-        currentPage = 1
-        screen = "homeDetails"
-
-#This is the screen for updating a fief's defenses. Note: there are two screens
-#like this. One for fiefs and one for player strongholds.
-#----------------------------------------------------------------------------------
-    if screen == "upgradeFiefDef":
-        os.system("clear")
-
-        header(userStronghold.name)
-
-        defTypeNext = 'undefined'
-        defUpgradeCost = 0
-
-        if attackFief.defLevel == str('0'):
-            defTypeNext = 'Wooden Fences'
-            defUpgradeCost = 500
-
-        if attackFief.defLevel == str('1'):
-            defTypeNext = 'Really Deep Ditches'
-            defUpgradeCost = 2500
-
-        if attackFief.defLevel == str('2'):
-            defTypeNext = 'Tall Towers'
-            defUpgradeCost = 5000
-
-        if attackFief.defLevel == str('3'):
-            defTypeNext = 'In a Lake'
-            defUpgradeCost = 10000
-
-        if attackFief.defLevel == str('4'):
-            defTypeNext = 'On Top of a Mountain'
-            defUpgradeCost = 20000
-
-        if attackFief.defLevel == str('5'):
-            defTypeNext = 'Boiling Oil'
-            defUpgradeCost = 50000
-
-        if attackFief.defLevel == str('6'):
-            print('    Your current defense style is: ' + attackFief.defType)
-            print('    This is currently the best defense style!')
-            print('\n\n\n\n\n\n\n\n\n\n')
-            command = input("    Press Enter to Continue")
-        else:
-            print('    Your current defense style is: ' + attackFief.defType)
-            print('    Would you like to upgrade to ' + defTypeNext + ' for ' + str(defUpgradeCost) + ' gold?')
-
-            upgradeInput = input('    (y/n): ')
-
-            if upgradeInput == 'y' and int(userStronghold.gold) >= defUpgradeCost:
-                print("    Upgrade Complete!")
-                attackFief.defType = defTypeNext
-                attackFief.defLevel = str(int(attackFief.defLevel) + 1)
-                userStronghold.gold = str(int(userStronghold.gold) - defUpgradeCost)
-                attackFief.write()
-                attackFief.read()
-                userStronghold.write()
-                userStronghold.read()
-
-            elif upgradeInput == 'y' and int(userStronghold.gold) < defUpgradeCost:
-
-                print("    You need more gold first!")
-
-            elif upgradeInput == 'n':
-                print("    No changes made.")
-
-            print('\n\n\n\n\n\n\n\n\n\n')
-            command = input("    Press Enter to Continue")
-
-        currentPage = 1
-        screen = "homeDetails"
-
-#This is the about page for the game. Keep it updated
-#------------------------------------------------------------------------------
-    if screen == "about":
-        os.system("clear")
-
-        header(userStronghold.name)
-        print('\n\n')
-
-        print('''
-
-
-      Intro:
-
-      Unnamed Fiefdom Game is a python programming project by Mike Quain (mquain@uark.edu)
-      The goal was to take on a project that was big enough to be challenging, but small enough to stay interesting.
-      This game looks simple, but it taught me the basics of reading and writing to a database, data persistance,
-      and multi-user tools.
-
-
-      How to play:
-
-      Your goal is to control as many fiefdoms as you can manage without spreading your army too thin and leaving
-      yourself open to attack! Your home stronghold will never fall, but any conquered fiefdoms can be taken by
-      opposing players. Make sure you can defend the territory you claim!
-
-      Each claimed fiefdom will generate gold per hour depending on the number of soldiers you have! That gold can 
-      be spent on defense and attack upgrades as well as additional soldiers or thieves.
-
-      Upgrade your conqured fiefdoms to keep them safe! Be careful though. Any upgraded fiefdom can still be taken,
-      and your upgrades will be transfered to the new ruler.
-
-      Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
-
-        ''')
-
-        tempInput = input('    Press Enter to Continue')
-        screen = 'moreCommands'
-
-#This is the features page for the game. Keep it updated
-#------------------------------------------------------------------------------
-    if screen == "features":
-        os.system("clear")
-
-        header(userStronghold.name)
-        print('\n\n')
-
-        print('''
-
-
-      Current Status:
-
-      The game is currently in the the pre-release stage of development and new features are being added on a
-      daily basis! Make sure you check back often to see what's new!
-
-      Upcoming Features:
-
-      {Weather Events} - Weather events and patterns will affect your fiefdom's performance. Rain could cost you
-                         your advantage in battle, or a drought could hurt your gold production! Something as
-                         simple as waiting for a clear sunset could give you the advantage in an attack where
-                         the sun is in your opponent's eyes.
-
-      {Market Investments} - Invest your gold in the markets! Prices will rise and fall as the season moves along.
-                             Ride the charts on your way to the top.
-
-      Thanks for playing! Submit your suggestions github.com/Sheeves11/UntitledFiefdomGame
-
-        ''')
-
-        tempInput = input('    Press Enter to Continue')
-        screen = 'moreCommands'
-
 #The fiefdoms page contains a list of Fiefdoms generated from the /fiefs directory
 #
 #To Do
@@ -1004,7 +770,7 @@ while (loop):
                     if str(attackFief.home) == 'True':
                         screen = 'stronghold'
                     if str(attackFief.ruler) != str(userStronghold.ruler):
-                        screen = "details"
+                        screen = "enemyFiefDetails"
 
             except:
                 print ('    the file open broke')
@@ -1228,10 +994,10 @@ while (loop):
             screen = 'homeDetails'
 
         if command == '2':
-            screen = 'upgradeFiefDef'
+            screen = 'upgradeDefense'
 
         if command == '3':
-            screen = 'farm'
+            screen = 'upgradeFarm'
 
         if command == '4':
             screen = 'upgradeFiefMenu'
@@ -1399,7 +1165,7 @@ while (loop):
 # - In the future, add a way to obscure exact numbers?
 # - Add ability to attempt spying to gain info on defenses and upgrades
 #------------------------------------------------------------------------------
-    if screen == "details":
+    if screen == "enemyFiefDetails":
         os.system("clear")
         header(userStronghold.name)
 
@@ -1455,7 +1221,7 @@ while (loop):
         if command == "5":
             screen = 'viewMapCurrentFief'
 
-#This is the details page for enemy Fiefdoms
+#This is the details page for enemy Strongholds
 #
 #To Do
 # - Make it prettier
@@ -1474,8 +1240,6 @@ while (loop):
         print('    Their coffers contain ' + str(attackStronghold.gold) + ' gold.')
         print('    -------------------------------------------------------------------------')
         print("    \n\n")
-
-        #This whole section needs to be re-evaluated
 
         art_stronghold(attackStronghold.biome, attackStronghold.color)
 
@@ -1531,7 +1295,7 @@ while (loop):
         desiredAttackers = 0
         attackers = 0
 
-        if userStronghold.thieves > 0:
+        if int(userStronghold.thieves) > 0:
             try:
                 desiredAttackers = int(input('    Enter the number of thieves you would like to send on this mission: '))
             except:
@@ -1608,10 +1372,6 @@ while (loop):
 
         tempInput = input('    Press Enter To Continue')
         screen = "enemyStrongholdDetails"
-
-
-
-
 
 
 #The "battle" page simulates a battle between two Fiefdoms. This is currently the most
@@ -1721,49 +1481,11 @@ while (loop):
             screen = "fiefdoms"
 
 
-#This page prints a menu for choosing your stronghold's color:
-    if screen == "changeStrongholdColor":
-        os.system("clear")
-        header(userStronghold.name)
-
-        print('\n\n\n\n\n')
-        print("     Choose a Stronghold Color:")
-        print('    -------------------------------------')
-        print('''    {1}: Red       '''+textColor.RED+'''#'''+textColor.RESET+''' ''')
-        print('''    {2}: Green     '''+textColor.GREEN+'''#'''+textColor.RESET+''' ''')
-        print('''    {3}: Blue      '''+textColor.BLUE+'''#'''+textColor.RESET+''' ''')
-        print('''    {4}: Yellow    '''+textColor.YELLOW+'''#'''+textColor.RESET+''' ''')
-        print('''    {5}: Magenta   '''+textColor.MAGENTA+'''#'''+textColor.RESET+''' ''')
-        print('''    {6}: Cyan      '''+textColor.CYAN+'''#'''+textColor.RESET+''' ''')
-        print('''    {7}: White     '''+textColor.BOLD+'''#'''+textColor.RESET+''' ''')
-        print('''    {8}: Gray      '''+textColor.DARK_GRAY+'''#'''+textColor.RESET+''' ''')
-        print('    {9}: Leave color as is')
-        print('    -------------------------------------')
-        print('')
-        command = input("    Enter your command: ")
-
-        if command == "1":
-            userStronghold.color = 'red'
-        if command == "2":
-            userStronghold.color = 'green'
-        if command == "3":
-            userStronghold.color = 'blue'
-        if command == "4":
-            userStronghold.color = 'yellow'
-        if command == "5":
-            userStronghold.color = 'magenta'
-        if command == "6":
-            userStronghold.color = 'cyan'
-        if command == "7":
-            userStronghold.color = 'white'
-        if command == "8":
-            userStronghold.color = 'gray'
-        
-        userStronghold.write()
-        screen = "stronghold"
-
 #This is a list of external pages from other files
 #------------------------------------------------------------------------------
+    screen = MoreMenu(screen)
+    screen = UpgradesAndCustomizations(screen)
+    screen = HireMenu(screen)
     screen = ViewMapAndSurroundings(screen)
     screen = SandboxMenu(screen)
     screen = DevTestMenu(screen)

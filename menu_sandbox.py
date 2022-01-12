@@ -1,12 +1,19 @@
 from globals import *
 from tests.sandbox import *
 
+#This document contains screens for:
+#   sandboxMenu
+#   sbTestMap
+#   sbCreateFief
+#   sbPlotTestFiefs
+#   sbViewMap
+
 def SandboxMenu(screen):
 #This is the about page for the game. Keep it updated
 #------------------------------------------------------------------------------
     if screen == "sandboxMenu":
         os.system("clear")
-        header()
+        header(currentUsername)
 
         print('\n\n')
         print('     Welcome to the Sandbox Menu!')
@@ -40,7 +47,7 @@ def SandboxMenu(screen):
 #------------------------------------------------------------------------------
     if screen == "sbTestMap":
         os.system("clear")
-        header()
+        header(currentUsername)
 
         TestResetFiefCoordinates()
 
@@ -69,7 +76,7 @@ def SandboxMenu(screen):
 #------------------------------------------------------------------------------
     if screen == "sbCreateFief":
         os.system("clear")
-        header()
+        header(currentUsername)
 
         print('    Welcome to the fief creation tool!')
         print('    Please be aware that other users may be able to see the fiefs you create!')
@@ -90,7 +97,7 @@ def SandboxMenu(screen):
 #------------------------------------------------------------------------------
     if screen == "sbPlotTestFiefs":
         os.system("clear")
-        header()
+        header(currentUsername)
 
         testMap.name = 'testMap'
         testMap.read()
@@ -106,7 +113,7 @@ def SandboxMenu(screen):
 #------------------------------------------------------------------------------
     if screen == "sbViewMap":
         os.system("clear")
-        header()
+        header(currentUsername)
         
         testMap.name = 'testMap'
         testMap.read()
