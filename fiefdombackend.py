@@ -1,6 +1,3 @@
-import os
-import time
-import random
 from classes import *
 
 #global variables for quick game balance adjustments
