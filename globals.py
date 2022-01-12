@@ -1,7 +1,3 @@
-import os
-import time
-import random
-import bcrypt
 from os.path import exists
 from classes import *
 from worldmap import *
