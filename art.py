@@ -21,7 +21,7 @@ def header(username):
     headerStronghold.name = username
     headerStronghold.read()
 
-    line5 = str("Player: " + headerStronghold.name + "    Gold: " + headerStronghold.gold + "    Warriors: " + str(headerStronghold.defenders) + "    Thieves: " + str(headerStronghold.thieves))
+    line5 = str("Player: " + str(headerStronghold.name) + "    Gold: " + str(headerStronghold.gold) + "    Warriors: " + str(headerStronghold.defenders) + "    Thieves: " + str(headerStronghold.thieves))
     announcement = "Announcement: This is a test build"
     print('\n' +
 '                                                  __        _             __           \n' +
