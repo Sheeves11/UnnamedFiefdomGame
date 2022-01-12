@@ -1,5 +1,4 @@
 from globals import *
-from art import *
 from tests.sandbox import *
 
 def SandboxMenu(screen):

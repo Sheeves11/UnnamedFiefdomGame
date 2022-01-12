@@ -1,12 +1,6 @@
 #!/usr/bin/env python
 
-import os
-import time
-import random
-import bcrypt
-from os.path import exists
 from globals import *
-from art import *
 from menu_devtest import *
 from menu_sandbox import *
 

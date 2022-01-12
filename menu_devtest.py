@@ -1,5 +1,4 @@
 from globals import *
-from art import *
 
 def DevTestMenu(screen):
 #This is the new devtest menu with all the devtest commands sorted out and neat
