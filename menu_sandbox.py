@@ -1,6 +1,13 @@
 from globals import *
 from tests.sandbox import *
 
+#This document contains screens for:
+#   sandboxMenu
+#   sbTestMap
+#   sbCreateFief
+#   sbPlotTestFiefs
+#   sbViewMap
+
 def SandboxMenu(screen):
 #This is the about page for the game. Keep it updated
 #------------------------------------------------------------------------------

@@ -1,5 +1,17 @@
 from globals import *
 
+#This document contains screens for:
+#   devTest
+#   devTestCreateDefaults
+#   devTestWorldMap
+#   devTestFiefPlacement
+#   devTestPlotAllFiefs
+#   devTestPlotAllStrongholds
+#   devTestGenerateWorld
+#   devTestAddGold
+#   devTestWorldMapDiagnostics
+#   devTestRiverTool
+
 def DevTestMenu(screen):
 #This is the new devtest menu with all the devtest commands sorted out and neat
 #------------------------------------------------------------------------------
