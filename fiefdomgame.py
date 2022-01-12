@@ -203,6 +203,7 @@ while (loop):
         header(userStronghold.name)
         print("")
         print('    ' + textColor.WARNING + username + "'s Stronghold" + textColor.RESET)
+        print('    Message: ' + userStronghold.strongholdMessage)
         print("\n")
 
 
@@ -252,12 +253,13 @@ while (loop):
         print("    Avalible Commands:")
         print('    -------------------------------------------------------')
         print('    {1}: View Fiefdoms')
-        print('    {2}: Hire and Recruit')
-        print('    {3}: Upgrade and Customize')
-        print('    {4}: Look Around')
-        print('    {5}: World Map')
-        print('    {6}: Message Board')
-        print('    {7}: More')
+        print('    {2}: View Player Strongholds')
+        print('    {3}: Hire and Recruit')
+        print('    {4}: Upgrade and Customize')
+        print('    {5}: Look Around')
+        print('    {6}: World Map')
+        print('    {7}: Message Board')
+        print('    {8}: More')
         print('    --------------------------------------------------------')
         print('')
         command = input("    Enter your command: ")
@@ -267,23 +269,26 @@ while (loop):
             screen = "fiefdoms"
 
         if command == '2':
-            screen = 'hireAndRecruit'
+            screen = 'playerStrongholds'
 
         if command == '3':
+            screen = 'hireAndRecruit'
+
+        if command == '4':
             screen = 'upgradeStronghold'
         
-        if command == '4':
+        if command == '5':
             screen = 'viewSurroundings'
             USER_STRONGHOLD = True
             STRONGHOLD = True
 
-        if command == '5':
+        if command == '6':
             screen = 'viewMapYourStronghold'
 
-        if command == '6':
+        if command == '7':
             screen = 'messageBoard'
 
-        if command == '7':
+        if command == '8':
             screen = 'moreCommands'
         
         #The following command is for testing only!
@@ -302,6 +307,8 @@ while (loop):
         print('     {1}: Return to Stronghold')
         print('     {2}: Upgrade Attack')
         print('     {3}: Change Stronghold Color')
+        print('     {4}: Set Stronghold Message')
+
         print('     --------------------------------------------------------')
         print('')
         command = input("     Enter your command: ")
@@ -314,6 +321,31 @@ while (loop):
 
         if command == '3':
             screen = 'changeStrongholdColor'
+
+        if command == '4':
+            screen = 'setStrongholdMessage'
+
+#This is the screen for setting your stronghold message
+#----------------------------------------------------------------------------------
+    if screen == "setStrongholdMessage":
+        os.system("clear")
+        header(userStronghold.name)
+        print('\n\n\n')
+        print('    Your current message is: ' + userStronghold.strongholdMessage)
+        print('\n')
+
+        #get input for the stronghold message and only write it if less than 80 characters
+        userStronghold.strongholdMessage = input('    Enter your new message: ')
+        if len(userStronghold.strongholdMessage) > 80:
+            print('\n    Error! Only 80 characters allowed!')
+
+        if len(userStronghold.strongholdMessage) <= 80:
+            print('\n    Message Accepted')
+            userStronghold.write()
+
+        print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
+        tempInput = input('    Press Enter to Continue')
+        screen = 'stronghold'
 
 #This is a menu for hiring and recruiting troops
 #----------------------------------------------------------------------------------
@@ -1240,9 +1272,11 @@ while (loop):
         print("")
         print('    Now viewing the stronghold of ' + attackStronghold.name)
         print('    -------------------------------------------------------------------------')
-        print('    Your scouts return early in the morning, bringing back reports of the enemy fiefdom.')
-        print('    ' + attackStronghold.name + ' looks to have ' + str(attackStronghold.defenders) + ' fighters.')
-        print('    Their coffers contain ' + str(attackStronghold.gold) + ' gold.')
+        print('    Your scouts return early in the morning, bringing back reports of the enemy stronghold.')
+        print('    ' + attackStronghold.name + ' looks to have ' + str(attackStronghold.defenders) + ' fighters and their coffers contain ' + str(attackStronghold.gold) + ' gold.')
+        print('    -------------------------------------------------------------------------')      
+        print('    The enemy has a message posted on the path near the gate.')
+        print('    It reads:  { ' + attackStronghold.strongholdMessage + ' }' )
         print('    -------------------------------------------------------------------------')
         print("    \n\n")
 
