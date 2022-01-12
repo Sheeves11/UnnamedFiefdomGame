@@ -70,7 +70,11 @@ github.com/Sheeves11/UnnamedFiefdomGame
 #initial screen clear
 os.system("clear")
 
+#global variables
+loop = True
 screen = "login"
+userStronghold = Stronghold()
+attackStronghold = Stronghold()
 
 #this begins the main game loop
 #------------------------------------------------------------------------------
@@ -94,7 +98,7 @@ while (loop):
                 See more info at github.com/Sheeves11/UnnamedFiefdomGame ''')
         print('\n')
 
-        userStronghold = Stronghold()
+        # userStronghold = Stronghold()
         username = input("                Enter your username: ")
         currentUsername = username
 
@@ -1483,12 +1487,12 @@ while (loop):
 
 #This is a list of external pages from other files
 #------------------------------------------------------------------------------
-    screen = MoreMenu(screen)
-    screen = UpgradesAndCustomizations(screen)
-    screen = HireMenu(screen)
+    screen = MoreMenu(screen, userStronghold)
+    screen = UpgradesAndCustomizations(screen, userStronghold)
+    screen = HireMenu(screen, userStronghold)
     screen = ViewMapAndSurroundings(screen, userStronghold, attackStronghold)
     screen = SandboxMenu(screen)
-    screen = DevTestMenu(screen)
+    screen = DevTestMenu(screen, userStronghold)
 
 #eof
 

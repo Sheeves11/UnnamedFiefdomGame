@@ -551,7 +551,7 @@ def GetStrongholdRow(row, userName):
                 tempName.name = filename[:-4]
                 tempName.read()
                 # print('Cross checking with: ' + str(tempName.name))
-                if int(tempName.yCoordinate) == row:
+                if int(tempName.yCoordinate) == row and tempName.name != "Default Stronghold" and tempName.name != "default":
                     # numInRow += 1
                     # if numInRow == 1:
                         # strongholdsInRow.append("| " + IC_STRONGHOLD + tempName.name + RESET)
