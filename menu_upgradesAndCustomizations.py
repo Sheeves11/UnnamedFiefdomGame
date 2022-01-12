@@ -2,10 +2,12 @@ from globals import *
 
 #This document contains screens for:
 #   upgradeStronghold
+#   upgradeFiefMenu
 #   upgradeAttack
 #   upgradeFarm
 #   upgradeDefense
 #   changeStrongholdColor
+#   setStrongholdMessage
 
 def UpgradesAndCustomizations(screen, userStronghold):
     global currentPage
@@ -14,13 +16,15 @@ def UpgradesAndCustomizations(screen, userStronghold):
     if screen == "upgradeStronghold":
         os.system("clear")
 
-        header(currentUsername)
+        header(userStronghold.name)
         print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
         print("     Avalible Commands:")
         print('     -------------------------------------------------------')
         print('     {1}: Return to Stronghold')
         print('     {2}: Upgrade Attack')
         print('     {3}: Change Stronghold Color')
+        print('     {4}: Set Stronghold Message')
+
         print('     --------------------------------------------------------')
         print('')
         command = input("     Enter your command: ")
@@ -29,10 +33,43 @@ def UpgradesAndCustomizations(screen, userStronghold):
             screen = 'stronghold'
 
         if command == '2':
-            screen = 'upgradeAttack'
+            screen = 'upgradeFiefAtt'
 
         if command == '3':
             screen = 'changeStrongholdColor'
+
+        if command == '4':
+            screen = 'setStrongholdMessage'
+
+#This is a menu for additional features
+#----------------------------------------------------------------------------------
+    if screen == "upgradeFiefMenu":
+        os.system("clear")
+        
+        header(userStronghold.name)
+        print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
+        print("    Avalible Commands:")
+        print('    -------------------------------------------------------')
+        print('    {1}: Go Back')
+        print('    {2}: Upgrade Defenses')
+        print('    {3}: Upgrade Farms')
+        # print('    {4}: Upgrade Training')
+        print('    --------------------------------------------------------')
+        print('')
+        command = input("    Enter your command: ")
+
+        if command == '1':
+            screen = 'ownedFiefDetails'
+
+        if command == '2':
+            screen = 'upgradeDefense'
+
+        if command == '3':
+            screen = 'upgradeFarm'
+
+        if command == '4':
+            screen = 'upgradeFiefMenu'
+
     
     #This is the screen for updating a user's attack power.
 #----------------------------------------------------------------------------------
@@ -287,5 +324,26 @@ def UpgradesAndCustomizations(screen, userStronghold):
         userStronghold.write()
         screen = "stronghold"
 
+#This is the screen for setting your stronghold message
+#----------------------------------------------------------------------------------
+    if screen == "setStrongholdMessage":
+        os.system("clear")
+        header(userStronghold.name)
+        print('\n\n\n')
+        print('    Your current message is: ' + userStronghold.strongholdMessage)
+        print('\n')
+
+        #get input for the stronghold message and only write it if less than 80 characters
+        userStronghold.strongholdMessage = input('    Enter your new message: ')
+        if len(userStronghold.strongholdMessage) > 80:
+            print('\n    Error! Only 80 characters allowed!')
+
+        if len(userStronghold.strongholdMessage) <= 80:
+            print('\n    Message Accepted')
+            userStronghold.write()
+
+        print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
+        tempInput = input('    Press Enter to Continue')
+        screen = 'stronghold'
         
     return screen
