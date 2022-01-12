@@ -70,7 +70,7 @@ def ViewMapAndSurroundings(screen, userStronghold, attackStronghold):
         nothing = input('    Press Enter to Continue')
 
         if str(attackFief.ruler) == str(userStronghold.ruler):
-            return 'homeDetails'
+            return 'ownedFiefDetails'
         if str(attackFief.ruler) != str(userStronghold.ruler):
             return "enemyFiefDetails"
 
@@ -129,7 +129,7 @@ def ViewMapAndSurroundings(screen, userStronghold, attackStronghold):
                 print('')
                 time.sleep(1)
                 nothing = input('    Press Enter to Continue')
-                return 'homeDetails'
+                return 'ownedFiefDetails'
             if str(attackFief.ruler) != str(userStronghold.ruler):
                 print('')
                 time.sleep(1)

@@ -71,7 +71,10 @@ def HireMenu(screen, userStronghold):
             print("        You can't hire a negative number of thieves")
 
         elif (int(upgradeInput) * thiefCost) <=  int(userStronghold.gold):
+            print("    Hiring " + str(upgradeInput) + " thieves...")
+            time.sleep(0.5)
             userStronghold.thieves = str(int(userStronghold.thieves) + int(upgradeInput))
+            print("    Success! You now have " + str(userStronghold.thieves) + " thieves at your disposal.")
             userStronghold.gold = str(int(userStronghold.gold) - (thiefCost * int(upgradeInput)))
             userStronghold.write()
             userStronghold.read()
@@ -128,7 +131,10 @@ def HireMenu(screen, userStronghold):
             print("    You can't hire a negative number of soldiers")
 
         elif (int(upgradeInput) * mercCost) <=  int(userStronghold.gold):
+            print("    Hiring " + str(upgradeInput) + " soldiers...")
+            time.sleep(0.5)
             userStronghold.defenders = str(int(userStronghold.defenders) + int(upgradeInput))
+            print("    Success! You now have " + str(userStronghold.defenders) + " soldiers at your disposal.")
             userStronghold.gold = str(int(userStronghold.gold) - (mercCost * int(upgradeInput)))
             userStronghold.write()
             userStronghold.read()

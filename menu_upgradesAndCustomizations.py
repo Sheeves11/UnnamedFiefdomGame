@@ -175,7 +175,7 @@ def UpgradesAndCustomizations(screen, userStronghold):
             command = input("    Press Enter to Continue")
 
         currentPage = 1
-        screen = "homeDetails"
+        screen = "ownedFiefDetails"
 
 #This is the screen for updating a fief's defenses. Note: there are two screens
 #like this. One for fiefs and one for player strongholds.
@@ -244,7 +244,7 @@ def UpgradesAndCustomizations(screen, userStronghold):
             command = input("    Press Enter to Continue")
 
         currentPage = 1
-        screen = "homeDetails"
+        screen = "ownedFiefDetails"
 
     #This page prints a menu for choosing your stronghold's color:
     if screen == "changeStrongholdColor":
