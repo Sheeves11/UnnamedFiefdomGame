@@ -11,7 +11,7 @@ def ViewMapAndSurroundings(screen):
     #This page prints the world map with your stronghold's location marked on it
     if screen == "viewMapYourStronghold":
         os.system("clear")
-        header()
+        header(currentUsername)
 
         serverMap.name = "serverMap"
 
@@ -32,7 +32,7 @@ def ViewMapAndSurroundings(screen):
 #This page prints the world map with your stronghold's location marked on it
     if screen == "viewMapEnemyStronghold":
         os.system("clear")
-        header()
+        header(currentUsername)
 
         serverMap.name = "serverMap"
 
@@ -53,7 +53,7 @@ def ViewMapAndSurroundings(screen):
 #This page prints the world map with your stronghold's location marked on it
     if screen == "viewMapCurrentFief":
         os.system("clear")
-        header()
+        header(currentUsername)
 
         serverMap.name = "serverMap"
 
@@ -77,7 +77,7 @@ def ViewMapAndSurroundings(screen):
 #This page prints the world map with your stronghold's location marked on it
     if screen == "viewSurroundings":
         os.system("clear")
-        header()
+        header(currentUsername)
 
         serverMap.name = "serverMap"
         serverMap.read()

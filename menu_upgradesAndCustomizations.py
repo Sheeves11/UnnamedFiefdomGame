@@ -14,7 +14,7 @@ def UpgradesAndCustomizations(screen):
     if screen == "upgradeStronghold":
         os.system("clear")
 
-        header()
+        header(currentUsername)
         print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
         print("     Avalible Commands:")
         print('     -------------------------------------------------------')
@@ -38,7 +38,7 @@ def UpgradesAndCustomizations(screen):
 #----------------------------------------------------------------------------------
     if screen == "upgradeAttack":
         os.system("clear")
-        header()
+        header(currentUsername)
 
         attTypeNext = 'undefined'
         attUpgradeCost = 0
@@ -114,7 +114,7 @@ def UpgradesAndCustomizations(screen):
         farmTypeNext = 'undefined'
         farmUpgradeCost = 0
         os.system("clear")
-        header()
+        header(currentUsername)
 
         if attackFief.goldMod == str('1'):
             farmTypeNext = 'Watering Cans'
@@ -183,7 +183,7 @@ def UpgradesAndCustomizations(screen):
     if screen == "upgradeDefense":
         os.system("clear")
 
-        header()
+        header(currentUsername)
 
         defTypeNext = 'undefined'
         defUpgradeCost = 0
@@ -249,7 +249,7 @@ def UpgradesAndCustomizations(screen):
     #This page prints a menu for choosing your stronghold's color:
     if screen == "changeStrongholdColor":
         os.system("clear")
-        header()
+        header(currentUsername)
 
         print('\n\n\n\n\n')
         print("     Choose a Stronghold Color:")

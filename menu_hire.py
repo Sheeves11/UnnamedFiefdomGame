@@ -12,7 +12,7 @@ def HireMenu(screen):
     if screen == "hireAndRecruit":
         os.system("clear")
 
-        header()
+        header(currentUsername)
         print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
         print("     Avalible Commands:")
         print('     -------------------------------------------------------')
@@ -40,7 +40,7 @@ def HireMenu(screen):
         thiefCost = 1000
 
         os.system("clear")
-        header()
+        header(currentUsername)
 
         print('''
             
@@ -107,7 +107,7 @@ def HireMenu(screen):
         mercCost = 10
 
         os.system("clear")
-        header()
+        header(currentUsername)
 
         print('\n\n\n')
         print('    You currently have ' + str(userStronghold.defenders) + ' soldiers and ' +  str(userStronghold.gold) + ' gold.')

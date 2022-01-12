@@ -15,7 +15,7 @@ def MoreMenu(screen):
     if screen == "moreCommands":
         os.system("clear")
 
-        header()
+        header(currentUsername)
         print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
         print("     Avalible Commands:")
         print('     -------------------------------------------------------')
@@ -48,7 +48,7 @@ def MoreMenu(screen):
     if screen == "messageBoard":
         os.system("clear")
 
-        header()
+        header(currentUsername)
 
         print('\n    Welcome to the message board! Keep it friendly :)')
         print('\n    --------------------------------------------------------------------------------------\n')
@@ -83,7 +83,7 @@ def MoreMenu(screen):
 #----------------------------------------------------------------------------------
     if screen == "pastWinners":
         os.system("clear")
-        header()
+        header(currentUsername)
         print('\n    These are your honorable past winners of Unnamed Fiefdom Game')
         print('\n    --------------------------------------------------------------------------------------\n')
         print('\n    Pre-Release (12/20/21): Steelwing\n')
@@ -97,7 +97,7 @@ def MoreMenu(screen):
     if screen == "about":
         os.system("clear")
 
-        header()
+        header(currentUsername)
         print('\n\n')
 
         print('''
@@ -135,7 +135,7 @@ def MoreMenu(screen):
     if screen == "features":
         os.system("clear")
 
-        header()
+        header(currentUsername)
         print('\n\n')
 
         print('''
