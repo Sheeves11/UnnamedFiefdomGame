@@ -9,6 +9,7 @@ from menu_more import *
 from menu_upgradesAndCustomizations import *
 from menu_hire import *
 from menu_garrison import *
+from menu_fiefBuildings import *
 
 '''
 
@@ -555,7 +556,7 @@ while (loop):
         print('')
         print("    Avalible Commands:")
         print('    -------------------------------------------------------')
-        print('    {1}: Return to Stronghold')
+        print('    {1}: Return to Stronghold        {9}: Resource Outposts') 
         print('    {2}: View Fiefdoms')
         print('    {3}: Deploy Additional Forces')
         print('    {4}: Withdraw Forces')
@@ -592,6 +593,9 @@ while (loop):
 
         if command == '8':
             screen = 'viewMapCurrentFief'
+
+        if command == '9':
+            screen = 'outposts'
 
 #This is a menu for additional features
 #----------------------------------------------------------------------------------
@@ -1105,6 +1109,7 @@ while (loop):
 #------------------------------------------------------------------------------
     screen = MoreMenu(screen, userStronghold)
     screen = UpgradesAndCustomizations(screen, userStronghold)
+    screen = FiefBuildingsMenu(screen, userStronghold)
     screen = HireMenu(screen, userStronghold)
     screen = GarrisonMenu(screen, userStronghold)
     screen = ViewMapAndSurroundings(screen, userStronghold, attackStronghold)
