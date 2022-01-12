@@ -88,12 +88,16 @@ class Fiefdom:
     adjacentMountains = 0
     adjacentForests = 0
     adjacentPlains = 0
+    strongholdMessage = 'Message Not Set'
+
     #values in lists below are:
     #       [Tier, Primary/hr, Secondary/hr, Number built, placeholder]
     farmlands = [0, 0, 0, 0, 0]
     fisheries = [0, 0, 0, 0, 0]
     mines = [0, 0, 0, 0, 0]
     lumberMills = [0, 0, 0, 0, 0]
+
+
 
     #take the current fiefdom and write it to the /fiefs directory
     def write(self):
@@ -131,6 +135,7 @@ class Fiefdom:
                 f.write(str(self.fisheries) + '\n')
                 f.write(str(self.mines) + '\n')
                 f.write(str(self.lumberMills) + '\n')
+                f.write(str(self.strongholdMessage) + '\n')
 
         except:
             pass
@@ -167,6 +172,7 @@ class Fiefdom:
                 f.write(str(self.fisheries) + '\n')
                 f.write(str(self.mines) + '\n')
                 f.write(str(self.lumberMills) + '\n')
+                f.write(str(self.strongholdMessage) + '\n')
 
         except:
             pass
@@ -205,6 +211,7 @@ class Fiefdom:
                 self.fisheries = f.readline().strip()
                 self.mines = f.readline().strip()
                 self.lumberMills = f.readline().strip()
+                self.strongholdMessage = f.readline().strip()
 
         except:
             self.write()   
@@ -249,6 +256,7 @@ class Stronghold:
     xCoordinate = 0
     yCoordinate = 0
     color = 'red'
+    strongholdMessage = 'message not set'
 
     #take the current stronghold and write it to the /strongholds directory
     def write(self):
@@ -278,6 +286,7 @@ class Stronghold:
                 f.write(str(self.xCoordinate) + '\n')
                 f.write(str(self.yCoordinate) + '\n')
                 f.write(str(self.color) + '\n')
+                f.write(str(self.strongholdMessage) + '\n')
         except:
             pass
 
@@ -305,6 +314,7 @@ class Stronghold:
                 f.write(str(self.xCoordinate) + '\n')
                 f.write(str(self.yCoordinate) + '\n')
                 f.write(str(self.color) + '\n')
+                f.write(str(self.strongholdMessage) + '\n')
         except:
             pass
 
@@ -334,6 +344,7 @@ class Stronghold:
                 self.xCoordinate = f.readline().strip()
                 self.yCoordinate = f.readline().strip()
                 self.color = f.readline().strip()
+                self.strongholdMessage = f.readline().strip()
         except:
             self.write()     
 
