@@ -128,7 +128,9 @@ def HireMenu(screen, userStronghold):
             print("    You can't hire a negative number of soldiers")
 
         elif (int(upgradeInput) * mercCost) <=  int(userStronghold.gold):
+            print("    Hiring " + str(upgradeInput) + " soldiers...")
             userStronghold.defenders = str(int(userStronghold.defenders) + int(upgradeInput))
+            print("    Success! You now have " + str(userStronghold.defenders) + " soldiers at your disposal.")
             userStronghold.gold = str(int(userStronghold.gold) - (mercCost * int(upgradeInput)))
             userStronghold.write()
             userStronghold.read()
