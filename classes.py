@@ -61,9 +61,6 @@ def strongholdColor(color):
     if color == 'gray':
         return textColor.DARK_GRAY
 
-    
-
-
 def FirstLaunch():
     try:
         with open('settings.txt', 'r+') as settingsFile:
@@ -517,16 +514,6 @@ class Map:
             self.usedPlains = str(self.values[8]).lstrip("['").rstrip("']")
             self.usedForests = str(self.values[9]).lstrip("['").rstrip("']")
             self.usedMountains = str(self.values[10]).lstrip("['").rstrip("']")
-            # print('seed: ' + str(self.seed))
-            # print('width: ' + str(self.width))
-            # print('height: ' + str(self.height))
-            # print('numWater: ' + str(self.numWater))
-            # print('numPlains: ' + str(self.numPlains))
-            # print('numForests: ' + str(self.numForests))
-            # print('numMountains: ' + str(self.numMountains))
-            # print('usedPlains: ' + str(self.usedPlains))
-            # print('usedForests: ' + str(self.usedForests))
-            # print('usedMountains: ' + str(self.usedMountains))
 
     def selfDiagnostic(self):
         print('Running diagnostic on map class...')
@@ -543,7 +530,5 @@ class Map:
         print('usedPlains: ' + str(self.usedPlains))
         print('usedForests: ' + str(self.usedForests))
         print('usedMountains: ' + str(self.usedMountains))
-        # print('worldMap:')
-        # print(*self.worldMap)
 
 #eof

@@ -3,6 +3,9 @@ from classes import *
 from worldmap import *
 from art import *
 
+#Most files should import this file.
+#Doing so grants access to classes, art, and worldmap as well.
+
 #global variables
 loop = True
 currentUsername = 'default'
