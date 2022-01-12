@@ -60,37 +60,6 @@ def strongholdColor(color):
         return textColor.CYAN
     if color == 'gray':
         return textColor.DARK_GRAY
-
-def FirstLaunch():
-    try:
-        with open('settings.txt', 'r+') as settingsFile:
-            # print('Opened settings.txt')
-            line = settingsFile.readline().strip()
-            if line.endswith('no'):
-                # print('Settings.txt ends with no.')
-                settingsFile.seek(0)
-                # print('Attempting to write over line')
-                settingsFile.write('Map Initialized: yes')
-                # print('Wrote over the line!')
-                settingsFile.close()
-                return True
-            else:
-                # print('Settings did not end in no!')
-                settingsFile.close()
-                return False
-    except:
-        print('Error, something wrong with settings.txt!')
-        return False
-
-
-def CheckLegalUsername(username):
-    illegalUserNames = ['', ' ', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15']
-    if username.strip() == "":
-        return False
-    for i in range(len(illegalUserNames)):
-        if username == illegalUserNames[i]:
-            return False
-    return True
     
 #the fiefdom class holds variables that define a player's stats
 class Fiefdom:

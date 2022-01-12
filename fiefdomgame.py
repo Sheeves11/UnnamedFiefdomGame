@@ -1162,58 +1162,7 @@ while (loop):
                 + ' soldiers per hour.')
         print("\n")
 
-        if attackFief.biome == str('^'):
-            art_forest()
-        
-        if attackFief.biome == str('M'):
-            art_mountain()
-        
-        if attackFief.biome == str('#'):
-            art_plains()
-
-        if attackFief.defLevel == str(0):
-            art_fief0(attackFief.biome)
-
-        if attackFief.defLevel == str(1):
-            art_fief1(attackFief.biome)
-
-        if attackFief.defLevel == str(2):
-            art_fief2(attackFief.biome)
-
-        if attackFief.defLevel == str(3):
-            art_fief3(attackFief.biome)
-
-        if attackFief.defLevel == str(4):
-            art_fief4(attackFief.biome)
-
-        if attackFief.defLevel == str(5):
-            art_fief5(attackFief.biome)
-
-        if attackFief.defLevel == str(6):
-            art_fief6(attackFief.biome)
-
-
-        if attackFief.goldMod == str(1):
-            art_farm0()
-
-        if attackFief.goldMod == str(2):
-            art_farm1()
-
-        if attackFief.goldMod == str(3):
-            art_farm2()
-
-        if attackFief.goldMod == str(4):
-            art_farm3()
-
-        if attackFief.goldMod == str(5):
-            art_farm4()
-
-        if attackFief.goldMod == str(6):
-            art_farm5()
-
-        if attackFief.goldMod == str(7):
-            art_farm6()
-
+        printFiefArt(attackFief)
 
         print('')
         print("    Avalible Commands:")
@@ -1470,58 +1419,8 @@ while (loop):
         print('    -------------------------------------------------------------------------')
 
         print("\n")
-        if attackFief.biome == str('^'):
-            art_forest()
         
-        if attackFief.biome == str('M'):
-            art_mountain()
-        
-        if attackFief.biome == str('#'):
-            art_plains()
-
-
-        if attackFief.defLevel == str(0):
-            art_fief0(attackFief.biome)
-
-        if attackFief.defLevel == str(1):
-            art_fief1(attackFief.biome)
-
-        if attackFief.defLevel == str(2):
-            art_fief2(attackFief.biome)
-
-        if attackFief.defLevel == str(3):
-            art_fief3(attackFief.biome)
-
-        if attackFief.defLevel == str(4):
-            art_fief4(attackFief.biome)
-
-        if attackFief.defLevel == str(5):
-            art_fief5(attackFief.biome)
-
-        if attackFief.defLevel == str(6):
-            art_fief6(attackFief.biome)
-
-
-        if attackFief.goldMod == str(1):
-            art_farm0()
-
-        if attackFief.goldMod == str(2):
-            art_farm1()
-
-        if attackFief.goldMod == str(3):
-            art_farm2()
-
-        if attackFief.goldMod == str(4):
-            art_farm3()
-
-        if attackFief.goldMod == str(5):
-            art_farm4()
-
-        if attackFief.goldMod == str(6):
-            art_farm5()
-
-        if attackFief.goldMod == str(7):
-            art_farm6()
+        printFiefArt(attackFief)
 
         print("")
 
