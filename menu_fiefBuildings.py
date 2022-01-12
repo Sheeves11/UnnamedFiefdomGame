@@ -1,5 +1,12 @@
 from globals import *
 
+#This document contains screens for:
+#   outposts
+#   fisheries
+#   lumberMills
+#   farmlands
+#   mines
+
 def FiefBuildingsMenu(screen, userStronghold):
     if screen == "outposts":
         os.system("clear")
