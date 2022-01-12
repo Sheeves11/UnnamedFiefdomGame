@@ -1486,7 +1486,7 @@ while (loop):
     screen = MoreMenu(screen)
     screen = UpgradesAndCustomizations(screen)
     screen = HireMenu(screen)
-    screen = ViewMapAndSurroundings(screen)
+    screen = ViewMapAndSurroundings(screen, userStronghold, attackStronghold)
     screen = SandboxMenu(screen)
     screen = DevTestMenu(screen)
 
