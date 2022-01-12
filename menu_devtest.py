@@ -12,7 +12,7 @@ from globals import *
 #   devTestWorldMapDiagnostics
 #   devTestRiverTool
 
-def DevTestMenu(screen):
+def DevTestMenu(screen, userStronghold):
 #This is the new devtest menu with all the devtest commands sorted out and neat
 #------------------------------------------------------------------------------
     if screen == "devTest":

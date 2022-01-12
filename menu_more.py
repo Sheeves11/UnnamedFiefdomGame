@@ -8,7 +8,7 @@ from globals import *
 #   features
 
 
-def MoreMenu(screen):
+def MoreMenu(screen, userStronghold):
 
 #This is a menu for additional features
 #----------------------------------------------------------------------------------

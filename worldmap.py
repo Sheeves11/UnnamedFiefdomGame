@@ -551,7 +551,7 @@ def GetStrongholdRow(row, userName):
                 tempName.name = filename[:-4]
                 tempName.read()
                 # print('Cross checking with: ' + str(tempName.name))
-                if int(tempName.yCoordinate) == row:
+                if int(tempName.yCoordinate) == row and tempName.name != "Default Stronghold" and tempName.name != "default":
                     # numInRow += 1
                     # if numInRow == 1:
                         # strongholdsInRow.append("| " + IC_STRONGHOLD + tempName.name + RESET)
@@ -1951,7 +1951,8 @@ def SilentlyPlaceStrongholdInWorldMap(strongholdClass, mapClass):
                 print("    Error, couldn't find an empty spot!")
     else:
         if strongholdClass.name == 'Default Stronghold':
-            print("    That stronghold doesn't exist!")
+            # print("    That stronghold doesn't exist!")
+            pass
         else:
             print('    ' + str(strongholdClass.name) + "'s stronghold is already on the map!")
 

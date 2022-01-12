@@ -5,7 +5,7 @@ from globals import *
 #   thieves
 #   mercs
 
-def HireMenu(screen):
+def HireMenu(screen, userStronghold):
     global currentPage
 #This is a menu for hiring and recruiting troops
 #----------------------------------------------------------------------------------

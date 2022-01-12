@@ -7,7 +7,7 @@ from globals import *
 #   upgradeDefense
 #   changeStrongholdColor
 
-def UpgradesAndCustomizations(screen):
+def UpgradesAndCustomizations(screen, userStronghold):
     global currentPage
 #This is the screen for upgrading and customizing your stronghold
 #----------------------------------------------------------------------------------

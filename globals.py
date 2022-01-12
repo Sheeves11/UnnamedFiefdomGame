@@ -7,8 +7,7 @@ from art import *
 #Most files should import this file.
 #Doing so grants access to classes, art, and worldmap as well.
 
-#global variables
-loop = True
+#Globals
 currentUsername = 'default'
 # tempName = {}
 STRONGHOLD = True           #Used to differentiate strongholds/fiefs
@@ -26,8 +25,7 @@ defenderOutput = 3
 
 #create some default objects that we'll write over later
 attackFief = Fiefdom()
-userStronghold = Stronghold()
-attackStronghold = Stronghold()
+
 serverMap = Map()
 testMap = TestMap() #This is for users to have fun messing with the map generator
 firstMapRead = True
