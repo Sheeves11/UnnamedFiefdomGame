@@ -2,6 +2,7 @@
 
 from globals import *
 import bcrypt
+from getpass import getpass
 from menu_devtest import *
 from menu_sandbox import *
 from menu_viewMapAndSurroundings import *
@@ -115,7 +116,7 @@ while (loop):
                 hashed = f.readline().strip()
                 
                 print('\n\n    Welcome back, ' + str(username))
-                userPass = input('    Enter your password: ')
+                userPass = getpass('    Enter your password: ')
 
                 if bcrypt.checkpw(userPass, hashed):
                     print('    Password is correct')
@@ -148,7 +149,7 @@ while (loop):
                             password = "default"
                             email = "default"
 
-                            password = input('\n\n\n    Please choose your password: ')
+                            password = getpass('\n\n\n    Please choose your password: ')
                             email = input('\n    Please enter your email address: ')
 
                             salt = bcrypt.gensalt()
