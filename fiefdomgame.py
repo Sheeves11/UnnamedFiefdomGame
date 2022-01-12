@@ -2,6 +2,7 @@
 
 from globals import *
 import bcrypt
+from getpass import getpass
 from menu_devtest import *
 from menu_sandbox import *
 from menu_viewMapAndSurroundings import *
@@ -119,7 +120,7 @@ while (loop):
                 hashed = f.readline().strip()
                 
                 print('\n\n    Welcome back, ' + str(username))
-                userPass = input('    Enter your password: ')
+                userPass = getpass('    Enter your password: ')
 
                 if bcrypt.checkpw(userPass, hashed):
                     print('    Password is correct')
@@ -152,7 +153,7 @@ while (loop):
                             password = "default"
                             email = "default"
 
-                            password = input('\n\n\n    Please choose your password: ')
+                            password = getpass('\n\n\n    Please choose your password: ')
                             email = input('\n    Please enter your email address: ')
 
                             salt = bcrypt.gensalt()
@@ -206,6 +207,7 @@ while (loop):
         header(userStronghold.name)
         print("")
         print('    ' + textColor.WARNING + username + "'s Stronghold" + textColor.RESET)
+        print('    Message: ' + userStronghold.strongholdMessage)
         print("\n")
 
 
@@ -255,12 +257,13 @@ while (loop):
         print("    Avalible Commands:")
         print('    -------------------------------------------------------')
         print('    {1}: View Fiefdoms')
-        print('    {2}: Hire and Recruit')
-        print('    {3}: Upgrade and Customize')
-        print('    {4}: Look Around')
-        print('    {5}: World Map')
-        print('    {6}: Message Board')
-        print('    {7}: More')
+        print('    {2}: View Player Strongholds')
+        print('    {3}: Hire and Recruit')
+        print('    {4}: Upgrade and Customize')
+        print('    {5}: Look Around')
+        print('    {6}: World Map')
+        print('    {7}: Message Board')
+        print('    {8}: More')
         print('    --------------------------------------------------------')
         print('')
         command = input("    Enter your command: ")
@@ -270,28 +273,446 @@ while (loop):
             screen = "fiefdoms"
 
         if command == '2':
-            screen = 'hireAndRecruit'
+            screen = 'playerStrongholds'
 
         if command == '3':
+            screen = 'hireAndRecruit'
+
+        if command == '4':
             screen = 'upgradeStronghold'
         
-        if command == '4':
+        if command == '5':
             screen = 'viewSurroundings'
             USER_STRONGHOLD = True
             STRONGHOLD = True
 
-        if command == '5':
+        if command == '6':
             screen = 'viewMapYourStronghold'
 
-        if command == '6':
+        if command == '7':
             screen = 'messageBoard'
 
-        if command == '7':
+        if command == '8':
             screen = 'moreCommands'
         
         #The following command is for testing only!
         if command == 'devtest' or command == 'dt':
             screen = 'devTest'
+
+#This is the screen for upgrading and customizing your stronghold
+#----------------------------------------------------------------------------------
+    if screen == "upgradeStronghold":
+        os.system("clear")
+
+        header(userStronghold.name)
+        print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
+        print("     Avalible Commands:")
+        print('     -------------------------------------------------------')
+        print('     {1}: Return to Stronghold')
+        print('     {2}: Upgrade Attack')
+        print('     {3}: Change Stronghold Color')
+        print('     {4}: Set Stronghold Message')
+
+        print('     --------------------------------------------------------')
+        print('')
+        command = input("     Enter your command: ")
+
+        if command == '1':
+            screen = 'stronghold'
+
+        if command == '2':
+            screen = 'upgradeFiefAtt'
+
+        if command == '3':
+            screen = 'changeStrongholdColor'
+
+        if command == '4':
+            screen = 'setStrongholdMessage'
+
+#This is the screen for setting your stronghold message
+#----------------------------------------------------------------------------------
+    if screen == "setStrongholdMessage":
+        os.system("clear")
+        header(userStronghold.name)
+        print('\n\n\n')
+        print('    Your current message is: ' + userStronghold.strongholdMessage)
+        print('\n')
+
+        #get input for the stronghold message and only write it if less than 80 characters
+        userStronghold.strongholdMessage = input('    Enter your new message: ')
+        if len(userStronghold.strongholdMessage) > 80:
+            print('\n    Error! Only 80 characters allowed!')
+
+        if len(userStronghold.strongholdMessage) <= 80:
+            print('\n    Message Accepted')
+            userStronghold.write()
+
+        print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
+        tempInput = input('    Press Enter to Continue')
+        screen = 'stronghold'
+
+#This is a menu for hiring and recruiting troops
+#----------------------------------------------------------------------------------
+    if screen == "hireAndRecruit":
+        os.system("clear")
+
+        header(userStronghold.name)
+        print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
+        print("     Avalible Commands:")
+        print('     -------------------------------------------------------')
+        print('     {1}: Return to Stronghold')
+        print('     {2}: Hire Mercenaries')
+        print('     {3}: Hire Thieves')
+        print('     --------------------------------------------------------')
+        print('')
+        command = input("     Enter your command: ")
+
+        if command == '1':
+            screen = 'stronghold'
+
+        if command == '2':
+            screen = 'mercs'
+
+        if command == '3':
+            screen = 'thieves'
+
+#This is a menu for additional features
+#----------------------------------------------------------------------------------
+    if screen == "moreCommands":
+        os.system("clear")
+
+        header(userStronghold.name)
+        print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
+        print("     Avalible Commands:")
+        print('     -------------------------------------------------------')
+        print('     {1}: Return to Stronghold')
+        print('     {2}: Past Winners')
+        print('     {3}: Upcoming Features')
+        print('     {4}: About')
+        print('     {5}: Sandbox Mode')
+        print('     --------------------------------------------------------')
+        print('')
+        command = input("     Enter your command: ")
+
+        if command == '1':
+            screen = 'stronghold'
+
+        if command == '2':
+            screen = 'pastWinners'
+
+        if command == '3':
+            screen = 'features'
+
+        if command == '4':
+            screen = 'about'
+
+        if command == '5':
+            screen = 'sandboxMenu'
+
+#This is the screen for the message board.
+#----------------------------------------------------------------------------------
+    if screen == "messageBoard":
+        os.system("clear")
+
+        header(userStronghold.name)
+
+        print('\n    Welcome to the message board! Keep it friendly :)')
+        print('\n    --------------------------------------------------------------------------------------\n')
+
+        #print off recent messages
+        #dump the last 30 lines of chatlog.log to the screen
+        with open('chatlog.log', "r") as logfile:
+            lines = logfile.readlines()
+            last_lines = lines[-30:]
+            last_lines = [line[:-1] for line in last_lines]
+            for i in last_lines:
+                print ('    ' + i)
+
+        print('\n    --------------------------------------------------------------------------------------\n\n')
+        tempMessage = input("    Type your message here or type \"leave\" to visit your stronghold:\n\n    ")
+        if tempMessage == 'leave':
+            screen = 'stronghold'
+
+        elif tempMessage == 'truncate chat':
+            log = open("chatlog.log", "r+")
+            log.truncate(0)
+            log.close()
+        else:
+            #add tempMessage to the chat log
+            with open('chatlog.log', 'a') as log:
+                log.write(userStronghold.name + ': ' + str(tempMessage) + '\n')
+
+            #refresh this page
+            screen = 'messageBoard'
+
+# This is the screen for displaying past winners. Update it whenever we have a new winner
+#----------------------------------------------------------------------------------
+    if screen == "pastWinners":
+        os.system("clear")
+        header(userStronghold.name)
+        print('\n    These are your honorable past winners of Unnamed Fiefdom Game')
+        print('\n    --------------------------------------------------------------------------------------\n')
+        print('\n    Pre-Release (12/20/21): Steelwing\n')
+        print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
+
+        tempInput = input('    Press Enter to Continue')
+        screen = 'moreCommands'
+
+
+
+
+#This is the screen for purchacing soldiers
+#----------------------------------------------------------------------------------
+    if screen == "thieves":
+        #define the cost of a soldier here
+        thiefCost = 1000
+
+        os.system("clear")
+        header(userStronghold.name)
+
+        print('''
+            
+            
+            
+        As in all cities, your stronghold is home to a number of seedy characters who frequent the criminal underbelly
+        of society. For a price, they will be loyal to you.
+        
+        Thieves do not contribute to your gold production, but they can infilitrate other player strongholds
+        and return with stolen gold.
+        ''')
+
+        print('\n\n\n        You currently have ' + str(userStronghold.thieves) + ' thieves and ' +  str(userStronghold.gold) + ' gold.')
+
+        print('        You can hire thieves for ' + str(thiefCost) + ' gold each')
+
+        upgradeInput = input('\n        Enter the number of thieves you would like to hire: ')
+
+        try:
+            int(upgradeInput)
+        except:
+            upgradeInput = '0'
+
+        if int(upgradeInput) == 0:
+            print("        No changes were made!")
+
+        elif int(upgradeInput) < 0:
+            print("        You can't hire a negative number of thieves")
+
+        elif (int(upgradeInput) * thiefCost) <=  int(userStronghold.gold):
+            userStronghold.thieves = str(int(userStronghold.thieves) + int(upgradeInput))
+            userStronghold.gold = str(int(userStronghold.gold) - (thiefCost * int(upgradeInput)))
+            userStronghold.write()
+            userStronghold.read()
+
+        else:
+            print("        You need more gold first!")
+
+        print("\n\n\n\n\n\n\n\n\n")
+
+        print("        Avalible Commands:")
+        print('        -------------------------------------')
+        print('        {1}: Return to Stronghold')
+        print('        {2}: View Fiefdoms')
+        print('        {3}: View Player Strongholds')
+        print('        -------------------------------------')
+        print('')
+        command = input("        Enter your command: ")
+
+        if command == "1":
+            screen = "stronghold"
+        if command == "2":
+            currentPage = 1
+            screen = "fiefdoms"
+        if command == "3":
+            currentPage = 1
+            screen = "playerStrongholds"
+
+
+#This is the screen for purchacing soldiers
+#----------------------------------------------------------------------------------
+    if screen == "mercs":
+        #define the cost of a soldier here
+        mercCost = 10
+
+        os.system("clear")
+        header(userStronghold.name)
+
+        print('\n\n\n')
+        print('    You currently have ' + str(userStronghold.defenders) + ' soldiers and ' +  str(userStronghold.gold) + ' gold.')
+
+        print('    You can hire mercinaries for ' + str(mercCost) + ' gold each?')
+
+        upgradeInput = input('\n    How many mercinaries would you like to hire? : ')
+
+        try:
+            int(upgradeInput)
+        except:
+            upgradeInput = '0'
+
+        if int(upgradeInput) == 0:
+            print("    No changes were made!")
+
+        elif int(upgradeInput) < 0:
+            print("    You can't hire a negative number of soldiers")
+
+        elif (int(upgradeInput) * mercCost) <=  int(userStronghold.gold):
+            userStronghold.defenders = str(int(userStronghold.defenders) + int(upgradeInput))
+            userStronghold.gold = str(int(userStronghold.gold) - (mercCost * int(upgradeInput)))
+            userStronghold.write()
+            userStronghold.read()
+
+        else:
+            print("    You need more gold first!")
+
+        print("\n\n\n\n\n\n\n\n\n")
+        print("    Avalible Commands:")
+        print('    -------------------------------------')
+        print('    {1}: Return to Stronghold')
+        print('    {2}: View Fiefdoms')
+        print('    -------------------------------------')
+        print('')
+        command = input("    Enter your command: ")
+
+        if command == "1":
+            screen = "stronghold"
+        if command == "2":
+            currentPage = 1
+            screen = "fiefdoms"
+
+#This is the screen for viewing users owned fiefs and for garrisoning soldiers
+#----------------------------------------------------------------------------------
+    if screen == "garrison":
+        os.system("clear")
+
+        header(userStronghold.name)
+
+        userFiefCount = 0
+
+        print('\n    Fiefs under your rule:')
+        print("    ------------------------------------------------------------------\n")
+        for filename in os.listdir('fiefs'):
+            with open(os.path.join('fiefs', filename), 'r') as f:
+
+                tempName = filename[:-4]
+                tempName = Fiefdom()
+                tempName.name = filename[:-4]
+                tempName.read()
+
+                if tempName.home != "True" and tempName.ruler == userStronghold.name:
+                    userFiefCount = userFiefCount + 1
+                    print ('    ' + textColor.CYAN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' +
+                            tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
+
+        print('\n')
+        print("    Avalible Commands:")
+        print('    -------------------------------------')
+        print('    {1}: Return to Stronghold')
+        print('    {2}: View Fiefdoms')
+        print('    {3}: Distribute Soldiers')
+        print('    -------------------------------------')
+        print('')
+        command = input("    Enter your command: ")
+
+        if command == "1":
+            screen = "stronghold"
+
+        if command == "2":
+            screen = "fiefdoms"
+
+        if command == "3":
+            currentPage = 1
+            screen = "garrisonSorter"
+
+#This is the screen for distributing a user's soldiers evenly among fiefs they control
+#----------------------------------------------------------------------------------
+    if screen == "garrisonSorter":
+        os.system("clear")
+
+        header(userStronghold.name)
+
+        print("\n\n")
+        print('    Currently Ruled Fiefs: ' + str(userFiefCount))
+        print('    Current Number of Soldiers in Stronghold: ' + str(userStronghold.defenders))
+        print('\n')
+        time.sleep(1)
+        if userFiefCount == 0:
+            print('    You control no fiefs you can distribute to! \n')
+            time.sleep(2)
+            screen = "garrison"
+        else:
+            withdrawNum = input('    Enter the number of soldiers you would like to evenly distrubute among these ' + str(userFiefCount) + ' fiefs: ')
+            time.sleep(1)
+
+            try:
+                int(withdrawNum)
+            except:
+                withdrawNum = '0'
+
+            if int(withdrawNum) < 0:
+                os.system("clear")
+                print("    You cannot distribute a negative number of soldiers. \n\nThat doesn't even make sense.")
+                time.sleep(2)
+                screen = 'garrison'
+
+            elif int(withdrawNum) == 0:
+                os.system("clear")
+                print("    Cancelling request...")
+                time.sleep(1)
+                screen = 'garrison'
+
+            elif int(userStronghold.defenders) < int(withdrawNum):
+                os.system("clear")
+                print("    You do not have enough soldiers for that.")
+                time.sleep(2)
+                screen = 'garrison'
+
+            elif int(withdrawNum) < userFiefCount:
+                os.system("clear")
+                print("    You have more fiefs than soldiers you want to distribute!")
+                time.sleep(2)
+                screen = 'garrison'
+
+            else:
+                print('    Garrisoning ' + str(withdrawNum) + ' soldiers across ' + str(userFiefCount) + ' Fiefs...')
+
+                time.sleep(1)
+
+                benchedSoldiers = int(withdrawNum) % userFiefCount
+                outgoingSoldierGroups = round((int(withdrawNum) - benchedSoldiers)/userFiefCount)
+
+                if benchedSoldiers > 0:
+                    print('    ' + str(benchedSoldiers) + ' soldiers were held back to make even groups of ' + str(outgoingSoldierGroups) + '.')
+
+                print('\n')
+
+                for filename in os.listdir('fiefs'):
+                    with open(os.path.join('fiefs', filename), 'r') as f:
+
+                        tempName = filename[:-4]
+                        tempName = Fiefdom()
+                        tempName.name = filename[:-4]
+                        tempName.read()
+
+                        homeStatus = " "
+
+                        if tempName.home != "True" and tempName.ruler == userStronghold.name:
+                            print('    ' + tempName.name + ' had ' + str(tempName.defenders) + ' soldier(s).')
+                            time.sleep(0.3)
+                            tempName.defenders = str(int(tempName.defenders) + outgoingSoldierGroups)
+                            tempName.write()
+                            tempName.read()
+                            print('    ' + tempName.name + ' now has ' + str(tempName.defenders) + ' soldiers! \n')
+                            time.sleep(0.3)
+
+                userStronghold.defenders = int(userStronghold.defenders) - int(withdrawNum) + benchedSoldiers
+                userStronghold.write()
+                userStronghold.read()
+                print('\n    Number of Soldiers Remaining in Stronghold: ' + str(userStronghold.defenders))
+
+                print("\n\n\n\n\n\n\n\n\n")
+
+        tempInput = input('    Press Enter to Continue')
+        screen = 'garrison'
 
 #The fiefdoms page contains a list of Fiefdoms generated from the /fiefs directory
 #
@@ -855,9 +1276,11 @@ while (loop):
         print("")
         print('    Now viewing the stronghold of ' + attackStronghold.name)
         print('    -------------------------------------------------------------------------')
-        print('    Your scouts return early in the morning, bringing back reports of the enemy fiefdom.')
-        print('    ' + attackStronghold.name + ' looks to have ' + str(attackStronghold.defenders) + ' fighters.')
-        print('    Their coffers contain ' + str(attackStronghold.gold) + ' gold.')
+        print('    Your scouts return early in the morning, bringing back reports of the enemy stronghold.')
+        print('    ' + attackStronghold.name + ' looks to have ' + str(attackStronghold.defenders) + ' fighters and their coffers contain ' + str(attackStronghold.gold) + ' gold.')
+        print('    -------------------------------------------------------------------------')      
+        print('    The enemy has a message posted on the path near the gate.')
+        print('    It reads:  { ' + attackStronghold.strongholdMessage + ' }' )
         print('    -------------------------------------------------------------------------')
         print("    \n\n")
 
