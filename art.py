@@ -1,28 +1,29 @@
 from classes import *
 
-#==============================================================================================================
-#   Header Layout
-#==============================================================================================================
-#
+#Define Header:
+#====================================================================================================================
+#      Header Art
+#===============================================================================================================
 #                                                  __        _             __         
 #                         | |__ __  _ __  _  _|   |_  o  _ _|_ _| _ __    /__ _ __  _ 
 #                         |_|| || |(_||||(/_(_|   |   | (/_ | (_|(_)|||   \_|(_||||(/_
-# ==============================================================================================================
-#                        Player: Sheeves    Gold: 500    Warriors: 123    Thieves: 0                                                                                             
-# ==============================================================================================================
-#                                    Announcement: This is a test build          
+#
+#----------------------------Player: Sheeves    Gold: 500    Warriors: 123    Thieves: 0 -----------------------                                                                                           
+#----------------------------------- Announcement: This is a test build ----------------------------------------          
 # 
-
-
+#===============================================================================================================
 
 #header() should be called on every page. You will need to pass a username into it. Usually "header(userStronghold.name)"
 def header(username):
     headerStronghold = Stronghold()
     headerStronghold.name = username
     headerStronghold.read()
+    R = textColor.RESET
+    Y = textColor.WARNING
 
     line5 = str(" Player: " + str(headerStronghold.name) + "    Gold: " + str(headerStronghold.gold) + "    Warriors: " + str(headerStronghold.defenders) + "    Thieves: " + str(headerStronghold.thieves) + ' ')
     announcement = " Announcement: This is a test build "
+    
     print('\n' +
 '                                                  __        _             __           \n' +
 '                         | |__ __  _ __  _  _|   |_  o  _ _|_ _| _ __    /__ _ __  _    \n' +
