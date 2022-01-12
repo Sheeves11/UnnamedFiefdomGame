@@ -386,7 +386,7 @@ while (loop):
                     attackFief.read()
 
                     if str(attackFief.ruler) == str(userStronghold.ruler):
-                        screen = 'homeDetails'
+                        screen = 'ownedFiefDetails'
                     if str(attackFief.home) == 'True':
                         screen = 'stronghold'
                     if str(attackFief.ruler) != str(userStronghold.ruler):
@@ -494,7 +494,7 @@ while (loop):
                     attackStronghold.read()
 
                     if str(attackStronghold.ruler) == str(userStronghold.ruler):
-                        screen = 'homeDetails'
+                        screen = 'ownedFiefDetails'
                     if str(attackStronghold.home) == 'True':
                         screen = 'stronghold'
                     if str(attackStronghold.ruler) != str(userStronghold.ruler):
@@ -506,7 +506,7 @@ while (loop):
         os.system('clear')
 
 
-#The homeDetails page gets called when a user tries to view their own Fiefdom
+#The ownedFiefDetails page gets called when a user tries to view their own Fiefdom
 #From this page, they'll be able to add and withdraw troops, make upgrades,
 #etc
 #
@@ -515,7 +515,7 @@ while (loop):
 # - add some sort of upgrade system for defenses
 #------------------------------------------------------------------------------
 
-    if screen == "homeDetails":
+    if screen == "ownedFiefDetails":
         os.system("clear")
         header(userStronghold.name)
         attackFief.read()
@@ -611,7 +611,7 @@ while (loop):
         command = input("    Enter your command: ")
 
         if command == '1':
-            screen = 'homeDetails'
+            screen = 'ownedFiefDetails'
 
         if command == '2':
             screen = 'upgradeDefense'
@@ -685,17 +685,17 @@ while (loop):
             os.system("clear")
             print("    You cannot deploy a negative number of soldiers. \n\nThat doesn't even make sense.")
             time.sleep(2)
-            screen = 'homeDetails'
+            screen = 'ownedFiefDetails'
 
         if (int(userStronghold.defenders) < int(deployNum)) and int(deployNum) > 0:
             os.system("clear")
             header(userStronghold.name)
             print("    You do not have enough soldiers for that")
             time.sleep(2)
-            screen = 'homeDetails'
+            screen = 'ownedFiefDetails'
 
         if deployNum == 0:
-            screen = "homeDetails"
+            screen = "ownedFiefDetails"
 
         if (int(userStronghold.defenders) >= int(deployNum)) and int(deployNum) > 0:
             print('    Deploying ' + str(deployNum) + ' soldiers to ' + str(attackFief.name))
@@ -710,7 +710,7 @@ while (loop):
             attackFief.read()
             print('')
             tempInput = input('    Press Enter to Continue')
-            screen = 'homeDetails'
+            screen = 'ownedFiefDetails'
 
         time.sleep(1)
 #The withdraw screen allows players to withdraw forces from a ruled fiefdom
@@ -741,13 +741,13 @@ while (loop):
             os.system("clear")
             print("    You cannot send home a negative number of soldiers. \n\nThat doesn't even make sense.")
             time.sleep(2)
-            screen = 'homeDetails'
+            screen = 'ownedFiefDetails'
 
         if (int(attackFief.defenders) < int(withdrawNum)) and int(withdrawNum) > 0:
             os.system("clear")
             print("    You do not have enough soldiers for that")
             time.sleep(2)
-            screen = 'homeDetails'
+            screen = 'ownedFiefDetails'
 
         if (int(attackFief.defenders) >= int(withdrawNum)) and int(withdrawNum) > 0:
             print('    Returning ' + str(withdrawNum) + ' soldiers back home')
@@ -761,11 +761,11 @@ while (loop):
             userStronghold.read()
 
             tempInput = input('    Press Enter to Continue')
-            screen = 'homeDetails'
+            screen = 'ownedFiefDetails'
 
         if int(withdrawNum) == 0:
             print('    No soldiers selected')
-            screen = "homeDetails"
+            screen = "ownedFiefDetails"
 
             attackFief.defenders = str(int(attackFief.defenders) - int(withdrawNum))
             attackFief.write()
@@ -776,7 +776,7 @@ while (loop):
             userStronghold.read()
 
             tempInput = input('    Press Enter to Continue')
-            screen = 'homeDetails'
+            screen = 'ownedFiefDetails'
 
 #This is the details page for enemy Fiefdoms
 #
