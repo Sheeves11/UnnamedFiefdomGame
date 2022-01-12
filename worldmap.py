@@ -1951,7 +1951,8 @@ def SilentlyPlaceStrongholdInWorldMap(strongholdClass, mapClass):
                 print("    Error, couldn't find an empty spot!")
     else:
         if strongholdClass.name == 'Default Stronghold':
-            print("    That stronghold doesn't exist!")
+            # print("    That stronghold doesn't exist!")
+            pass
         else:
             print('    ' + str(strongholdClass.name) + "'s stronghold is already on the map!")
 
