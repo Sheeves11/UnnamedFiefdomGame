@@ -178,14 +178,14 @@ def UpgradesAndCustomizations(screen, userStronghold):
             farmUpgradeCost = 40000
 
         if attackFief.goldMod == str('7'):
-            print('\n    Your fiefdom\'s gold output is currently: ' + str((int(attackFief.goldMod) * goldOutput)) + ' per hour.')
+            print('\n    Your fiefdom\'s gold output is currently: ' + str((int(attackFief.goldMod) * goldPer)) + ' per hour.')
             print('    This is currently the highest gold output!')
 
             print('\n\n\n\n\n\n\n\n\n\n')
             command = input("    Press Enter to Continue")
 
         else:
-            print('\n    Your fiefdom\'s gold output is currently: ' + str((int(attackFief.goldMod) * goldOutput)) + ' per hour.')
+            print('\n    Your fiefdom\'s gold output is currently: ' + str((int(attackFief.goldMod) * goldPer)) + ' per hour.')
             print('    Would you like to upgrade to ' + farmTypeNext + ' for ' + str(farmUpgradeCost) + ' gold?')
 
             upgradeInput = input('\n    y/n: ')

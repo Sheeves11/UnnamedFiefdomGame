@@ -237,10 +237,10 @@ while (loop):
         productionCalc = 0
         maxProductionSoldiers = (int(userStronghold.goldMod) * 500)
         if int(userStronghold.defenders) > maxProductionSoldiers:
-            productionCalc = ((goldOutput * int(userStronghold.goldMod)) + (int(maxProductionSoldiers) * int(userStronghold.goldMod)))
+            productionCalc = ((goldPer * int(userStronghold.goldMod)) + (int(maxProductionSoldiers) * int(userStronghold.goldMod)))
 
         else:
-            productionCalc = ((goldOutput * int(userStronghold.goldMod)) + (int(userStronghold.defenders) * int(userStronghold.goldMod)))
+            productionCalc = ((goldPer * int(userStronghold.goldMod)) + (int(userStronghold.defenders) * int(userStronghold.goldMod)))
 
         if userStronghold.home != 'True':
             userStronghold.home = 'True'
@@ -266,7 +266,7 @@ while (loop):
         print('    You also employ the services of ' + textColor.WARNING +  str(userStronghold.thieves) + textColor.RESET + ' well-trained thieves.')
         print('\n    Grow your forces to overcome the enemy. Do not let your citizens down')
         print('\n    Within your coffers, you have ' + textColor.WARNING + str(userStronghold.gold) + textColor.RESET + ' gold.')
-        print('    ' + 'Production: ' + str(productionCalc) + ' gold and ' + str((int(defenderOutput) * int(attackFief.defenderMod))) + ' soldiers per hour.')
+        print('    ' + 'Production: ' + str(productionCalc) + ' gold and ' + str((int(defendersPer) * int(attackFief.defenderMod))) + ' soldiers per hour.')
         print('    Your army of ' + textColor.WARNING + str(userStronghold.attType) + textColor.RESET + ' stands ready.')
         print('\n')
 
@@ -551,10 +551,10 @@ while (loop):
         maxProductionSoldiers = (int(attackFief.goldMod) * 500)
 
         if int(attackFief.defenders) > maxProductionSoldiers:
-            productionCalc = ((goldOutput * int(attackFief.goldMod)) + (int(maxProductionSoldiers) * int(attackFief.goldMod)))
+            productionCalc = ((goldPer * int(attackFief.goldMod)) + (int(maxProductionSoldiers) * int(attackFief.goldMod)))
 
         else:
-            productionCalc = ((goldOutput * int(attackFief.goldMod)) + (int(attackFief.defenders) * int(attackFief.goldMod)))
+            productionCalc = ((goldPer * int(attackFief.goldMod)) + (int(attackFief.defenders) * int(attackFief.goldMod)))
 
         if attackFief.biome == MOUNTAIN:
             currentBiome = 'Mountain'
@@ -572,7 +572,7 @@ while (loop):
         print('    Gold: ' + attackFief.gold)
         print('    Defensive Strategy: ' + attackFief.defType)
         print('    Biome: ' + currentBiome)
-        print('    Production: ' + str(productionCalc) + ' gold and ' + str(defenderOutput * int(attackFief.defenderMod))
+        print('    Production: ' + str(productionCalc) + ' gold and ' + str(defendersPer * int(attackFief.defenderMod))
                 + ' soldiers per hour.')
         print("\n")
 

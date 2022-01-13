@@ -10,11 +10,7 @@ from globals import *
 def FiefBuildingsMenu(screen, userStronghold):
     if screen == "outposts":
         unitType = "unit"
-        unitsOwned = 0
-        unitCap = 10
-        unitBaseCost = 1000
         outpostType = ""
-        prev = "outposts"
 
         os.system("clear")
         header(userStronghold.name)
@@ -185,6 +181,7 @@ def FiefBuildingsMenu(screen, userStronghold):
         return "ownedFiefDetails"
 
     if screen == "hireOutpostUnits":
+        # HireUnit(userStronghold, unitType, unitBaseCost, unitCostModifier, unitCap, unitsOwned)
         if outpostType == "farmland":
             if unitType == "Farmer":
                 pass
@@ -195,39 +192,9 @@ def FiefBuildingsMenu(screen, userStronghold):
         elif outpostType == "mine":
             pass
 
-        os.system("clear")
-        header(userStronghold.name)
-        spotsAvailable = unitCap - unitsOwned
-        print("    You currently have " + str(unitsOwned) + " " + unitType + " hired.")
-        time.sleep(0.5)
-        print("    You have room for " + str(spotsAvailable) + " more of these units.")
-        time.sleep(0.5)
-        unitInput = input("    How many " + unitType + " would you like to hire? : ")
-
-        try:
-            int(unitInput)
-        except:
-            unitInput = '0'
-
-        if int(unitInput) == 0:
-            print("    No changes were made!")
-
-        elif int(unitInput) < 0:
-            print("    You can't hire a negative number of " + unitType + "!")
-
-        elif (int(unitInput) * unitBaseCost) <=  int(userStronghold.gold):
-            print("    Hiring " + str(unitInput) + unitType + " units...")
-            time.sleep(0.5)
-            print("    Success! You now have " + str(unitsOwned) + " " + unitType + " units!")
-            # print("    Success! You now have " + str(userStronghold.defenders) + " soldiers at your disposal.")
-            # userStronghold.gold = str(int(userStronghold.gold) - (mercCost * int(unitInput)))
-            userStronghold.write()
-            userStronghold.read()
-
-        else:
-            print("    You need more gold first!")
-        return "outposts"
+        
 
     
 
     return screen
+

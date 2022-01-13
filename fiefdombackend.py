@@ -1,12 +1,6 @@
-from classes import *
+from globals import *
 
-#global variables for quick game balance adjustments
-goldPer = 100
-defendersPer = 3
-#interval in seconds
-interval = 3600
-
-
+#Globals merged and moved to globals.py
 
 #this is the backend to the Untitled Fiefdom Game. This is run alongside the user sessions.
 #the purpose of the backend is to increment gold, worker, and soldier totals.
