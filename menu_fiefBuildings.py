@@ -186,7 +186,8 @@ def FiefBuildingsMenu(screen, userStronghold):
 
     if screen == "hireOutpostUnits":
         if outpostType == "farmland":
-            if unitType == "Farmer"
+            if unitType == "Farmer":
+                pass
         elif outpostType == "fishery":
             pass
         elif outpostType == "lumberMill":
