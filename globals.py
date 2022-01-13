@@ -158,18 +158,19 @@ def printFiefArt(attackFief):
 def HireUnit(userStronghold, unitType, unitBaseCost, unitCostModifier, unitCap, unitsOwned):
     os.system("clear")
     header(userStronghold.name)
-    spotsAvailable = unitCap - unitsOwned
-    unitCost = unitBaseCost + int(unitBaseCost * unitCostModifier)
+
+    spotsAvailable = int(unitCap) - int(unitsOwned)
+    unitCost = int(unitBaseCost) + int(float(unitBaseCost) * float(unitCostModifier))
     print("    You currently have " + str(unitsOwned) + " " + unitType + " units hired.")
     time.sleep(0.5)
-    if(spotsAvailable > 0 and unitType != "Warrior" and unitType != "Thief"):
+    if(spotsAvailable > 0):
         print("    You have room for " + str(spotsAvailable) + " more of these units.")
         time.sleep(0.5)
     else:
         print("    You don't have any more room for these units!")
         time.sleep(0.5)
         return
-    print("     " + unitType + " units cost " + str(unitCost) + " gold each.")
+    print("    " + unitType + " units cost " + str(unitCost) + " gold each.")
     time.sleep(0.5)
     unitCount = input("    How many " + unitType + " units would you like to hire? : ")
 
@@ -185,32 +186,32 @@ def HireUnit(userStronghold, unitType, unitBaseCost, unitCostModifier, unitCap, 
         print("    You can't hire a negative number of " + unitType + " units!")
 
     elif (int(unitCount) * unitBaseCost) <=  int(userStronghold.gold):
-        print("    Hiring " + str(unitCount) + unitType + " units...")
+        print("    Hiring " + str(unitCount) + " " + unitType + " units...")
         #Increment the unit based on type:
         if unitType == "Warrior":
-            userStronghold.defenders += unitCount
+            userStronghold.defenders = int(userStronghold.defenders) + int(unitCount)
         elif unitType == "Thief":
-            userStronghold.thieves += unitCount
+            userStronghold.thieves = int(userStronghold.thieves) + int(unitCount)
         elif unitType == "Farmer":
-            attackFief.op_farmlandPrimaryUnits += unitCount
+            attackFief.op_farmlandPrimaryUnits = int(attackFief.op_farmlandPrimaryUnits) + int(unitCount)
         elif unitType == "Vendor":
-            attackFief.op_farmlandSecondaryUnits += unitCount
+            attackFief.op_farmlandSecondaryUnits = int(attackFief.op_farmlandSecondaryUnits) + int(unitCount)
         elif unitType == "Fisher":
-            attackFief.op_fisheryPrimaryUnits += unitCount
+            attackFief.op_fisheryPrimaryUnits = int(attackFief.op_fisheryPrimaryUnits) + int(unitCount)
         elif unitType == "Scavenger":
-            attackFief.op_fisherySecondaryUnits += unitCount
+            attackFief.op_fisherySecondaryUnits = int(attackFief.op_fisherySecondaryUnits) + int(unitCount)
         elif unitType == "Lumberjack":
-            attackFief.op_lumberMillPrimaryUnits += unitCount
+            attackFief.op_lumberMillPrimaryUnits = int(attackFief.op_lumberMillPrimaryUnits) + int(unitCount)
         elif unitType == "Hunter":
-            attackFief.op_lumberMillSecondaryUnits += unitCount
+            attackFief.op_lumberMillSecondaryUnits = int(attackFief.op_lumberMillSecondaryUnits) + int(unitCount)
         elif unitType == "Miner":
-            attackFief.op_minePrimaryUnits += unitCount
+            attackFief.op_minePrimaryUnits = int(attackFief.op_minePrimaryUnits) + int(unitCount)
         elif unitType == "Prospector":
-            attackFief.op_mineSecondaryUnits += unitCount
+            attackFief.op_mineSecondaryUnits = int(attackFief.op_mineSecondaryUnits) + int(unitCount)
         #Deduct gold
         userStronghold.gold = str(int(userStronghold.gold) - (unitCost * int(unitCount)))
         time.sleep(0.5)
-        print("    Success! You now have " + str(unitsOwned) + " " + unitType + " units at this location!")
+        print("    Success! You now have " + str(int(unitsOwned) + int(unitCount)) + " " + unitType + " units at this location!")
         userStronghold.write()
         userStronghold.read()
 
