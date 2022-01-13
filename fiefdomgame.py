@@ -31,6 +31,14 @@ github.com/Sheeves11/UnnamedFiefdomGame
 #                           New Menu Organization
 #------------------------------------------------------------------------------
 #------------------------------------------------------------------------------
+#   [fiefdomgame.py]:
+#           login
+#           stronghold
+#           fiefdoms
+#           playerStrongholds
+#           ownedFiefDetails
+#           enemyFiefDetails
+#           enemyStrongholdDetails
 #   menu_more.py:
 #           moreCommands
 #           messageBoard
@@ -242,9 +250,6 @@ while (loop):
         if FirstLaunch():
             serverMap.name = 'serverMap'
             SilentlyGenerateWorld(serverMap)
-            # SilentlyPlaceStrongholdInWorldMap(userStronghold, serverMap)
-            # serverMap.write()
-            # userStronghold.write()
             serverMap.read()
             newUserAccount = False
 
@@ -708,7 +713,7 @@ while (loop):
         print("    Avalible Commands:")
         print('    -------------------------------------')
         print('    {1}: Return to Stronghold')
-        print('    {2}: View Fiefdoms')
+        print('    {2}: View Player Strongholds')
         print('    {3}: Send Thieves To Steal Gold')
         print('    {4}: Look Around')
         print('    {5}: World Map')
@@ -722,7 +727,7 @@ while (loop):
 
         if command == "2":
             currentPage = 1
-            screen = "fiefdoms"
+            screen = "playerStrongholds"
 
         if command == "3":
             screen = "thiefPage"
@@ -737,7 +742,7 @@ while (loop):
 
 
 #------------------------------------------------------------------------------
-#This is a list of external pages from other files
+#This is a list of external menus (from other files)
 #------------------------------------------------------------------------------
     screen = MoreMenu(screen, userStronghold)
     screen = UpgradesAndCustomizations(screen, userStronghold)
