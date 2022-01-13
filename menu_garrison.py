@@ -31,12 +31,12 @@ def GarrisonMenu(screen, userStronghold):
 
         print('\n')
         print("    Avalible Commands:")
-        print('    -------------------------------------')
+        print('    ------------------------------------------------------')
         print('    {1}: Return to Stronghold')
         print('    {2}: View Fiefdoms')
         print('    {3}: Distribute Soldiers')
         print('    {Enter fiefdom name}: View Fiefdom Details')
-        print('    -------------------------------------')
+        print('    ------------------------------------------------------')
         print('')
         command = input("    Enter your command: ")
 

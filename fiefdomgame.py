@@ -364,7 +364,7 @@ while (loop):
         if fiefdomMargin > LINES_PER_PAGE or currentPage > 1:
             print('\n    /// ' + WARNING + 'Page ' + str(currentPage) + RESET + ' ///')
         print("\n    Avalible Commands:")
-        print('    -------------------------------------')
+        print('    ------------------------------------------------------')
         print('    {1}: Return to Stronghold')
         print('    {2}: Manage Your Fiefdoms')
         print('    {3}: View Player Strongholds')
@@ -375,7 +375,7 @@ while (loop):
             print('    {5}: Previous Page')
 
         print('    {Enter fiefdom name}: View Fiefdom Details')
-        print('    -------------------------------------')
+        print('    ------------------------------------------------------')
         print('')
         command = input("    Enter your command: ")
         #command = command.lower() #This won't work until file-naming schema is changed!
@@ -472,7 +472,7 @@ while (loop):
         if strongholdMargin > LINES_PER_PAGE or currentPage > 1:
             print('/// ' + WARNING + 'Page ' + str(currentPage) + RESET + ' ///\n')
         print("\n    Avalible Commands:")
-        print('    -------------------------------------')
+        print('    ------------------------------------------------------')
         print('    {1}: Return to Stronghold')
         print('    {2}: Manage Your Fiefdoms')
         print('    {3}: View Fiefdoms')
@@ -483,7 +483,7 @@ while (loop):
             print('    {5}: Previous Page')
 
         print('    {Enter stronghold owner name}: View Stronghold Details')
-        print('    -------------------------------------')
+        print('    ------------------------------------------------------')
         print('')
         command = input("    Enter your command: ")
         #command = command.lower() #This won't work until file-naming schema is changed!
