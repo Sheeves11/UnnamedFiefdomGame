@@ -5,7 +5,7 @@ from passages import *
 from art import *
 
 #Most files should import this file.
-#Doing so grants access to classes, art, and worldmap as well.
+#Doing so grants access to all the above imports as well.
 #========================================================================================================
 #========================================================================================================
 #========================================================================================================
@@ -13,30 +13,46 @@ from art import *
 #========================================================================================================
 #========================================================================================================
 #========================================================================================================
-#Main Page
-currentUsername = 'default'
+
+#=====================
+#     Main File
+#=====================
 STRONGHOLD = True           #Used to differentiate strongholds/fiefs
 USER_STRONGHOLD = True      #Used to differentiate attack/user strongholds
-
-#fiefdom page variables
-LINES_PER_PAGE = 15         #The number of fiefs/strongholds that appear in the list
-currentPage = 1             #Used to keep track of the page the user should be on
-userFiefCount = 0           #Used to keep track of how many fiefs the user controls.
-
-#=================
-#Backend Variables
-#=================
-goldPer = 100
-defendersPer = 3
-interval = 3600
-
-#create some default objects that we'll write over later
+currentUsername = 'default'
 attackFief = Fiefdom()
 serverMap = Map()
 testMap = TestMap() #This is for users to have fun messing with the map generator
 firstMapRead = True
 newUserAccount = False
 
+#=====================
+#   Fiefdom Pages
+#=====================
+LINES_PER_PAGE = 15         #The number of fiefs/strongholds that appear in the list
+currentPage = 1             #Used to keep track of the page the user should be on
+userFiefCount = 0           #Used to keep track of how many fiefs the user controls.
+
+#=====================
+#  Backend Variables
+#=====================
+GOLD_PER = 100
+INTERVAL = 3600
+defendersPer = 3
+
+#=====================
+#     Unit Costs
+#=====================
+UC_THIEF = 1000
+UC_WARRIOR = 10    #Manage this for practical reasons
+UC_FARMER = 500
+UC_VENDOR = 1500
+UC_FISHER = 500
+UC_SCAVENGER = 1000
+UC_LUMBERJACK = 500
+UC_HUNTER = 1000
+UC_MINER = 500
+UC_PROSPECTOR = 1500
 
 #------------------------------------------------------------------------------
 #   The following functions don't really have a proper home.
@@ -144,11 +160,18 @@ def HireUnit(userStronghold, unitType, unitBaseCost, unitCostModifier, unitCap, 
     header(userStronghold.name)
     spotsAvailable = unitCap - unitsOwned
     unitCost = unitBaseCost + int(unitBaseCost * unitCostModifier)
-    print("    You currently have " + str(unitsOwned) + " " + unitType + " hired.")
+    print("    You currently have " + str(unitsOwned) + " " + unitType + " units hired.")
     time.sleep(0.5)
-    print("    You have room for " + str(spotsAvailable) + " more of these units.")
+    if(spotsAvailable > 0 and unitType != "Warrior" and unitType != "Thief"):
+        print("    You have room for " + str(spotsAvailable) + " more of these units.")
+        time.sleep(0.5)
+    else:
+        print("    You don't have any more room for these units!")
+        time.sleep(0.5)
+        return
+    print("     " + unitType + " units cost " + str(unitCost) + " gold each.")
     time.sleep(0.5)
-    unitCount = input("    How many " + unitType + " would you like to hire? : ")
+    unitCount = input("    How many " + unitType + " units would you like to hire? : ")
 
     try:
         int(unitCount)
@@ -159,7 +182,7 @@ def HireUnit(userStronghold, unitType, unitBaseCost, unitCostModifier, unitCap, 
         print("    No changes were made!")
 
     elif int(unitCount) < 0:
-        print("    You can't hire a negative number of " + unitType + "!")
+        print("    You can't hire a negative number of " + unitType + " units!")
 
     elif (int(unitCount) * unitBaseCost) <=  int(userStronghold.gold):
         print("    Hiring " + str(unitCount) + unitType + " units...")
@@ -187,12 +210,14 @@ def HireUnit(userStronghold, unitType, unitBaseCost, unitCostModifier, unitCap, 
         #Deduct gold
         userStronghold.gold = str(int(userStronghold.gold) - (unitCost * int(unitCount)))
         time.sleep(0.5)
-        print("    Success! You now have " + str(unitsOwned) + " " + unitType + " units!")
+        print("    Success! You now have " + str(unitsOwned) + " " + unitType + " units at this location!")
         userStronghold.write()
         userStronghold.read()
 
         attackFief.write()
         attackFief.read()
+        time.sleep(0.5)
+        nothing = input("    Press enter to continue ")
 
     else:
         print("    You need more gold first!")

@@ -77,8 +77,8 @@ github.com/Sheeves11/UnnamedFiefdomGame
 #           setStrongholdMessage
 #   menu_hire.py:
 #           hireAndRecruit
-#           thieves
-#           mercs
+#           hireThieves
+#           hireWarriors
 #   menu_garrison.py:
 #           garrison
 #           garrisonSorter
@@ -237,10 +237,10 @@ while (loop):
         productionCalc = 0
         maxProductionSoldiers = (int(userStronghold.goldMod) * 500)
         if int(userStronghold.defenders) > maxProductionSoldiers:
-            productionCalc = ((goldPer * int(userStronghold.goldMod)) + (int(maxProductionSoldiers) * int(userStronghold.goldMod)))
+            productionCalc = ((GOLD_PER * int(userStronghold.goldMod)) + (int(maxProductionSoldiers) * int(userStronghold.goldMod)))
 
         else:
-            productionCalc = ((goldPer * int(userStronghold.goldMod)) + (int(userStronghold.defenders) * int(userStronghold.goldMod)))
+            productionCalc = ((GOLD_PER * int(userStronghold.goldMod)) + (int(userStronghold.defenders) * int(userStronghold.goldMod)))
 
         if userStronghold.home != 'True':
             userStronghold.home = 'True'
@@ -551,10 +551,10 @@ while (loop):
         maxProductionSoldiers = (int(attackFief.goldMod) * 500)
 
         if int(attackFief.defenders) > maxProductionSoldiers:
-            productionCalc = ((goldPer * int(attackFief.goldMod)) + (int(maxProductionSoldiers) * int(attackFief.goldMod)))
+            productionCalc = ((GOLD_PER * int(attackFief.goldMod)) + (int(maxProductionSoldiers) * int(attackFief.goldMod)))
 
         else:
-            productionCalc = ((goldPer * int(attackFief.goldMod)) + (int(attackFief.defenders) * int(attackFief.goldMod)))
+            productionCalc = ((GOLD_PER * int(attackFief.goldMod)) + (int(attackFief.defenders) * int(attackFief.goldMod)))
 
         if attackFief.biome == MOUNTAIN:
             currentBiome = 'Mountain'

@@ -2,8 +2,8 @@ from globals import *
 
 #This document contains screens for:
 #   hireAndRecruit
-#   thieves
-#   mercs
+#   hireThieves
+#   hireWarriors
 
 def HireMenu(screen, userStronghold):
     global currentPage
@@ -17,7 +17,7 @@ def HireMenu(screen, userStronghold):
         print("     Avalible Commands:")
         print('     -------------------------------------------------------')
         print('     {1}: Return to Stronghold')
-        print('     {2}: Hire Mercenaries')
+        print('     {2}: Hire Warriors')
         print('     {3}: Hire Thieves')
         print('     --------------------------------------------------------')
         print('')
@@ -27,15 +27,15 @@ def HireMenu(screen, userStronghold):
             screen = 'stronghold'
 
         if command == '2':
-            screen = 'mercs'
+            screen = 'hireWarriors'
 
         if command == '3':
-            screen = 'thieves'
+            screen = 'hireThieves'
 
 
 #This is the screen for purchacing soldiers
 #----------------------------------------------------------------------------------
-    if screen == "thieves":
+    if screen == "hireThieves":
         #define the cost of a soldier here
         thiefCost = 1000
 
@@ -105,7 +105,7 @@ def HireMenu(screen, userStronghold):
 
 #This is the screen for purchacing soldiers
 #----------------------------------------------------------------------------------
-    if screen == "mercs":
+    if screen == "hireWarriors":
         #define the cost of a soldier here
         mercCost = 10
 
