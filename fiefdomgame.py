@@ -251,6 +251,7 @@ while (loop):
             serverMap.name = 'serverMap'
             SilentlyGenerateWorld(serverMap)
             serverMap.read()
+            SetFiefStartingResources()
             newUserAccount = False
 
         if  newUserAccount:
@@ -543,7 +544,8 @@ while (loop):
 
     if screen == "ownedFiefDetails":
         os.system("clear")
-        header(userStronghold.name)
+        # header(userStronghold.name)
+        headerFief(attackFief)
         attackFief.read()
 
         productionCalc = 0
@@ -631,7 +633,8 @@ while (loop):
 #------------------------------------------------------------------------------
     if screen == "enemyFiefDetails":
         os.system("clear")
-        header(userStronghold.name)
+        # header(userStronghold.name)
+        headerFief(attackFief)
 
         if attackFief.biome == MOUNTAIN:
             currentBiome = 'Mountain'

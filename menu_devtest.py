@@ -257,7 +257,7 @@ def DevTestMenu(screen, userStronghold):
         os.system("clear")
 
         print("    Testing out resource printing functions:\n\n")
-        
+
         PrintResourceCost("    Upgrading this thing to tier 1 costs", RESOURCE_TEST_VALUES_1, ".")
         if HaveEnoughResources(userStronghold, RESOURCE_TEST_VALUES_1):
             print("    Your stronghold can afford this!")
@@ -291,6 +291,14 @@ def DevTestMenu(screen, userStronghold):
                 print("    " + str(attackFief.name) + " can afford this!")
         except:
             print("    No current attackFief available.")
+
+
+        unitType = "Farmer"
+        flavorText = "    "
+        costModifier = 0
+        unitCap = UCAP_FARMER * int(attackFief.op_farmlandNumBuilt)
+
+        HireUnit(attackFief, unitType, UCOST_FARMER, costModifier, unitCap, attackFief.op_farmlandPrimaryUnits, COLOR_FARMER, flavorText)
 
         nothing = input('    Continue:')
         return 'devTest'

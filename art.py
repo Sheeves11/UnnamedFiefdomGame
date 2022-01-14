@@ -1,5 +1,4 @@
 from classes import *
-from worldmap import DARK_RED
 
 #Define Header:
 #====================================================================================================================
@@ -31,6 +30,28 @@ def header(username):
 '                         |_|| || |(_||||(/_(_|   |   | (/_ | (_|(_)|||   \_|(_||||(/_   \n' +
 '   ' + '\n' +       
                                         (line5.center(110, '-')) + '\n' +
+                                    (announcement.center(110, '-')) + '\n')
+
+#This is an alternate header for displaying fief totals instead of stronghold totals.
+#Need to update other header at some point to show totals, perhaps?
+def headerFief(fief):
+    R = textColor.RESET
+    Y = textColor.YELLOW
+    D = textColor.DARK_RED
+    M = textColor.DARK_MAGENTA
+    G = textColor.DARK_GREEN
+    E = textColor.DARK_GRAY
+    C = biomeColor(fief.biome)
+
+    line5 = str(" :: " + C + str(fief.name) + R + " :: | Ruler: " + M + str(fief.ruler) + R + "  Gold: " + Y + str(fief.gold) + R + "  Food: " + D + str(fief.food) + R + "  Wood: " + G + str(fief.wood) + R + "  Stone: " + E + str(fief.stone) + R + "  Ore: " + M + str(fief.ore) + R + " | ")
+    announcement = " Announcement: This is a test build "
+    
+    print('\n' +
+'                                                  __        _             __           \n' +
+'                         | |__ __  _ __  _  _|   |_  o  _ _|_ _| _ __    /__ _ __  _    \n' +
+'                         |_|| || |(_||||(/_(_|   |   | (/_ | (_|(_)|||   \_|(_||||(/_   \n' +
+'   ' + '\n' +       
+                                        (line5.center(173, '-')) + '\n' +
                                     (announcement.center(110, '-')) + '\n')
 
 #Define Art:
@@ -195,7 +216,7 @@ def art_fief0(biome):
     C = biomeColor(biome)
     R = textColor.RESET
     W = textColor.RED
-    E = DARK_RED
+    E = textColor.DARK_RED
     Y = textColor.YELLOW
     G = textColor.GREEN
     D = textColor.DIM
@@ -734,3 +755,7 @@ def art_devBricks():
            |_|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|/
 
                 ''')
+
+
+
+    

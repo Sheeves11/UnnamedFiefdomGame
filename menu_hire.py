@@ -36,6 +36,8 @@ def HireMenu(screen, userStronghold):
 #This is the screen for purchacing thieves
 #----------------------------------------------------------------------------------
     if screen == "hireThieves":
+        os.system("clear")
+        header(userStronghold.name)
         flavorText = '''
     As in all cities, your stronghold is home to a number of seedy characters who frequent the criminal underbelly
     of society. For a price, they will be loyal to you.
@@ -50,6 +52,8 @@ def HireMenu(screen, userStronghold):
 #This is the screen for purchacing soldiers
 #----------------------------------------------------------------------------------
     if screen == "hireWarriors":
+        os.system("clear")
+        header(userStronghold.name)
         flavorText = '''
     With these fighting machines and meat shields at your command, lay waste to your adversaries and defend
     what's yours.
@@ -57,6 +61,7 @@ def HireMenu(screen, userStronghold):
     Warriors are your means to survive and conquer.
         '''
         costModifier = float(userStronghold.attLevel) * 0.5    #Scales with attack - 10/15/15/20/20/25/25/30....etc.
+        #Note that the cost modifier currently does nothing, may need to add it back into the loop somehow.
         #Add a unitCap modifier later based on some kind of stronghold capacity upgrade?
         HireUnit(userStronghold, "Warrior", UCOST_WARRIOR, costModifier, UCAP_WARRIOR, userStronghold.defenders, flavorText)
         return "stronghold"

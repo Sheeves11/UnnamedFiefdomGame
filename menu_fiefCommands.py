@@ -14,7 +14,8 @@ def FiefCommandsMenu(screen, userStronghold):
 #------------------------------------------------------------------------------
     if screen == "withdrawGold":
         os.system("clear")
-        header(userStronghold.name)
+        # header(userStronghold.name)
+        headerFief(attackFief)
 
         print("\n")
         print('    Now viewing the Fiefdom of ' + attackFief.name)
@@ -46,7 +47,8 @@ def FiefCommandsMenu(screen, userStronghold):
     if screen == "deploy":
         os.system("clear")
 
-        header(userStronghold.name)
+        # header(userStronghold.name)
+        headerFief(attackFief)
 
         print("\n\n")
         print('    Now viewing the Fiefdom of ' + attackFief.name)
@@ -105,7 +107,8 @@ def FiefCommandsMenu(screen, userStronghold):
 #------------------------------------------------------------------------------
     if screen == "withdrawForces":
         os.system("clear")
-        header(userStronghold.name)
+        # header(userStronghold.name)
+        headerFief(attackFief)
         print("\n\n")
         print('    Now viewing the Fiefdom of ' + attackFief.name)
         print('\n\n')

@@ -19,12 +19,17 @@ BACKSLASH_SUB = 'L'     #This needed to be added so the program could properly r
 #define some text colors
 class textColor:
     RED = '\033[91m'
+    DARK_RED = "\033[31m"
     GREEN = '\033[92m'
+    DARK_GREEN = "\033[32m"
     RESET = '\033[0m'
     DIM = '\033[2m'
     MAGENTA = '\033[95m'
+    DARK_MAGENTA = "\033[35m"
     BLUE = '\033[94m'
+    DARK_BLUE = "\033[34m"
     CYAN = '\033[96m'
+    TEAL = "\033[36m"
     WARNING = '\033[93m'
     YELLOW = '\033[33m'
     DARK_GRAY = '\033[90m'

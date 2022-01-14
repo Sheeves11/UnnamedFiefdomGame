@@ -20,7 +20,7 @@ def FiefBuildingsMenu(screen, userStronghold):
         outpostType = ""
 
         os.system("clear")
-        header(userStronghold.name)
+        headerFief(attackFief)
         
         print("\n    Avalible Commands:")
         print('    -------------------------------------')
@@ -58,7 +58,7 @@ def FiefBuildingsMenu(screen, userStronghold):
     #==================================================================================================================================
     if screen == "farmlands":
         os.system("clear")
-        header(userStronghold.name)
+        headerFief(attackFief)
 
         outpostType = "Farmland"
 
@@ -118,7 +118,7 @@ def FiefBuildingsMenu(screen, userStronghold):
     #==================================================================================================================================
     if screen == "fisheries":
         os.system("clear")
-        header(userStronghold.name)
+        headerFief(attackFief)
 
         outpostType = "Fishery"
 
@@ -180,7 +180,7 @@ def FiefBuildingsMenu(screen, userStronghold):
     #==================================================================================================================================
     if screen == "lumberMills":
         os.system("clear")
-        header(userStronghold.name)
+        headerFief(attackFief)
 
         outpostType = "Lumber Mill"
 
@@ -242,7 +242,7 @@ def FiefBuildingsMenu(screen, userStronghold):
     #==================================================================================================================================
     if screen == "mines":
         os.system("clear")
-        header(userStronghold.name)
+        headerFief(attackFief)
 
         outpostType = "Mine"
 
@@ -302,69 +302,83 @@ def FiefBuildingsMenu(screen, userStronghold):
     # outpostConstruction - menu for constructing new outposts
     #==================================================================================================================================
     if screen == "outpostConstruction":
+        os.system("clear")
+        headerFief(attackFief)
         # ConstructOutpost(userStronghold, outpostType, tier, numberBuilt, spotsAvailable, cost, color, flavorText)
         if outpostType == "Farmland":
             spotsAvailable = int(attackFief.adjacentPlains) - int(attackFief.op_farmlandNumBuilt)
             tier = int(attackFief.op_farmlandTier)
+            T1 = OP_RCOST_T1_FARMLAND
+            T2 = OP_RCOST_T2_FARMLAND
+            T3 = OP_RCOST_T3_FARMLAND
             if int(tier) == 0:
-                cost = OP_COST_T1_FARMLAND
+                cost = T1
             elif int(tier) == 1:
-                cost = OP_COST_T1_FARMLAND + OP_COST_T2_FARMLAND
+                cost = [T1[0] + T2[0], T1[1] + T2[1], T1[2] + T2[2], T1[3] + T2[3], T1[4] + T2[4]]
             elif int(tier) == 2:
-                cost = OP_COST_T1_FARMLAND + OP_COST_T2_FARMLAND + OP_COST_T3_FARMLAND
+                cost = [T1[0] + T2[0] + T3[0], T1[1] + T2[1] + T3[1], T1[2] + T2[2] + T3[2], T1[3] + T2[3] + T3[3], T1[4] + T2[4] + T3[4]]
             
             #TODO - Add some descriptive text here
             flavorText = ""
 
-            ConstructOutpost(userStronghold, outpostType, tier, attackFief.op_farmlandNumBuilt, spotsAvailable, cost, OP_COLOR_FARMLAND, flavorText)
+            ConstructOutpost(attackFief, outpostType, tier, attackFief.op_farmlandNumBuilt, spotsAvailable, cost, OP_COLOR_FARMLAND, flavorText)
             return "farmlands"
 
         elif outpostType == "Fishery":
             spotsAvailable = int(attackFief.adjacentWater) + int(attackFief.adjacentRivers) - int(attackFief.op_fisheryNumBuilt)
             tier = int(attackFief.op_fisheryTier)
+            T1 = OP_RCOST_T1_FISHERY
+            T2 = OP_RCOST_T2_FISHERY
+            T3 = OP_RCOST_T3_FISHERY
             if int(tier) == 0:
-                cost = OP_COST_T1_FISHERY
+                cost = T1
             elif int(tier) == 1:
-                cost = OP_COST_T1_FISHERY + OP_COST_T2_FISHERY
+                cost = [T1[0] + T2[0], T1[1] + T2[1], T1[2] + T2[2], T1[3] + T2[3], T1[4] + T2[4]]
             elif int(tier) == 2:
-                cost = OP_COST_T1_FISHERY + OP_COST_T2_FISHERY + OP_COST_T3_FISHERY
+                cost = [T1[0] + T2[0] + T3[0], T1[1] + T2[1] + T3[1], T1[2] + T2[2] + T3[2], T1[3] + T2[3] + T3[3], T1[4] + T2[4] + T3[4]]
 
             #TODO - Add some descriptive text here
             flavorText = ""
 
-            ConstructOutpost(userStronghold, outpostType, tier, attackFief.op_fisheryNumBuilt, spotsAvailable, cost, OP_COLOR_FISHERY, flavorText)
+            ConstructOutpost(attackFief, outpostType, tier, attackFief.op_fisheryNumBuilt, spotsAvailable, cost, OP_COLOR_FISHERY, flavorText)
             return "fisheries"
 
         elif outpostType == "Lumber Mill":
             spotsAvailable = int(attackFief.adjacentForests) - int(attackFief.op_lumberMillNumBuilt)
             tier = int(attackFief.op_lumberMillTier)
+            T1 = OP_RCOST_T1_LUMBERMILL
+            T2 = OP_RCOST_T2_LUMBERMILL
+            T3 = OP_RCOST_T3_LUMBERMILL
             if int(tier) == 0:
-                cost = OP_COST_T1_LUMBERMILL
+                cost = T1
             elif int(tier) == 1:
-                cost = OP_COST_T1_LUMBERMILL + OP_COST_T2_LUMBERMILL
+                cost = [T1[0] + T2[0], T1[1] + T2[1], T1[2] + T2[2], T1[3] + T2[3], T1[4] + T2[4]]
             elif int(tier) == 2:
-                cost = OP_COST_T1_LUMBERMILL + OP_COST_T2_LUMBERMILL + OP_COST_T3_LUMBERMILL
+                cost = [T1[0] + T2[0] + T3[0], T1[1] + T2[1] + T3[1], T1[2] + T2[2] + T3[2], T1[3] + T2[3] + T3[3], T1[4] + T2[4] + T3[4]]
 
             #TODO - Add some descriptive text here
             flavorText = ""
 
-            ConstructOutpost(userStronghold, outpostType, tier, attackFief.op_lumberMillNumBuilt, spotsAvailable, cost, OP_COLOR_LUMBERMILL, flavorText)
+            ConstructOutpost(attackFief, outpostType, tier, attackFief.op_lumberMillNumBuilt, spotsAvailable, cost, OP_COLOR_LUMBERMILL, flavorText)
             return "lumberMills"
 
         elif outpostType == "Mine":
             spotsAvailable = int(attackFief.adjacentMountains) - int(attackFief.op_mineNumBuilt)
             tier = int(attackFief.op_mineTier)
+            T1 = OP_RCOST_T1_MINE
+            T2 = OP_RCOST_T2_MINE
+            T3 = OP_RCOST_T3_MINE
             if int(tier) == 0:
-                cost = OP_COST_T1_MINE
+                cost = T1
             elif int(tier) == 1:
-                cost = OP_COST_T1_MINE + OP_COST_T2_MINE
+                cost = [T1[0] + T2[0], T1[1] + T2[1], T1[2] + T2[2], T1[3] + T2[3], T1[4] + T2[4]]
             elif int(tier) == 2:
-                cost = OP_COST_T1_MINE + OP_COST_T2_MINE + OP_COST_T3_MINE
+                cost = [T1[0] + T2[0] + T3[0], T1[1] + T2[1] + T3[1], T1[2] + T2[2] + T3[2], T1[3] + T2[3] + T3[3], T1[4] + T2[4] + T3[4]]
 
             #TODO - Add some descriptive text here
             flavorText = ""
 
-            ConstructOutpost(userStronghold, outpostType, tier, attackFief.op_mineNumBuilt, spotsAvailable, cost, OP_COLOR_MINE, flavorText)
+            ConstructOutpost(attackFief, outpostType, tier, attackFief.op_mineNumBuilt, spotsAvailable, cost, OP_COLOR_MINE, flavorText)
             return "mines"
 
         return "outposts"
@@ -373,65 +387,83 @@ def FiefBuildingsMenu(screen, userStronghold):
     # upgradeOutposts - menu for upgrading existing outposts
     #==================================================================================================================================
     if screen == "upgradeOutposts":
+        os.system("clear")
+        headerFief(attackFief)
         # UpgradeOutpost(userStronghold, outpostType, tier, numberBuilt, cost, color, flavorText):
         if outpostType == "Farmland":
             tier = int(attackFief.op_farmlandTier)
+            T1 = OP_RCOST_T1_FARMLAND
+            T2 = OP_RCOST_T2_FARMLAND
+            T3 = OP_RCOST_T3_FARMLAND
+            NB = attackFief.op_farmlandNumBuilt
             if int(tier) == 0:
-                cost = OP_COST_T1_FARMLAND * int(attackFief.op_farmlandNumBuilt)
+                cost = [T1[0]*NB, T1[1]*NB, T1[2]*NB, T1[3]*NB, T1[4]*NB]
             elif int(tier) == 1:
-                cost = OP_COST_T2_FARMLAND * int(attackFief.op_farmlandNumBuilt)
+                cost = [T2[0]*NB, T2[1]*NB, T2[2]*NB, T2[3]*NB, T2[4]*NB]
             elif int(tier) == 2:
-                cost = OP_COST_T3_FARMLAND * int(attackFief.op_farmlandNumBuilt)
+                cost = [T3[0]*NB, T3[1]*NB, T3[2]*NB, T3[3]*NB, T3[4]*NB]
 
             #TODO - Add some descriptive text here
             flavorText = ""
 
-            UpgradeOutpost(userStronghold, outpostType, tier, attackFief.op_farmlandNumBuilt, cost, OP_COLOR_FARMLAND, flavorText)
+            UpgradeOutpost(attackFief, outpostType, tier, attackFief.op_farmlandNumBuilt, cost, OP_COLOR_FARMLAND, flavorText)
             return "farmlands"
 
         elif outpostType == "Fishery":
             tier = int(attackFief.op_fisheryTier)
+            T1 = OP_RCOST_T1_FISHERY
+            T2 = OP_RCOST_T2_FISHERY
+            T3 = OP_RCOST_T3_FISHERY
+            NB = attackFief.op_fisheryNumBuilt
             if int(tier) == 0:
-                cost = OP_COST_T1_FISHERY * int(attackFief.op_fisheryNumBuilt)
+                cost = [T1[0]*NB, T1[1]*NB, T1[2]*NB, T1[3]*NB, T1[4]*NB]
             elif int(tier) == 1:
-                cost = OP_COST_T2_FISHERY * int(attackFief.op_fisheryNumBuilt)
+                cost = [T2[0]*NB, T2[1]*NB, T2[2]*NB, T2[3]*NB, T2[4]*NB]
             elif int(tier) == 2:
-                cost = OP_COST_T3_FISHERY * int(attackFief.op_fisheryNumBuilt)
+                cost = [T3[0]*NB, T3[1]*NB, T3[2]*NB, T3[3]*NB, T3[4]*NB]
 
             #TODO - Add some descriptive text here
             flavorText = ""
 
-            UpgradeOutpost(userStronghold, outpostType, tier, attackFief.op_fisheryNumBuilt, cost, OP_COLOR_FISHERY, flavorText)
+            UpgradeOutpost(attackFief, outpostType, tier, attackFief.op_fisheryNumBuilt, cost, OP_COLOR_FISHERY, flavorText)
             return "fisheries"
 
         elif outpostType == "Lumber Mill":
             tier = int(attackFief.op_lumberMillTier)
+            T1 = OP_RCOST_T1_LUMBERMILL
+            T2 = OP_RCOST_T2_LUMBERMILL
+            T3 = OP_RCOST_T3_LUMBERMILL
+            NB = attackFief.op_lumberMillNumBuilt
             if int(tier) == 0:
-                cost = OP_COST_T1_LUMBERMILL * int(attackFief.op_lumberMillNumBuilt)
+                cost = [T1[0]*NB, T1[1]*NB, T1[2]*NB, T1[3]*NB, T1[4]*NB]
             elif int(tier) == 1:
-                cost = OP_COST_T2_LUMBERMILL * int(attackFief.op_lumberMillNumBuilt)
+                cost = [T2[0]*NB, T2[1]*NB, T2[2]*NB, T2[3]*NB, T2[4]*NB]
             elif int(tier) == 2:
-                cost = OP_COST_T3_LUMBERMILL * int(attackFief.op_lumberMillNumBuilt)
+                cost = [T3[0]*NB, T3[1]*NB, T3[2]*NB, T3[3]*NB, T3[4]*NB]
 
             #TODO - Add some descriptive text here
             flavorText = ""
 
-            UpgradeOutpost(userStronghold, outpostType, tier, attackFief.op_lumberMillNumBuilt, cost, OP_COLOR_LUMBERMILL, flavorText)
+            UpgradeOutpost(attackFief, outpostType, tier, attackFief.op_lumberMillNumBuilt, cost, OP_COLOR_LUMBERMILL, flavorText)
             return "lumberMills"
 
         elif outpostType == "Mine":
             tier = int(attackFief.op_mineTier)
+            T1 = OP_RCOST_T1_MINE
+            T2 = OP_RCOST_T2_MINE
+            T3 = OP_RCOST_T3_MINE
+            NB = attackFief.op_mineNumBuilt
             if int(tier) == 0:
-                cost = OP_COST_T1_MINE * int(attackFief.op_mineNumBuilt)
+                cost = [T1[0]*NB, T1[1]*NB, T1[2]*NB, T1[3]*NB, T1[4]*NB]
             elif int(tier) == 1:
-                cost = OP_COST_T2_MINE * int(attackFief.op_mineNumBuilt)
+                cost = [T2[0]*NB, T2[1]*NB, T2[2]*NB, T2[3]*NB, T2[4]*NB]
             elif int(tier) == 2:
-                cost = OP_COST_T3_MINE * int(attackFief.op_mineNumBuilt)
+                cost = [T3[0]*NB, T3[1]*NB, T3[2]*NB, T3[3]*NB, T3[4]*NB]
 
             #TODO - Add some descriptive text here
             flavorText = ""
 
-            UpgradeOutpost(userStronghold, outpostType, tier, attackFief.op_mineNumBuilt, cost, OP_COLOR_MINE, flavorText)
+            UpgradeOutpost(attackFief, outpostType, tier, attackFief.op_mineNumBuilt, cost, OP_COLOR_MINE, flavorText)
             return "mines"
 
         return "outposts"
@@ -440,13 +472,15 @@ def FiefBuildingsMenu(screen, userStronghold):
     # hireOutpostUnits - menu for hiring outpost units
     #==================================================================================================================================
     if screen == "hireOutpostUnits":
+        os.system("clear")
+        headerFief(attackFief)
         # HireUnit(userStronghold, unitType, unitBaseCost, unitCostModifier, unitCap, unitsOwned, color, flavorText)
         if unitType == "Farmer":
             flavorText = "    "
             costModifier = 0
             unitCap = UCAP_FARMER * int(attackFief.op_farmlandNumBuilt)
 
-            HireUnit(userStronghold, unitType, UCOST_FARMER, costModifier, unitCap, attackFief.op_farmlandPrimaryUnits, COLOR_FARMER, flavorText)
+            HireUnit(attackFief, unitType, UCOST_FARMER, costModifier, unitCap, attackFief.op_farmlandPrimaryUnits, COLOR_FARMER, flavorText)
             return "farmlands"
 
         if unitType == "Vendor":
@@ -454,7 +488,7 @@ def FiefBuildingsMenu(screen, userStronghold):
             costModifier = 0
             unitCap = UCAP_VENDOR * int(attackFief.op_farmlandNumBuilt)
 
-            HireUnit(userStronghold, unitType, UCOST_VENDOR, costModifier, unitCap, attackFief.op_farmlandSecondaryUnits, COLOR_VENDOR, flavorText)
+            HireUnit(attackFief, unitType, UCOST_VENDOR, costModifier, unitCap, attackFief.op_farmlandSecondaryUnits, COLOR_VENDOR, flavorText)
             return "farmlands"
 
         if unitType == "Fisher":
@@ -462,7 +496,7 @@ def FiefBuildingsMenu(screen, userStronghold):
             costModifier = 0
             unitCap = UCAP_FISHER * int(attackFief.op_fisheryNumBuilt)
 
-            HireUnit(userStronghold, unitType, UCOST_FISHER, costModifier, unitCap, attackFief.op_fisheryPrimaryUnits, COLOR_FISHER, flavorText)
+            HireUnit(attackFief, unitType, UCOST_FISHER, costModifier, unitCap, attackFief.op_fisheryPrimaryUnits, COLOR_FISHER, flavorText)
             return "fisheries"
 
         if unitType == "Scavenger":
@@ -470,7 +504,7 @@ def FiefBuildingsMenu(screen, userStronghold):
             costModifier = 0
             unitCap = UCAP_SCAVENGER * int(attackFief.op_fisheryNumBuilt)
 
-            HireUnit(userStronghold, unitType, UCOST_SCAVENGER, costModifier, unitCap, attackFief.op_fisherySecondaryUnits, COLOR_SCAVENGER, flavorText)
+            HireUnit(attackFief, unitType, UCOST_SCAVENGER, costModifier, unitCap, attackFief.op_fisherySecondaryUnits, COLOR_SCAVENGER, flavorText)
             return "fisheries"
 
         if unitType == "Lumberjack":
@@ -478,7 +512,7 @@ def FiefBuildingsMenu(screen, userStronghold):
             costModifier = 0
             unitCap = UCAP_LUMBERJACK * int(attackFief.op_lumberMillNumBuilt)
 
-            HireUnit(userStronghold, unitType, UCOST_LUMBERJACK, costModifier, unitCap, attackFief.op_lumberMillPrimaryUnits, COLOR_LUMBERJACK, flavorText)
+            HireUnit(attackFief, unitType, UCOST_LUMBERJACK, costModifier, unitCap, attackFief.op_lumberMillPrimaryUnits, COLOR_LUMBERJACK, flavorText)
             return "lumberMills"
 
         if unitType == "Hunter":
@@ -486,7 +520,7 @@ def FiefBuildingsMenu(screen, userStronghold):
             costModifier = 0
             unitCap = UCAP_HUNTER * int(attackFief.op_lumberMillNumBuilt)
 
-            HireUnit(userStronghold, unitType, UCOST_HUNTER, costModifier, unitCap, attackFief.op_lumberMillSecondaryUnits, COLOR_HUNTER, flavorText)
+            HireUnit(attackFief, unitType, UCOST_HUNTER, costModifier, unitCap, attackFief.op_lumberMillSecondaryUnits, COLOR_HUNTER, flavorText)
             return "lumberMills"
 
         if unitType == "Miner":
@@ -494,7 +528,7 @@ def FiefBuildingsMenu(screen, userStronghold):
             costModifier = 0
             unitCap = UCAP_MINER * int(attackFief.op_mineNumBuilt)
 
-            HireUnit(userStronghold, unitType, UCOST_MINER, costModifier, unitCap, attackFief.op_minePrimaryUnits, COLOR_MINER, flavorText)
+            HireUnit(attackFief, unitType, UCOST_MINER, costModifier, unitCap, attackFief.op_minePrimaryUnits, COLOR_MINER, flavorText)
             return "mines"
 
         if unitType == "Prospector":
@@ -502,7 +536,7 @@ def FiefBuildingsMenu(screen, userStronghold):
             costModifier = 0
             unitCap = UCAP_PROSPECTOR * int(attackFief.op_mineNumBuilt)
 
-            HireUnit(userStronghold, unitType, UCOST_PROSPECTOR, costModifier, unitCap, attackFief.op_mineSecondaryUnits, COLOR_PROSPECTOR, flavorText)
+            HireUnit(attackFief, unitType, UCOST_PROSPECTOR, costModifier, unitCap, attackFief.op_mineSecondaryUnits, COLOR_PROSPECTOR, flavorText)
             return "mines"
 
         return "outposts"

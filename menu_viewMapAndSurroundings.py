@@ -53,7 +53,7 @@ def ViewMapAndSurroundings(screen, userStronghold, attackStronghold, STRONGHOLD,
 #This page prints the world map with your stronghold's location marked on it
     if screen == "viewMapCurrentFief":
         os.system("clear")
-        header(currentUsername)
+        headerFief(attackFief)
 
         serverMap.name = "serverMap"
 
@@ -77,13 +77,12 @@ def ViewMapAndSurroundings(screen, userStronghold, attackStronghold, STRONGHOLD,
 #This page prints the world map with your stronghold's location marked on it
     if screen == "viewSurroundings":
         os.system("clear")
-        header(currentUsername)
 
         serverMap.name = "serverMap"
         serverMap.read()
-        # attackFief.read()
-        
+
         if STRONGHOLD:
+            header(currentUsername)
             if USER_STRONGHOLD:
                 ListSurroundings(serverMap.worldMap, userStronghold.xCoordinate, userStronghold.yCoordinate)
                 print('')
@@ -97,6 +96,7 @@ def ViewMapAndSurroundings(screen, userStronghold, attackStronghold, STRONGHOLD,
                 nothing = input('    Press Enter to Continue')
                 return "enemyStrongholdDetails"
         else:
+            headerFief(attackFief)
             ListSurroundings(serverMap.worldMap, attackFief.xCoordinate, attackFief.yCoordinate)
             print('')
             print('    In all:')
