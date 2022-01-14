@@ -160,7 +160,7 @@ while (loop):
                 #if "username.txt" does not exist, create it. The file only contains a name and password for now.
                 newUser = input('\n                New user detected. Make a new account? (y/n): ')
                 
-                if newUser == 'y':
+                if newUser.lower() == 'y':
                     try:
                         usernameFile = "users/" + username + ".txt"
                         with open(usernameFile, 'x') as f:
@@ -576,7 +576,7 @@ while (loop):
                 + ' soldiers per hour.')
         print("\n")
 
-        printFiefArt(attackFief)
+        PrintFiefArt(attackFief)
 
         print('')
         print("    Avalible Commands:")
@@ -652,7 +652,7 @@ while (loop):
 
         print("\n")
         
-        printFiefArt(attackFief)
+        PrintFiefArt(attackFief)
 
         print("")
 
@@ -750,7 +750,7 @@ while (loop):
     screen = FiefBuildingsMenu(screen, userStronghold)
     screen = HireMenu(screen, userStronghold)
     screen = GarrisonMenu(screen, userStronghold)
-    screen = ViewMapAndSurroundings(screen, userStronghold, attackStronghold)
+    screen = ViewMapAndSurroundings(screen, userStronghold, attackStronghold, STRONGHOLD, USER_STRONGHOLD)
     screen = CombatAndThieveryMenu(screen, userStronghold, attackStronghold)
     screen = SandboxMenu(screen)
     screen = DevTestMenu(screen, userStronghold)

@@ -1,10 +1,10 @@
 # This is a file containing print functions for the games writing!
 
-def answerYes(question):
+def AnswerYes(question):
     listening = True
     while listening:
         reply = input(question + " (y/n):")
-        reply = reply.lower
+        reply = reply.lower()
         if reply == 'y':
             listening = False
             return True
@@ -132,7 +132,7 @@ def pas_e1_2():
 def pas_e1_3():
     print("You come across a big sword in a rock.")
     #You can ask a yes or no question in a passage by typing it like this:
-    if answerYes("Pull the sword out of the rock?"): 
+    if AnswerYes("Pull the sword out of the rock?"): 
         print("You pulled the sword out of the rock.")      #If user answers yes.
     else:
         print("You decided to leave the sword alone.")      #If user answers no.
