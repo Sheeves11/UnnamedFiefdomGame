@@ -1,10 +1,13 @@
 from globals import *
+from tempMethods import *
+import worldmap
 
 #This document contains screens for:
 #   moreCommands
 #   messageBoard
 #   pastWinners
 #   about
+#   tempMap
 #   features
 
 
@@ -24,6 +27,7 @@ def MoreMenu(screen, userStronghold):
         print('     {3}: Upcoming Features')
         print('     {4}: About')
         print('     {5}: Sandbox Mode')
+        print('     {6}: View Temp Map (this is still in development)')
         print('     --------------------------------------------------------')
         print('')
         command = input("     Enter your command: ")
@@ -42,6 +46,9 @@ def MoreMenu(screen, userStronghold):
 
         if command == '5':
             screen = 'sandboxMenu'
+
+        if command == '6':
+            screen = 'tempMap'
 
 #This is the screen for the message board.
 #----------------------------------------------------------------------------------
@@ -130,6 +137,22 @@ def MoreMenu(screen, userStronghold):
         tempInput = input('    Press Enter to Continue')
         return 'moreCommands'
 
+#This prints out a little temperature cycle movie 
+#------------------------------------------------------------------------------
+    if screen == "tempMap":
+
+        serverMap.name = "serverMap"
+        serverMap.read()
+
+        print('    Attempting a print of a temperature map day/night cycle:\n')
+        for i in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,17,15,11,7,4,2,-2,-3,-5,-6,-10]:
+            os.system('clear')
+            printTempMapDot(i)
+            tempInput = input('\n\n    Press Enter to increment hour')
+
+        tempInput = input('\n\n    Animation finished. Press Enter to Continue')
+        return 'moreCommands'
+
 #This is the features page for the game. Keep it updated
 #------------------------------------------------------------------------------
     if screen == "features":
@@ -164,3 +187,4 @@ def MoreMenu(screen, userStronghold):
         return 'moreCommands'
 
     return screen
+

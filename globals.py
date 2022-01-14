@@ -3,6 +3,7 @@ from classes import *
 from worldmap import *
 from passages import *
 from art import *
+#from tempMethods import *
 
 #Most files should import this file.
 #Doing so grants access to all the above imports as well.
