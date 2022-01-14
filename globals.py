@@ -3,6 +3,7 @@ from classes import *
 from worldmap import *
 from passages import *
 from art import *
+
 #from tempMethods import *
 
 #Most files should import this file.
@@ -44,6 +45,12 @@ userFiefCount = 0           #Used to keep track of how many fiefs the user contr
 GOLD_PER = 100
 INTERVAL = 3600
 defendersPer = 3
+
+#=====================
+#  Weather Variables
+#=====================
+WEATHER_INTERVAL = 3
+
 
 #=====================
 #     Unit Costs
