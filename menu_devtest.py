@@ -73,6 +73,9 @@ def DevTestMenu(screen, userStronghold):
 
         if command == '10':
             return 'devTestRiverTool'
+        
+        if command == 't':
+            screen = 'testScreen'
 
 
 #This is a "secret" page that you can use to create default Fiefdoms
@@ -246,6 +249,50 @@ def DevTestMenu(screen, userStronghold):
 
         nothing = input('    Continue:')
         
+        return 'devTest'
+
+#This is a test screen for quickly testing out formatting and the like.
+#-----------------------------------------------------------------------------------
+    if screen == "testScreen":
+        os.system("clear")
+
+        print("    Testing out resource printing functions:\n\n")
+        
+        PrintResourceCost("    Upgrading this thing to tier 1 costs", RESOURCE_TEST_VALUES_1, ".")
+        if HaveEnoughResources(userStronghold, RESOURCE_TEST_VALUES_1):
+            print("    Your stronghold can afford this!")
+        try:
+            if HaveEnoughResources(attackFief, RESOURCE_TEST_VALUES_1):
+                print("    " + str(attackFief.name) + " can afford this!")
+        except:
+            print("    No current attackFief available.")
+
+        PrintResourceCost("    Upgrading this thing to tier 2 costs", RESOURCE_TEST_VALUES_2, ".")
+        if HaveEnoughResources(userStronghold, RESOURCE_TEST_VALUES_2):
+            print("    Your stronghold can afford this!")
+        try:
+            if HaveEnoughResources(attackFief, RESOURCE_TEST_VALUES_2):
+                print("    " + str(attackFief.name) + " can afford this!")
+        except:
+            print("    No current attackFief available.")
+        PrintResourceCost("    Upgrading this thing to tier 3 costs", RESOURCE_TEST_VALUES_3, ".")
+        if HaveEnoughResources(userStronghold, RESOURCE_TEST_VALUES_3):
+            print("    Your stronghold can afford this!")
+        try:
+            if HaveEnoughResources(attackFief, RESOURCE_TEST_VALUES_3):
+                print("    " + str(attackFief.name) + " can afford this!")
+        except:
+            print("    No current attackFief available.")
+        PrintResourceCost("    Upgrading this thing to tier 4 costs", RESOURCE_TEST_VALUES_4, ".")
+        if HaveEnoughResources(userStronghold, RESOURCE_TEST_VALUES_4):
+            print("    Your stronghold can afford this!")
+        try:
+            if HaveEnoughResources(attackFief, RESOURCE_TEST_VALUES_4):
+                print("    " + str(attackFief.name) + " can afford this!")
+        except:
+            print("    No current attackFief available.")
+
+        nothing = input('    Continue:')
         return 'devTest'
 
     return screen
