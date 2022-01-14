@@ -31,11 +31,12 @@ def GarrisonMenu(screen, userStronghold):
 
         print('\n')
         print("    Avalible Commands:")
-        print('    -------------------------------------')
+        print('    ------------------------------------------------------')
         print('    {1}: Return to Stronghold')
         print('    {2}: View Fiefdoms')
         print('    {3}: Distribute Soldiers')
-        print('    -------------------------------------')
+        print('    {Enter fiefdom name}: View Fiefdom Details')
+        print('    ------------------------------------------------------')
         print('')
         command = input("    Enter your command: ")
 
@@ -46,8 +47,30 @@ def GarrisonMenu(screen, userStronghold):
             return "fiefdoms"
 
         if command == "3":
-            currentPage = 1
             return "garrisonSorter"
+
+        if str(command) != '1':
+            #search for file to open. If there, initialize it and load data
+            #then, switch to a details screen
+
+            fileFief = 'fiefs/' + command + '.txt'
+            # print ('    ' + fileFief + 'loading is happening')
+            try:
+                with open(fileFief, 'r') as f:
+                    attackFief.name = f.readline().strip()
+                    attackFief.read()
+
+                    if str(attackFief.ruler) == str(userStronghold.ruler):
+                        screen = 'ownedFiefDetails'
+                    if str(attackFief.home) == 'True':
+                        screen = 'stronghold'
+                    if str(attackFief.ruler) != str(userStronghold.ruler):
+                        screen = "enemyFiefDetails"
+
+            except:
+                print ('    the file open broke')
+
+        os.system('clear')
 
 #This is the screen for distributing a user's soldiers evenly among fiefs they control
 #----------------------------------------------------------------------------------

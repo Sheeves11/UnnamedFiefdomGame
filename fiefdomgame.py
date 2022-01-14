@@ -31,6 +31,14 @@ github.com/Sheeves11/UnnamedFiefdomGame
 #                           New Menu Organization
 #------------------------------------------------------------------------------
 #------------------------------------------------------------------------------
+#   [fiefdomgame.py]:
+#           login
+#           stronghold
+#           fiefdoms
+#           playerStrongholds
+#           ownedFiefDetails
+#           enemyFiefDetails
+#           enemyStrongholdDetails
 #   menu_more.py:
 #           moreCommands
 #           messageBoard
@@ -69,8 +77,8 @@ github.com/Sheeves11/UnnamedFiefdomGame
 #           setStrongholdMessage
 #   menu_hire.py:
 #           hireAndRecruit
-#           thieves
-#           mercs
+#           hireThieves
+#           hireWarriors
 #   menu_garrison.py:
 #           garrison
 #           garrisonSorter
@@ -152,7 +160,7 @@ while (loop):
                 #if "username.txt" does not exist, create it. The file only contains a name and password for now.
                 newUser = input('\n                New user detected. Make a new account? (y/n): ')
                 
-                if newUser == 'y':
+                if newUser.lower() == 'y':
                     try:
                         usernameFile = "users/" + username + ".txt"
                         with open(usernameFile, 'x') as f:
@@ -229,10 +237,10 @@ while (loop):
         productionCalc = 0
         maxProductionSoldiers = (int(userStronghold.goldMod) * 500)
         if int(userStronghold.defenders) > maxProductionSoldiers:
-            productionCalc = ((goldOutput * int(userStronghold.goldMod)) + (int(maxProductionSoldiers) * int(userStronghold.goldMod)))
+            productionCalc = ((GOLD_PER * int(userStronghold.goldMod)) + (int(maxProductionSoldiers) * int(userStronghold.goldMod)))
 
         else:
-            productionCalc = ((goldOutput * int(userStronghold.goldMod)) + (int(userStronghold.defenders) * int(userStronghold.goldMod)))
+            productionCalc = ((GOLD_PER * int(userStronghold.goldMod)) + (int(userStronghold.defenders) * int(userStronghold.goldMod)))
 
         if userStronghold.home != 'True':
             userStronghold.home = 'True'
@@ -242,9 +250,6 @@ while (loop):
         if FirstLaunch():
             serverMap.name = 'serverMap'
             SilentlyGenerateWorld(serverMap)
-            # SilentlyPlaceStrongholdInWorldMap(userStronghold, serverMap)
-            # serverMap.write()
-            # userStronghold.write()
             serverMap.read()
             newUserAccount = False
 
@@ -261,7 +266,7 @@ while (loop):
         print('    You also employ the services of ' + textColor.WARNING +  str(userStronghold.thieves) + textColor.RESET + ' well-trained thieves.')
         print('\n    Grow your forces to overcome the enemy. Do not let your citizens down')
         print('\n    Within your coffers, you have ' + textColor.WARNING + str(userStronghold.gold) + textColor.RESET + ' gold.')
-        print('    ' + 'Production: ' + str(productionCalc) + ' gold and ' + str((int(defenderOutput) * int(attackFief.defenderMod))) + ' soldiers per hour.')
+        print('    ' + 'Production: ' + str(productionCalc) + ' gold and ' + str((int(defendersPer) * int(attackFief.defenderMod))) + ' soldiers per hour.')
         print('    Your army of ' + textColor.WARNING + str(userStronghold.attType) + textColor.RESET + ' stands ready.')
         print('\n')
 
@@ -359,7 +364,7 @@ while (loop):
         if fiefdomMargin > LINES_PER_PAGE or currentPage > 1:
             print('\n    /// ' + WARNING + 'Page ' + str(currentPage) + RESET + ' ///')
         print("\n    Avalible Commands:")
-        print('    -------------------------------------')
+        print('    ------------------------------------------------------')
         print('    {1}: Return to Stronghold')
         print('    {2}: Manage Your Fiefdoms')
         print('    {3}: View Player Strongholds')
@@ -370,7 +375,7 @@ while (loop):
             print('    {5}: Previous Page')
 
         print('    {Enter fiefdom name}: View Fiefdom Details')
-        print('    -------------------------------------')
+        print('    ------------------------------------------------------')
         print('')
         command = input("    Enter your command: ")
         #command = command.lower() #This won't work until file-naming schema is changed!
@@ -467,7 +472,7 @@ while (loop):
         if strongholdMargin > LINES_PER_PAGE or currentPage > 1:
             print('/// ' + WARNING + 'Page ' + str(currentPage) + RESET + ' ///\n')
         print("\n    Avalible Commands:")
-        print('    -------------------------------------')
+        print('    ------------------------------------------------------')
         print('    {1}: Return to Stronghold')
         print('    {2}: Manage Your Fiefdoms')
         print('    {3}: View Fiefdoms')
@@ -478,7 +483,7 @@ while (loop):
             print('    {5}: Previous Page')
 
         print('    {Enter stronghold owner name}: View Stronghold Details')
-        print('    -------------------------------------')
+        print('    ------------------------------------------------------')
         print('')
         command = input("    Enter your command: ")
         #command = command.lower() #This won't work until file-naming schema is changed!
@@ -546,10 +551,10 @@ while (loop):
         maxProductionSoldiers = (int(attackFief.goldMod) * 500)
 
         if int(attackFief.defenders) > maxProductionSoldiers:
-            productionCalc = ((goldOutput * int(attackFief.goldMod)) + (int(maxProductionSoldiers) * int(attackFief.goldMod)))
+            productionCalc = ((GOLD_PER * int(attackFief.goldMod)) + (int(maxProductionSoldiers) * int(attackFief.goldMod)))
 
         else:
-            productionCalc = ((goldOutput * int(attackFief.goldMod)) + (int(attackFief.defenders) * int(attackFief.goldMod)))
+            productionCalc = ((GOLD_PER * int(attackFief.goldMod)) + (int(attackFief.defenders) * int(attackFief.goldMod)))
 
         if attackFief.biome == MOUNTAIN:
             currentBiome = 'Mountain'
@@ -567,11 +572,11 @@ while (loop):
         print('    Gold: ' + attackFief.gold)
         print('    Defensive Strategy: ' + attackFief.defType)
         print('    Biome: ' + currentBiome)
-        print('    Production: ' + str(productionCalc) + ' gold and ' + str(defenderOutput * int(attackFief.defenderMod))
+        print('    Production: ' + str(productionCalc) + ' gold and ' + str(defendersPer * int(attackFief.defenderMod))
                 + ' soldiers per hour.')
         print("\n")
 
-        printFiefArt(attackFief)
+        PrintFiefArt(attackFief)
 
         print('')
         print("    Avalible Commands:")
@@ -647,7 +652,7 @@ while (loop):
 
         print("\n")
         
-        printFiefArt(attackFief)
+        PrintFiefArt(attackFief)
 
         print("")
 
@@ -708,7 +713,7 @@ while (loop):
         print("    Avalible Commands:")
         print('    -------------------------------------')
         print('    {1}: Return to Stronghold')
-        print('    {2}: View Fiefdoms')
+        print('    {2}: View Player Strongholds')
         print('    {3}: Send Thieves To Steal Gold')
         print('    {4}: Look Around')
         print('    {5}: World Map')
@@ -722,7 +727,7 @@ while (loop):
 
         if command == "2":
             currentPage = 1
-            screen = "fiefdoms"
+            screen = "playerStrongholds"
 
         if command == "3":
             screen = "thiefPage"
@@ -737,7 +742,7 @@ while (loop):
 
 
 #------------------------------------------------------------------------------
-#This is a list of external pages from other files
+#This is a list of external menus (from other files)
 #------------------------------------------------------------------------------
     screen = MoreMenu(screen, userStronghold)
     screen = UpgradesAndCustomizations(screen, userStronghold)
@@ -745,7 +750,7 @@ while (loop):
     screen = FiefBuildingsMenu(screen, userStronghold)
     screen = HireMenu(screen, userStronghold)
     screen = GarrisonMenu(screen, userStronghold)
-    screen = ViewMapAndSurroundings(screen, userStronghold, attackStronghold)
+    screen = ViewMapAndSurroundings(screen, userStronghold, attackStronghold, STRONGHOLD, USER_STRONGHOLD)
     screen = CombatAndThieveryMenu(screen, userStronghold, attackStronghold)
     screen = SandboxMenu(screen)
     screen = DevTestMenu(screen, userStronghold)

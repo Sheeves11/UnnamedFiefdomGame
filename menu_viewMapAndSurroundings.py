@@ -6,7 +6,7 @@ from globals import *
 #   viewMapCurrentFief
 #   viewSurroundings
 
-def ViewMapAndSurroundings(screen, userStronghold, attackStronghold):
+def ViewMapAndSurroundings(screen, userStronghold, attackStronghold, STRONGHOLD, USER_STRONGHOLD):
     global firstMapRead
     #This page prints the world map with your stronghold's location marked on it
     if screen == "viewMapYourStronghold":

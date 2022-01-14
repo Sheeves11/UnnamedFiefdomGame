@@ -90,14 +90,32 @@ class Fiefdom:
     adjacentPlains = 0
     strongholdMessage = 'Message Not Set'
 
-    #values in lists below are:
-    #       [Tier, Primary/hr, Secondary/hr, Number built, placeholder]
-    farmlands = [0, 0, 0, 0, 0]
-    fisheries = [0, 0, 0, 0, 0]
-    mines = [0, 0, 0, 0, 0]
-    lumberMills = [0, 0, 0, 0, 0]
+    op_farmlandTier = 0
+    op_farmlandPrimaryPer = 0
+    op_farmlandSecondaryPer = 0
+    op_farmlandPrimaryUnits = 0
+    op_farmlandSecondaryUnits = 0
+    op_farmlandNumBuilt = 0
+    op_fisheryTier = 0
+    op_fisheryPrimaryPer = 0
+    op_fisherySecondaryPer = 0
+    op_fisheryPrimaryUnits = 0
+    op_fisherySecondaryUnits = 0
+    op_fisheryNumBuilt = 0
+    op_lumberMillTier = 0
+    op_lumberMillPrimaryPer = 0
+    op_lumberMillSecondaryPer = 0
+    op_lumberMillPrimaryUnits = 0
+    op_lumberMillSecondaryUnits = 0
+    op_lumberMillNumBuilt = 0
+    op_mineTier = 0
+    op_minePrimaryPer = 0
+    op_mineSecondaryPer = 0
+    op_minePrimaryUnits = 0
+    op_mineSecondaryUnits = 0
+    op_mineNumBuilt = 0
 
-
+    
 
     #take the current fiefdom and write it to the /fiefs directory
     def write(self):
@@ -131,11 +149,31 @@ class Fiefdom:
                 f.write(str(self.adjacentMountains) + '\n')
                 f.write(str(self.adjacentForests) + '\n')
                 f.write(str(self.adjacentPlains) + '\n')
-                f.write(str(self.farmlands) + '\n')
-                f.write(str(self.fisheries) + '\n')
-                f.write(str(self.mines) + '\n')
-                f.write(str(self.lumberMills) + '\n')
                 f.write(str(self.strongholdMessage) + '\n')
+                f.write(str(self.op_farmlandTier) + '\n')
+                f.write(str(self.op_farmlandPrimaryPer) + '\n')
+                f.write(str(self.op_farmlandSecondaryPer) + '\n')
+                f.write(str(self.op_farmlandPrimaryUnits) + '\n')
+                f.write(str(self.op_farmlandSecondaryUnits) + '\n')
+                f.write(str(self.op_farmlandNumBuilt) + '\n')
+                f.write(str(self.op_fisheryTier) + '\n')
+                f.write(str(self.op_fisheryPrimaryPer) + '\n')
+                f.write(str(self.op_fisherySecondaryPer) + '\n')
+                f.write(str(self.op_fisheryPrimaryUnits) + '\n')
+                f.write(str(self.op_fisherySecondaryUnits) + '\n')
+                f.write(str(self.op_fisheryNumBuilt) + '\n')
+                f.write(str(self.op_lumberMillTier) + '\n')
+                f.write(str(self.op_lumberMillPrimaryPer) + '\n')
+                f.write(str(self.op_lumberMillSecondaryPer) + '\n')
+                f.write(str(self.op_lumberMillPrimaryUnits) + '\n')
+                f.write(str(self.op_lumberMillSecondaryUnits) + '\n')
+                f.write(str(self.op_lumberMillNumBuilt) + '\n')
+                f.write(str(self.op_mineTier) + '\n')
+                f.write(str(self.op_minePrimaryPer) + '\n')
+                f.write(str(self.op_mineSecondaryPer) + '\n')
+                f.write(str(self.op_minePrimaryUnits) + '\n')
+                f.write(str(self.op_mineSecondaryUnits) + '\n')
+                f.write(str(self.op_mineNumBuilt) + '\n')
 
         except:
             pass
@@ -168,12 +206,31 @@ class Fiefdom:
                 f.write(str(self.adjacentMountains) + '\n')
                 f.write(str(self.adjacentForests) + '\n')
                 f.write(str(self.adjacentPlains) + '\n')
-                f.write(str(self.farmlands) + '\n')
-                f.write(str(self.fisheries) + '\n')
-                f.write(str(self.mines) + '\n')
-                f.write(str(self.lumberMills) + '\n')
                 f.write(str(self.strongholdMessage) + '\n')
-
+                f.write(str(self.op_farmlandTier) + '\n')
+                f.write(str(self.op_farmlandPrimaryPer) + '\n')
+                f.write(str(self.op_farmlandSecondaryPer) + '\n')
+                f.write(str(self.op_farmlandPrimaryUnits) + '\n')
+                f.write(str(self.op_farmlandSecondaryUnits) + '\n')
+                f.write(str(self.op_farmlandNumBuilt) + '\n')
+                f.write(str(self.op_fisheryTier) + '\n')
+                f.write(str(self.op_fisheryPrimaryPer) + '\n')
+                f.write(str(self.op_fisherySecondaryPer) + '\n')
+                f.write(str(self.op_fisheryPrimaryUnits) + '\n')
+                f.write(str(self.op_fisherySecondaryUnits) + '\n')
+                f.write(str(self.op_fisheryNumBuilt) + '\n')
+                f.write(str(self.op_lumberMillTier) + '\n')
+                f.write(str(self.op_lumberMillPrimaryPer) + '\n')
+                f.write(str(self.op_lumberMillSecondaryPer) + '\n')
+                f.write(str(self.op_lumberMillPrimaryUnits) + '\n')
+                f.write(str(self.op_lumberMillSecondaryUnits) + '\n')
+                f.write(str(self.op_lumberMillNumBuilt) + '\n')
+                f.write(str(self.op_mineTier) + '\n')
+                f.write(str(self.op_minePrimaryPer) + '\n')
+                f.write(str(self.op_mineSecondaryPer) + '\n')
+                f.write(str(self.op_minePrimaryUnits) + '\n')
+                f.write(str(self.op_mineSecondaryUnits) + '\n')
+                f.write(str(self.op_mineNumBuilt) + '\n')
         except:
             pass
 
@@ -207,11 +264,31 @@ class Fiefdom:
                 self.adjacentMountains = f.readline().strip()
                 self.adjacentForests = f.readline().strip()
                 self.adjacentPlains = f.readline().strip()
-                self.farmlands = f.readline().strip()
-                self.fisheries = f.readline().strip()
-                self.mines = f.readline().strip()
-                self.lumberMills = f.readline().strip()
                 self.strongholdMessage = f.readline().strip()
+                self.op_farmlandTier = f.readline().strip()
+                self.op_farmlandPrimaryPer = f.readline().strip()
+                self.op_farmlandSecondaryPer = f.readline().strip()
+                self.op_farmlandPrimaryUnits = f.readline().strip()
+                self.op_farmlandSecondaryUnits = f.readline().strip()
+                self.op_farmlandNumBuilt = f.readline().strip()
+                self.op_fisheryTier = f.readline().strip()
+                self.op_fisheryPrimaryPer = f.readline().strip()
+                self.op_fisherySecondaryPer = f.readline().strip()
+                self.op_fisheryPrimaryUnits = f.readline().strip()
+                self.op_fisherySecondaryUnits = f.readline().strip()
+                self.op_fisheryNumBuilt = f.readline().strip()
+                self.op_lumberMillTier = f.readline().strip()
+                self.op_lumberMillPrimaryPer = f.readline().strip()
+                self.op_lumberMillSecondaryPer = f.readline().strip()
+                self.op_lumberMillPrimaryUnits = f.readline().strip()
+                self.op_lumberMillSecondaryUnits = f.readline().strip()
+                self.op_lumberMillNumBuilt = f.readline().strip()
+                self.op_mineTier = f.readline().strip()
+                self.op_minePrimaryPer = f.readline().strip()
+                self.op_mineSecondaryPer = f.readline().strip()
+                self.op_minePrimaryUnits = f.readline().strip()
+                self.op_mineSecondaryUnits = f.readline().strip()
+                self.op_mineNumBuilt = f.readline().strip()
 
         except:
             self.write()   

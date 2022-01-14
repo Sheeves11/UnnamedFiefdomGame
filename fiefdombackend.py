@@ -1,12 +1,6 @@
-from classes import *
+from globals import *
 
-#global variables for quick game balance adjustments
-goldPer = 100
-defendersPer = 3
-#interval in seconds
-interval = 3600
-
-
+#Globals merged and moved to globals.py
 
 #this is the backend to the Untitled Fiefdom Game. This is run alongside the user sessions.
 #the purpose of the backend is to increment gold, worker, and soldier totals.
@@ -41,10 +35,10 @@ while (loop):
                 productionCalc = 0
                 maxProductionSoldiers = (int(tempName.goldMod) * 500)
                 if int(tempName.defenders) > maxProductionSoldiers:
-                    productionCalc = ((goldPer * int(tempName.goldMod)) + (int(maxProductionSoldiers) * int(tempName.goldMod)))
+                    productionCalc = ((GOLD_PER * int(tempName.goldMod)) + (int(maxProductionSoldiers) * int(tempName.goldMod)))
 
                 else:
-                    productionCalc = ((goldPer * int(tempName.goldMod)) + (int(tempName.defenders) * int(tempName.goldMod)))
+                    productionCalc = ((GOLD_PER * int(tempName.goldMod)) + (int(tempName.defenders) * int(tempName.goldMod)))
                 
                 
                 if tempName.ruler != 'Unclaimed':
@@ -68,10 +62,10 @@ while (loop):
                 productionCalc = 0
                 maxProductionSoldiers = (int(tempName.goldMod) * 500)
                 if int(tempName.defenders) > maxProductionSoldiers:
-                    productionCalc = ((goldPer * int(tempName.goldMod)) + (int(maxProductionSoldiers) * int(tempName.goldMod)))
+                    productionCalc = ((GOLD_PER * int(tempName.goldMod)) + (int(maxProductionSoldiers) * int(tempName.goldMod)))
 
                 else:
-                    productionCalc = ((goldPer * int(tempName.goldMod)) + (int(tempName.defenders) * int(tempName.goldMod)))
+                    productionCalc = ((GOLD_PER * int(tempName.goldMod)) + (int(tempName.defenders) * int(tempName.goldMod)))
                 
                 if tempName.ruler != 'Unclaimed':
                     tempName.defenders = str(int(tempName.defenders) + (defendersPer * int(tempName.defenderMod)))
@@ -80,4 +74,4 @@ while (loop):
                     print('the stronghold of ' + str(tempName.name + ' currently has ' + str(tempName.defenders) + ' defenders.'))
     
 
-    time.sleep(interval)
+    time.sleep(INTERVAL)
