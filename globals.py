@@ -59,7 +59,7 @@ ADJACENT_RESOURCE_MAX = 5
 #=====================
 #  Weather Variables
 #=====================
-WEATHER_INTERVAL = 3
+
 
 
 

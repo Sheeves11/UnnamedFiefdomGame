@@ -5,13 +5,19 @@ from globals import *
 from datetime import datetime
 
 baselineTemp = 72
-weatherSystemMod = 15
+weatherSystemMod = 15         #think of this as a seasonal modifier for temperature
+
+#honorable mention is 
 
 weatherStronghold = Stronghold()
 
-#===================================================================
-#    put in coords and get the temp modifier from the map
-#===================================================================
+#--------------------------------------------------------------------------------------------------------------
+#   [getTempMod]
+#   Parameters: y, x coordinates
+#
+#   This function takes in coordinates and returns tempMod, which is
+#   a modifier based on the symbol it sees in the world map.
+#--------------------------------------------------------------------------------------------------------------
 def getTempMod(y, x):
 
     #get map symbol for current location
@@ -40,10 +46,14 @@ def getTempMod(y, x):
 
     return tempMod
 
-#======================================================================
-#      eats up coords, a temp constant, and weather modifier, and
-#      gives back the actual temp of a location
-#======================================================================
+#--------------------------------------------------------------------------------------------------------------
+#   [getLocalTemp]
+#   Parameters: y and x coordinates, a baseline temperature variable, a weather system temperature
+#               modifier, and finally, a baselineMod, which is passed via the main program.
+#
+#   This function takes in coordinates and returns tempMod, which is
+#   a modifier based on the symbol it sees in the world map.
+#--------------------------------------------------------------------------------------------------------------
 def getLocalTemp(y, x, baselineTemp, weatherSystemMod, baselineMod):
 
     tempMod = getTempMod(y, x)
@@ -61,102 +71,6 @@ def getLocalTemp(y, x, baselineTemp, weatherSystemMod, baselineMod):
     realTemp = realTempMod + baselineTemp + weatherSystemMod + baselineMod
 
     return realTemp
-
-#==============================================================================
-#    This method takes a temperature value in and outputs that value in color,
-#    with the correct spacing so that the map remains square
-#==============================================================================
-
-def printWeatherMapChar(realTemp):
-    #print actual temps in color
-
-    if realTemp > 100 and realTemp < 1500:
-        print(textColor.MAGENTA, end = '')
-        print(str(realTemp), end = '')
-        print(textColor.RESET, end = '   ')
-
-    elif realTemp > 95 and realTemp <= 100:
-        print(textColor.DARK_MAGENTA, end = '')
-        print(str(realTemp), end = '')
-        print(textColor.RESET, end = '   ')
-
-    elif realTemp > 85 and realTemp <= 95:
-        print(textColor.RED, end = '')
-        print(str(realTemp), end = '')
-        print(textColor.RESET, end = '   ')
-
-    elif realTemp > 80 and realTemp <= 85:
-        print(textColor.DARK_RED, end = '')
-        print(str(realTemp), end = '')
-        print(textColor.RESET, end = '   ')
-
-    elif realTemp > 75 and realTemp <= 80:
-        print(textColor.ORANGE, end = '')
-        print(str(realTemp), end = '')
-        print(textColor.RESET, end = '   ')
-
-    elif realTemp > 70 and realTemp <= 75:
-        print(textColor.YELLOW, end = '')
-        print(str(realTemp), end = '')
-        print(textColor.RESET, end = '   ')
-
-    elif realTemp > 60 and realTemp <= 70:
-        print(textColor.GREEN, end = '')
-        print(str(realTemp), end = '')
-        print(textColor.RESET, end = '   ')
-
-    elif realTemp > 55 and realTemp <= 60:
-        print(textColor.DARK_GREEN, end = '')
-        print(str(realTemp), end = '')
-        print(textColor.RESET, end = '   ')
-
-    elif realTemp > 50 and realTemp <= 55:
-        print(textColor.TEAL, end = '')
-        print(str(realTemp), end = '')
-        print(textColor.RESET, end = '   ')
-
-    elif realTemp > 40 and realTemp <= 50:
-        print(textColor.CYAN, end = '')
-        print(str(realTemp), end = '')    
-        print(textColor.RESET, end = '   ')
-
-    elif realTemp > 35 and realTemp <= 40:
-        print(textColor.BLUE, end = '')
-        print(str(realTemp), end = '')    
-        print(textColor.RESET, end = '   ')
-
-    elif realTemp > 25 and realTemp <= 35:
-        print(textColor.DARK_BLUE, end = '')
-        print(str(realTemp), end = '')    
-        print(textColor.RESET, end = '   ')
-
-    elif realTemp > -300 and realTemp <= 25:
-        print(textColor.DARK_GRAY, end = '')
-        print(str(realTemp), end = '')    
-        print(textColor.RESET, end = '   ')
-
-    else:
-        print(textColor.DARK_GRAY, end = '')
-        print(str(realTemp), end = '')    
-        print(textColor.RESET, end = '   ')
-
-#====================================================================================
-#     Call this method to print out a temperature baseline map
-#====================================================================================
-
-
-def printTempMap(baselineMod):
-    for i in range(MAP_HEIGHT):
-            for j in range(MAP_WIDTH):
-                symbol = serverMap.worldMap[i][j]
-                if j == 0:
-                    print('    ')
-                    printWeatherMapChar(getLocalTemp(i, j, baselineTemp, weatherSystemMod, baselineMod))
-
-                else:
-                    printWeatherMapChar(getLocalTemp(i,j, baselineTemp, weatherSystemMod, baselineMod))
-                
-            print('')
 
 #==============================================================================
 #    This method takes a temperature value in and outputs that value in color,
@@ -234,7 +148,6 @@ def printWeatherMapDot(realTemp):
 #     Call this method to print out a temperature baseline map of dots
 #====================================================================================
 
-
 def printTempMapDot(baselineMod):
     for i in range(MAP_HEIGHT):
             for j in range(MAP_WIDTH):
@@ -246,9 +159,6 @@ def printTempMapDot(baselineMod):
                 else:
                     printWeatherMapDot(getLocalTemp(i,j, int(readBaseline()), weatherSystemMod, baselineMod))
                 
- #           print('')
-
-
 #====================================================================================
 #     Read the weather from a file
 #====================================================================================
@@ -362,7 +272,7 @@ def writeWeather(base, gameTime):
         tempText = input('\n\n\n\n\nPress Enter To Continue: ')
 
 #====================================================================================
-#     Return the current Game Time
+#     Take in the gameTime and write it to weather.txt
 #====================================================================================
 
 def incrementGametime(gameTime, base):
@@ -374,14 +284,13 @@ def incrementGametime(gameTime, base):
 
     writeWeather(base, gameTime)
 
+#====================================================================================
+#     Update weather.txt with the most recent gametime and base temperature.
+#====================================================================================
 
 def updateWeatherFile():
     gameTime = readRealUnconvertedGametimeHour()
     incrementGametime(gameTime, readBaseline())
-#    print('    Current in-game time: ' + str(readRealGametimeHour()) + ':' + str(readRealGametimeMin()) + ' ' + str(readRealGametimeAmpm()))
-#    print('    Server time is now: ' + str(readRealUnconvertedGametimeHour()))
-#    print('\n    Incrementing the dang weather...')
-#    print('    The temperature is now: ' + readBaseline() + " degrees Fahrenheit")
 
     base = int(readBaseline())
 

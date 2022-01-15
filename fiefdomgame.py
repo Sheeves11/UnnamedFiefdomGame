@@ -162,29 +162,33 @@ while (loop):
                 
                 if newUser.lower() == 'y':
                     try:
-                        usernameFile = "users/" + username + ".txt"
-                        with open(usernameFile, 'x') as f:
-                            f.write(username + '\n')
-                            os.system('clear')
-                            header(userStronghold.name)
-                    
-                            print('\n\n')
-                            print(textColor.WARNING + '    WELCOME NEW PLAYER' + textColor.RESET)
-                            print('    -------------------------------------------------------------------------------------------------------------')
-                            print('\n    Creating new account for ' + str(username) + '!')
-                            password = "default"
-                            email = "default"
+                        os.system('clear')
+                        header(userStronghold.name)
+                
+                        print('\n\n')
+                        print(textColor.WARNING + '    WELCOME NEW PLAYER' + textColor.RESET)
+                        print('    -------------------------------------------------------------------------------------------------------------')
+                        print('\n    Creating new account for ' + str(username) + '!')
+                        password = "default"
+                        email = "default"
 
-                            password = getpass('\n\n\n    Please choose your password: ')
+                        password = getpass('\n\n\n    Please choose your password: ')
+                        password2 = getpass('    Confirm your password: ')
+
+                        if password == password2:
                             email = input('\n    Please enter your email address: ')
 
+                            #password encryption via bcrypt
                             salt = bcrypt.gensalt()
                             hashed = bcrypt.hashpw(password, salt)
-                    
+
+                            usernameFile = "users/" + username + ".txt"
+                            with open(usernameFile, 'x') as f:
+                                f.write(username + '\n')      
+                                f.write(hashed + '\n')
+                                f.write(email)
+
                             print('\n\n')
-                    
-                            f.write(hashed + '\n')
-                            f.write(email)
                             print('    Creating new account...')
                             time.sleep(.5)
                             print('    Logging in as: ' + username)
@@ -193,6 +197,11 @@ while (loop):
                             newUserAccount = True
 
                             screen = 'stronghold'
+
+                        if password != password2:
+                            print('\n    Your passwords don\'t match! Please try again.')
+                            tempInput = input('    Press Enter To Continue\n')
+                            screen = 'login'
                     except:
                         pass
             
