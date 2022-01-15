@@ -339,7 +339,7 @@ while (loop):
         fiefdomMargin = 0
 
         print("")
-        print(str("    " + textColor.UNDERLINE + "Nearby Fiefdoms" + textColor.RESET).ljust(RESOURCE_SPACING, FILL_SYMBOL) + "|" + textColor.UNDERLINE + "Resources" + textColor.RESET)
+        print(str("    " + textColor.UNDERLINE + "Nearby Fiefdoms" + textColor.RESET).ljust(RESOURCE_SPACING, FILL_SYMBOL) + "| " + textColor.UNDERLINE + "Resources" + textColor.RESET)
         # print("    -------------------------------------------------------------------------------\n")
         print("")
 
@@ -356,7 +356,7 @@ while (loop):
 
                 enemyFiefdomInfo = str('    ' + textColor.WARNING + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + tempName.defenders + textColor.RESET)
                 ownedFiefdomInfo = str('    ' + textColor.CYAN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + tempName.defenders + textColor.RESET)
-                fiefdomResources = str(' |' + textColor.YELLOW + tempName.gold + textColor.RESET + ' ' + textColor.DARK_RED + tempName.food + textColor.RESET + ' ' + textColor.DARK_GREEN + tempName.wood + textColor.RESET + ' ' + textColor.DARK_GRAY + tempName.stone + textColor.RESET + ' ' + textColor.DARK_MAGENTA + tempName.ore + textColor.RESET + '')
+                fiefdomResources = str(' | ' + textColor.YELLOW + tempName.gold + textColor.RESET + ' ' + textColor.DARK_RED + tempName.food + textColor.RESET + ' ' + textColor.DARK_GREEN + tempName.wood + textColor.RESET + ' ' + textColor.DARK_GRAY + tempName.stone + textColor.RESET + ' ' + textColor.DARK_MAGENTA + tempName.ore + textColor.RESET + '')
 
                 if (fiefdomMargin <= LINES_PER_PAGE) and (fiefdomMargin > 0):
                     if tempName.home != 'True' and tempName.ruler != userStronghold.name:
@@ -448,7 +448,7 @@ while (loop):
 
         print("")
         # print("    Nearby Strongholds: ")
-        print(str("    " + textColor.UNDERLINE + "Nearby Strongholds" + textColor.RESET).ljust(RESOURCE_SPACING, FILL_SYMBOL) + "|" + textColor.UNDERLINE + "Resources" + textColor.RESET)
+        print(str("    " + textColor.UNDERLINE + "Nearby Strongholds" + textColor.RESET).ljust(RESOURCE_SPACING, FILL_SYMBOL) + "| " + textColor.UNDERLINE + "Resources" + textColor.RESET)
         # print("    -------------------------------------------------------------------------------\n")
         print("")
 
@@ -465,7 +465,7 @@ while (loop):
                 homeStatus = " "
                 enemyStrongholdInfo = str('    ' + textColor.WARNING + 'The Stronghold of ' +  tempName.name + ' || Defenders: ' + tempName.defenders + textColor.RESET)
                 userStrongholdInfo = str('    ' + textColor.GREEN + 'The Stronghold of ' + tempName.name + ' || Defenders: ' + tempName.defenders + textColor.RESET)
-                strongholdResources = str(' |' + textColor.YELLOW + tempName.gold + textColor.RESET + ' ' + textColor.DARK_RED + tempName.food + textColor.RESET + ' ' + textColor.DARK_GREEN + tempName.wood + textColor.RESET + ' ' + textColor.DARK_GRAY + tempName.stone + textColor.RESET + ' ' + textColor.DARK_MAGENTA + tempName.ore + textColor.RESET + '')
+                strongholdResources = str(' | ' + textColor.YELLOW + tempName.gold + textColor.RESET + ' ' + textColor.DARK_RED + tempName.food + textColor.RESET + ' ' + textColor.DARK_GREEN + tempName.wood + textColor.RESET + ' ' + textColor.DARK_GRAY + tempName.stone + textColor.RESET + ' ' + textColor.DARK_MAGENTA + tempName.ore + textColor.RESET + '')
 
                 if  (strongholdMargin <= LINES_PER_PAGE) and (strongholdMargin > 0):
                     if tempName.home == "True" and tempName.ruler != userStronghold.name:
