@@ -46,7 +46,7 @@ def HireMenu(screen, userStronghold):
     and return with stolen gold.
         '''
         costModifier = 0
-        HireUnit(userStronghold, "Thief", UCOST_THIEF, costModifier, UCAP_THIEF, userStronghold.thieves, flavorText)
+        HireUnit(userStronghold, "Thief", UCOST_THIEF, costModifier, UCAP_THIEF, userStronghold.thieves, COLOR_THIEF, flavorText)
         return "stronghold"
 
 #This is the screen for purchacing soldiers
@@ -63,7 +63,7 @@ def HireMenu(screen, userStronghold):
         costModifier = float(userStronghold.attLevel) * 0.5    #Scales with attack - 10/15/15/20/20/25/25/30....etc.
         #Note that the cost modifier currently does nothing, may need to add it back into the loop somehow.
         #Add a unitCap modifier later based on some kind of stronghold capacity upgrade?
-        HireUnit(userStronghold, "Warrior", UCOST_WARRIOR, costModifier, UCAP_WARRIOR, userStronghold.defenders, flavorText)
+        HireUnit(userStronghold, "Warrior", UCOST_WARRIOR, costModifier, UCAP_WARRIOR, userStronghold.defenders, COLOR_WARRIOR, flavorText)
         return "stronghold"
 
     return screen

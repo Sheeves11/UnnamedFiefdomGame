@@ -37,6 +37,8 @@ newUserAccount = False
 LINES_PER_PAGE = 15         #The number of fiefs/strongholds that appear in the list
 currentPage = 1             #Used to keep track of the page the user should be on
 userFiefCount = 0           #Used to keep track of how many fiefs the user controls.
+RESOURCE_SPACING = 70
+FILL_SYMBOL = "-"
 
 #=====================
 #  Backend Variables
@@ -167,9 +169,9 @@ RESOURCE_TEST_VALUES_2 = [0, 1, 0, 1, 110]
 RESOURCE_TEST_VALUES_3 = [10, 0, 0, 0, 0]
 RESOURCE_TEST_VALUES_4 = [0, 0, 0, 0, 0]
 
-#------------------------------------------------------------------------------
+#========================================================================================================
 #   The following functions don't really have a proper home.
-#------------------------------------------------------------------------------
+#========================================================================================================
 def FirstLaunch():
     try:
         with open('settings.txt', 'r+') as settingsFile:
@@ -332,23 +334,23 @@ def GetResourceCost(cost, quantity):
 #========================================================================================================
 def HaveEnoughResources(station, cost, quantity):
     #cost = [gold, food, wood, stone, ore]
-    if int(station.gold) >= int(cost[0] * quantity):
+    if int(station.gold) >= int(cost[0]) * int(quantity):
         pass
     else:
         return False
-    if int(station.food) >= int(cost[1] * quantity):
+    if int(station.food) >= int(cost[1]) * int(quantity):
         pass
     else:
         return False
-    if int(station.wood) >= int(cost[2] * quantity):
+    if int(station.wood) >= int(cost[2]) * int(quantity):
         pass
     else:
         return False
-    if int(station.stone) >= int(cost[3] * quantity):
+    if int(station.stone) >= int(cost[3]) * int(quantity):
         pass
     else:
         return False
-    if int(station.ore) >= int(cost[4] * quantity):
+    if int(station.ore) >= int(cost[4]) * int(quantity):
         pass
     else:
         return False
@@ -381,24 +383,24 @@ def GetStationResources(station):
 #========================================================================================================
 def DeductResources(station, cost, quantity):
     #cost = [gold, food, wood, stone, ore]
-    if int(station.gold) >= int(cost[0] * quantity):
-        station.gold = str(int(station.gold) - int(cost[0] * quantity))
+    if int(station.gold) >= int(cost[0]) * int(quantity):
+        station.gold = str(int(station.gold) - int(cost[0]) * int(quantity))
     else:
         print(RED + "\nError, not enough gold!\n")
-    if int(station.food) >= int(cost[1]):
-        station.food = str(int(station.food) - int(cost[1] * quantity))
+    if int(station.food) >= int(cost[1]) * int(quantity):
+        station.food = str(int(station.food) - int(cost[1]) * int(quantity))
     else:
         print(RED + "\nError, not enough food!\n")
-    if int(station.wood) >= int(cost[2]):
-        station.wood = str(int(station.wood) - int(cost[2] * quantity))
+    if int(station.wood) >= int(cost[2]) * int(quantity):
+        station.wood = str(int(station.wood) - int(cost[2]) * int(quantity))
     else:
         print(RED + "\nError, not enough wood!\n")
-    if int(station.stone) >= int(cost[3]):
-        station.stone = str(int(station.stone) - int(cost[3] * quantity))
+    if int(station.stone) >= int(cost[3]) * int(quantity):
+        station.stone = str(int(station.stone) - int(cost[3]) * int(quantity))
     else:
         print(RED + "\nError, not enough stone!\n")
-    if int(station.ore) >= int(cost[4]):
-        station.ore = str(int(station.ore) - int(cost[4] * quantity))
+    if int(station.ore) >= int(cost[4]) * int(quantity):
+        station.ore = str(int(station.ore) - int(cost[4]) * int(quantity))
     else:
         print(RED + "\nError, not enough ore!\n")
 
@@ -424,6 +426,7 @@ def HireUnit(station, unitType, unitCost, unitCostModifier, unitCap, unitsOwned,
     else:
         print("    You don't have any more room for these units!\n")
         time.sleep(0.5)
+        nothing = input("    Press enter to continue ")
         return
     print("    " + color + unitType + textColor.RESET + " units cost " + GetResourceCost(unitCost, 1) + " each.\n")
     time.sleep(0.5)
@@ -435,18 +438,27 @@ def HireUnit(station, unitType, unitCost, unitCostModifier, unitCap, unitsOwned,
         unitCount = '0'
 
     if int(unitCount) == 0:
-        print("    No changes were made!\n")
+        print("\n    No changes were made!\n")
+        time.sleep(0.5)
+        nothing = input("    Press enter to continue ")
+        return
 
     elif int(unitCount) < 0:
-        print("    You can't hire a negative number of " + color + unitType + textColor.RESET + " units!\n")
+        print("\n    You can't hire a negative number of " + color + unitType + textColor.RESET + " units!\n")
+        time.sleep(0.5)
+        nothing = input("    Press enter to continue ")
+        return
 
     elif int(unitCount) > int(spotsAvailable):
-        print("    Can't hire " + textColor.WARNING + str(unitCount) + textColor.RESET + " units, only have room for " + textColor.WARNING + str(spotsAvailable) + textColor.RESET + " more!\n")
-        time.sleep(1)
+        print("\n    Can't hire " + textColor.WARNING + str(unitCount) + textColor.RESET + " units, only have room for " + textColor.WARNING + str(spotsAvailable) + textColor.RESET + " more!\n")
+        time.sleep(0.5)
+        nothing = input("    Press enter to continue ")
         return
 
     elif HaveEnoughResources(station, unitCost, unitCount):
         print("\n    Hiring " + textColor.WARNING + str(unitCount) + color +  " " + unitType + textColor.RESET + " units...")
+        time.sleep(0.5)
+
         #Increment the unit based on type:
         if unitType == "Warrior":
             station.defenders = int(station.defenders) + int(unitCount)
@@ -470,17 +482,22 @@ def HireUnit(station, unitType, unitCost, unitCostModifier, unitCap, unitsOwned,
             station.op_mineSecondaryUnits = int(station.op_mineSecondaryUnits) + int(unitCount)
         #Deduct resources
         DeductResources(station, unitCost, unitCount)
-        print("     This location now has " + GetStationResources(station) + " remaining!")
-        time.sleep(0.5)
+        
         print("\n    Success! You now have " + textColor.WARNING + str(int(unitsOwned) + int(unitCount)) + color + " " + unitType + textColor.RESET + " units at this location!\n")
         station.write()
         station.read()
-
         time.sleep(0.5)
-        nothing = input("    Press enter to continue ")
+
+        print("    This location now has " + GetStationResources(station) + " remaining!")
+        time.sleep(0.5)
+
+        nothing = input("\n    Press enter to continue ")
 
     else:
-        print("    You don't have the required resources!\n")
+        time.sleep(0.5)
+        print("    \nYou don't have the required resources!\n")
+        nothing = input("    Press enter to continue ")
+        return
 
 #========================================================================================================
 #   ConstructOutpost
@@ -556,17 +573,21 @@ def ConstructOutpost(station, outpostType, tier, numberBuilt, spotsAvailable, co
                         pass
                 
                     elif int(buildNum) == 0:
-                        print("    Cancelling request...\n")
+                        print("\n    Cancelling request...\n")
                         time.sleep(1)
                         return
                     
                     elif int(buildNum) > int(spotsAvailable):
-                        print("    You only have " + textColor.WARNING + str(spotsAvailable) + textColor.RESET + " spots remaining!\n")
+                        print("\n    You only have " + textColor.WARNING + str(spotsAvailable) + textColor.RESET + " spots remaining!\n")
                         time.sleep(0.5)
+                        nothing = input("    Press enter to continue ")
+                        return
 
                     elif HaveEnoughResources(station, cost, buildNum) == False:
-                        print("    You don't have the resources to build " + textColor.WARNING + str(buildNum) + color + " " + str(outpostType) + textColor.RESET + " outposts!\n")
+                        print("\n    You don't have the resources to build " + textColor.WARNING + str(buildNum) + color + " " + str(outpostType) + textColor.RESET + " outposts!\n")
                         time.sleep(0.5)
+                        nothing = input("    Press enter to continue ")
+                        return
                     
                     else:
                         print("\n    Constructing " + textColor.WARNING + str(buildNum) + color + " " + str(outpostType) + textColor.RESET + " outposts...")
@@ -594,6 +615,8 @@ def ConstructOutpost(station, outpostType, tier, numberBuilt, spotsAvailable, co
                 except:
                     print("    Error with input, please try again.\n")
                     time.sleep(0.5)
+                    nothing = input("    Press enter to continue ")
+                    return
 
                 
 #========================================================================================================
