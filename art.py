@@ -32,6 +32,28 @@ def header(username):
                                         (line5.center(110, '-')) + '\n' +
                                     (announcement.center(110, '-')) + '\n')
 
+#This is an alternate header for displaying fief totals instead of stronghold totals.
+#Need to update other header at some point to show totals, perhaps?
+def headerFief(fief):
+    R = textColor.RESET
+    Y = textColor.YELLOW
+    D = textColor.DARK_RED
+    M = textColor.DARK_MAGENTA
+    G = textColor.DARK_GREEN
+    E = textColor.DARK_GRAY
+    C = biomeColor(fief.biome)
+
+    line5 = str(" :: " + C + str(fief.name) + R + " :: | Ruler: " + M + str(fief.ruler) + R + "  Gold: " + Y + str(fief.gold) + R + "  Food: " + D + str(fief.food) + R + "  Wood: " + G + str(fief.wood) + R + "  Stone: " + E + str(fief.stone) + R + "  Ore: " + M + str(fief.ore) + R + " | ")
+    announcement = " Announcement: This is a test build "
+    
+    print('\n' +
+'                                                  __        _             __           \n' +
+'                         | |__ __  _ __  _  _|   |_  o  _ _|_ _| _ __    /__ _ __  _    \n' +
+'                         |_|| || |(_||||(/_(_|   |   | (/_ | (_|(_)|||   \_|(_||||(/_   \n' +
+'   ' + '\n' +       
+                                        (line5.center(173, '-')) + '\n' +
+                                    (announcement.center(110, '-')) + '\n')
+
 #Define Art:
 #====================================================================================================================
 #      Splash Screen Art
@@ -194,6 +216,7 @@ def art_fief0(biome):
     C = biomeColor(biome)
     R = textColor.RESET
     W = textColor.RED
+    E = textColor.DARK_RED
     Y = textColor.YELLOW
     G = textColor.GREEN
     D = textColor.DIM
@@ -207,11 +230,11 @@ def art_fief0(biome):
         '''+G+''' )  `..-    |'''+R+'''                          ,,:   ,-'
         '''+G+'''. :-    _> _,-'''+R+'''                         /  \   |
         '''+G+'''".-. /'' ,' '''+R+'''                          |    |  |
-        '''+W+'''   {  |'' '''+R+'''     ,.............,        |   /  /
-        '''+W+'''   {{ || '''+R+'''   '''+C+'''__'''+R+'''/ \         ___ \ '''+C+'''...-'`'''+R+''' \  ,'''+C+'''-'''+R+'''','''+C+'''.___'''+R+'''
-        '''+C+'''  _'''+R+W+'''.{ '|'''+C+'''---`'''+R+''' / / \  ''         '''+Z+D+'''oo  '''+C+''',.__'''+R+'''`.      '''+C+'''\.'''+R+'''
-        '''+C+'''``'''+R+W+''' {  |' '''+R+'''   /.'   \    -     )  '''+Z+D+'''ooO    ,'''+R+I+W+R+Z+'''`'''+C+'''-.._ `'''+R+'''
-        '''+W+'''  ,' | '\ '''+R+C+'''^'''+R+'''/ .__.. \.____'''+C+'''='''+R+'''___'''+C+'''=''.'''+R+Z+D+'''OOO  | '''+W+'''.'''+R+'''\    '''+C+'''`:-'''+R+'''
+        '''+E+'''   {  |'' '''+R+'''     ,.............,        |   /  /
+        '''+E+'''   {{ || '''+R+'''   '''+C+'''__'''+R+'''/ \         ___ \ '''+C+'''...-'`'''+R+''' \  ,'''+C+'''-'''+R+'''','''+C+'''.___'''+R+'''
+        '''+C+'''  _'''+R+E+'''.{ '|'''+C+'''---`'''+R+''' / / \  ''         '''+Z+D+'''oo  '''+C+''',.__'''+R+'''`.      '''+C+'''\.'''+R+'''
+        '''+C+'''``'''+R+E+''' {  |' '''+R+'''   /.'   \    -     )  '''+Z+D+'''ooO    ,'''+R+I+W+R+Z+'''`'''+C+'''-.._ `'''+R+'''
+        '''+E+'''  ,' | '\ '''+R+C+'''^'''+R+'''/ .__.. \.____'''+C+'''='''+R+'''___'''+C+'''=''.'''+R+Z+D+'''OOO  | '''+W+'''.'''+R+'''\    '''+C+'''`:-'''+R+'''
         '''+D+'''  ___  '''+R+'''          '''+C+'''`'^'   ';  '' ' ^'''+R+'''    '''+W+'''.'''+Y+'''.'''+R+'''_ -
         '''+D+''' /,' `\.  '''+R+'''                     __   '''+D+'''o'''+R+'''.'''+W+'''.|'''+R+Y+''' |'''+I+W+'''|'''+D+'''O'''+R+'''
          '''+C+'''|||'''+D+'''-- '|  '''+C+'''\.        /' '''+R+'''      [__] '''+D+'''o'''+R+'''.'''+W+'''`'''+R+'''--'''+W+'''.'''+R+''' '''+W+'''['''+D+'''O'''+Z+D+'''o'''+R+'''  '''+C+'''_,'''+R+'''
@@ -732,3 +755,7 @@ def art_devBricks():
            |_|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|___|/
 
                 ''')
+
+
+
+    

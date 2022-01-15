@@ -115,7 +115,8 @@ def CombatAndThieveryMenu(screen, userStronghold, attackStronghold):
 #------------------------------------------------------------------------------
     if screen == "battle":
         os.system("clear")
-        header(userStronghold.name)
+        # header(userStronghold.name)
+        headerFief(attackFief)
 
         #Idea: We're going to do a DnD style battle using D20s and modifiers.
         #roll(mod) is going to give the result of a roll plus modifiers and is
@@ -186,9 +187,9 @@ def CombatAndThieveryMenu(screen, userStronghold, attackStronghold):
                 userStronghold.defenders = attackers
                 userStronghold.write()
 
-                userStronghold.gold = str(int(userStronghold.gold) + int(attackFief.gold))
-                print('    You now have a total of ' + str(userStronghold.gold) + ' gold!')
-                attackFief.gold = str('0')
+                # userStronghold.gold = str(int(userStronghold.gold) + int(attackFief.gold))
+                # print('    You now have a total of ' + str(userStronghold.gold) + ' gold!')
+                # attackFief.gold = str('0')
 
                 userStronghold.write()
                 attackFief.write()

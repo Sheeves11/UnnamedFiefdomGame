@@ -10,26 +10,41 @@ from classes import *
 #
 #--------------------------------------------------------------------------------------------------------------
 
-#Color definitions. Had to pull these out of classes to make stuff work! Temp fix!
+#Color definitions. Had to pull these out of classes to make stuff work!
 RED = '\033[91m'
+DARK_RED = "\033[31m"
 GREEN = '\033[92m'
+DARK_GREEN = "\033[32m"
 RESET = '\033[0m'
-DIM = '\033[2m'
 MAGENTA = '\033[95m'
+DARK_MAGENTA = "\033[35m"
 BLUE = '\033[94m'
+DARK_BLUE = "\033[34m"
 CYAN = '\033[96m'
+TEAL = "\033[36m"
 WARNING = '\033[93m'
 YELLOW = '\033[33m'
 DARK_GRAY = '\033[90m'
 LIGHT_GRAY = '\033[37m'
+
+BRIGHT_YELLOW = WARNING
+DARK_YELLOW = YELLOW
+
+DIM = '\033[2m'
 BOLD = '\033[1m'
 UNDERLINE = '\033[4m'
+
+BOLD_DARK_GREEN = "\033[32m \033[1m" 
+
 INTENSE_CYAN = "\033[0;96m"
 INTENSE_PURPLE = "\033[0;95m"
-MAGENTA_BACKGROUND = "\u001b[45m"
 INTENSE_BLACK = "\033[1;90m"
+MAGENTA_BACKGROUND = "\u001b[45m"
 WHITE_BACKGROUND = "\033[47m"
 CYAN_BACKGROUND = "\033[0;106m" 
+
+TEST_COLOR = "\033[41m"
+
 
 #Global variables
 MAP_WIDTH = 40

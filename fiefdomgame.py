@@ -230,7 +230,7 @@ while (loop):
         print("")
         print('    ' + textColor.WARNING + username + "'s Stronghold" + textColor.RESET)
         print('    Message: ' + userStronghold.strongholdMessage)
-        print("\n")
+        print("")
 
 
 
@@ -251,6 +251,7 @@ while (loop):
             serverMap.name = 'serverMap'
             SilentlyGenerateWorld(serverMap)
             serverMap.read()
+            SetFiefStartingResources()
             newUserAccount = False
 
         if  newUserAccount:
@@ -338,8 +339,9 @@ while (loop):
         fiefdomMargin = 0
 
         print("")
-        print("    Nearby Fiefdoms: ")
-        print("    ------------------------------------------------------------------\n")
+        print(str("    " + textColor.UNDERLINE + "Nearby Fiefdoms" + textColor.RESET).ljust(RESOURCE_SPACING, FILL_SYMBOL) + "| " + textColor.UNDERLINE + "Resources" + textColor.RESET)
+        # print("    -------------------------------------------------------------------------------\n")
+        print("")
 
         #loop through each file in the /fiefs/ directory and print off the details  of each fief in a list
         for filename in os.listdir('fiefs'):
@@ -352,14 +354,15 @@ while (loop):
                 fiefdomCount = fiefdomCount + 1
                 fiefdomMargin = fiefdomCount - ((currentPage - 1) * LINES_PER_PAGE)
 
+                enemyFiefdomInfo = str('    ' + textColor.WARNING + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + tempName.defenders + textColor.RESET)
+                ownedFiefdomInfo = str('    ' + textColor.CYAN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + tempName.defenders + textColor.RESET)
+                fiefdomResources = str(' | ' + textColor.YELLOW + tempName.gold + textColor.RESET + ' ' + textColor.DARK_RED + tempName.food + textColor.RESET + ' ' + textColor.DARK_GREEN + tempName.wood + textColor.RESET + ' ' + textColor.DARK_GRAY + tempName.stone + textColor.RESET + ' ' + textColor.DARK_MAGENTA + tempName.ore + textColor.RESET + '')
+
                 if (fiefdomMargin <= LINES_PER_PAGE) and (fiefdomMargin > 0):
                     if tempName.home != 'True' and tempName.ruler != userStronghold.name:
-                        print ('    ' + textColor.WARNING + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' +
-                                tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
-
+                        print(enemyFiefdomInfo.ljust(RESOURCE_SPACING, FILL_SYMBOL) + fiefdomResources)
                     if tempName.home != "True" and tempName.ruler == userStronghold.name:
-                        print ('    ' + textColor.CYAN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' +
-                                tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
+                        print(ownedFiefdomInfo.ljust(RESOURCE_SPACING, FILL_SYMBOL) + fiefdomResources)
 
         if fiefdomMargin > LINES_PER_PAGE or currentPage > 1:
             print('\n    /// ' + WARNING + 'Page ' + str(currentPage) + RESET + ' ///')
@@ -444,8 +447,10 @@ while (loop):
         strongholdMargin = 0
 
         print("")
-        print("    Nearby Strongholds: ")
-        print("    ------------------------------------------------------------------\n")
+        # print("    Nearby Strongholds: ")
+        print(str("    " + textColor.UNDERLINE + "Nearby Strongholds" + textColor.RESET).ljust(RESOURCE_SPACING, FILL_SYMBOL) + "| " + textColor.UNDERLINE + "Resources" + textColor.RESET)
+        # print("    -------------------------------------------------------------------------------\n")
+        print("")
 
         #loop through each file in the /fiefs/ directory and print off the details of each stronghold in a list
         for filename in os.listdir('strongholds'):
@@ -458,16 +463,17 @@ while (loop):
                 strongholdCount = strongholdCount + 1
                 strongholdMargin = strongholdCount - ((currentPage - 1) * LINES_PER_PAGE)
                 homeStatus = " "
+                enemyStrongholdInfo = str('    ' + textColor.WARNING + 'The Stronghold of ' +  tempName.name + ' || Defenders: ' + tempName.defenders + textColor.RESET)
+                userStrongholdInfo = str('    ' + textColor.GREEN + 'The Stronghold of ' + tempName.name + ' || Defenders: ' + tempName.defenders + textColor.RESET)
+                strongholdResources = str(' | ' + textColor.YELLOW + tempName.gold + textColor.RESET + ' ' + textColor.DARK_RED + tempName.food + textColor.RESET + ' ' + textColor.DARK_GREEN + tempName.wood + textColor.RESET + ' ' + textColor.DARK_GRAY + tempName.stone + textColor.RESET + ' ' + textColor.DARK_MAGENTA + tempName.ore + textColor.RESET + '')
 
                 if  (strongholdMargin <= LINES_PER_PAGE) and (strongholdMargin > 0):
                     if tempName.home == "True" and tempName.ruler != userStronghold.name:
                         homeStatus = "Home Stronghold"
-                        print ('    ' + textColor.WARNING + 'The Stronghold of ' +  tempName.name + ' || Defenders: ' +
-                                tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
+                        print((enemyStrongholdInfo.ljust(RESOURCE_SPACING, FILL_SYMBOL)) + strongholdResources)
 
                     if tempName.home == "True" and tempName.ruler == userStronghold.name:
-                        print ('    ' + textColor.GREEN + 'The Stronghold of ' + tempName.name + ' || Defenders: ' +
-                                tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
+                        print((userStrongholdInfo.ljust(RESOURCE_SPACING, FILL_SYMBOL)) + strongholdResources)
 
         if strongholdMargin > LINES_PER_PAGE or currentPage > 1:
             print('/// ' + WARNING + 'Page ' + str(currentPage) + RESET + ' ///\n')
@@ -543,7 +549,8 @@ while (loop):
 
     if screen == "ownedFiefDetails":
         os.system("clear")
-        header(userStronghold.name)
+        # header(userStronghold.name)
+        headerFief(attackFief)
         attackFief.read()
 
         productionCalc = 0
@@ -631,7 +638,8 @@ while (loop):
 #------------------------------------------------------------------------------
     if screen == "enemyFiefDetails":
         os.system("clear")
-        header(userStronghold.name)
+        # header(userStronghold.name)
+        headerFief(attackFief)
 
         if attackFief.biome == MOUNTAIN:
             currentBiome = 'Mountain'
