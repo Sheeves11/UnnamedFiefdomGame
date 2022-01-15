@@ -53,7 +53,7 @@ defendersPer = 3
 #=====================
 BIOME_RESOURCE_MIN = 5
 BIOME_RESOURCE_MAX = 15
-ADJACENT_RESOURCE_MIN = 1
+ADJACENT_RESOURCE_MIN = 2
 ADJACENT_RESOURCE_MAX = 5
 
 #=====================
