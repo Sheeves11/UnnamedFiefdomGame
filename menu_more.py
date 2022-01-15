@@ -141,8 +141,12 @@ def MoreMenu(screen, userStronghold):
 #------------------------------------------------------------------------------
     if screen == "tempMap":
         os.system('clear')
-        header(currentUsername)
-        print('\n\n')
+        print('\n\n\n\n\n\n\n')
+        gameTime = int(readGametime())
+        base = int(readBaseline())
+        writeWeather(str(base), gameTime)
+        updateWeatherFile()
+        
         print('    Current time: ' + str(readRealGametimeHour()) + ':' + str(readRealGametimeMin()) + ' ' + str(readRealGametimeAmpm()))
         print('    Current Average Temperature: ' + str(readBaseline()))
 

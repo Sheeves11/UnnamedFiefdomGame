@@ -5,7 +5,7 @@ from globals import *
 from datetime import datetime
 
 baselineTemp = 72
-weatherSystemMod = -7
+weatherSystemMod = 15
 
 weatherStronghold = Stronghold()
 
@@ -25,6 +25,9 @@ def getTempMod(y, x):
 
     if serverMap.worldMap[int(y)][int(x)] == '~':
         tempMod = 0
+
+    if serverMap.worldMap[int(y)][int(x)] == '#':
+        tempMod = 10
 
     if serverMap.worldMap[int(y)][int(x)] == '/':
         tempMod = 3
@@ -66,28 +69,74 @@ def getLocalTemp(y, x, baselineTemp, weatherSystemMod, baselineMod):
 
 def printWeatherMapChar(realTemp):
     #print actual temps in color
-    if realTemp > 70 and realTemp < 90:
+
+    if realTemp > 100 and realTemp < 1500:
+        print(textColor.MAGENTA, end = '')
+        print(str(realTemp), end = '')
+        print(textColor.RESET, end = '   ')
+
+    elif realTemp > 95 and realTemp <= 100:
+        print(textColor.DARK_MAGENTA, end = '')
+        print(str(realTemp), end = '')
+        print(textColor.RESET, end = '   ')
+
+    elif realTemp > 85 and realTemp <= 95:
         print(textColor.RED, end = '')
         print(str(realTemp), end = '')
         print(textColor.RESET, end = '   ')
 
-    if realTemp > 60 and realTemp <= 70:
+    elif realTemp > 80 and realTemp <= 85:
+        print(textColor.DARK_RED, end = '')
+        print(str(realTemp), end = '')
+        print(textColor.RESET, end = '   ')
+
+    elif realTemp > 75 and realTemp <= 80:
         print(textColor.ORANGE, end = '')
         print(str(realTemp), end = '')
         print(textColor.RESET, end = '   ')
 
-    if realTemp > 50 and realTemp <= 60:
+    elif realTemp > 70 and realTemp <= 75:
         print(textColor.YELLOW, end = '')
         print(str(realTemp), end = '')
         print(textColor.RESET, end = '   ')
 
-    if realTemp > 40 and realTemp <= 50:
+    elif realTemp > 60 and realTemp <= 70:
         print(textColor.GREEN, end = '')
         print(str(realTemp), end = '')
         print(textColor.RESET, end = '   ')
 
-    if realTemp > 30 and realTemp <= 40:
+    elif realTemp > 55 and realTemp <= 60:
+        print(textColor.DARK_GREEN, end = '')
+        print(str(realTemp), end = '')
+        print(textColor.RESET, end = '   ')
+
+    elif realTemp > 50 and realTemp <= 55:
+        print(textColor.TEAL, end = '')
+        print(str(realTemp), end = '')
+        print(textColor.RESET, end = '   ')
+
+    elif realTemp > 40 and realTemp <= 50:
+        print(textColor.CYAN, end = '')
+        print(str(realTemp), end = '')    
+        print(textColor.RESET, end = '   ')
+
+    elif realTemp > 35 and realTemp <= 40:
         print(textColor.BLUE, end = '')
+        print(str(realTemp), end = '')    
+        print(textColor.RESET, end = '   ')
+
+    elif realTemp > 25 and realTemp <= 35:
+        print(textColor.DARK_BLUE, end = '')
+        print(str(realTemp), end = '')    
+        print(textColor.RESET, end = '   ')
+
+    elif realTemp > -300 and realTemp <= 25:
+        print(textColor.DARK_GRAY, end = '')
+        print(str(realTemp), end = '')    
+        print(textColor.RESET, end = '   ')
+
+    else:
+        print(textColor.DARK_GRAY, end = '')
         print(str(realTemp), end = '')    
         print(textColor.RESET, end = '   ')
 
@@ -116,28 +165,68 @@ def printTempMap(baselineMod):
 
 def printWeatherMapDot(realTemp):
     #print actual temps in color
-    if realTemp > 80 and realTemp < 100:
-        print(textColor.RED, end = '')
-        print("*", end = '')
+    if realTemp > 100 and realTemp <= 150:
+        print(textColor.MAGENTA, end = '')
+        print('*', end = '')
         print(textColor.RESET, end = ' ')
 
-    if realTemp > 60 and realTemp <= 80:
+    if realTemp > 95 and realTemp <= 100:
+        print(textColor.DARK_MAGENTA, end = '')
+        print('*', end = '')
+        print(textColor.RESET, end = ' ')
+
+    if realTemp > 85 and realTemp <= 95:
+        print(textColor.RED, end = '')
+        print('*', end = '')
+        print(textColor.RESET, end = ' ')
+
+    if realTemp > 80 and realTemp <= 85:
+        print(textColor.DARK_RED, end = '')
+        print('*', end = '')
+        print(textColor.RESET, end = ' ')
+
+    if realTemp > 75 and realTemp <= 80:
         print(textColor.ORANGE, end = '')
         print('*', end = '')
         print(textColor.RESET, end = ' ')
 
-    if realTemp > 40 and realTemp <= 60:
+    if realTemp > 70 and realTemp <= 75:
         print(textColor.YELLOW, end = '')
         print('*', end = '')
         print(textColor.RESET, end = ' ')
 
-    if realTemp > 20 and realTemp <= 40:
+    if realTemp > 60 and realTemp <= 70:
         print(textColor.GREEN, end = '')
         print('*', end = '')
         print(textColor.RESET, end = ' ')
 
-    if realTemp > -20 and realTemp <= 20:
+    if realTemp > 55 and realTemp <= 60:
+        print(textColor.DARK_GREEN, end = '')
+        print('*', end = '')
+        print(textColor.RESET, end = ' ')
+
+    if realTemp > 50 and realTemp <= 55:
+        print(textColor.TEAL, end = '')
+        print('*', end = '')
+        print(textColor.RESET, end = ' ')
+
+    if realTemp > 40 and realTemp <= 50:
+        print(textColor.CYAN, end = '')
+        print('*', end = '')    
+        print(textColor.RESET, end = ' ')
+
+    if realTemp > 35 and realTemp <= 40:
         print(textColor.BLUE, end = '')
+        print('*', end = '')    
+        print(textColor.RESET, end = ' ')
+
+    if realTemp > 25 and realTemp <= 35:
+        print(textColor.DARK_BLUE, end = '')
+        print('*', end = '')    
+        print(textColor.RESET, end = ' ')
+
+    if realTemp > -30 and realTemp <= 25:
+        print(textColor.DARK_GRAY, end = '')
         print('*', end = '')    
         print(textColor.RESET, end = ' ')
 
@@ -232,7 +321,7 @@ def readRealGametimeMin():
 
     current_min = now.strftime("%M")
     
-    return int(current_min)
+    return str(current_min)
 
 #====================================================================================
 #     Read the AM/PM from the system
@@ -284,5 +373,114 @@ def incrementGametime(gameTime, base):
         gameTime = 1
 
     writeWeather(base, gameTime)
+
+
+def updateWeatherFile():
+    gameTime = readRealUnconvertedGametimeHour()
+    incrementGametime(gameTime, readBaseline())
+#    print('    Current in-game time: ' + str(readRealGametimeHour()) + ':' + str(readRealGametimeMin()) + ' ' + str(readRealGametimeAmpm()))
+#    print('    Server time is now: ' + str(readRealUnconvertedGametimeHour()))
+#    print('\n    Incrementing the dang weather...')
+#    print('    The temperature is now: ' + readBaseline() + " degrees Fahrenheit")
+
+    base = int(readBaseline())
+
+    if readGametime() == 1:
+        base = 34
+        writeWeather(str(base), gameTime)
+
+    if readGametime() == 2:
+        base = 34
+        writeWeather(str(base), gameTime)
+
+    if readGametime() == 3:
+        base = 33
+        writeWeather(str(base), gameTime)
+
+
+    if readGametime() == 4:
+        base = 32
+        writeWeather(str(base), gameTime)
+
+    if readGametime() == 5:
+        base = 32
+        writeWeather(str(base), gameTime)
+
+    if readGametime() == 6:
+        base = 32
+        writeWeather(str(base), gameTime)
+
+    if readGametime() == 7:
+        base = 31
+        writeWeather(str(base), gameTime)
+
+    if readGametime() == 8:
+        base = 44
+        writeWeather(str(base), gameTime)
+
+    if readGametime() == 9:
+        base = 50
+        writeWeather(str(base), gameTime)
+
+    if readGametime() == 10:
+        base = 55
+        writeWeather(str(base), gameTime)
+
+    if readGametime() == 11:
+        base = 56
+        writeWeather(str(base), gameTime)
+
+    if readGametime() == 12:
+        base = 57
+        writeWeather(str(base), gameTime)
+
+    if readGametime() == 13:
+        base = 58
+        writeWeather(str(base), gameTime)
+
+    if readGametime() == 14:
+        base = 59
+        writeWeather(str(base), gameTime)
+
+    if readGametime() == 15:
+        base = 59
+        writeWeather(str(base), gameTime)
+
+    if readGametime() == 16:
+        base = 60
+        writeWeather(str(base), gameTime)
+
+    if readGametime() == 17:
+        base = 61
+        writeWeather(str(base), gameTime)
+
+    if readGametime() == 18:
+        base = 59
+        writeWeather(str(base), gameTime)
+
+    if readGametime() == 19:
+        base = 51
+        writeWeather(str(base), gameTime)
+
+    if readGametime() == 20:
+        base = 46
+        writeWeather(str(base), gameTime)
+
+    if readGametime() == 21:
+        base = 44
+        writeWeather(str(base), gameTime)
+
+    if readGametime() == 22:
+        base = 43
+        writeWeather(str(base), gameTime)
+
+    if readGametime() == 23:
+        base = 39
+        writeWeather(str(base), gameTime)
+
+    if readGametime() == 24:
+        base = 36
+        writeWeather(str(base), gameTime)
+
     
 
