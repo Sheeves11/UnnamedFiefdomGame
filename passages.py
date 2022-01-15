@@ -36,36 +36,36 @@ def AnswerYes(question):
 def pas_forest_p1():
     print("Lively pines greet you with their fresh and soothing scent lingering in the air.")
 def pas_forest_p2():
-    print("")
+    print("Your boots crunch on the umber brown forest floor. As you look up, you realize that you can no longer see they sky.")
 def pas_forest_p3():
-    print("")
+    print("The ground grows soft as you march between the towering oaks.")
 
 # Secondary Passages:
 def pas_forest_s1():
     print("Bushels of red berries decorate the skirts of the trees, beckoning the foolish and repelling the wise.")
 def pas_forest_s2():
-    print("")
+    print("Mushrooms dot the forest floor, growing undisturbed beneath the ancient trees.")
 def pas_forest_s3():
-    print("")
+    print("In the distance, a wildcat howls.")
 
 # Tertiary Passages:
 def pas_forest_t1():
-    print("")
+    print("A pair of jays screeches from high above.")
 def pas_forest_t2():
-    print("")
+    print("The woven web of leaves falls away to reveal a beautiful glade.")
 def pas_forest_t3():
-    print("")
+    print("You hear the metallic tinkling of a forest stream.")
 
 #------------------------------------------------------------------------------
 # Mountains
 #------------------------------------------------------------------------------
 # Primary Passages:
 def pas_mountain_p1():
-    print("")
+    print("The fang-white mountain looms over you.")
 def pas_mountain_p2():
-    print("")
+    print("The grizzled path is dotted by unmovable boulders. They look to have fallen from high above.")
 def pas_mountain_p3():
-    print("")
+    print("Scraggly pines stand strong in the face of an ancient wind")
 
 # Secondary Passages:
 def pas_mountain_s1():
@@ -96,7 +96,7 @@ def pas_plains_p3():
 
 # Secondary Passages:
 def pas_plains_s1():
-    print("")
+    print("The wind thunders across an endless sea of grass in waves.")
 def pas_plains_s2():
     print("")
 def pas_plains_s3():

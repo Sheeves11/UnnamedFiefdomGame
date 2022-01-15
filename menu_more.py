@@ -140,17 +140,20 @@ def MoreMenu(screen, userStronghold):
 #This prints out a little temperature cycle movie 
 #------------------------------------------------------------------------------
     if screen == "tempMap":
+        os.system('clear')
+        header(currentUsername)
+        print('\n\n')
+        print('    Current time: ' + str(readRealGametimeHour()) + ':' + str(readRealGametimeMin()) + ' ' + str(readRealGametimeAmpm()))
+        print('    Current Average Temperature: ' + str(readBaseline()))
 
         serverMap.name = "serverMap"
         serverMap.read()
 
-        print('    Attempting a print of a temperature map day/night cycle:\n')
-        for i in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,17,15,11,7,4,2,-2,-3,-5,-6,-10]:
-            os.system('clear')
-            printTempMapDot(i)
-            tempInput = input('\n\n    Press Enter to increment hour')
 
-        tempInput = input('\n\n    Animation finished. Press Enter to Continue')
+        printTempMapDot(0)
+
+
+        tempInput = input('\n\n    Press Enter to Continue')
         return 'moreCommands'
 
 #This is the features page for the game. Keep it updated

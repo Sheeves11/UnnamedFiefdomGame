@@ -3,6 +3,7 @@ from classes import *
 from worldmap import *
 from passages import *
 from art import *
+
 #from tempMethods import *
 
 #Most files should import this file.
@@ -54,6 +55,12 @@ BIOME_RESOURCE_MIN = 5
 BIOME_RESOURCE_MAX = 15
 ADJACENT_RESOURCE_MIN = 1
 ADJACENT_RESOURCE_MAX = 5
+
+#=====================
+#  Weather Variables
+#=====================
+WEATHER_INTERVAL = 3
+
 
 
 #=====================
