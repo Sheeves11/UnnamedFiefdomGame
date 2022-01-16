@@ -4,8 +4,8 @@ import worldmap
 from globals import *
 from datetime import datetime
 
-baselineTemp = 72
-weatherSystemMod = 15         #think of this as a seasonal modifier for temperature
+
+
 
 #honorable mention is 
 
@@ -54,7 +54,7 @@ def getTempMod(y, x):
 #   This function takes in coordinates and returns tempMod, which is
 #   a modifier based on the symbol it sees in the world map.
 #--------------------------------------------------------------------------------------------------------------
-def getLocalTemp(y, x, baselineTemp, weatherSystemMod, baselineMod):
+def getLocalTemp(y, x, BASELINE_TEMP, WEATHER_SYSTEM_MOD, baselineMod):
 
     tempMod = getTempMod(y, x)
     realTempMod = 0
@@ -68,7 +68,7 @@ def getLocalTemp(y, x, baselineTemp, weatherSystemMod, baselineMod):
     if (y + 1) == MAP_HEIGHT:
         realTempMod = (getTempMod(y,x) + getTempMod(y-1,x)) // 2
 
-    realTemp = realTempMod + baselineTemp + weatherSystemMod + baselineMod
+    realTemp = realTempMod + BASELINE_TEMP + WEATHER_SYSTEM_MOD + baselineMod
 
     return realTemp
 
@@ -154,10 +154,10 @@ def printTempMapDot(baselineMod):
                 symbol = serverMap.worldMap[i][j]
                 if j == 0:
                     print('\n    ', end = ' ')
-                    printWeatherMapDot(getLocalTemp(i, j, int(readBaseline()), weatherSystemMod, baselineMod))
+                    printWeatherMapDot(getLocalTemp(i, j, int(readBaseline()), WEATHER_SYSTEM_MOD, baselineMod))
 
                 else:
-                    printWeatherMapDot(getLocalTemp(i,j, int(readBaseline()), weatherSystemMod, baselineMod))
+                    printWeatherMapDot(getLocalTemp(i,j, int(readBaseline()), WEATHER_SYSTEM_MOD, baselineMod))
                 
 #====================================================================================
 #     Read the weather from a file

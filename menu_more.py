@@ -146,7 +146,6 @@ def MoreMenu(screen, userStronghold):
         base = int(readBaseline())
         writeWeather(str(base), gameTime)
         updateWeatherFile()
-        
         print('    Current time: ' + str(readRealGametimeHour()) + ':' + str(readRealGametimeMin()) + ' ' + str(readRealGametimeAmpm()))
         print('    Current Average Temperature: ' + str(readBaseline()))
 

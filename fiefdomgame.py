@@ -235,13 +235,24 @@ while (loop):
         userStronghold.defenders = str(userStronghold.defenders)
         userStronghold.write()
 
+        gameTime = int(readGametime())
+        base = int(readBaseline())
+        writeWeather(str(base), gameTime)
+        updateWeatherFile()
+
+        serverMap.name = "serverMap"
+        serverMap.read()
+
         header(userStronghold.name)
         print("")
-        print('    ' + textColor.WARNING + username + "'s Stronghold" + textColor.RESET)
-        print('    Message: ' + userStronghold.strongholdMessage)
-        print("")
+        strongHoldPrint = '    ' + textColor.WARNING + username + "'s Stronghold" + textColor.RESET
+        timePrint = '    Current time: ' + str(readRealGametimeHour()) + ':' + str(readRealGametimeMin()) + ' ' + str(readRealGametimeAmpm())
+        tempPrint = '    Current Temperature: ' + str(getLocalTemp(int(userStronghold.yCoordinate), int(userStronghold.xCoordinate), BASELINE_TEMP, WEATHER_SYSTEM_MOD, 0))
+        strongHoldHeaderPrint = strongHoldPrint + timePrint + tempPrint
+        print(strongHoldHeaderPrint.center(110, ' '), end = ' ')
 
-
+        print("\n")
+        strongHoldMessage = '    Stronghold Message: "' + userStronghold.strongholdMessage + '"'
 
         productionCalc = 0
         maxProductionSoldiers = (int(userStronghold.goldMod) * 500)
@@ -283,17 +294,16 @@ while (loop):
         userStronghold.read()
         art_stronghold(userStronghold.biome, userStronghold.color)
 
+        print(strongHoldMessage, end = ' ')
+        print('\n')
+
         print("    Avalible Commands:")
-        print('    -------------------------------------------------------')
-        print('    {1}: View Fiefdoms')
-        print('    {2}: View Player Strongholds')
-        print('    {3}: Hire and Recruit')
-        print('    {4}: Upgrade and Customize')
-        print('    {5}: Look Around')
-        print('    {6}: World Map')
-        print('    {7}: Message Board')
-        print('    {8}: More')
-        print('    --------------------------------------------------------')
+        print('    -----------------------------------------------------------------')
+        print('    {1}: View Fiefdoms                       {5}: Look Around')
+        print('    {2}: View Player Strongholds             {6}: World Map')
+        print('    {3}: Hire and Recruit                    {7}: Message Board ')
+        print('    {4}: Upgrade and Customize               {8}: More')
+        print('    -----------------------------------------------------------------')
         print('')
         command = input("    Enter your command: ")
 

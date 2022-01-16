@@ -57,10 +57,10 @@ ADJACENT_RESOURCE_MIN = 1
 ADJACENT_RESOURCE_MAX = 5
 
 #=====================
-#  Weather Variables
+#  Weather
 #=====================
-
-
+WEATHER_SYSTEM_MOD = 15         #think of this as a seasonal modifier for temperature
+BASELINE_TEMP = 72              #this is the baseline for global temp calculations
 
 
 #=====================

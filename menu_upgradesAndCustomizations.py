@@ -329,9 +329,13 @@ def UpgradesAndCustomizations(screen, userStronghold):
     if screen == "setStrongholdMessage":
         os.system("clear")
         header(userStronghold.name)
+        print('\n\n')
+        strongHoldMessage = '    Your current message is: ' + userStronghold.strongholdMessage
+        print(strongHoldMessage.center(110, ' '), end = ' ')
         print('\n\n\n')
-        print('    Your current message is: ' + userStronghold.strongholdMessage)
-        print('\n')
+
+        art_signpost()
+        print('\n\n\n')
 
         #get input for the stronghold message and only write it if less than 80 characters
         userStronghold.strongholdMessage = input('    Enter your new message: ')
