@@ -194,6 +194,12 @@ while (loop):
                             print('    Logging in as: ' + username)
                             time.sleep(.5)
 
+                            #------------------------------------------------------------------
+                            #----- Create a new fief from fieflist when a new user is made.
+                            #------------------------------------------------------------------
+
+                            #CreateFief(1)     #the constant that is passed in is how many fiefs you want to create
+
                             newUserAccount = True
 
                             screen = 'stronghold'

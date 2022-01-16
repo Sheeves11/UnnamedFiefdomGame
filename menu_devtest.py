@@ -89,10 +89,10 @@ def DevTestMenu(screen, userStronghold):
 
         print('    Seeding the world with default fiefdoms')
 
-        names = ['Razor Hills', 'Forest of Fado', 'Emerald Cove', 'Stormgrove',
-                'Dreadwall', 'Aegirs Hall', 'Ashen Grove', 'Bellhollow', 'Howling Plains',
-                'Jade Hill', 'Knoblands', 'Kestrel Keep', 'Direbrook',
-                'Greystone', 'Dusk Hollow', 'Ebonmarch', 'Eclipse', 'Midgar', 'Mordengaard']
+        names = ['Razor Hills', 'Stormgrove',
+                'Dreadwall', 'Bellhollow', 'Howling Plains',
+                'Knoblands', 'Kestrel Keep', 'Direbrook',
+                'Greystone', 'Midgar']
         for x in names:
             currentFief = Fiefdom()
             currentFief.name = x

@@ -10,7 +10,7 @@ from art import *
 #Doing so grants access to all the above imports as well.
 
 #This file also contains the following global functions:
-#   FirstLaunch, PrintFiefArt, HireUnit, ConstructOutpost
+#   FirstLaunch, PrintFiefArt, HireUnit, ConstructOutpost, CreateFief
 
 #========================================================================================================
 #========================================================================================================
@@ -713,4 +713,46 @@ def SetFiefStartingResources():
                 tempName.write()
 
 
+#--------------------------------------------------------------------------------------------------------------
+#   [CreateFief]
+#   Parameters: num
+#   Creates a new fief file when called. It will pull names from the fieflist.py and check to see
+#   if a fief has been created before doing so.
+#--------------------------------------------------------------------------------------------------------------
+def CreateFief(num):
+    print('\n\n    Creating New Fief')
+
+    filename = "defaultfieflist.dat"
+    fiefExists = True
+    
+    #while the random fief does not exist in the list of fief files
+    while(fiefExists):
+        lines = open(filename).read().splitlines()
+        randomFief = random.choice(lines)
+        print('\n    ' + randomFief + ' chosen. Checking to see if it exists in fiefs/')
+        
+        userPath = ('fiefs/' + randomFief + '.txt')        
+        if exists(userPath) == True:
+            print('\n    This fief already exists in the fiefs/ folder! Trying again')
+        else:
+            print('\n    This fief is unique! Create it now')
+
+            #ok now we need to create a new fief file with the default values
+
+            currentFief = Fiefdom()
+            currentFief.name = randomFief
+            currentFief.defenders = random.randint(10, 100)
+            currentFief.gold = random.randint(500, 3100)
+            currentFief.write()
+            print('    New Fief Created!')
+            os.system("clear")
+            PlotAllFiefs(serverMap)
+
+
+            print('\n    ' + randomFief + ' is created')
+            fiefExists = False
+
+
+
+    tempInput = input('\n    Press Enter to Continue: ')
 
