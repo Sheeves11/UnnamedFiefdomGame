@@ -69,6 +69,32 @@ http://10.4.40.15
 (you may need to use tools like SCREEN to disown these processes if you are working via SSH sessions)
 
 You will then need to seed some starting fiefdoms using the fieftool.py program.
+  
+  
+Installation Steps:
+  
+1. Github
+  
+2. Clone Repo
+  
+3. pip3
+  apt install python3-pip
+  
+4. py-bcrypt
+  pip3 install py-bcrypt
+  
+5. goTTY
+  also the go environment for this
+  
+6. SCREEN
+  
+7. run serverbackend.py
+  
+8. Connect via browser
+  
+9. Create default fiefs and initialize map
+  
+10. Enjoy!
 
 -----------------------------------------------------------------------------------------------------------------
 
