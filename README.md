@@ -10,6 +10,8 @@ and a few libraries.
 
 Host your own server or play on our official website: http://unnamedfiefdomgame.com/
 
+If you would like to play on our development server, visit http://216.128.140.232/
+
 Please note that this game is in the super pre-alpha testing phase right now. More updates and features to 
 come soon!
 
