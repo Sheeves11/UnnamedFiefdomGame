@@ -12,21 +12,21 @@ Please note that this game is in the super pre-alpha testing phase right now. Mo
 come soon!
 
 <p align="center">
-<img width="782" alt="fief2" src="https://user-images.githubusercontent.com/3498355/145508223-8576d7c9-8f5f-48d4-94aa-53ec7b29d449.png">
+
+<img width="748" alt="ufg" src="https://user-images.githubusercontent.com/3498355/149644850-ed561f5c-a28c-4687-80c7-1ffd46be5b91.png">
 
   
+<img width="604" alt="Screenshot 2022-01-15 202147" src="https://user-images.githubusercontent.com/3498355/149644858-cf3adfe8-13b6-437e-b5ef-a0fa28ab5da9.png">
+
   
-  
-<img width="804" alt="fief1" src="https://user-images.githubusercontent.com/3498355/145508207-0eb1ea96-f02d-4236-b234-55146d931b09.png">
-</p>
+<img width="605" alt="Screenshot 2022-01-15 202211" src="https://user-images.githubusercontent.com/3498355/149644859-31fafd11-e42b-448d-9914-cb1d6753d713.png">
+
 
 ---------------------------------------------------------------------------------------------------------------
 
 Intro:
 
-Unnamed Fiefdome Game is a python programming project by Mike Quain (mquain@uark.edu)
-The goal was to take on a project that was big enough to be challenging, but small enough to stay interesting.
-This game looks simple, but it taught me the basics of reading and writing to a database, data persistance, and multi-user tools.
+Unnamed Fiefdome Game is a python programming project by Mike Quain (mquain@uark.edu) and Joshua Davis!
 
 ---------------------------------------------------------------------------------------------------------------
 
