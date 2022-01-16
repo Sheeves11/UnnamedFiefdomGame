@@ -31,13 +31,13 @@ def header(username):
     announcement = " Announcement: This is a test build "
     
     print('\n' +
-'                                                  __        _             __           \n' +
-'                         | |__ __  _ __  _  _|   |_  o  _ _|_ _| _ __    /__ _ __  _    \n' +
-'                         |_|| || |(_||||(/_(_|   |   | (/_ | (_|(_)|||   \_|(_||||(/_   \n' +
+'                                                       __        _             __           \n' +
+'                              | |__ __  _ __  _  _|   |_  o  _ _|_ _| _ __    /__ _ __  _    \n' +
+'                              |_|| || |(_||||(/_(_|   |   | (/_ | (_|(_)|||   \_|(_||||(/_   \n' +
 '   ' + '\n' +       
 
-                                        (line5.center(110, '-')) + '\n' +
-                                    (announcement.center(110, '-')) + ' ')
+                                        (line5.center(173, '-')) + '\n' +
+                                    (announcement.center(119, '-')) + ' ')
 
 
 #This is an alternate header for displaying fief totals instead of stronghold totals.
