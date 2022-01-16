@@ -253,10 +253,14 @@ while (loop):
         header(userStronghold.name)
         print("")
         strongHoldPrint = '    ' + textColor.WARNING + username + "'s Stronghold" + textColor.RESET
-        timePrint = '    Current time: ' + str(readRealGametimeHour()) + ':' + str(readRealGametimeMin()) + ' ' + str(readRealGametimeAmpm())
-        tempPrint = '    Current Temperature: ' + str(getLocalTemp(int(userStronghold.yCoordinate), int(userStronghold.xCoordinate), BASELINE_TEMP, WEATHER_SYSTEM_MOD, 0))
-        strongHoldHeaderPrint = strongHoldPrint + timePrint + tempPrint
-        print(strongHoldHeaderPrint.center(110, ' '), end = ' ')
+
+        try:
+            timePrint = '    Current time: ' + str(readRealGametimeHour()) + ':' + str(readRealGametimeMin()) + ' ' + str(readRealGametimeAmpm())
+            tempPrint = '    Current Temperature: ' + str(getLocalTemp(int(userStronghold.yCoordinate), int(userStronghold.xCoordinate), BASELINE_TEMP, WEATHER_SYSTEM_MOD, 0))
+            strongHoldHeaderPrint = strongHoldPrint + timePrint + tempPrint
+            print(strongHoldHeaderPrint.center(110, ' '), end = ' ')
+        except:
+            pass
 
         print("\n")
         strongHoldMessage = '    Stronghold Message: "' + userStronghold.strongholdMessage + '"'
