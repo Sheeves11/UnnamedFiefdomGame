@@ -45,7 +45,6 @@ while (loop):
         base = 33
         writeWeather(str(base), gameTime)
 
-
     if readGametime() == 4:
         base = 32
         writeWeather(str(base), gameTime)

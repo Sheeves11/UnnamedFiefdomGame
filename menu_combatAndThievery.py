@@ -100,7 +100,7 @@ def CombatAndThieveryMenu(screen, userStronghold, attackStronghold):
         else:
             print("    You don't have any thieves hired!")
 
-        tempInput = input('    Press Enter To Continue')
+        tempInput = input('    Press Enter To Continue ')
         return "enemyStrongholdDetails"
 
 
@@ -177,8 +177,8 @@ def CombatAndThieveryMenu(screen, userStronghold, attackStronghold):
 
             #if the current player wins
             if attackers > defenders:
-                print('    After a hard fought battle, your weary forces remain standing')
-                print('    You are the new ruler of ' + attackFief.name)
+                print('    After a hard fought battle, your weary forces remain standing\n')
+                print('    You are the new ruler of ' + attackFief.name + '\n')
 
                 attackFief.defenders = defenders
                 attackFief.ruler = userStronghold.ruler
@@ -196,8 +196,8 @@ def CombatAndThieveryMenu(screen, userStronghold, attackStronghold):
 
             #if the other player wins
             if attackers <= defenders:
-                print('    Although your soldiers fought valiantly, they were unable to overcome ' + attackFief.ruler + '\'s forces')
-                print('    Your forces, now many fewer in number, begin the long march home.')
+                print('    Although your soldiers fought valiantly, they were unable to overcome ' + attackFief.ruler + '\'s forces\n')
+                print('    Your forces, now many fewer in number, begin the long march home.\n')
 
                 attackFief.defenders = defenders
                 attackFief.write()
@@ -207,8 +207,8 @@ def CombatAndThieveryMenu(screen, userStronghold, attackStronghold):
 
 
             time.sleep(1)
-            nothing = input('    Press Enter to Continue')
+            nothing = input('    Press Enter to Continue ')
             currentPage = 1
-            return "fiefdoms"
+            return "ownedFiefDetails"
 
     return screen
