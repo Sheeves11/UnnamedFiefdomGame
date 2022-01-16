@@ -159,7 +159,7 @@ while (loop):
         else:
             if CheckLegalUsername(username):
                 #if "username.txt" does not exist, create it. The file only contains a name and password for now.
-                newUser = input('\n                New user detected. Make a new account? (y/n): ')
+                newUser = input('\n                        New user detected. Make a new account? (y/n): ')
                 
                 if newUser.lower() == 'y':
                     try:
@@ -242,10 +242,10 @@ while (loop):
         userStronghold.defenders = str(userStronghold.defenders)
         userStronghold.write()
 
-        gameTime = int(readGametime())
-        base = int(readBaseline())
-        writeWeather(str(base), gameTime)
-        updateWeatherFile()
+        # gameTime = int(readGametime())
+        # base = int(readBaseline())
+        # writeWeather(str(base), gameTime)
+        # updateWeatherFile()
 
         serverMap.name = "serverMap"
         serverMap.read()
@@ -253,10 +253,10 @@ while (loop):
         header(userStronghold.name)
         print("")
         strongHoldPrint = '    ' + textColor.WARNING + username + "'s Stronghold" + textColor.RESET
-        timePrint = '    Current time: ' + str(readRealGametimeHour()) + ':' + str(readRealGametimeMin()) + ' ' + str(readRealGametimeAmpm())
-        tempPrint = '    Current Temperature: ' + str(getLocalTemp(int(userStronghold.yCoordinate), int(userStronghold.xCoordinate), BASELINE_TEMP, WEATHER_SYSTEM_MOD, 0))
-        strongHoldHeaderPrint = strongHoldPrint + timePrint + tempPrint
-        print(strongHoldHeaderPrint.center(110, ' '), end = ' ')
+        # timePrint = '    Current time: ' + str(readRealGametimeHour()) + ':' + str(readRealGametimeMin()) + ' ' + str(readRealGametimeAmpm())
+        # tempPrint = '    Current Temperature: ' + str(getLocalTemp(int(userStronghold.yCoordinate), int(userStronghold.xCoordinate), BASELINE_TEMP, WEATHER_SYSTEM_MOD, 0))
+        # strongHoldHeaderPrint = strongHoldPrint + timePrint + tempPrint
+        # print(strongHoldHeaderPrint.center(110, ' '), end = ' ')
 
         print("\n")
         strongHoldMessage = '    Stronghold Message: "' + userStronghold.strongholdMessage + '"'

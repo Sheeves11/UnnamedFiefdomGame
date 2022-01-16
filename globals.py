@@ -824,7 +824,7 @@ def SendResources(station, userStronghold):
             toStation = userStronghold
             stronghold = True
         if stronghold:
-            print("\n    Please select the resources you would like to send to " + str(toStation.name) + ": \n")
+            print("\n    Please select the resources you would like to send to your stronghold: \n")
             time.sleep(0.5)
             if int(station.gold) > 0:
                 print("\n    | " + str(station.name) + " Gold: " + C_GOLD + str(station.gold) + RESET + " | Stronghold Gold: " + YELLOW + str(toStation.gold) + RESET + " |")
