@@ -1,10 +1,12 @@
 # UnnamedFiefdomGame
 
-This is a little text based multiplayer game that can be hosted on a local Linux server and broadcast to your LAN
+This is a text based multiplayer game that can be hosted on a local Linux server and broadcast to your LAN
 or the internet! The game takes influences from the BBS door games of the late 80s and early 90s, as well as
-other text-based war games, like Kings of Chaos.
+other text-based war games, like Kings of Chaos. It is deceptively deep and a ton of fun to play with friends
+or over the internet.
 
-All you need to play is a browser! All you need to host the game is a basic Ubuntu Server installation.
+All you need to play is a browser! All you need to host the game is a basic Ubuntu Server installation
+and a few libraries.
 
 Host your own server or play on our official website: http://unnamedfiefdomgame.com/
 
@@ -36,22 +38,19 @@ Your goal is to control as many fiefdoms as you can manage without spreading you
 Your home stronghold will never fall, but any conquered fiefdoms can be taken by opposing players. Make sure you can defend the
 territory you claim!
 
-Each claimed fiefdom will generate gold depending on the number of soldiers stationed there. That gold can be spent on defense and attack 
-upgrades as well as additional soldiers.
+Each claimed fiefdom will generate gold and other resources depending on the number of soldiers stationed there. That gold can be spent 
+on defense and attack upgrades as well as additional soldiers. You can also add resource outposts to your fiefdoms, which will bring
+in resources that you can use with various upgrades.
 
-Upgrade your conqured fiefdoms to keep them safe! Be careful though. Any upgraded fiefdom can still be taken, and 
-your upgrades will transfer to the new ruler.
+Upgrade your conqured fiefdoms to keep them safe! Be careful though. Any upgraded fiefdom can be taken, and your upgrades will transfer 
+to the new ruler.
 
 ---------------------------------------------------------------------------------------------------------------
 
 Hosting Server Installation Info:
 
 I use a development server running Ubuntu Server 18.03 and Python 3.6. You will also need to install gotty and a GO development environment 
-before running the game. You will also need the python package bcrypt for password encryption. Install it with the following command: (pip3 install py-bcrypt)
-
-More information about goTTY can be had here: https://github.com/yudai/gotty
-
-
+before running the game. I've laid out some instructions below that should help you set this up on a fresh server.
 
 
 To run the game, first start up the backend with the following command:
@@ -83,32 +82,34 @@ Installation Steps:
 4. py-bcrypt
   pip3 install py-bcrypt
   
+5. GO development environment
+  apt-get golang
+  
 5. goTTY
-  also the go environment for this
+  go get github.com/yudai/gotty
+  More information about goTTY can be had here: https://github.com/yudai/gotty
   
 6. SCREEN
+  You will use the SCREEN program to run your backend and host process so that they
+  will not exit when you leave the SSH session or logout.
   
-7. run serverbackend.py
+7. run fiefdombackeng.py
+  python3 fiefdombackend.py &
   
-8. Connect via browser
+8. run the goTTY host
+  go/bin/gotty -w -p 80 python3 fiefdomgame.py
   
-9. Create default fiefs and initialize map
+9. Connect via browser
   
-10. Enjoy!
+10. Create default fiefs and initialize map
+  Do this by using the command "dt" on your stronghold page.
+  Run commands 2, 7, and 10 for a full initialization of the
+  server
+  
+  (Disable this when hosting a production server)
 
 -----------------------------------------------------------------------------------------------------------------
 
 Enjoy!
 
 -----------------------------------------------------------------------------------------------------------------
-
-Update Log:
-
-Since this game started, we've added almost 300 commits and 3k lines of code! Here are your latest updates:
-
-1/2/2022:
-Added password encryption using salted hashes
-Added thieves for stealing from player Strongholds
-Many, many bug fixes
-
-(to be continued)
