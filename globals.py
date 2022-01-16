@@ -35,6 +35,12 @@ testMap = TestMap() #This is for users to have fun messing with the map generato
 firstMapRead = True
 newUserAccount = False
 
+#=========================
+#   System Announcement
+#=========================
+#I had to throw this one in the art file do to import issues
+#ANNOUNCEMENT = "This is a test build"
+
 #=====================
 #   Fiefdom Pages
 #=====================
