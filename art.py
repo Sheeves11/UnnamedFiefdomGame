@@ -1,5 +1,10 @@
 from classes import *
 
+#This displays the announcement game-wide
+#Format it with spaces at the beginning and end
+ANNOUNCEMENT = " This is a test build "
+SPACER = "                        "
+
 #Define Header:
 #====================================================================================================================
 #      Header Art
@@ -27,8 +32,6 @@ def header(username):
 
     # line5 = str(" Player: " + str(headerStronghold.name) + "    Gold: " + str(headerStronghold.gold) + "    Warriors: " + str(headerStronghold.defenders) + "    Thieves: " + str(headerStronghold.thieves) + ' ')
     line5 = str(" Player: " + M + str(headerStronghold.name) + R + "  Gold: " + Y + str(headerStronghold.gold) + R + "  Food: " + D + str(headerStronghold.food) + R + "  Wood: " + G + str(headerStronghold.wood) + R + "  Stone: " + E + str(headerStronghold.stone) + R + "  Ore: " + M + str(headerStronghold.ore) + R + " ")
-
-    announcement = " Announcement: This is a test build "
     
     print('\n' +
 '                                                       __        _             __           \n' +
@@ -37,7 +40,26 @@ def header(username):
 '   ' + '\n' +       
 
                                         (line5.center(173, '-')) + '\n' +
-                                    (announcement.center(119, '-')) + ' ')
+                                    (ANNOUNCEMENT.center(119, '-')) + ' ')
+
+
+#headerStripped() should be called when you don't need to display a full resource list
+def headerStripped():
+
+    R = textColor.RESET
+    Y = textColor.YELLOW
+    D = textColor.DARK_RED
+    M = textColor.DARK_MAGENTA
+    G = textColor.DARK_GREEN
+    E = textColor.DARK_GRAY
+    
+    print('\n' +
+'                                                       __        _             __           \n' +
+'                              | |__ __  _ __  _  _|   |_  o  _ _|_ _| _ __    /__ _ __  _    \n' +
+'                              |_|| || |(_||||(/_(_|   |   | (/_ | (_|(_)|||   \_|(_||||(/_   \n' +
+'   ' + '\n' +       
+
+                                    (ANNOUNCEMENT.center(119, '-')) + ' ')
 
 
 #This is an alternate header for displaying fief totals instead of stronghold totals.
@@ -52,15 +74,14 @@ def headerFief(fief):
     C = biomeColor(fief.biome)
 
     line5 = str(" :: " + C + str(fief.name) + R + " :: | Ruler: " + M + str(fief.ruler) + R + "  Gold: " + Y + str(fief.gold) + R + "  Food: " + D + str(fief.food) + R + "  Wood: " + G + str(fief.wood) + R + "  Stone: " + E + str(fief.stone) + R + "  Ore: " + M + str(fief.ore) + R + " | ")
-    announcement = " Announcement: This is a test build "
-    
+
     print('\n' +
 '                                                  __        _             __           \n' +
 '                         | |__ __  _ __  _  _|   |_  o  _ _|_ _| _ __    /__ _ __  _    \n' +
 '                         |_|| || |(_||||(/_(_|   |   | (/_ | (_|(_)|||   \_|(_||||(/_   \n' +
 '   ' + '\n' +       
                                         (line5.center(173, '-')) + '\n' +
-                                    (announcement.center(110, '-')) + '\n')
+                                    (ANNOUNCEMENT.center(110, '-')) + '\n')
 
 #Define Art:
 #====================================================================================================================
@@ -180,23 +201,23 @@ def art_stronghold(biome, color):
     Z = "\\"
     I = "'"
     print('''
-           V     .                           v  .  
-              ^  |'''+F+'''>>}  '''+R+'''                    ^    |'''+F+'''>>} '''+R+'''
-                 |  '''+F+'''\}>>'''+R+'''  /\_/\_/\_/\_/\        |  '''+F+'''\}>>'''+R+'''
-              '''+F+'''  /^\ '''+R+'''      [=-  -  -  -=]   '''+F+'''    /^'''+Z+R+'''
-              '''+F+''','/^'''+Z+I+'''.'''+R+'''     \............/     '''+F+''','/^'''+Z+I+'''.'''+R+'''
-              [ - - ]      '''+Z+F+I+'''`'`'`'`'`'''+R+'''/      [ - - ]
-          '''+D+'''___ '''+R+'''|=,-. |/\/\/\[]- - =-= []/\/\/\|=,-. |
-        '''+D+''','''+I+'''&&&'''+R+'''`| |_| ||' '`'||_=_=-_-_|| `' '|| |_|-|   '''+D+'''___'''+R+'''
-        '''+D+'''&&&&&&'''+R+'''| =- |/-   = /""|=||=|""\=` =  \| ` =|'''+D+'''-''&&&'''+R+'''
-        '''+D+'''&&&&&&'''+R+'''|=  /[]= -  ||' \|/\|/  || -  =[]\- =|'''+D+'''&&&&&&'''+R+'''
-        '''+D+'''&&&&&&'''+R+'''| -|`[] =  `|| [=]  [=] ||  =  []`|-,|'''+D+'''&&&&'''+R+''',/
-        '''+D+'''&&&&&'''+R+'''_|` '-[]-  - ||{-} -` {-}|| = `-[]-|` |'''+D+'''%'''+R+'''_,'''+C+''','''+R+'''
-        '''+D+'''&&'''+R+''',,' | -|-[]  = .|" `.'''+F+'''===='''+R+'''.  "|. - _[],,..-' '''+C+''',  .'''+R+'''
-        --'''+C+''' . ,'''+R+'''|= |-[] =  ||" ='''+F+'''|::::|'''+R+'''= "||,-' '''+C+''' ,  .  .   .'''+R+'''
-        '''+C+'''. , .,'''+R+'''\__|-[]-  =||" ='''+F+'''|::::|'''+R+'''= ,+' '''+C+''',  .   '''+M+'''*'''+C+''' .  , . ,'''+R+'''
-        '''+C+''' .    ,'''+R+'''  `-------'^--o/'  '\o '''+C+''',  .   . ,   , .   .'''+R+'''
-        '''+C+'''.  ' ,    '  .  -  '''+R+''' O/      \O  '''+M+'''*'''+R+'''     '''+C+'''       '  '''+M+'''*'''+R+''' 
+'''+SPACER+'''           V     .                           v  .  
+'''+SPACER+'''              ^  |'''+F+'''>>}  '''+R+'''                    ^    |'''+F+'''>>} '''+R+'''
+ '''+SPACER+'''                |  '''+F+'''\}>>'''+R+'''  /\_/\_/\_/\_/\        |  '''+F+'''\}>>'''+R+'''
+    '''+SPACER+'''          '''+F+'''  /^\ '''+R+'''      [=-  -  -  -=]   '''+F+'''    /^'''+Z+R+'''
+  '''+SPACER+'''            '''+F+''','/^'''+Z+I+'''.'''+R+'''     \............/     '''+F+''','/^'''+Z+I+'''.'''+R+'''
+   '''+SPACER+'''           [ - - ]      '''+Z+F+I+'''`'`'`'`'`'''+R+'''/      [ - - ]
+    '''+SPACER+'''      '''+D+'''___ '''+R+'''|=,-. |/\/\/\[]- - =-= []/\/\/\|=,-. |
+   '''+SPACER+'''     '''+D+''','''+I+'''&&&'''+R+'''`| |_| ||' '`'||_=_=-_-_|| `' '|| |_|-|   '''+D+'''___'''+R+'''
+   '''+SPACER+'''     '''+D+'''&&&&&&'''+R+'''| =- |/-   = /""|=||=|""\=` =  \| ` =|'''+D+'''-''&&&'''+R+'''
+   '''+SPACER+'''     '''+D+'''&&&&&&'''+R+'''|=  /[]= -  ||' \|/\|/  || -  =[]\- =|'''+D+'''&&&&&&'''+R+'''
+  '''+SPACER+'''      '''+D+'''&&&&&&'''+R+'''| -|`[] =  `|| [=]  [=] ||  =  []`|-,|'''+D+'''&&&&'''+R+''',/
+   '''+SPACER+'''     '''+D+'''&&&&&'''+R+'''_|` '-[]-  - ||{-} -` {-}|| = `-[]-|` |'''+D+'''%'''+R+'''_,'''+C+''','''+R+'''
+   '''+SPACER+'''     '''+D+'''&&'''+R+''',,' | -|-[]  = .|" `.'''+F+'''===='''+R+'''.  "|. - _[],,..-' '''+C+''',  .'''+R+'''
+   '''+SPACER+'''     --'''+C+''' . ,'''+R+'''|= |-[] =  ||" ='''+F+'''|::::|'''+R+'''= "||,-' '''+C+''' ,  .  .   .'''+R+'''
+    '''+SPACER+'''    '''+C+'''. , .,'''+R+'''\__|-[]-  =||" ='''+F+'''|::::|'''+R+'''= ,+' '''+C+''',  .   '''+M+'''*'''+C+''' .  , . ,'''+R+'''
+  '''+SPACER+'''      '''+C+''' .    ,'''+R+'''  `-------'^--o/'  '\o '''+C+''',  .   . ,   , .   .'''+R+'''
+   '''+SPACER+'''     '''+C+'''.  ' ,    '  .  -  '''+R+''' O/      \O  '''+M+'''*'''+R+'''     '''+C+'''       '  '''+M+'''*'''+R+''' 
     ''')
 
 #==================================================

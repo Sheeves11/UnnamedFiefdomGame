@@ -127,7 +127,8 @@ while (loop):
         print('\n')
 
         # userStronghold = Stronghold()
-        username = input("                        Enter your username: ")
+        print(textColor.WARNING)
+        username = input("                        Enter your username: " + textColor.RESET)
         currentUsername = username
 
         userPath = ('users/' + username + '.txt')
@@ -137,34 +138,39 @@ while (loop):
             usernameFile = "users/" + username + ".txt"
             with open(usernameFile, 'r') as f:
                 os.system('clear')
-                header(username)
+                headerStripped()
                 
                 temp1 = f.readline().strip()
                 hashed = f.readline().strip()
                 
-                print('\n\n    Welcome back, ' + str(username))
-                userPass = getpass('    Enter your password: ')
+                print(textColor.WARNING)
+                print('\n\n    Welcome back, ' + textColor.RESET + str(username))
+                userPass = getpass(textColor.WARNING + '    Enter your password: ' + textColor.RESET)
 
                 if bcrypt.checkpw(userPass, hashed):
+                    print(textColor.GREEN)
                     print('    Password is correct\n')
                     time.sleep(.5)
                     print("    Logging in as: " + username)
                     time.sleep(.5)
                     screen = 'stronghold'
+                    print(textColor.RESET)
                 else:
+                    print(textColor.RED)
                     print('    Access denied')
+                    print(textColor.RESET)
                     time.sleep(.5)
                     screen = 'login'
 
         else:
             if CheckLegalUsername(username):
                 #if "username.txt" does not exist, create it. The file only contains a name and password for now.
-                newUser = input('\n                New user detected. Make a new account? (y/n): ')
+                newUser = input('\n                        New user detected. Make a new account? (y/n): ')
                 
                 if newUser.lower() == 'y':
                     try:
                         os.system('clear')
-                        header(userStronghold.name)
+                        headerStripped()
                 
                         print('\n\n')
                         print(textColor.WARNING + '    WELCOME NEW PLAYER' + textColor.RESET)
@@ -252,13 +258,14 @@ while (loop):
 
         header(userStronghold.name)
         print("")
-        strongHoldPrint = '    ' + textColor.WARNING + username + "'s Stronghold" + textColor.RESET
+        strongHoldPrint = '    ' + textColor.WARNING + username + "'s Stronghold" 
 
         try:
             timePrint = '    Current time: ' + str(readRealGametimeHour()) + ':' + str(readRealGametimeMin()) + ' ' + str(readRealGametimeAmpm())
             tempPrint = '    Current Temperature: ' + str(getLocalTemp(int(userStronghold.yCoordinate), int(userStronghold.xCoordinate), BASELINE_TEMP, WEATHER_SYSTEM_MOD, 0))
             strongHoldHeaderPrint = strongHoldPrint + timePrint + tempPrint
-            print(strongHoldHeaderPrint.center(110, ' '), end = ' ')
+            print(strongHoldHeaderPrint.center(120, ' '), end = ' ')
+            print(textColor.RESET)
         except:
             pass
 
@@ -293,34 +300,32 @@ while (loop):
             serverMap.read()
             newUserAccount = False
 
-        print('    On a hilltop overlooking endless rolling fields, you see the only home you have ever known.')
-        print('    The Fiefdom is home to ' + textColor.WARNING +  str(userStronghold.defenders) + textColor.RESET + ' highly skilled warriors, and dozens of loyal citizens.')
-        print('    You also employ the services of ' + textColor.WARNING +  str(userStronghold.thieves) + textColor.RESET + ' well-trained thieves.')
-        print('\n    Grow your forces to overcome the enemy. Do not let your citizens down')
-        print('\n    Within your coffers, you have ' + textColor.WARNING + str(userStronghold.gold) + textColor.RESET + ' gold.')
-        print('    ' + 'Production: ' + str(productionCalc) + ' gold and ' + str((int(defendersPer) * int(attackFief.defenderMod))) + ' soldiers per hour.')
-        print('    Your army of ' + textColor.WARNING + str(userStronghold.attType) + textColor.RESET + ' stands ready.')
+        s = "         "
+        print(' '+s+'   On a hilltop overlooking endless rolling fields, you see the only home you have ever known.')
+        print('  '+s+'  The Fiefdom is home to ' + textColor.WARNING +  str(userStronghold.defenders) + textColor.RESET + ' highly skilled warriors, and dozens of loyal citizens.')
+        print('  '+s+'  You also employ the services of ' + textColor.WARNING +  str(userStronghold.thieves) + textColor.RESET + ' well-trained thieves.')
+        print('\n  '+s+'  Grow your forces to overcome the enemy. Do not let your citizens down')
+        print('\n  '+s+'  Within your coffers, you have ' + textColor.WARNING + str(userStronghold.gold) + textColor.RESET + ' gold.')
+        print('  '+s+'  ' + 'Production: ' + str(productionCalc) + ' gold and ' + str((int(defendersPer) * int(attackFief.defenderMod))) + ' soldiers per hour.')
+        print(' '+s+'   Your army of ' + textColor.WARNING + str(userStronghold.attType) + textColor.RESET + ' stands ready.')
         print('\n')
 
         userStronghold.read()
         art_stronghold(userStronghold.biome, userStronghold.color)
 
-        print(strongHoldMessage, end = ' ')
+        print('                           ' + strongHoldMessage, end = ' ')
         print('\n')
 
-        print("    Avalible Commands:")
-        print('    -------------------------------------------------------')
-        print('    {1}: View Fiefdoms               {9}: More')
-        print('    {2}: View Player Strongholds')
-        print('    {3}: Hire and Recruit')
-        print('    {4}: Upgrade and Customize')
-        print('    {5}: Look Around')
-        print('    {6}: World Map')
-        print('    {7}: Send Resources')
-        print('    {8}: Message Board')
-        print('    --------------------------------------------------------')
+        print("             Avalible Commands:")
+        print('         ----------------------------------------------------------------------------------------------------')
+        print('           {1}: View Fiefdoms                                             {6}: Send Resources to Fiefdoms')
+        print('           {2}: View Player Strongholds                                   {7}: Chatroom')
+        print('           {3}: Hire and Recruit                                          {8}: More Options')
+        print('           {4}: Upgrades and Customization                                {9}: How To Play')
+        print('           {5}: View The World Map')  
+        print('         ----------------------------------------------------------------------------------------------------')
         print('')
-        command = input("    Enter your command: ")
+        command = input("            Enter your command: ")
 
         if command == '1':
             currentPage = 1
@@ -334,23 +339,21 @@ while (loop):
 
         if command == '4':
             screen = 'upgradeStronghold'
-        
-        if command == '5':
-            screen = 'viewSurroundings'
-            USER_STRONGHOLD = True
-            STRONGHOLD = True
 
-        if command == '6':
+        if command == '5':
             screen = 'viewMapYourStronghold'
 
-        if command == '7':
+        if command == '6':
             screen = 'sendResourcesFromStronghold'
 
-        if command == '8':
+        if command == '7':
             screen = 'messageBoard'
 
-        if command == '9':
+        if command == '8':
             screen = 'moreCommands'
+
+        if command == '9':
+            screen = 'howTo'
         
         #The following command is for testing only!
         if command == 'devtest' or command == 'dt':
