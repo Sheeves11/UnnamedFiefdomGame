@@ -48,8 +48,8 @@ FILL_SYMBOL = "-"
 #=====================
 # maxProductionSoldiers now scales by defenseLevel. 300/600/900/1200/1500/1800 (see constant)
 GOLD_PER = 100
-# INTERVAL = 3600
-INTERVAL = 60
+INTERVAL = 3600
+# INTERVAL = 60
 MAX_PRODUCTION_SOLDIERS_CONSTANT = 300  #Nerfed to 300 down from 500. May not be necessary.
 defendersPer = 3
 
