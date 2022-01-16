@@ -627,4 +627,5 @@ class Map:
         print('usedForests: ' + str(self.usedForests))
         print('usedMountains: ' + str(self.usedMountains))
 
+
 #eof

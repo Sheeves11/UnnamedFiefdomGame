@@ -159,7 +159,7 @@ while (loop):
         else:
             if CheckLegalUsername(username):
                 #if "username.txt" does not exist, create it. The file only contains a name and password for now.
-                newUser = input('\n                New user detected. Make a new account? (y/n): ')
+                newUser = input('\n                        New user detected. Make a new account? (y/n): ')
                 
                 if newUser.lower() == 'y':
                     try:
@@ -242,10 +242,10 @@ while (loop):
         userStronghold.defenders = str(userStronghold.defenders)
         userStronghold.write()
 
-        gameTime = int(readGametime())
-        base = int(readBaseline())
-        writeWeather(str(base), gameTime)
-        updateWeatherFile()
+        # gameTime = int(readGametime())
+        # base = int(readBaseline())
+        # writeWeather(str(base), gameTime)
+        # updateWeatherFile()
 
         serverMap.name = "serverMap"
         serverMap.read()
@@ -375,10 +375,7 @@ while (loop):
         fiefdomCount = 0
         fiefdomMargin = 0
 
-        print("")
-        print(str("    " + textColor.UNDERLINE + "Nearby Fiefdoms" + textColor.RESET).ljust(RESOURCE_SPACING, FILL_SYMBOL) + "| " + textColor.UNDERLINE + "Resources" + textColor.RESET)
-        # print("    -------------------------------------------------------------------------------\n")
-        print("")
+        print(str("\n    " + textColor.UNDERLINE + "Nearby Fiefdoms" + textColor.RESET).ljust(RESOURCE_SPACING, FILL_SYMBOL) + "| " + textColor.UNDERLINE + "Resources" + textColor.RESET + "\n")
 
         #loop through each file in the /fiefs/ directory and print off the details  of each fief in a list
         for filename in os.listdir('fiefs'):

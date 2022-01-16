@@ -5,6 +5,7 @@ from globals import *
 #   garrisonSorter
 
 def GarrisonMenu(screen, userStronghold):
+    global userFiefCount
 #This is the screen for viewing users owned fiefs and for garrisoning soldiers
 #----------------------------------------------------------------------------------
     if screen == "garrison":
@@ -14,8 +15,8 @@ def GarrisonMenu(screen, userStronghold):
 
         userFiefCount = 0
 
-        print('\n    Fiefs under your rule:')
-        print("    ------------------------------------------------------------------\n")
+        print(str("\n    " + textColor.UNDERLINE + "Nearby Fiefdoms" + textColor.RESET).ljust(RESOURCE_SPACING, FILL_SYMBOL) + "| " + textColor.UNDERLINE + "Resources" + textColor.RESET + "\n")
+
         for filename in os.listdir('fiefs'):
             with open(os.path.join('fiefs', filename), 'r') as f:
 
@@ -24,10 +25,12 @@ def GarrisonMenu(screen, userStronghold):
                 tempName.name = filename[:-4]
                 tempName.read()
 
-                if tempName.home != "True" and tempName.ruler == userStronghold.name:
+                ownedFiefdomInfo = str('    ' + textColor.CYAN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + tempName.defenders + textColor.RESET)
+                fiefdomResources = str('| ' + textColor.YELLOW + tempName.gold + textColor.RESET + ' ' + textColor.DARK_RED + tempName.food + textColor.RESET + ' ' + textColor.DARK_GREEN + tempName.wood + textColor.RESET + ' ' + textColor.DARK_GRAY + tempName.stone + textColor.RESET + ' ' + textColor.DARK_MAGENTA + tempName.ore + textColor.RESET + '')
+
+                if tempName.ruler == userStronghold.name:
                     userFiefCount = userFiefCount + 1
-                    print ('    ' + textColor.CYAN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' +
-                            tempName.defenders + textColor.RESET + ' || Gold: ' + tempName.gold)
+                    print(ownedFiefdomInfo.ljust(RESOURCE_SPACING, FILL_SYMBOL) + fiefdomResources)
 
         print('\n')
         print("    Avalible Commands:")
@@ -98,25 +101,21 @@ def GarrisonMenu(screen, userStronghold):
                 withdrawNum = '0'
 
             if int(withdrawNum) < 0:
-                os.system("clear")
                 print("    You cannot distribute a negative number of soldiers. \n\nThat doesn't even make sense.")
                 time.sleep(2)
                 return 'garrison'
 
             elif int(withdrawNum) == 0:
-                os.system("clear")
                 print("    Cancelling request...")
                 time.sleep(1)
                 return 'garrison'
 
             elif int(userStronghold.defenders) < int(withdrawNum):
-                os.system("clear")
                 print("    You do not have enough soldiers for that.")
                 time.sleep(2)
                 return 'garrison'
 
             elif int(withdrawNum) < userFiefCount:
-                os.system("clear")
                 print("    You have more fiefs than soldiers you want to distribute!")
                 time.sleep(2)
                 return 'garrison'
