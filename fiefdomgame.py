@@ -375,10 +375,7 @@ while (loop):
         fiefdomCount = 0
         fiefdomMargin = 0
 
-        print("")
-        print(str("    " + textColor.UNDERLINE + "Nearby Fiefdoms" + textColor.RESET).ljust(RESOURCE_SPACING, FILL_SYMBOL) + "| " + textColor.UNDERLINE + "Resources" + textColor.RESET)
-        # print("    -------------------------------------------------------------------------------\n")
-        print("")
+        print(str("\n    " + textColor.UNDERLINE + "Nearby Fiefdoms" + textColor.RESET).ljust(RESOURCE_SPACING, FILL_SYMBOL) + "| " + textColor.UNDERLINE + "Resources" + textColor.RESET + "\n")
 
         #loop through each file in the /fiefs/ directory and print off the details  of each fief in a list
         for filename in os.listdir('fiefs'):
