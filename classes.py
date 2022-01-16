@@ -3,6 +3,21 @@ import os
 import time
 import random
 
+#============================
+#  UNIT RESOURCE MODIFIERS
+#============================
+HUNTER_FOOD_MOD = 2     #Use this to balance hunter food generation
+
+# For VENDOR_GOLD_PER_HOUR:
+# Max vendors is currently 5 per farm
+# This amount of gold is doubled at max rank
+# With 8 fully upgraded farms, you can get 40 vendors. 
+# With 40 vendors, you can fetch 4k gold/hr if the value below is 50
+VENDOR_GOLD_PER_HOUR = 50
+
+#============================
+
+
 #this is the d20 roll function
 def roll(mod):
     d20 = random.randint(1, 20)
@@ -314,6 +329,25 @@ class Fiefdom:
                 self.adjacentMountains = str(int(self.adjacentMountains) + 1)
             elif surroundings[i] == FOREST:
                 self.adjacentForests = str(int(self.adjacentForests) + 1)
+
+    def GetPrimaryPer(self, outpost):
+        if outpost == "farmland":
+            return int(self.op_farmlandPrimaryUnits) * (int(self.op_farmlandTier) + 1)
+        if outpost == "fishery":
+            return int(self.op_fisheryPrimaryUnits) * (int(self.op_fisheryTier) + 1)
+        if outpost == "lumberMill":
+            return int(self.op_lumberMillPrimaryUnits) * (int(self.op_lumberMillTier) + 1)
+        if outpost == "mine":
+            return int(self.op_minePrimaryUnits) * (int(self.op_mineTier) + 1)
+
+    def GetSecondaryPer(self, outpost):
+        if outpost == "farmland":
+            return int(self.op_farmlandSecondaryUnits) * int(self.op_farmlandTier) * VENDOR_GOLD_PER_HOUR
+        if outpost == "lumberMill":
+            return int(self.op_lumberMillSecondaryUnits) * int(self.op_lumberMillTier) * HUNTER_FOOD_MOD
+        if outpost == "mine":
+            return int(self.op_mineSecondaryUnits) * int(self.op_mineTier)
+        
             
 #SW: I am splitting this to safely determine if it is necessary to keep the above stuff or not
 class Stronghold:

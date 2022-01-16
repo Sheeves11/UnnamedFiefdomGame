@@ -38,6 +38,9 @@ def HireMenu(screen, userStronghold):
     if screen == "hireThieves":
         os.system("clear")
         header(userStronghold.name)
+
+        art_placeholder("  Art of a dagger and cloak")
+
         flavorText = '''
     As in all cities, your stronghold is home to a number of seedy characters who frequent the criminal underbelly
     of society. For a price, they will be loyal to you.
@@ -54,6 +57,9 @@ def HireMenu(screen, userStronghold):
     if screen == "hireWarriors":
         os.system("clear")
         header(userStronghold.name)
+
+        art_placeholder("  Art of a sword and shield")
+
         flavorText = '''
     With these fighting machines and meat shields at your command, lay waste to your adversaries and defend
     what's yours.

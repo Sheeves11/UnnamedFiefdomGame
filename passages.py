@@ -88,7 +88,7 @@ def pas_mountain_t3():
 #------------------------------------------------------------------------------
 # Primary Passages:
 def pas_plains_p1():
-    print("")
+    print("A vast stretch of land lies before you, its fertile soil protected by billions of tiny blades")
 def pas_plains_p2():
     print("")
 def pas_plains_p3():

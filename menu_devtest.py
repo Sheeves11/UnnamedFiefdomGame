@@ -34,7 +34,7 @@ def DevTestMenu(screen, userStronghold):
         print('    {5}: Add all Fiefs Tool')
         print('    {6}: Add all Strongholds Tool')
         print('    {7}: Quick Generate World (DO NOT USE if 3-6 were used!)')
-        print('    {8}: Add Gold Tool (for testing!)')
+        print('    {8}: Add Resources Tool (for testing!)')
         print('    {9}: World Map Diagnostic (Only run after step 3 or 7)')
         print('    {10}: World Map River Tool')
         print('    --------------------------------------------------------')
@@ -66,7 +66,7 @@ def DevTestMenu(screen, userStronghold):
             return 'devTestGenerateWorld'
 
         if command == '8':
-            return 'devTestAddGold'
+            return 'devTestAddResources'
 
         if command == '9':
             return 'devTestWorldMapDiagnostics'
@@ -109,19 +109,23 @@ def DevTestMenu(screen, userStronghold):
 #
 #It should be taken out if you ever open this game up to many players
 #----------------------------------------------------------------------------------
-    if screen == "devTestAddGold":
+    if screen == "devTestAddResources":
         os.system("clear")
         header(currentUsername)
 
-        print('    Adding Funds!...')
+        print('    Adding Resources!...')
 
         userStronghold.gold = str(int(userStronghold.gold) + 1000000)
+        userStronghold.food = str(int(userStronghold.food) + 10000)
+        userStronghold.wood = str(int(userStronghold.wood) + 10000)
+        userStronghold.stone = str(int(userStronghold.stone) + 10000)
+        userStronghold.ore = str(int(userStronghold.ore) + 1000)
         userStronghold.write()
 
         time.sleep(0.5)
-        print('    ...Funds Added!')
+        print('    ...Resources Added!')
         time.sleep(0.5)
-        return 'devTest'
+        return 'stronghold'
 
 #This is a devtool for making the world map for a server
 #
@@ -255,50 +259,6 @@ def DevTestMenu(screen, userStronghold):
 #-----------------------------------------------------------------------------------
     if screen == "testScreen":
         os.system("clear")
-
-        print("    Testing out resource printing functions:\n\n")
-
-        PrintResourceCost("    Upgrading this thing to tier 1 costs", RESOURCE_TEST_VALUES_1, ".")
-        if HaveEnoughResources(userStronghold, RESOURCE_TEST_VALUES_1):
-            print("    Your stronghold can afford this!")
-        try:
-            if HaveEnoughResources(attackFief, RESOURCE_TEST_VALUES_1):
-                print("    " + str(attackFief.name) + " can afford this!")
-        except:
-            print("    No current attackFief available.")
-
-        PrintResourceCost("    Upgrading this thing to tier 2 costs", RESOURCE_TEST_VALUES_2, ".")
-        if HaveEnoughResources(userStronghold, RESOURCE_TEST_VALUES_2):
-            print("    Your stronghold can afford this!")
-        try:
-            if HaveEnoughResources(attackFief, RESOURCE_TEST_VALUES_2):
-                print("    " + str(attackFief.name) + " can afford this!")
-        except:
-            print("    No current attackFief available.")
-        PrintResourceCost("    Upgrading this thing to tier 3 costs", RESOURCE_TEST_VALUES_3, ".")
-        if HaveEnoughResources(userStronghold, RESOURCE_TEST_VALUES_3):
-            print("    Your stronghold can afford this!")
-        try:
-            if HaveEnoughResources(attackFief, RESOURCE_TEST_VALUES_3):
-                print("    " + str(attackFief.name) + " can afford this!")
-        except:
-            print("    No current attackFief available.")
-        PrintResourceCost("    Upgrading this thing to tier 4 costs", RESOURCE_TEST_VALUES_4, ".")
-        if HaveEnoughResources(userStronghold, RESOURCE_TEST_VALUES_4):
-            print("    Your stronghold can afford this!")
-        try:
-            if HaveEnoughResources(attackFief, RESOURCE_TEST_VALUES_4):
-                print("    " + str(attackFief.name) + " can afford this!")
-        except:
-            print("    No current attackFief available.")
-
-
-        unitType = "Farmer"
-        flavorText = "    "
-        costModifier = 0
-        unitCap = UCAP_FARMER * int(attackFief.op_farmlandNumBuilt)
-
-        HireUnit(attackFief, unitType, UCOST_FARMER, costModifier, unitCap, attackFief.op_farmlandPrimaryUnits, COLOR_FARMER, flavorText)
 
         nothing = input('    Continue:')
         return 'devTest'

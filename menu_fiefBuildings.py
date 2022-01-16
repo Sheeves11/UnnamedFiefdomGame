@@ -21,6 +21,8 @@ def FiefBuildingsMenu(screen, userStronghold):
 
         os.system("clear")
         headerFief(attackFief)
+
+        art_placeholder("  Art of a horizon showing each biome")
         
         print("\n    Avalible Commands:")
         print('    -------------------------------------')
@@ -67,19 +69,21 @@ def FiefBuildingsMenu(screen, userStronghold):
             
             if int(attackFief.op_farmlandPrimaryUnits) > 0:
                 print("    You have " + WARNING + str(attackFief.op_farmlandPrimaryUnits) + COLOR_FARMER + " Farmers" + RESET + " growing food at a")
-                print("    rate of " + CYAN + str(attackFief.op_farmlandPrimaryPer) + RESET + " per hour.\n")
+                print("    rate of " + CYAN + str(attackFief.GetPrimaryPer("farmland")) + RESET + " per hour.\n")
             else:
                 print("    You have not hired any" + COLOR_FARMER + " Farmers" + RESET + " yet.\n")
 
             if int(attackFief.op_farmlandTier) > 0:
                 if int(attackFief.op_farmlandSecondaryUnits) > 0:
-                    print("    You have " + WARNING + str(attackFief.op_farmlandSecondaryUnits) + COLOR_VENDOR + " Vendors" + RESET + " doing whatever they do")
-                    print("    at a rate of " + CYAN + str(attackFief.op_farmlandSecondaryPer) + RESET + " per hour.\n")
+                    print("    You have " + WARNING + str(attackFief.op_farmlandSecondaryUnits) + COLOR_VENDOR + " Vendors" + RESET + " selling excess crops")
+                    print("    at a rate of " + CYAN + str(attackFief.GetSecondaryPer("farmland")) + RESET + " gold per hour.\n")
                 else:
                     print("    You have not hired any" + COLOR_VENDOR + " Vendors" + RESET + " yet.\n")
 
         else:
             print("    You haven't constructed any" + OP_COLOR_FARMLAND + " Farmlands" + RESET + " yet.\n")
+
+        art_placeholder("Art of a Farmland outpost based on current tier")
 
         print("\n    Avalible Commands:")
         print('    -------------------------------------')
@@ -129,20 +133,22 @@ def FiefBuildingsMenu(screen, userStronghold):
             
             if int(attackFief.op_fisheryPrimaryUnits) > 0:
                 print("    You have " + WARNING + str(attackFief.op_fisheryPrimaryUnits) + COLOR_FISHER + " Fishers" + RESET + " catching food at a")
-                print("    rate of " + CYAN + str(attackFief.op_fisheryPrimaryPer) + RESET + " per hour.\n")
+                print("    rate of " + CYAN + str(attackFief.GetPrimaryPer("fishery")) + RESET + " per hour.\n")
             else:
                 print("    You have not hired any" + COLOR_FISHER + " Fishers" + RESET + " yet.\n")
 
             if int(attackFief.op_fisheryTier) > 0:
                 if int(attackFief.op_fisherySecondaryUnits) > 0:
                     print("    You have " + WARNING + str(attackFief.op_fisherySecondaryUnits) + COLOR_SCAVENGER + " Scavengers" + RESET + " gathering random materials")
-                    print("    at a rate of " + CYAN + str(attackFief.op_fisherySecondaryPer) + RESET + " per hour.\n")
+                    print("    at a random rate per hour.\n")
                 else:
                     print("    You have not hired any" + COLOR_SCAVENGER + " Scavengers" + RESET + " yet.\n")
 
         else:
             print("    You haven't constructed any" + OP_COLOR_FISHERY + " Fisheries" + RESET + " yet.\n")
-    
+
+        art_placeholder("Art of a Fishery outpost based on current tier")
+
         print("\n    Avalible Commands:")
         print('    -------------------------------------')
         print('    {1}: Go Back')
@@ -189,22 +195,22 @@ def FiefBuildingsMenu(screen, userStronghold):
             print("    You currently have " + WARNING + str(attackFief.op_lumberMillNumBuilt) + OP_COLOR_LUMBERMILL + " Lumber Mills" + RESET + " built.\n")
             if int(attackFief.op_lumberMillPrimaryUnits) > 0:
                     print("    You have " + WARNING + str(attackFief.op_lumberMillPrimaryUnits) + COLOR_LUMBERJACK + " Lumberjacks" + RESET + " gathering wood at a")
-                    print("    rate of " + CYAN + str(attackFief.op_lumberMillPrimaryPer) + RESET + " per hour.\n")
+                    print("    rate of " + CYAN + str(attackFief.GetPrimaryPer("lumberMill")) + RESET + " per hour.\n")
             else:
                 print("    You have not hired any" + COLOR_LUMBERJACK + " Lumberjacks" + RESET + " yet.\n")
 
             if int(attackFief.op_lumberMillTier) > 0:
                 if int(attackFief.op_lumberMillSecondaryUnits) > 0:
                     print("    You have " + WARNING + str(attackFief.op_lumberMillSecondaryUnits) + COLOR_HUNTER + " Hunters" + RESET + " hunting for food")
-                    print("    at a rate of " + CYAN + str(attackFief.op_lumberMillSecondaryPer) + RESET + " per hour.\n")
+                    print("    at a rate of " + CYAN + str(attackFief.GetSecondaryPer("lumberMill")) + RESET + " per hour.\n")
                 else:
                     print("    You have not hired any" + COLOR_HUNTER + " Hunters" + RESET + " yet.\n")
 
         else:
             print("    You haven't constructed any" + OP_COLOR_LUMBERMILL + " Lumber Mills" + RESET + " yet.\n")
 
+        art_placeholder("Art of a Lumber Mill outpost based on current tier")
         
-
         print("\n    Avalible Commands:")
         print('    -------------------------------------')
         print('    {1}: Go Back')
@@ -250,7 +256,7 @@ def FiefBuildingsMenu(screen, userStronghold):
             print("    You currently have " + WARNING + str(attackFief.op_mineNumBuilt) + OP_COLOR_MINE + " Mines" + RESET + " built.\n")
             if int(attackFief.op_minePrimaryUnits) > 0:
                 print("    You have " + WARNING + str(attackFief.op_minePrimaryUnits) + COLOR_MINER + " Miners" + RESET + " gathering stone at a")
-                print("    rate of " + CYAN + str(attackFief.op_minePrimaryPer) + RESET + " per hour.\n")
+                print("    rate of " + CYAN + str(attackFief.GetPrimaryPer("mine")) + RESET + " per hour.\n")
             else:
                 
                 print("    You have not hired any" + COLOR_MINER + " Miners" + RESET + " yet.\n")
@@ -258,11 +264,13 @@ def FiefBuildingsMenu(screen, userStronghold):
             if int(attackFief.op_mineTier) > 0:
                 if int(attackFief.op_mineSecondaryUnits) > 0:
                     print("    You have " + WARNING + str(attackFief.op_mineSecondaryUnits) + COLOR_PROSPECTOR + " Prospectors" + RESET + " gathering iron")
-                    print("    at a rate of " + CYAN + str(attackFief.op_mineSecondaryPer) + RESET + " per hour.\n")
+                    print("    at a rate of " + CYAN + str(attackFief.GetSecondaryPer("mine")) + RESET + " per hour.\n")
                 else:
                     print("    You have not hired any" + COLOR_PROSPECTOR + " Prospectors" + RESET + " yet.\n")
         else:
             print("    You haven't constructed any" + OP_COLOR_MINE + " Mines" + RESET + " yet.\n")
+
+        art_placeholder("Art of a Mine outpost based on current tier")
 
         print("\n    Avalible Commands:")
         print('    -------------------------------------')
@@ -279,8 +287,6 @@ def FiefBuildingsMenu(screen, userStronghold):
         print('')
         command = input("    Enter your command: ")
 
-
-        
         if str(command) == '1':
             return "outposts"
         if int(attackFief.op_minePrimaryUnits) < (int(UCAP_MINER) * int(attackFief.op_mineNumBuilt)):
@@ -304,6 +310,7 @@ def FiefBuildingsMenu(screen, userStronghold):
     if screen == "outpostConstruction":
         os.system("clear")
         headerFief(attackFief)
+        art_placeholder("  Art of a hammer and nails")
         # ConstructOutpost(userStronghold, outpostType, tier, numberBuilt, spotsAvailable, cost, color, flavorText)
         if outpostType == "Farmland":
             spotsAvailable = int(attackFief.adjacentPlains) - int(attackFief.op_farmlandNumBuilt)
@@ -389,13 +396,16 @@ def FiefBuildingsMenu(screen, userStronghold):
     if screen == "upgradeOutposts":
         os.system("clear")
         headerFief(attackFief)
+
+        art_placeholder("  Art of a table with a scroll on it")
+
         # UpgradeOutpost(userStronghold, outpostType, tier, numberBuilt, cost, color, flavorText):
         if outpostType == "Farmland":
             tier = int(attackFief.op_farmlandTier)
             T1 = OP_RCOST_T1_FARMLAND
             T2 = OP_RCOST_T2_FARMLAND
             T3 = OP_RCOST_T3_FARMLAND
-            NB = attackFief.op_farmlandNumBuilt
+            NB = int(attackFief.op_farmlandNumBuilt)
             if int(tier) == 0:
                 cost = [T1[0]*NB, T1[1]*NB, T1[2]*NB, T1[3]*NB, T1[4]*NB]
             elif int(tier) == 1:
@@ -414,7 +424,7 @@ def FiefBuildingsMenu(screen, userStronghold):
             T1 = OP_RCOST_T1_FISHERY
             T2 = OP_RCOST_T2_FISHERY
             T3 = OP_RCOST_T3_FISHERY
-            NB = attackFief.op_fisheryNumBuilt
+            NB = int(attackFief.op_fisheryNumBuilt)
             if int(tier) == 0:
                 cost = [T1[0]*NB, T1[1]*NB, T1[2]*NB, T1[3]*NB, T1[4]*NB]
             elif int(tier) == 1:
@@ -433,7 +443,7 @@ def FiefBuildingsMenu(screen, userStronghold):
             T1 = OP_RCOST_T1_LUMBERMILL
             T2 = OP_RCOST_T2_LUMBERMILL
             T3 = OP_RCOST_T3_LUMBERMILL
-            NB = attackFief.op_lumberMillNumBuilt
+            NB = int(attackFief.op_lumberMillNumBuilt)
             if int(tier) == 0:
                 cost = [T1[0]*NB, T1[1]*NB, T1[2]*NB, T1[3]*NB, T1[4]*NB]
             elif int(tier) == 1:
@@ -452,7 +462,7 @@ def FiefBuildingsMenu(screen, userStronghold):
             T1 = OP_RCOST_T1_MINE
             T2 = OP_RCOST_T2_MINE
             T3 = OP_RCOST_T3_MINE
-            NB = attackFief.op_mineNumBuilt
+            NB = int(attackFief.op_mineNumBuilt)
             if int(tier) == 0:
                 cost = [T1[0]*NB, T1[1]*NB, T1[2]*NB, T1[3]*NB, T1[4]*NB]
             elif int(tier) == 1:
@@ -474,6 +484,9 @@ def FiefBuildingsMenu(screen, userStronghold):
     if screen == "hireOutpostUnits":
         os.system("clear")
         headerFief(attackFief)
+
+        art_placeholder("  Art of a table with goods on it")
+
         # HireUnit(userStronghold, unitType, unitBaseCost, unitCostModifier, unitCap, unitsOwned, color, flavorText)
         if unitType == "Farmer":
             flavorText = "    "

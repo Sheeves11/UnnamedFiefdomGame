@@ -13,6 +13,7 @@ from menu_garrison import *
 from menu_fiefBuildings import *
 from menu_combatAndThievery import *
 from menu_fiefCommands import *
+from menu_resourceManagement import *
 
 '''
 
@@ -145,7 +146,7 @@ while (loop):
                 userPass = getpass('    Enter your password: ')
 
                 if bcrypt.checkpw(userPass, hashed):
-                    print('    Password is correct')
+                    print('    Password is correct\n')
                     time.sleep(.5)
                     print("    Logging in as: " + username)
                     time.sleep(.5)
@@ -304,12 +305,16 @@ while (loop):
         print('\n')
 
         print("    Avalible Commands:")
-        print('    -----------------------------------------------------------------')
-        print('    {1}: View Fiefdoms                       {5}: Look Around')
-        print('    {2}: View Player Strongholds             {6}: World Map')
-        print('    {3}: Hire and Recruit                    {7}: Message Board ')
-        print('    {4}: Upgrade and Customize               {8}: More')
-        print('    -----------------------------------------------------------------')
+        print('    -------------------------------------------------------')
+        print('    {1}: View Fiefdoms               {9}: More')
+        print('    {2}: View Player Strongholds')
+        print('    {3}: Hire and Recruit')
+        print('    {4}: Upgrade and Customize')
+        print('    {5}: Look Around')
+        print('    {6}: World Map')
+        print('    {7}: Send Resources')
+        print('    {8}: Message Board')
+        print('    --------------------------------------------------------')
         print('')
         command = input("    Enter your command: ")
 
@@ -335,9 +340,12 @@ while (loop):
             screen = 'viewMapYourStronghold'
 
         if command == '7':
-            screen = 'messageBoard'
+            screen = 'sendResourcesFromStronghold'
 
         if command == '8':
+            screen = 'messageBoard'
+
+        if command == '9':
             screen = 'moreCommands'
         
         #The following command is for testing only!
@@ -617,7 +625,7 @@ while (loop):
         print('    {2}: View Fiefdoms')
         print('    {3}: Deploy Additional Forces')
         print('    {4}: Withdraw Forces')
-        print('    {5}: Withdraw Gold')
+        print('    {5}: Send Resources')
         print('    {6}: Upgrades')
         print('    {7}: Look Around')
         print('    {8}: World Map')
@@ -639,7 +647,7 @@ while (loop):
             screen = 'withdrawForces'
 
         if command == "5":
-            screen = 'withdrawGold'
+            screen = 'sendResourcesFromFief'
 
         if command == '6':
             screen = 'upgradeFiefMenu'
@@ -784,6 +792,7 @@ while (loop):
     screen = HireMenu(screen, userStronghold)
     screen = GarrisonMenu(screen, userStronghold)
     screen = ViewMapAndSurroundings(screen, userStronghold, attackStronghold, STRONGHOLD, USER_STRONGHOLD)
+    screen = ResourceManagementMenu(screen, userStronghold)
     screen = CombatAndThieveryMenu(screen, userStronghold, attackStronghold)
     screen = SandboxMenu(screen)
     screen = DevTestMenu(screen, userStronghold)
