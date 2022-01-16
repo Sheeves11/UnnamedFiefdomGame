@@ -9,15 +9,18 @@ from art import *
 #Most files should import this file.
 #Doing so grants access to all the above imports as well.
 
+
 #This file also contains the following global functions:
 #   FirstLaunch, PrintFiefArt, HireUnit, ConstructOutpost, CreateFief
+#   And many others... maybe update this sometime.
+
 
 #========================================================================================================
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #========================================================================================================
+#                                          Global Variables
 #========================================================================================================
-#                                               Globals
-#========================================================================================================
-#========================================================================================================
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #========================================================================================================
 
 #=====================
@@ -44,8 +47,11 @@ FILL_SYMBOL = "-"
 #=====================
 #  Backend Variables
 #=====================
+# maxProductionSoldiers now scales by defenseLevel. 300/600/900/1200/1500/1800 (see constant)
 GOLD_PER = 100
 INTERVAL = 3600
+# INTERVAL = 60
+MAX_PRODUCTION_SOLDIERS_CONSTANT = 300  #Nerfed to 300 down from 500. May not be necessary.
 defendersPer = 3
 
 #=====================
@@ -53,8 +59,10 @@ defendersPer = 3
 #=====================
 BIOME_RESOURCE_MIN = 5
 BIOME_RESOURCE_MAX = 15
-ADJACENT_RESOURCE_MIN = 1
+ADJACENT_RESOURCE_MIN = 2
 ADJACENT_RESOURCE_MAX = 5
+SCAV_RESOURCE_MAX = 3
+
 
 #=====================
 #  Weather
@@ -103,6 +111,12 @@ UCAP_HUNTER = 5
 UCAP_MINER = 10
 UCAP_PROSPECTOR = 5
 
+#=================================================
+#=================================================
+#                    Colors
+#=================================================
+#=================================================
+
 #=====================
 #    Unit Colors
 #=====================
@@ -118,28 +132,49 @@ COLOR_MINER = RED
 COLOR_PROSPECTOR = DARK_RED
 
 #=====================
+#   Outpost Colors
+#=====================
+OP_COLOR_FARMLAND = DARK_YELLOW
+OP_COLOR_FISHERY = BLUE
+OP_COLOR_LUMBERMILL = DARK_GREEN
+OP_COLOR_MINE = DARK_GRAY
+
+#=====================
+#   Resource Colors
+#=====================
+C_GOLD = DARK_YELLOW
+C_FOOD = DARK_RED
+C_WOOD = DARK_GREEN
+C_STONE = DARK_GRAY
+C_ORE = DARK_MAGENTA
+
+#=================================================
+#=================================================
+#                Resource Costs
+#=================================================
+#=================================================
+
+#=====================
+#     Unit Costs
+#=====================
+UCOST_THIEF = [1000, 0, 0, 0, 0]
+UCOST_WARRIOR = [10, 0, 0, 0, 0]    #Manage this for practical reasons (warrior costs 10, farmer costs 500. wat.)
+UCOST_FARMER = [500, 0, 0, 0, 0]
+UCOST_VENDOR = [1500, 0, 0, 0, 0]
+UCOST_FISHER = [500, 0, 0, 0, 0]
+UCOST_SCAVENGER = [1000, 0, 0, 0, 0]
+UCOST_LUMBERJACK = [500, 0, 0, 0, 0]
+UCOST_HUNTER = [1000, 0, 0, 0, 0]
+UCOST_MINER = [500, 0, 0, 0, 0]
+UCOST_PROSPECTOR = [1500, 0, 0, 0, 0]
+
+#=====================
 #   Outpost Costs
 #=====================
-#TODO - The costs here will probably need to be modified!
+#   Resource layout: [gold, food, wood, stone, ore]
 #   Values here are multiplied in cost based on the number of like-outposts constructed.
 #   When constructing new outposts, the cost is equal to the current tier your
 #   other outposts of the same kind are at. 
-
-#Resource layout: [gold, food, wood, stone, ore]
-OP_COST_T1_FARMLAND = 1000
-OP_COST_T2_FARMLAND = 3000
-OP_COST_T3_FARMLAND = 6000
-OP_COST_T1_FISHERY = 1000
-OP_COST_T2_FISHERY = 3000
-OP_COST_T3_FISHERY = 6000
-OP_COST_T1_LUMBERMILL = 1000
-OP_COST_T2_LUMBERMILL = 3000
-OP_COST_T3_LUMBERMILL = 6000
-OP_COST_T1_MINE = 1000
-OP_COST_T2_MINE = 3000
-OP_COST_T3_MINE = 6000
-
-
 OP_RCOST_T1_FARMLAND = [1000, 0, 0, 0, 0]
 OP_RCOST_T2_FARMLAND = [1500, 0, 10, 10, 0]
 OP_RCOST_T3_FARMLAND = [3000, 0, 20, 20, 0]
@@ -153,31 +188,71 @@ OP_RCOST_T1_MINE = [1000, 0, 0, 0, 0]
 OP_RCOST_T2_MINE = [1500, 0, 10, 10, 0]
 OP_RCOST_T3_MINE = [3000, 0, 20, 20, 0]
 
-# OP_RCOST_CONSTRUCTION_FARMLAND = 1000
-# OP_RCOST_CONSTRUCTION_FISHERY = 1000
-# OP_RCOST_CONSTRUCTION_FOREST = 1000
-# OP_RCOST_CONSTRUCTION_MINE = 1000
+#===========================
+#   Attack Upgrade Costs
+#===========================
+#   Resource layout: [gold, food, wood, stone, ore]
+UPGRADE_ATTACK_T1 = [500, 0, 0, 0, 0]
+UPGRADE_ATTACK_T2 = [3500, 0, 0, 0, 0]
+UPGRADE_ATTACK_T3 = [10000, 0, 0, 0, 0]
+UPGRADE_ATTACK_T4 = [45000, 0, 0, 0, 0]
+UPGRADE_ATTACK_T5 = [75000, 0, 0, 0, 0]
+UPGRADE_ATTACK_T6 = [200000, 0, 0, 0, 0]
+UPGRADE_ATTACK_T7 = [400000, 0, 0, 0, 0]
+
+#===========================
+#   Defense Upgrade Costs
+#===========================
+#   Resource layout: [gold, food, wood, stone, ore]
+UPGRADE_DEFENSE_T1 = [500, 0, 20, 0, 0]
+UPGRADE_DEFENSE_T2 = [1500, 0, 20, 20, 0]
+UPGRADE_DEFENSE_T3 = [3000, 0, 30, 30, 0]
+UPGRADE_DEFENSE_T4 = [5000, 0, 30, 30, 0]
+UPGRADE_DEFENSE_T5 = [8000, 0, 40, 40, 10]
+UPGRADE_DEFENSE_T6 = [15000, 0, 50, 50, 20]
 
 
-#=====================
-#   Outpost Colors
-#=====================
-OP_COLOR_FARMLAND = DARK_YELLOW
-OP_COLOR_FISHERY = BLUE
-OP_COLOR_LUMBERMILL = DARK_GREEN
-OP_COLOR_MINE = DARK_GRAY
+#=================================================
+#=================================================
+#                    Names
+#=================================================
+#=================================================
 
+#===========================
+#   Attack Upgrade Names
+#===========================
+NAME_ATTACK_T1 = "Angry Villagers with Sharpened Pitchforks"
+NAME_ATTACK_T2 = "Semi-trained Longbow Archers"
+NAME_ATTACK_T3 = "Military Recruits"
+NAME_ATTACK_T4 = "Fairly Well-trained Archers with Flaming Arrows"
+NAME_ATTACK_T5 = "Drunks with Trebuchets"
+NAME_ATTACK_T6 = "Scientists who are Experiementing with Biological Warfare"
+NAME_ATTACK_T7 = "Peasents with Guns"
 
-#============
-# TESTS
-#============
-RESOURCE_TEST_VALUES_1 = [10, 1, 2, 3, 4]
-RESOURCE_TEST_VALUES_2 = [0, 1, 0, 1, 110]
-RESOURCE_TEST_VALUES_3 = [10, 0, 0, 0, 0]
-RESOURCE_TEST_VALUES_4 = [0, 0, 0, 0, 0]
+#===========================
+#   Defense Upgrade Names
+#===========================
+NAME_DEFENSE_T1 = 'Wooden Fences'
+NAME_DEFENSE_T2 = 'Deep Trenches'       #Was "Really Deep Ditches". Changed to keep consistency with others and trenches sounds cooler than ditches
+NAME_DEFENSE_T3 = 'Tall Towers'
+NAME_DEFENSE_T4 = 'Encompassing Canals' #Was "In a Lake. Changed becuase they're not actually in a lake biome.
+NAME_DEFENSE_T5 = 'Stalwart Ramparts'   #Was "On a Mountain". Changed because they aren't required to be on a mountain.
+NAME_DEFENSE_T6 = 'Unwavering Bastion'  #Was "Boiling Oil". Changed because boiling oil doesn't sound like a "final" defensive upgrade.
+
 
 #========================================================================================================
-#   The following functions don't really have a proper home.
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#========================================================================================================
+#                                          Global Functions
+#========================================================================================================
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#========================================================================================================
+
+
+#========================================================================================================
+#   FirstLaunch
+#       Saves info in settings.txt so the game knows if the map has been initialized or not. 
+#       Room to expand or add stuff here as needed.
 #========================================================================================================
 def FirstLaunch():
     try:
@@ -200,6 +275,12 @@ def FirstLaunch():
         print('Error, something wrong with settings.txt!')
         return False
 
+#========================================================================================================
+#   CheckLegalUsername
+#   parameter: username
+#   returns: True/False
+#       Prevents the use of certain usernames that may interfere with menu operations.
+#========================================================================================================
 def CheckLegalUsername(username):
     illegalUserNames = ['', ' ', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15']
     if username.strip() == "":
@@ -209,6 +290,105 @@ def CheckLegalUsername(username):
             return False
     return True
 
+#========================================================================================================
+#   [SetFiefStartingResources]
+#   Parameters: none
+#   Initializes fiefs with starting resources based on their surroundings and the biome they're on
+#========================================================================================================
+def SetFiefStartingResources():
+    for filename in os.listdir('fiefs'):
+            with open(os.path.join('fiefs', filename), 'r') as f:
+                tempName = filename[:-4]
+                tempName = Fiefdom()
+                tempName.name = filename[:-4]
+                tempName.read()
+
+                if tempName.biome == MOUNTAIN:
+                    tempName.stone = int(tempName.stone) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
+                elif tempName.biome == FOREST:
+                    tempName.wood = int(tempName.wood) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
+                elif tempName.biome == PLAINS:
+                    tempName.food = int(tempName.food) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
+
+                for i in range(int(tempName.adjacentForests)):
+                    tempName.wood = int(tempName.wood) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
+                for i in range(int(tempName.adjacentRivers)):
+                    tempName.food = int(tempName.food) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
+                for i in range(int(tempName.adjacentWater)):
+                    tempName.food = int(tempName.food) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
+                for i in range(int(tempName.adjacentPlains)):
+                    tempName.food = int(tempName.food) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
+                for i in range(int(tempName.adjacentMountains)):
+                    tempName.stone = int(tempName.stone) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
+                tempName.write()
+
+#========================================================================================================
+#   [GetFiefByName]
+#   Parameters: name
+#       Returns a fief class with the passed name
+#========================================================================================================
+def GetFiefByName(name):
+    for filename in os.listdir('fiefs'):
+            with open(os.path.join('fiefs', filename), 'r') as f:
+                tempName = filename[:-4]
+                tempName = Fiefdom()
+                tempName.name = filename[:-4]
+                tempName.read()
+                if tempName.name == name:
+                    return tempName
+
+#========================================================================================================
+#   [GetOwnedFiefList]
+#   Parameters: username
+#       Returns a list of fief classes owned by the passed username
+#========================================================================================================
+def GetOwnedFiefList(username):
+    fiefList = []
+    for filename in os.listdir('fiefs'):
+            with open(os.path.join('fiefs', filename), 'r') as f:
+                tempName = filename[:-4]
+                tempName = Fiefdom()
+                tempName.name = filename[:-4]
+                tempName.read()
+                if tempName.ruler == username:
+                    fiefList.append(tempName)
+    return fiefList
+
+
+#========================================================================================================
+#   [IsPositiveInteger]
+#   parameters: integer
+#   returns: True/False
+#       Checks if passed integer is both positive and an integer.
+#========================================================================================================
+def IsPositiveInteger(integer):
+    try:
+        int(integer)
+    except:
+        return False
+    if int(integer) <= 0:
+        return False
+    return True
+
+#========================================================================================================
+#   [IsPositiveIntEqualOrLessThan]
+#   parameters: integer, amount
+#   returns: True/False
+#       Checks if passed integer is both positive and an integer and then if it is less than "amount"
+#========================================================================================================
+def IsPositiveIntEqualOrLessThan(integer, amount):
+    if IsPositiveInteger(integer) == False:
+        return False
+    elif int(integer) > int(amount):
+        return False
+    else:
+        return True
+
+#========================================================================================================
+#   GrabGlobalColors
+#       This is a quick way to call all these globals into a function so they are properly linked.
+#       Room to expand this function.
+#========================================================================================================
 def GrabGlobalColors():
     global COLOR_THIEF
     global COLOR_WARRIOR
@@ -264,28 +444,107 @@ def PrintFiefArt(attackFief):
     if attackFief.defLevel == str(6):
         art_fief6(attackFief.biome)
 
-    #Print Farm Graphic
-    if attackFief.goldMod == str(1):
-        art_farm0()
+#========================================================================================================
+#   PrintFiefInformation
+#   parameter: userStronghold, fief
+#       Prints all the details about a fief
+#========================================================================================================
+def PrintFiefInformation(userStronghold, fief):
+    enemyFiefdomInfo = str('    ' + textColor.WARNING + fief.name + ' || Ruled by: ' + fief.ruler + ' || Defenders: ' + fief.defenders + textColor.RESET)
+    ownedFiefdomInfo = str('    ' + textColor.CYAN + fief.name + ' || Ruled by: ' + fief.ruler + ' || Defenders: ' + fief.defenders + textColor.RESET)
+    fiefdomResources = str(' | ' + textColor.YELLOW + fief.gold + textColor.RESET + ' ' + textColor.DARK_RED + fief.food + textColor.RESET + ' ' + textColor.DARK_GREEN + fief.wood + textColor.RESET + ' ' + textColor.DARK_GRAY + fief.stone + textColor.RESET + ' ' + textColor.DARK_MAGENTA + fief.ore + textColor.RESET + '')
 
-    if attackFief.goldMod == str(2):
-        art_farm1()
+    if fief.home != 'True' and fief.ruler != userStronghold.name:
+        print(enemyFiefdomInfo.ljust(RESOURCE_SPACING, FILL_SYMBOL) + fiefdomResources)
+    if fief.home != "True" and fief.ruler == userStronghold.name:
+        print(ownedFiefdomInfo.ljust(RESOURCE_SPACING, FILL_SYMBOL) + fiefdomResources)
 
-    if attackFief.goldMod == str(3):
-        art_farm2()
+#========================================================================================================
+#   PrintOwnedFiefInformation
+#   parameter: fief
+#       Prints all the details about a fief
+#========================================================================================================
+def PrintOwnedFiefInformation(fief):
+    ownedFiefdomInfo = str('    ' + textColor.CYAN + fief.name + ' || Defenders: ' + fief.defenders + textColor.RESET)
+    fiefdomResources = str(' | ' + textColor.YELLOW + fief.gold + textColor.RESET + ' ' + textColor.DARK_RED + fief.food + textColor.RESET + ' ' + textColor.DARK_GREEN + fief.wood + textColor.RESET + ' ' + textColor.DARK_GRAY + fief.stone + textColor.RESET + ' ' + textColor.DARK_MAGENTA + fief.ore + textColor.RESET + '')
+    
+    print(ownedFiefdomInfo.ljust(RESOURCE_SPACING, FILL_SYMBOL) + fiefdomResources)
 
-    if attackFief.goldMod == str(4):
-        art_farm3()
 
-    if attackFief.goldMod == str(5):
-        art_farm4()
+#========================================================================================================
+#   Scavenge
+#   parameter: fief
+#       Triggers each hour, gathering a random resource based on the number of scavengers at a fief.
+#========================================================================================================
+def Scavenge(fief):
+    if int(fief.op_fisheryTier) == 0:
+        pass
+    else:
+        if int(fief.op_fisheryTier) == 1:
+            loot = [("gold", 3), ("food", 5), ("wood", 15), ("stone", 15), ("ore", 1)]
+        elif int(fief.op_fisheryTier) == 2:
+            loot = [("gold", 5), ("food", 5), ("wood", 10), ("stone", 10), ("ore", 5)]
+        
+        #Expand list to a loot table:
+        lootTable = []
+        for item, weight in loot:
+            lootTable.extend([item]*weight)
 
-    if attackFief.goldMod == str(6):
-        art_farm5()
+        for i in range(int(fief.op_fisherySecondaryUnits)):
+            #Choose a random item in the list:
+            pickedLoot = random.choice(lootTable)
 
-    if attackFief.goldMod == str(7):
-        art_farm6()
+            if pickedLoot == "gold":
+                fief.gold = int(fief.gold) + 100
+            elif pickedLoot == "food":
+                fief.food = int(fief.food) + random.randint(1, SCAV_RESOURCE_MAX)
+            elif pickedLoot == "wood":
+                fief.wood = int(fief.wood) + random.randint(1, SCAV_RESOURCE_MAX)
+            elif pickedLoot == "stone":
+                fief.stone = int(fief.stone) + random.randint(1, SCAV_RESOURCE_MAX)
+            elif pickedLoot == "ore":
+                fief.ore = int(fief.ore) + 1
 
+        fief.write()
+        fief.read()
+
+
+#========================================================================================================
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#========================================================================================================
+#                                    Resource Management Functions
+#========================================================================================================
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#========================================================================================================
+
+#========================================================================================================
+#   VerifyResourceValuesAsInts
+#   parameters: cost
+#       Runs a resource cost through a series of tests to make sure there aren't any "" variables
+#========================================================================================================
+def VerifyResourceValuesAsInts(cost):
+    try:
+        int(cost[0])
+    except:
+        cost[0] = '0'
+    try:
+        int(cost[1])
+    except:
+        cost[1] = '0'
+    try:
+        int(cost[2])
+    except:
+        cost[2] = '0'
+    try:
+        int(cost[3])
+    except:
+        cost[3] = '0'
+    try:
+        int(cost[4])
+    except:
+        cost[4] = '0'
+
+    return cost
 
 #========================================================================================================
 #   PrintResourceCost
@@ -318,6 +577,7 @@ def PrintResourceCost(leadStatement, cost, endStatement):
 #========================================================================================================
 def GetResourceCost(cost, quantity):
     #cost = [gold, food, wood, stone, ore]
+    cost = VerifyResourceValuesAsInts(cost)
     sentence = ""
     sentence += WARNING + " [" + RESET
     if int(cost[0]) != 0:
@@ -341,6 +601,7 @@ def GetResourceCost(cost, quantity):
 #========================================================================================================
 def HaveEnoughResources(station, cost, quantity):
     #cost = [gold, food, wood, stone, ore]
+    cost = VerifyResourceValuesAsInts(cost)
     if int(station.gold) >= int(cost[0]) * int(quantity):
         pass
     else:
@@ -384,12 +645,13 @@ def GetStationResources(station):
 #========================================================================================================
 #   DeductResources
 #   parameters: station, cost, quantity
-#   Removes resources from station based on cost.
-#   This should be checked with a HaveEnoughResources function before being called!
-#   Just in case though, it will print a message if there aren't enough resources to be removed.
+#       Removes resources from station based on cost.
+#       This should be checked with a HaveEnoughResources function before being called!
+#       Just in case though, it will print a message if there aren't enough resources to be removed.
 #========================================================================================================
 def DeductResources(station, cost, quantity):
     #cost = [gold, food, wood, stone, ore]
+    cost = VerifyResourceValuesAsInts(cost)
     if int(station.gold) >= int(cost[0]) * int(quantity):
         station.gold = str(int(station.gold) - int(cost[0]) * int(quantity))
     else:
@@ -410,6 +672,261 @@ def DeductResources(station, cost, quantity):
         station.ore = str(int(station.ore) - int(cost[4]) * int(quantity))
     else:
         print(RED + "\nError, not enough ore!\n")
+
+
+#========================================================================================================
+#   TransferResource
+#   parameters: fromStation, toStation, resource, quantity
+#       Takes a specific resource, deducts it from the fromStation, and adds it to the toStation.
+#========================================================================================================
+def TransferResource(fromStation, toStation, resource, quantity):
+    if resource == "gold":
+        fromStation.gold = str(int(fromStation.gold) - int(quantity))
+        toStation.gold = str(int(toStation.gold) + int(quantity))
+    if resource == "food":
+        fromStation.food = str(int(fromStation.food) - int(quantity))
+        toStation.food = str(int(toStation.food) + int(quantity))
+    if resource == "wood":
+        fromStation.wood = str(int(fromStation.wood) - int(quantity))
+        toStation.wood = str(int(toStation.wood) + int(quantity))
+    if resource == "stone":
+        fromStation.stone = str(int(fromStation.stone) - int(quantity))
+        toStation.stone = str(int(toStation.stone) + int(quantity))
+    if resource == "ore":
+        fromStation.ore = str(int(fromStation.ore) - int(quantity))
+        toStation.ore = str(int(toStation.ore) + int(quantity))
+    fromStation.write()
+    fromStation.read()
+    toStation.write()
+    toStation.read()
+
+#========================================================================================================
+#   SendResources
+#   parameters: station
+#========================================================================================================
+def SendResources(station, userStronghold):
+    if isinstance(station, Stronghold):
+        ownedFiefs = GetOwnedFiefList(station.name)
+        actions = []
+        if len(ownedFiefs) == 0:
+            print("    You don't own any fiefs to send resources to!\n")
+            time.sleep(0.5)
+            nothing = input("    Press enter to continue ")
+            return
+        else:
+            waiting = True
+            print("    Your stronghold currently has: " + GetStationResources(station) + "\n")
+            time.sleep(0.5)
+            print("    Fiefs under your rule:\n")
+            time.sleep(0.5)
+            for i in range(len(ownedFiefs)):
+                PrintOwnedFiefInformation(ownedFiefs[i])
+            print("")
+            while waiting:
+                fiefName = input("    Please type a fief name above to send resources to it (or hit enter to cancel) : ")
+                if fiefName == "":
+                    waiting = False
+                    print("\n    Cancelling request...\n")
+                    time.sleep(0.5)
+                    nothing = input("    Press enter to continue ")
+                    return
+                else:
+                    for i in range(len(ownedFiefs)):
+                        if fiefName == str(ownedFiefs[i].name):
+                            waiting = False
+            toStation = GetFiefByName(fiefName)
+            print("\n    Please select the resources you would like to send to " + str(toStation.name) + ": \n")
+            time.sleep(0.5)
+            if int(station.gold) > 0:
+                print("\n    | Stronghold Gold: " + C_GOLD + str(station.gold) + RESET + " | " + str(toStation.name) + " Gold: " + YELLOW + str(toStation.gold) + RESET + " |")
+                time.sleep(0.5)
+                amount = input("\n    How much gold would you like to send to " + str(toStation.name) + "? : ")
+                if IsPositiveIntEqualOrLessThan(amount, station.gold):
+                    TransferResource(station, toStation, "gold", amount)
+                    actions.append("    Sent " + C_GOLD + str(amount) + RESET + " gold to " + str(toStation.name))
+            if int(station.food) > 0:
+                print("\n    | Stronghold Food: " + C_FOOD + str(station.food) + RESET + " | " + str(toStation.name) + " Food: " + C_FOOD + str(toStation.food) + RESET + " |")
+                time.sleep(0.5)
+                amount = input("\n    How much food would you like to send to " + str(toStation.name) + "? : ")
+                if IsPositiveIntEqualOrLessThan(amount, station.food):
+                    TransferResource(station, toStation, "food", amount)
+                    actions.append("    Sent " + C_FOOD + str(amount) + RESET + " food to " + str(toStation.name))
+            if int(station.wood) > 0:
+                print("\n    | Stronghold Wood: " + C_WOOD + str(station.wood) + RESET + " | " + str(toStation.name) + " Wood: " + C_WOOD + str(toStation.wood) + RESET + " |")
+                time.sleep(0.5)
+                amount = input("\n    How much wood would you like to send to " + str(toStation.name) + "? : ")
+                if IsPositiveIntEqualOrLessThan(amount, station.wood):
+                    TransferResource(station, toStation, "wood", amount)
+                    actions.append("    Sent " + C_WOOD + str(amount) + RESET + " wood to " + str(toStation.name))
+            if int(station.stone) > 0:
+                print("\n    | Stronghold Stone: " + C_STONE + str(station.stone) + RESET + " | " + str(toStation.name) + " Stone: " + C_STONE + str(toStation.stone) + RESET + " |")
+                time.sleep(0.5)
+                amount = input("\n    How much stone would you like to send to " + str(toStation.name) + "? : ")
+                if IsPositiveIntEqualOrLessThan(amount, station.stone):
+                    TransferResource(station, toStation, "stone", amount)
+                    actions.append("    Sent " + C_STONE + str(amount) + RESET + " stone to " + str(toStation.name))
+            if int(station.ore) > 0:
+                print("\n    | Stronghold Ore: " + C_ORE + str(station.ore) + RESET + " | " + str(toStation.name) + " Ore: " + C_ORE + str(toStation.ore) + RESET + " |")
+                time.sleep(0.5)
+                amount = input("\n    How much ore would you like to send to " + str(toStation.name) + "? : ")
+                if IsPositiveIntEqualOrLessThan(amount, station.ore):
+                    TransferResource(station, toStation, "ore", amount)
+                    actions.append("    Sent " + C_ORE + str(amount) + RESET + " ore to " + str(toStation.name))
+            
+            time.sleep(0.5)
+            #Print actions taken
+            print("")
+            if int(len(actions)) > 0:
+                for i in range(len(actions)):
+                    print("   " + str(actions[i]) + "\n")
+                
+                print("    Finished!\n")
+                time.sleep(0.5)
+                nothing = input("    Press enter to continue ")
+                return
+            else:
+                print("    No changes were made.\n")
+                time.sleep(0.5)
+                nothing = input("    Press enter to continue ")
+                return
+    else:
+        ownedFiefs = GetOwnedFiefList(station.ruler)
+        actions = []
+        waiting = True
+        stronghold = False
+        print("    " + str(station.name) + " currently has: " + GetStationResources(station) + "\n")
+        time.sleep(0.5)
+        if len(ownedFiefs) > 1:
+            print("    Other fiefs under your rule:\n")
+            time.sleep(0.5)
+            for i in range(len(ownedFiefs)):
+                if str(ownedFiefs[i].name) != str(station.name):
+                    PrintOwnedFiefInformation(ownedFiefs[i])
+            print("")
+            while waiting:
+                fiefName = input("    Please type a fief name above or 'stronghold' to send resources to that location (or hit enter to cancel) : ")
+                if fiefName == "":
+                    waiting = False
+                    print("\n    Cancelling request...\n")
+                    time.sleep(0.5)
+                    nothing = input("    Press enter to continue ")
+                    return
+                elif fiefName == "stronghold":
+                    toStation = userStronghold
+                    stronghold = True
+                    waiting = False
+                else:
+                    for i in range(len(ownedFiefs)):
+                        if fiefName == str(ownedFiefs[i].name) and fiefName != str(station.name):
+                            waiting = False
+                            toStation = GetFiefByName(fiefName)
+        else:
+            toStation = userStronghold
+            stronghold = True
+        if stronghold:
+            print("\n    Please select the resources you would like to send to " + str(toStation.name) + ": \n")
+            time.sleep(0.5)
+            if int(station.gold) > 0:
+                print("\n    | " + str(station.name) + " Gold: " + C_GOLD + str(station.gold) + RESET + " | Stronghold Gold: " + YELLOW + str(toStation.gold) + RESET + " |")
+                time.sleep(0.5)
+                amount = input("\n    How much gold would you like to send to your stronghold? : ")
+                if IsPositiveIntEqualOrLessThan(amount, station.gold):
+                    TransferResource(station, toStation, "gold", amount)
+                    actions.append("    Sent " + C_GOLD + str(amount) + RESET + " gold to your stronghold.")
+            if int(station.food) > 0:
+                print("\n    | " + str(station.name) + " Food: " + C_FOOD + str(station.food) + RESET + " | Stronghold Food: " + C_FOOD + str(toStation.food) + RESET + " |")
+                time.sleep(0.5)
+                amount = input("\n    How much food would you like to send to your stronghold? : ")
+                if IsPositiveIntEqualOrLessThan(amount, station.food):
+                    TransferResource(station, toStation, "food", amount)
+                    actions.append("    Sent " + C_FOOD + str(amount) + RESET + " food to your stronghold.")
+            if int(station.wood) > 0:
+                print("\n    | " + str(station.name) + " Wood: " + C_WOOD + str(station.wood) + RESET + " | Stronghold Wood: " + C_WOOD + str(toStation.wood) + RESET + " |")
+                time.sleep(0.5)
+                amount = input("\n    How much wood would you like to send to your stronghold? : ")
+                if IsPositiveIntEqualOrLessThan(amount, station.wood):
+                    TransferResource(station, toStation, "wood", amount)
+                    actions.append("    Sent " + C_WOOD + str(amount) + RESET + " wood to your stronghold.")
+            if int(station.stone) > 0:
+                print("\n    | " + str(station.name) + " Stone: " + C_STONE + str(station.stone) + RESET + " | Stronghold Stone: " + C_STONE + str(toStation.stone) + RESET + " |")
+                time.sleep(0.5)
+                amount = input("\n    How much stone would you like to send to your stronghold? : ")
+                if IsPositiveIntEqualOrLessThan(amount, station.stone):
+                    TransferResource(station, toStation, "stone", amount)
+                    actions.append("    Sent " + C_STONE + str(amount) + RESET + " stone to your stronghold.")
+            if int(station.ore) > 0:
+                print("\n    | " + str(station.name) + " Ore: " + C_ORE + str(station.ore) + RESET + " | Stronghold Ore: " + C_ORE + str(toStation.ore) + RESET + " |")
+                time.sleep(0.5)
+                amount = input("\n    How much ore would you like to send to your stronghold? : ")
+                if IsPositiveIntEqualOrLessThan(amount, station.ore):
+                    TransferResource(station, toStation, "ore", amount)
+                    actions.append("    Sent " + C_ORE + str(amount) + RESET + " ore to your stronghold.")
+        elif isinstance(toStation, Fiefdom):
+            print("\n    Please select the resources you would like to send from " + str(station.name) + " to " + str(toStation.name) + ": \n")
+            time.sleep(0.5)
+            if int(station.gold) > 0:
+                print("\n    | " + str(station.name) + " Gold: " + C_GOLD + str(station.gold) + RESET + " | " + str(toStation.name) + " Gold: " + YELLOW + str(toStation.gold) + RESET + " |")
+                time.sleep(0.5)
+                amount = input("\n    How much gold would you like to send to " + str(toStation.name) + "? : ")
+                if IsPositiveIntEqualOrLessThan(amount, station.gold):
+                    TransferResource(station, toStation, "gold", amount)
+                    actions.append("    Sent " + C_GOLD + str(amount) + RESET + " gold to " + str(toStation.name))
+            if int(station.food) > 0:
+                print("\n    | " + str(station.name) + " Food: " + C_FOOD + str(station.food) + RESET + " | " + str(toStation.name) + " Food: " + C_FOOD + str(toStation.food) + RESET + " |")
+                time.sleep(0.5)
+                amount = input("\n    How much food would you like to send to " + str(toStation.name) + "? : ")
+                if IsPositiveIntEqualOrLessThan(amount, station.food):
+                    TransferResource(station, toStation, "food", amount)
+                    actions.append("    Sent " + C_FOOD + str(amount) + RESET + " food to " + str(toStation.name))
+            if int(station.wood) > 0:
+                print("\n    | " + str(station.name) + " Wood: " + C_WOOD + str(station.wood) + RESET + " | " + str(toStation.name) + " Wood: " + C_WOOD + str(toStation.wood) + RESET + " |")
+                time.sleep(0.5)
+                amount = input("\n    How much wood would you like to send to " + str(toStation.name) + "? : ")
+                if IsPositiveIntEqualOrLessThan(amount, station.wood):
+                    TransferResource(station, toStation, "wood", amount)
+                    actions.append("    Sent " + C_WOOD + str(amount) + RESET + " wood to " + str(toStation.name))
+            if int(station.stone) > 0:
+                print("\n    | " + str(station.name) + " Stone: " + C_STONE + str(station.stone) + RESET + " | " + str(toStation.name) + " Stone: " + C_STONE + str(toStation.stone) + RESET + " |")
+                time.sleep(0.5)
+                amount = input("\n    How much stone would you like to send to " + str(toStation.name) + "? : ")
+                if IsPositiveIntEqualOrLessThan(amount, station.stone):
+                    TransferResource(station, toStation, "stone", amount)
+                    actions.append("    Sent " + C_STONE + str(amount) + RESET + " stone to " + str(toStation.name))
+            if int(station.ore) > 0:
+                print("\n    | " + str(station.name) + " Ore: " + C_ORE + str(station.ore) + RESET + " | " + str(toStation.name) + " Ore: " + C_ORE + str(toStation.ore) + RESET + " |")
+                time.sleep(0.5)
+                amount = input("\n    How much ore would you like to send to " + str(toStation.name) + "? : ")
+                if IsPositiveIntEqualOrLessThan(amount, station.ore):
+                    TransferResource(station, toStation, "ore", amount)
+                    actions.append("    Sent " + C_ORE + str(amount) + RESET + " ore to " + str(toStation.name))
+        
+        time.sleep(0.5)
+        #Print actions taken
+        print("")
+        if int(len(actions)) > 0:
+            for i in range(len(actions)):
+                print("   " + str(actions[i]) + "\n")
+            
+            print("    Finished!\n")
+            time.sleep(0.5)
+            nothing = input("    Press enter to continue ")
+            return
+        else:
+            print("    No changes were made.\n")
+            time.sleep(0.5)
+            nothing = input("    Press enter to continue ")
+            return
+
+
+
+
+#========================================================================================================
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#========================================================================================================
+#                                     Upgrades and Hire Functions
+#========================================================================================================
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#========================================================================================================
 
 
 #========================================================================================================
@@ -502,7 +1019,7 @@ def HireUnit(station, unitType, unitCost, unitCostModifier, unitCap, unitsOwned,
 
     else:
         time.sleep(0.5)
-        print("    \nYou don't have the required resources!\n")
+        print("\n    You don't have the required resources!\n")
         nothing = input("    Press enter to continue ")
         return
 
@@ -528,7 +1045,7 @@ def ConstructOutpost(station, outpostType, tier, numberBuilt, spotsAvailable, co
             print("    Your " + color + str(outpostType) + textColor.RESET + " outposts are at rank " + textColor.MAGENTA + str(int(tier) + 1) + textColor.RESET + ".\n")
             time.sleep(0.5)
             if int(tier) > 0:
-                print("    Note that outposts must be constructed at the same " + textColor.MAGENTA + "rank" + textColor.RESET + " as other outposts of the same type.")
+                print("    Note that outposts must be constructed at the same " + textColor.MAGENTA + "rank" + textColor.RESET + " as other outposts of the same type.\n")
         else:
             print("    You don't have any " + color + str(outpostType) + textColor.RESET + " outposts built yet.\n")
             time.sleep(0.5)
@@ -634,12 +1151,11 @@ def ConstructOutpost(station, outpostType, tier, numberBuilt, spotsAvailable, co
 def UpgradeOutpost(station, outpostType, tier, numberBuilt, cost, color, flavorText):
     if flavorText.strip() != "":
         print(flavorText)
-
     if tier >= 2:
         print("    Your outposts are at the max rank!\n")
         time.sleep(1)
         return
-    elif HaveEnoughResources(station, cost, 1):
+    elif HaveEnoughResources(station, cost, 1) == False:
         print("    You don't have enough gold to upgrade your " + color + str(outpostType) + textColor.RESET + " outposts!\n")
         time.sleep(1)
         return
@@ -651,7 +1167,7 @@ def UpgradeOutpost(station, outpostType, tier, numberBuilt, cost, color, flavorT
         print("    Note that you must upgrade all constructed outposts of the same type at the same time!\n")
         time.sleep(0.5)
 
-        if AnswerYes("    Would you like to upgrade all of your " + color + str(outpostType) + textColor.RESET + " outposts for " + GetResourceCost(cost) + "?"):
+        if AnswerYes("    Would you like to upgrade all of your " + color + str(outpostType) + textColor.RESET + " outposts for " + GetResourceCost(cost, 1) + "?"):
             print("\n    Upgrading " + color + str(outpostType)  + textColor.RESET + " outposts...\n")
             time.sleep(1)
 
@@ -669,7 +1185,7 @@ def UpgradeOutpost(station, outpostType, tier, numberBuilt, cost, color, flavorT
             station.write()
             station.read()
 
-            print("\n    Success!")
+            print("    Success!")
             time.sleep(0.5)
             nothing = input("\n    Press enter to continue ")
 
@@ -680,37 +1196,7 @@ def UpgradeOutpost(station, outpostType, tier, numberBuilt, cost, color, flavorT
             time.sleep(1)
             return
         
-#--------------------------------------------------------------------------------------------------------------
-#   [SetFiefStartingResources]
-#   Parameters: none
-#   Initializes fiefs with starting resources based on their surroundings and the biome they're on
-#--------------------------------------------------------------------------------------------------------------
-def SetFiefStartingResources():
-    for filename in os.listdir('fiefs'):
-            with open(os.path.join('fiefs', filename), 'r') as f:
-                tempName = filename[:-4]
-                tempName = Fiefdom()
-                tempName.name = filename[:-4]
-                tempName.read()
 
-                if tempName.biome == MOUNTAIN:
-                    tempName.stone = int(tempName.stone) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
-                elif tempName.biome == FOREST:
-                    tempName.wood = int(tempName.wood) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
-                elif tempName.biome == PLAINS:
-                    tempName.food = int(tempName.food) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
-
-                for i in range(int(tempName.adjacentForests)):
-                    tempName.wood = int(tempName.wood) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
-                for i in range(int(tempName.adjacentRivers)):
-                    tempName.food = int(tempName.food) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
-                for i in range(int(tempName.adjacentWater)):
-                    tempName.food = int(tempName.food) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
-                for i in range(int(tempName.adjacentPlains)):
-                    tempName.food = int(tempName.food) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
-                for i in range(int(tempName.adjacentMountains)):
-                    tempName.stone = int(tempName.stone) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
-                tempName.write()
 
 
 #--------------------------------------------------------------------------------------------------------------

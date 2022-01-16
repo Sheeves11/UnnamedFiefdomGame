@@ -52,7 +52,7 @@ def UpgradesAndCustomizations(screen, userStronghold):
         print('    -------------------------------------------------------')
         print('    {1}: Go Back')
         print('    {2}: Upgrade Defenses')
-        print('    {3}: Upgrade Farms')
+        # print('    {3}: Upgrade Farms')
         # print('    {4}: Upgrade Training')
         print('    --------------------------------------------------------')
         print('')
@@ -64,11 +64,11 @@ def UpgradesAndCustomizations(screen, userStronghold):
         if command == '2':
             screen = 'upgradeDefense'
 
-        if command == '3':
-            screen = 'upgradeFarm'
+        # if command == '3':
+        #     screen = 'upgradeFarm'
 
-        if command == '4':
-            screen = 'upgradeFiefMenu'
+        # if command == '4':
+        #     screen = 'upgradeFiefMenu'
 
     
     #This is the screen for updating a user's attack power.
@@ -81,32 +81,32 @@ def UpgradesAndCustomizations(screen, userStronghold):
         attUpgradeCost = 0
 
         if userStronghold.attLevel == str('0'):
-            attTypeNext = 'Angry Villagers with Sharpened Pitchforks'
-            attUpgradeCost = 500
+            attTypeNext = NAME_ATTACK_T1
+            attUpgradeCost = UPGRADE_ATTACK_T1
 
         if userStronghold.attLevel == str('1'):
-            attTypeNext = 'Semi-trained Longbow Archers'
-            attUpgradeCost = 3500
+            attTypeNext = NAME_ATTACK_T2
+            attUpgradeCost = UPGRADE_ATTACK_T2
 
         if userStronghold.attLevel == str('2'):
-            attTypeNext = 'Military Recruits'
-            attUpgradeCost = 10000
+            attTypeNext = NAME_ATTACK_T3
+            attUpgradeCost = UPGRADE_ATTACK_T3
 
         if userStronghold.attLevel == str('3'):
-            attTypeNext = 'Fairly Well-trained Archers with Flaming Arrows'
-            attUpgradeCost = 45000
+            attTypeNext = NAME_ATTACK_T4
+            attUpgradeCost = UPGRADE_ATTACK_T4
 
         if userStronghold.attLevel == str('4'):
-            attTypeNext = 'Drunks with Trebuchets'
-            attUpgradeCost = 75000
+            attTypeNext = NAME_ATTACK_T5
+            attUpgradeCost = UPGRADE_ATTACK_T5
 
         if userStronghold.attLevel == str('5'):
-            attTypeNext = 'Scientists who are Experiementing with Biological Warfare'
-            attUpgradeCost = 200000
+            attTypeNext = NAME_ATTACK_T6
+            attUpgradeCost = UPGRADE_ATTACK_T6
 
         if userStronghold.attLevel == str('6'):
-            attTypeNext = 'Peasents with Guns'
-            attUpgradeCost = 400000
+            attTypeNext = NAME_ATTACK_T7
+            attUpgradeCost = UPGRADE_ATTACK_T7
 
         if userStronghold.attLevel == str('7'):
             print('\n\n')
@@ -118,22 +118,21 @@ def UpgradesAndCustomizations(screen, userStronghold):
         else:
             print('\n\n')
             print('    Your current army is made of ' + userStronghold.attType)
-            print('    Would you like to upgrade to ' + attTypeNext + ' for ' + str(attUpgradeCost) + ' gold?')
+            print('    Would you like to upgrade to ' + attTypeNext + ' for ' + GetResourceCost(attUpgradeCost, 1) + '?')
 
             upgradeInput = input('\n\n     Confirm Upgrade (y/n?): ')
 
-            if upgradeInput == 'y' and int(userStronghold.gold) >= attUpgradeCost:
+            if upgradeInput == 'y' and HaveEnoughResources(userStronghold, attUpgradeCost, 1):
                 print("    Upgrade Complete!")
                 userStronghold.attType = attTypeNext
                 userStronghold.attLevel = str(int(userStronghold.attLevel) + 1)
-                userStronghold.gold = str(int(userStronghold.gold) - attUpgradeCost)
+                DeductResources(userStronghold, attUpgradeCost, 1)
                 userStronghold.write()
                 userStronghold.read()
 
-            elif upgradeInput == 'y' and int(userStronghold.gold) < attUpgradeCost:
-
+            elif upgradeInput == 'y' and HaveEnoughResources(userStronghold, attUpgradeCost, 1) == False:
                 print('\n')
-                print("    You need more gold first!\n\n\n\n")
+                print("    You need more resources first!\n\n\n\n")
 
             elif upgradeInput == 'n':
                 print('\n')
@@ -144,110 +143,41 @@ def UpgradesAndCustomizations(screen, userStronghold):
 
         screen = "stronghold"
 
-#This is the screen for updating a fief's farm/gold production.
-#----------------------------------------------------------------------------------
-    if screen == "upgradeFarm":
-        #these variables define the next upgrade level and the cost of that level
-        farmTypeNext = 'undefined'
-        farmUpgradeCost = 0
-        os.system("clear")
-        header(currentUsername)
 
-        if attackFief.goldMod == str('1'):
-            farmTypeNext = 'Watering Cans'
-            farmUpgradeCost = 500
-
-        if attackFief.goldMod == str('2'):
-            farmTypeNext = 'Wheelbarrows'
-            farmUpgradeCost = 2000
-
-        if attackFief.goldMod == str('3'):
-            farmTypeNext = 'Fertilizer'
-            farmUpgradeCost = 5000
-
-        if attackFief.goldMod == str('4'):
-            farmTypeNext = 'Horse Plows'
-            farmUpgradeCost = 10000
-
-        if attackFief.goldMod == str('5'):
-            farmTypeNext = 'Crop Rotation'
-            farmUpgradeCost = 20000
-
-        if attackFief.goldMod == str('6'):
-            farmTypeNext = 'Artificial Selection'
-            farmUpgradeCost = 40000
-
-        if attackFief.goldMod == str('7'):
-            print('\n    Your fiefdom\'s gold output is currently: ' + str((int(attackFief.goldMod) * GOLD_PER)) + ' per hour.')
-            print('    This is currently the highest gold output!')
-
-            print('\n\n\n\n\n\n\n\n\n\n')
-            command = input("    Press Enter to Continue")
-
-        else:
-            print('\n    Your fiefdom\'s gold output is currently: ' + str((int(attackFief.goldMod) * GOLD_PER)) + ' per hour.')
-            print('    Would you like to upgrade to ' + farmTypeNext + ' for ' + str(farmUpgradeCost) + ' gold?')
-
-            upgradeInput = input('\n    y/n: ')
-
-            if upgradeInput == 'y' and int(userStronghold.gold) >= farmUpgradeCost:
-                print("\n    Upgrade Complete!")
-                attackFief.farmType = farmTypeNext
-                attackFief.goldMod = str(int(attackFief.goldMod) + 1)
-                userStronghold.gold = str(int(userStronghold.gold) - farmUpgradeCost)
-                attackFief.write()
-                attackFief.read()
-                userStronghold.write()
-                userStronghold.read()
-                currentPage = 1
-                screen = "fiefdoms"
-
-            elif upgradeInput == 'y' and int(userStronghold.gold) < farmUpgradeCost:
-                print("\n    You need more gold first!")
-
-            elif upgradeInput == 'n':
-                print("\n    No changes made.")
-
-            print('\n\n\n\n\n\n\n\n\n\n')
-            command = input("    Press Enter to Continue")
-
-        currentPage = 1
-        screen = "ownedFiefDetails"
 
 #This is the screen for updating a fief's defenses. Note: there are two screens
 #like this. One for fiefs and one for player strongholds.
 #----------------------------------------------------------------------------------
     if screen == "upgradeDefense":
         os.system("clear")
-
-        header(currentUsername)
+        headerFief(attackFief)
 
         defTypeNext = 'undefined'
         defUpgradeCost = 0
 
         if attackFief.defLevel == str('0'):
-            defTypeNext = 'Wooden Fences'
-            defUpgradeCost = 500
+            defTypeNext = NAME_DEFENSE_T1
+            defUpgradeCost = UPGRADE_DEFENSE_T1
 
         if attackFief.defLevel == str('1'):
-            defTypeNext = 'Really Deep Ditches'
-            defUpgradeCost = 2500
+            defTypeNext = NAME_DEFENSE_T2
+            defUpgradeCost = UPGRADE_DEFENSE_T2
 
         if attackFief.defLevel == str('2'):
-            defTypeNext = 'Tall Towers'
-            defUpgradeCost = 5000
+            defTypeNext = NAME_DEFENSE_T3
+            defUpgradeCost = UPGRADE_DEFENSE_T3
 
         if attackFief.defLevel == str('3'):
-            defTypeNext = 'In a Lake'
-            defUpgradeCost = 10000
+            defTypeNext = NAME_DEFENSE_T4
+            defUpgradeCost = UPGRADE_DEFENSE_T4
 
         if attackFief.defLevel == str('4'):
-            defTypeNext = 'On Top of a Mountain'
-            defUpgradeCost = 20000
+            defTypeNext = NAME_DEFENSE_T5
+            defUpgradeCost = UPGRADE_DEFENSE_T5
 
         if attackFief.defLevel == str('5'):
-            defTypeNext = 'Boiling Oil'
-            defUpgradeCost = 50000
+            defTypeNext = NAME_DEFENSE_T6
+            defUpgradeCost = UPGRADE_DEFENSE_T6
 
         if attackFief.defLevel == str('6'):
             print('    Your current defense style is: ' + attackFief.defType)
@@ -256,23 +186,22 @@ def UpgradesAndCustomizations(screen, userStronghold):
             command = input("    Press Enter to Continue")
         else:
             print('    Your current defense style is: ' + attackFief.defType)
-            print('    Would you like to upgrade to ' + defTypeNext + ' for ' + str(defUpgradeCost) + ' gold?')
+            print('    Would you like to upgrade to ' + defTypeNext + ' for ' + GetResourceCost(defUpgradeCost, 1) + '?')
 
             upgradeInput = input('    (y/n): ')
 
-            if upgradeInput == 'y' and int(userStronghold.gold) >= defUpgradeCost:
+            if upgradeInput == 'y' and HaveEnoughResources(attackFief, defUpgradeCost, 1):
                 print("    Upgrade Complete!")
                 attackFief.defType = defTypeNext
                 attackFief.defLevel = str(int(attackFief.defLevel) + 1)
-                userStronghold.gold = str(int(userStronghold.gold) - defUpgradeCost)
+                DeductResources(attackFief, defUpgradeCost, 1)
                 attackFief.write()
                 attackFief.read()
                 userStronghold.write()
                 userStronghold.read()
 
-            elif upgradeInput == 'y' and int(userStronghold.gold) < defUpgradeCost:
-
-                print("    You need more gold first!")
+            elif upgradeInput == 'y' and HaveEnoughResources(attackFief, defUpgradeCost, 1) == False:
+                print("    You need more resources first!")
 
             elif upgradeInput == 'n':
                 print("    No changes made.")
