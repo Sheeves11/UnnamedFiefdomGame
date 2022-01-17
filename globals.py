@@ -79,6 +79,14 @@ STR_WOOD = str(C_WOOD + " Wood " + RESET)
 STR_STONE = str(C_STONE + " Stone " + RESET)
 STR_ORE = str(C_ORE + " Ore " + RESET)
 
+#=============================================
+#      Starting Fiefdom Gold and Warriors
+#=============================================
+FIEFDOM_GOLD_MIN = 1266
+FIEFDOM_GOLD_MAX = 3877
+FIEFDOM_WARRIOR_MIN = 5
+FIEFDOM_WARRIOR_MAX = 100
+
 #=====================
 #  Weather
 #=====================
