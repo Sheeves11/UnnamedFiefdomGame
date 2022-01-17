@@ -1,6 +1,8 @@
 from os.path import exists
+from colors import *
 from classes import *
 from worldmap import *
+from market import *
 from passages import *
 from art import *
 
@@ -31,6 +33,7 @@ USER_STRONGHOLD = True      #Used to differentiate attack/user strongholds
 currentUsername = 'default'
 attackFief = Fiefdom()
 serverMap = Map()
+serverMarket = Market()
 testMap = TestMap() #This is for users to have fun messing with the map generator
 firstMapRead = True
 newUserAccount = False
@@ -59,6 +62,7 @@ INTERVAL = 3600
 # INTERVAL = 60
 MAX_PRODUCTION_SOLDIERS_CONSTANT = 300  #Nerfed to 300 down from 500. May not be necessary.
 defendersPer = 3
+MARKET_ITEM_THRESHOLD = 5
 
 #=====================
 #      Resources
@@ -69,13 +73,11 @@ ADJACENT_RESOURCE_MIN = 2
 ADJACENT_RESOURCE_MAX = 5
 SCAV_RESOURCE_MAX = 3
 
-
 #=====================
 #  Weather
 #=====================
 WEATHER_SYSTEM_MOD = 15         #think of this as a seasonal modifier for temperature
 BASELINE_TEMP = 72              #this is the baseline for global temp calculations
-
 
 #=====================
 #   Base Unit Caps
@@ -92,42 +94,7 @@ UCAP_HUNTER = 5
 UCAP_MINER = 10
 UCAP_PROSPECTOR = 5
 
-#=================================================
-#=================================================
-#                    Colors
-#=================================================
-#=================================================
 
-#=====================
-#    Unit Colors
-#=====================
-COLOR_THIEF = MAGENTA
-COLOR_WARRIOR = LIGHT_GRAY
-COLOR_FARMER = WARNING
-COLOR_VENDOR = DARK_YELLOW
-COLOR_FISHER = CYAN
-COLOR_SCAVENGER = TEAL
-COLOR_LUMBERJACK = GREEN
-COLOR_HUNTER = DARK_GREEN
-COLOR_MINER = RED
-COLOR_PROSPECTOR = DARK_RED
-
-#=====================
-#   Outpost Colors
-#=====================
-OP_COLOR_FARMLAND = DARK_YELLOW
-OP_COLOR_FISHERY = BLUE
-OP_COLOR_LUMBERMILL = DARK_GREEN
-OP_COLOR_MINE = DARK_GRAY
-
-#=====================
-#   Resource Colors
-#=====================
-C_GOLD = DARK_YELLOW
-C_FOOD = DARK_RED
-C_WOOD = DARK_GREEN
-C_STONE = DARK_GRAY
-C_ORE = DARK_MAGENTA
 
 #=================================================
 #=================================================
@@ -385,6 +352,11 @@ def GrabGlobalColors():
     global OP_COLOR_FISHERY
     global OP_COLOR_LUMBERMILL
     global OP_COLOR_MINE
+    global C_GOLD
+    global C_FOOD
+    global C_WOOD
+    global C_STONE
+    global C_ORE
 
 
 #========================================================================================================
@@ -488,6 +460,7 @@ def Scavenge(fief):
 
         fief.write()
         fief.read()
+
 
 
 #========================================================================================================
@@ -1222,4 +1195,176 @@ def CreateFief(num):
 
 
     tempInput = input('\n    Press Enter to Continue: ')
+
+
+
+
+#========================================================================================================
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#========================================================================================================
+#                                         Market Functions
+#========================================================================================================
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#========================================================================================================
+
+#==================================================================================
+#   [AddResources]
+#   parameter: userStronghold, type, amount
+#   Adds resources based on passed amount
+#==================================================================================
+def AddResources(userStronghold, type, amount):
+    if str(type) == "Gold":
+        userStronghold.gold = str(int(userStronghold.gold) + int(amount))
+    if str(type) == "Food":
+        userStronghold.food = str(int(userStronghold.food) + int(amount))
+    elif str(type) == "Wood":
+        userStronghold.wood = str(int(userStronghold.wood) + int(amount))
+    elif str(type) == "Stone":
+        userStronghold.stone = str(int(userStronghold.stone) + int(amount))
+    elif str(type) == "Ore":
+        userStronghold.ore = str(int(userStronghold.ore) + int(amount))
+
+#==================================================================================
+#   [PurchasedGood]
+#   parameter: num
+#   returns: True/False depending on how user answers questions
+#==================================================================================
+def PurchasedGood(userStronghold, num):
+    os.system("clear")
+    header(userStronghold.name)
+    good = serverMarket.GetGood(num)
+    print("")
+    if good.seller == "The Wandering Merchant":
+        pas_market_greetings()
+
+    print("    Observing the following offer:\n")
+    time.sleep(0.5)
+    print("   " + str(good.ListDetails()))
+
+    if good.costType == "Gold":
+        transaction = "sell"
+    elif good.goodType == "Gold":
+        transaction = "buy"
+    else:
+        transaction = "trade"
+
+    if good.costType == "Gold":
+        cost = [str(good.costAmount), '0', '0', '0', '0']
+    if good.costType == "Food":
+        cost = ['0', str(good.costAmount), '0', '0', '0']
+    if good.costType == "Wood":
+        cost = ['0', '0', str(good.costAmount), '0', '0']
+    if good.costType == "Stone":
+        cost = ['0', '0', '0', str(good.costAmount), '0']
+    if good.costType == "Ore":
+        cost = ['0', '0', '0', '0', str(good.costAmount)]
+
+    if transaction == "sell":
+        time.sleep(0.5)
+        if HaveEnoughResources(userStronghold, cost, 1):
+            if AnswerYes("\n    Purchase " + WARNING + str(good.goodAmount) + " " + good.GetGoodColor() + str(good.goodType) + RESET + " for " + WARNING + str(good.costAmount) + good.GetCostColor() + " " + str(good.costType) + RESET + "?"):
+                time.sleep(0.5)
+                
+                DeductResources(userStronghold, cost, 1)
+                AddResources(userStronghold, str(good.goodType), int(good.goodAmount))
+
+                userStronghold.write()
+                userStronghold.read()
+                
+                if good.seller == "The Wandering Merchant":
+                    pas_market_transactionComplete()
+                else:
+                    print("\n    Transaction complete!\n")
+
+                time.sleep(0.5)
+                nothing = input("\n    Press enter to continue.")
+                return True
+
+            else:
+                print("\n    Cancelling request..\n")
+                if good.seller == "The Wandering Merchant":
+                    time.sleep(0.5)
+                    pas_market_transactionCancelled()
+                nothing = input("\n    Press enter to continue...")
+                return False
+        else:
+            print("\n    Not enough resources!\n")
+            if good.seller == "The Wandering Merchant":
+                time.sleep(0.5)
+                pas_market_notEnoughFunds()
+            time.sleep(0.5)
+            nothing = input("\n    Press enter to look elsewhere...")
+            return False
+    elif transaction == "buy":
+        time.sleep(0.5)
+        if HaveEnoughResources(userStronghold, cost, 1):
+            if AnswerYes("\n    Sell " + WARNING + str(good.costAmount) + " " + good.GetCostColor() + str(good.costType) + RESET + " for " + WARNING + str(good.goodAmount) + good.GetGoodColor() + " " + str(good.goodType) + RESET + "?"):
+                time.sleep(0.5)
+                
+                DeductResources(userStronghold, cost, 1)
+                AddResources(userStronghold, str(good.goodType), int(good.goodAmount))
+
+                userStronghold.write()
+                userStronghold.read()
+                
+                if good.seller == "The Wandering Merchant":
+                    pas_market_transactionComplete()
+                else:
+                    print("\n    Transaction complete!\n")
+
+                time.sleep(0.5)
+                nothing = input("\n    Press enter to continue.")
+                return True
+
+            else:
+                print("\n    Cancelling request..\n")
+                if good.seller == "The Wandering Merchant":
+                    time.sleep(0.5)
+                    pas_market_transactionCancelled()
+                nothing = input("\n    Press enter to continue...")
+                return False
+        else:
+            print("\n    Not enough resources!\n")
+            if good.seller == "The Wandering Merchant":
+                time.sleep(0.5)
+                pas_market_notEnoughFunds()
+            time.sleep(0.5)
+            nothing = input("\n    Press enter to look elsewhere...")
+            return False
+    else:
+        time.sleep(0.5)
+        if HaveEnoughResources(userStronghold, cost, 1):
+            if AnswerYes("\n    Trade " + WARNING + str(good.costAmount) + " " + good.GetCostColor() + str(good.costType) + RESET + " for " + WARNING + str(good.goodAmount) + good.GetGoodColor() + " " + str(good.goodType) + RESET + "?"):
+                time.sleep(0.5)
+                
+                DeductResources(userStronghold, cost, 1)
+                AddResources(userStronghold, str(good.goodType), int(good.goodAmount))
+
+                userStronghold.write()
+                userStronghold.read()
+                
+                if good.seller == "The Wandering Merchant":
+                    pas_market_transactionComplete()
+                else:
+                    print("\n    Transaction complete!\n")
+
+                time.sleep(0.5)
+                nothing = input("\n    Press enter to continue.")
+                return True
+
+            else:
+                print("\n    Cancelling request..\n")
+                if good.seller == "The Wandering Merchant":
+                    time.sleep(0.5)
+                    pas_market_transactionCancelled()
+                nothing = input("\n    Press enter to continue...")
+                return False
+        else:
+            print("\n    Not enough resources!\n")
+            if good.seller == "The Wandering Merchant":
+                time.sleep(0.5)
+                pas_market_notEnoughFunds()
+            time.sleep(0.5)
+            nothing = input("\n    Press enter to look elsewhere...")
+            return False
 

@@ -14,6 +14,7 @@ from menu_fiefBuildings import *
 from menu_combatAndThievery import *
 from menu_fiefCommands import *
 from menu_resourceManagement import *
+from menu_market import*
 
 '''
 
@@ -175,7 +176,7 @@ while (loop):
                         print('\n\n')
                         print(textColor.WARNING + '    WELCOME NEW PLAYER' + textColor.RESET)
                         print('    -------------------------------------------------------------------------------------------------------------')
-                        print('\n    Creating new account for ' + str(username) + '!')
+                        print('    Creating new account for ' + str(username) + '!')
                         password = "default"
                         email = "default"
 
@@ -195,10 +196,10 @@ while (loop):
                                 f.write(hashed + '\n')
                                 f.write(email)
 
-                            print('\n\n')
+                            print('')
                             print('    Creating new account...')
                             time.sleep(.5)
-                            print('    Logging in as: ' + username)
+                            print('\n    Logging in as: ' + username)
                             time.sleep(.5)
 
                             #------------------------------------------------------------------
@@ -290,6 +291,7 @@ while (loop):
             SilentlyGenerateWorld(serverMap)
             serverMap.read()
             SetFiefStartingResources()
+            serverMarket.InitializeGoods()
             newUserAccount = False
 
         if  newUserAccount:
@@ -316,13 +318,14 @@ while (loop):
         print('                           ' + strongHoldMessage, end = ' ')
         print('\n')
 
+
         print("             Avalible Commands:")
         print('         ----------------------------------------------------------------------------------------------------')
         print('           {1}: View Fiefdoms                                             {6}: Send Resources to Fiefdoms')
-        print('           {2}: View Player Strongholds                                   {7}: Chatroom')
-        print('           {3}: Hire and Recruit                                          {8}: More Options')
-        print('           {4}: Upgrades and Customization                                {9}: How To Play')
-        print('           {5}: View The World Map')  
+        print('           {2}: View Player Strongholds                                   {7}: Market')
+        print('           {3}: Hire and Recruit                                          {8}: Chatroom')
+        print('           {4}: Upgrades and Customization                                {9}: More Options')
+        print('           {5}: View The World Map                                        {10}: How To Play'')  
         print('         ----------------------------------------------------------------------------------------------------')
         print('')
         command = input("            Enter your command: ")
@@ -347,13 +350,17 @@ while (loop):
             screen = 'sendResourcesFromStronghold'
 
         if command == '7':
-            screen = 'messageBoard'
+            screen = 'market'
 
         if command == '8':
-            screen = 'moreCommands'
+            screen = 'messageBoard'
 
         if command == '9':
+            screen = 'moreCommands'
+
+        if command == '10':
             screen = 'howTo'
+
         
         #The following command is for testing only!
         if command == 'devtest' or command == 'dt':
@@ -393,7 +400,7 @@ while (loop):
 
                 enemyFiefdomInfo = str('    ' + textColor.WARNING + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + tempName.defenders + textColor.RESET)
                 ownedFiefdomInfo = str('    ' + textColor.CYAN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + tempName.defenders + textColor.RESET)
-                fiefdomResources = str(' | ' + textColor.YELLOW + tempName.gold + textColor.RESET + ' ' + textColor.DARK_RED + tempName.food + textColor.RESET + ' ' + textColor.DARK_GREEN + tempName.wood + textColor.RESET + ' ' + textColor.DARK_GRAY + tempName.stone + textColor.RESET + ' ' + textColor.DARK_MAGENTA + tempName.ore + textColor.RESET + '')
+                fiefdomResources = str('| ' + textColor.YELLOW + tempName.gold + textColor.RESET + ' ' + textColor.DARK_RED + tempName.food + textColor.RESET + ' ' + textColor.DARK_GREEN + tempName.wood + textColor.RESET + ' ' + textColor.DARK_GRAY + tempName.stone + textColor.RESET + ' ' + textColor.DARK_MAGENTA + tempName.ore + textColor.RESET + '')
 
                 if (fiefdomMargin <= LINES_PER_PAGE) and (fiefdomMargin > 0):
                     if tempName.home != 'True' and tempName.ruler != userStronghold.name:
@@ -795,6 +802,7 @@ while (loop):
     screen = FiefBuildingsMenu(screen, userStronghold)
     screen = HireMenu(screen, userStronghold)
     screen = GarrisonMenu(screen, userStronghold)
+    screen = MarketMenu(screen, userStronghold)
     screen = ViewMapAndSurroundings(screen, userStronghold, attackStronghold, STRONGHOLD, USER_STRONGHOLD)
     screen = ResourceManagementMenu(screen, userStronghold)
     screen = CombatAndThieveryMenu(screen, userStronghold, attackStronghold)

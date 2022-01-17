@@ -1,6 +1,7 @@
 import os
 import time
 import random
+from colors import *
 from tests.sandbox import *
 from classes import *
 
@@ -9,41 +10,6 @@ from classes import *
 #   Map has been added into the fiefdomgame generation automatically, it is fully functional!
 #
 #--------------------------------------------------------------------------------------------------------------
-
-#Color definitions. Had to pull these out of classes to make stuff work!
-RED = '\033[91m'
-DARK_RED = "\033[31m"
-GREEN = '\033[92m'
-DARK_GREEN = "\033[32m"
-RESET = '\033[0m'
-MAGENTA = '\033[95m'
-DARK_MAGENTA = "\033[35m"
-BLUE = '\033[94m'
-DARK_BLUE = "\033[34m"
-CYAN = '\033[96m'
-TEAL = "\033[36m"
-WARNING = '\033[93m'
-YELLOW = '\033[33m'
-DARK_GRAY = '\033[90m'
-LIGHT_GRAY = '\033[37m'
-
-BRIGHT_YELLOW = WARNING
-DARK_YELLOW = YELLOW
-
-DIM = '\033[2m'
-BOLD = '\033[1m'
-UNDERLINE = '\033[4m'
-
-BOLD_DARK_GREEN = "\033[32m \033[1m" 
-
-INTENSE_CYAN = "\033[0;96m"
-INTENSE_PURPLE = "\033[0;95m"
-INTENSE_BLACK = "\033[1;90m"
-MAGENTA_BACKGROUND = "\u001b[45m"
-WHITE_BACKGROUND = "\033[47m"
-CYAN_BACKGROUND = "\033[0;106m" 
-
-TEST_COLOR = "\033[41m"
 
 
 #Global variables
@@ -2059,9 +2025,9 @@ def SilentlyPlotAllStrongholds(mapClass):
 #   instead. Does this without printing anything
 #--------------------------------------------------------------------------------------------------------------
 def SilentlyDefineFiefBiome(fiefClass):
-    forestBiomeNames = ['forest', 'wood', 'root', 'grove', 'thicket', 'glade', 'pine', 'timber', 'covert', 'canopy']
+    forestBiomeNames = ['forest', 'wood', 'root', 'grove', 'thicket', 'glade', 'pine', 'timber', 'covert', 'canopy', 'jungle']
     plainsBiomeNames = ['plain', 'field', 'prairie', 'flat', 'expanse', 'grass', 'meadow', 'steppe', 'plateau', 'heath', 'moor', 'hollow']
-    mountainBiomeNames = ['mount', 'alp', 'bluff', 'cliff', 'crag', 'mesa', 'peak', 'range', 'ridge', 'pike', 'hill', 'butte', 'height']
+    mountainBiomeNames = ['mount', 'alp', 'bluff', 'cliff', 'crag', 'mesa', 'peak', 'range', 'ridge', 'pike', 'hill', 'butte', 'height', 'summit']
     #Check if the name sounds like a forest
     for i in range(len(forestBiomeNames)):
         if forestBiomeNames[i] in str(fiefClass.name).lower():
