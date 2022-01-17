@@ -1164,6 +1164,7 @@ def CreateFief(num):
 
     filename = "defaultfieflist.dat"
     fiefExists = True
+    fiefName = "default"
     
     #while the random fief does not exist in the list of fief files
     while(fiefExists):
@@ -1186,15 +1187,21 @@ def CreateFief(num):
             currentFief.write()
             print('    New Fief Created!')
             os.system("clear")
-            PlotAllFiefs(serverMap)
-
+            
+            try:
+                map().read(serverMap)
+            except:
+                print('(map().read(serverMap)      failed')
+                pass
 
             print('\n    ' + randomFief + ' is created')
+            fiefName = randomFief
             fiefExists = False
 
 
 
     tempInput = input('\n    Press Enter to Continue: ')
+    return(randomFief)
 
 
 

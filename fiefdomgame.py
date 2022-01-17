@@ -104,6 +104,8 @@ loop = True
 screen = "login"
 userStronghold = Stronghold()
 attackStronghold = Stronghold()
+newFief = Fiefdom()
+newFief.name = "TestFief"
 
 #this begins the main game loop
 #------------------------------------------------------------------------------
@@ -206,7 +208,8 @@ while (loop):
                             #----- Create a new fief from fieflist when a new user is made.
                             #------------------------------------------------------------------
 
-                            #CreateFief(1)     #the constant that is passed in is how many fiefs you want to create
+                            newFief.name = str(CreateFief(1))     #the constant that is passed in is how many fiefs you want to create
+
 
                             newUserAccount = True
 
@@ -298,6 +301,10 @@ while (loop):
             serverMap.name = 'serverMap'
             serverMap.read()
             SilentlyPlaceStrongholdInWorldMap(userStronghold, serverMap)
+            #pass the newly created fief
+            if newFief.name != "TestFief":
+                SilentlyPlaceFiefInWorldMap(newFief, serverMap)
+                print('Placing New Fief')
             userStronghold.write()
             serverMap.read()
             newUserAccount = False
@@ -325,7 +332,7 @@ while (loop):
         print('           {2}: View Player Strongholds                                   {7}: Market')
         print('           {3}: Hire and Recruit                                          {8}: Chatroom')
         print('           {4}: Upgrades and Customization                                {9}: More Options')
-        print('           {5}: View The World Map                                        {10}: How To Play'')  
+        print('           {5}: View The World Map                                       {10}: How To Play')  
         print('         ----------------------------------------------------------------------------------------------------')
         print('')
         command = input("            Enter your command: ")
