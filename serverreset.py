@@ -44,6 +44,23 @@ if answer == 'y':
     throwaway = input('Press Enter To Contiue:\n')
     pass
 
+try:
+    with open('settings.txt', 'r+') as settingsFile:
+        print('Opened settings.txt')
+        line = settingsFile.readline().strip()
+        if line.endswith('yes'):
+            print('Settings.txt ends with yes.')
+            settingsFile.seek(0)
+            print('Attempting to write over line')
+            settingsFile.write('Map Initialized: no')
+            print('Wrote over the line!')
+            settingsFile.close()
+        else:
+            # print('Settings did not end in no!')
+            settingsFile.close()
+except:
+    print('Error, something wrong with settings.txt!')
+
 if answer != 'y':
     print('Aborting Reset Process')
     throwaway = input('Press Enter To Contiue:\n')

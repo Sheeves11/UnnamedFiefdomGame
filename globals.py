@@ -74,6 +74,14 @@ ADJACENT_RESOURCE_MIN = 2
 ADJACENT_RESOURCE_MAX = 5
 SCAV_RESOURCE_MAX = 3
 
+#=============================================
+#      Starting Fiefdom Gold and Warriors
+#=============================================
+FIEFDOM_GOLD_MIN = 1266
+FIEFDOM_GOLD_MAX = 3877
+FIEFDOM_WARRIOR_MIN = 5
+FIEFDOM_WARRIOR_MAX = 100
+
 #=====================
 #  Weather
 #=====================

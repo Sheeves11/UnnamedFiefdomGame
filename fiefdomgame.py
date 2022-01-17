@@ -314,6 +314,9 @@ while (loop):
                     tempName.name = filenameTemp[:-4]
                     tempName.read()
 
+                    tempName.gold = random.randint(FIEFDOM_GOLD_MIN, FIEFDOM_GOLD_MAX)
+                    tempName.defenders= random.randint(FIEFDOM_WARRIOR_MIN, FIEFDOM_WARRIOR_MAX)
+
                     if tempName.biome == MOUNTAIN:
                         tempName.stone = int(tempName.stone) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
                     elif tempName.biome == FOREST:
