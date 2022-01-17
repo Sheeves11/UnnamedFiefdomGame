@@ -106,6 +106,8 @@ userStronghold = Stronghold()
 attackStronghold = Stronghold()
 newFief = Fiefdom()
 newFief.name = "TestFief"
+firstLaunchFief = Fiefdom()
+firstLaunchFief.name = "defaults"
 
 #this begins the main game loop
 #------------------------------------------------------------------------------
@@ -129,7 +131,6 @@ while (loop):
                         See more info at github.com/Sheeves11/UnnamedFiefdomGame ''')
         print('\n')
 
-        # userStronghold = Stronghold()
         print(textColor.WARNING)
         username = input("                        Enter your username: " + textColor.RESET)
         currentUsername = username
@@ -292,6 +293,42 @@ while (loop):
         if FirstLaunch():
             serverMap.name = 'serverMap'
             SilentlyGenerateWorld(serverMap)
+
+#
+#            for i in range(78):
+#                firstLaunchFief.name = str(CreateFief(1)) 
+#                SilentlyPlaceFiefInWorldMap(firstLaunchFief, serverMap)
+                
+                #Setting starting resources for this new random fiefdom
+#                filenameTemp = firstLaunchFief.name + '.txt'
+#                with open(os.path.join('fiefs', filenameTemp), 'r') as f:
+#                    tempName = filenameTemp[:-4]
+#                    tempName = Fiefdom()
+#                    tempName.name = filenameTemp[:-4]
+#                    tempName.read()
+
+#                    tempName.gold = random.randint(FIEFDOM_GOLD_MIN, FIEFDOM_GOLD_MAX)
+#                    tempName.defenders= random.randint(FIEFDOM_WARRIOR_MIN, FIEFDOM_WARRIOR_MAX)
+
+#                    if tempName.biome == MOUNTAIN:
+#                        tempName.stone = int(tempName.stone) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
+#                    elif tempName.biome == FOREST:
+#                        tempName.wood = int(tempName.wood) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
+#                    elif tempName.biome == PLAINS:
+#                        tempName.food = int(tempName.food) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
+
+#                    for i in range(int(tempName.adjacentForests)):
+#                        tempName.wood = int(tempName.wood) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
+#                    for i in range(int(tempName.adjacentRivers)):
+#                        tempName.food = int(tempName.food) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
+#                    for i in range(int(tempName.adjacentWater)):
+#                        tempName.food = int(tempName.food) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
+#                    for i in range(int(tempName.adjacentPlains)):
+#                        tempName.food = int(tempName.food) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
+#                    for i in range(int(tempName.adjacentMountains)):
+#                        tempName.stone = int(tempName.stone) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
+#                    tempName.write()
+
             serverMap.read()
             SetFiefStartingResources()
             serverMarket.InitializeGoods()
