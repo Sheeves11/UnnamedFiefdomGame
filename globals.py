@@ -63,6 +63,7 @@ INTERVAL = 3600
 MAX_PRODUCTION_SOLDIERS_CONSTANT = 300  #Nerfed to 300 down from 500. May not be necessary.
 defendersPer = 3
 MARKET_ITEM_THRESHOLD = 5
+MAX_LISTING_AMOUNT = 10
 
 #=====================
 #      Resources
@@ -230,7 +231,7 @@ def FirstLaunch():
 #       Prevents the use of certain usernames that may interfere with menu operations.
 #========================================================================================================
 def CheckLegalUsername(username):
-    illegalUserNames = ['', ' ', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15']
+    illegalUserNames = ['', ' ', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', 'The Wandering Merchant']
     if username.strip() == "":
         return False
     for i in range(len(illegalUserNames)):
@@ -579,6 +580,41 @@ def HaveEnoughResources(station, cost, quantity):
 
     return True
 
+
+#========================================================================================================
+#   CheckResourceByType
+#   parameters: station, type, quantity
+#   returns: True if you have enough resources at the passed station.
+#========================================================================================================
+def CheckResourceByType(station, type, quantity):
+    if type == "Gold":
+        if int(station.gold) >= int(quantity):
+            pass
+        else:
+            return False
+    if type == "Food":
+        if int(station.food) >= int(quantity):
+            pass
+        else:
+            return False
+    if type == "Wood":
+        if int(station.wood) >= int(quantity):
+            pass
+        else:
+            return False
+    if type == "Stone":
+        if int(station.stone) >= int(quantity):
+            pass
+        else:
+            return False
+    if type == "Ore":
+        if int(station.ore) >= int(quantity):
+            pass
+        else:
+            return False
+
+    return True
+
 #========================================================================================================
 #   GetStationResources
 #   parameters: station
@@ -627,6 +663,64 @@ def DeductResources(station, cost, quantity):
     else:
         print(RED + "\nError, not enough ore!\n")
 
+
+#========================================================================================================
+#   StationHasSomeResources
+#   parameters: station
+#       Returns true if station has any resources (besides gold) at all. Returns false otherwise.
+#========================================================================================================
+def StationHasSomeResources(station):
+    if int(station.food) > 0:
+        return True
+    if int(station.wood) > 0:
+        return True
+    if int(station.stone) > 0:
+        return True
+    if int(station.ore) > 0:
+        return True
+    
+    return False
+
+
+
+#========================================================================================================
+#   DeductResourceByType
+#   parameters: station, resource, quantity
+#       Removes resources from station based on type.
+#       This should be checked with a HaveEnoughResources function before being called!
+#========================================================================================================
+def DeductResourceByType(station, resource, quantity):
+    if resource == "Gold":
+        station.gold = str(int(station.gold) - int(quantity))
+    if resource == "Food":
+        station.food = str(int(station.food) - int(quantity))
+    if resource == "Wood":
+        station.wood = str(int(station.wood) - int(quantity))
+    if resource == "Stone":
+        station.stone = str(int(station.stone) - int(quantity))
+    if resource == "Ore":
+        station.ore = str(int(station.ore) - int(quantity))
+    station.write()
+    station.read()
+
+#========================================================================================================
+#   AddResourceByType
+#   parameters: station, resource, quantity
+#       Adds resources from station based on type.
+#       This should be checked with a HaveEnoughResources function before being called!
+#========================================================================================================
+def AddResourceByType(station, resource, quantity):
+    if resource == "Gold":
+        station.gold = str(int(station.gold) + int(quantity))
+    if resource == "Food":
+        station.food = str(int(station.food) + int(quantity))
+    if resource == "Wood":
+        station.wood = str(int(station.wood) + int(quantity))
+    if resource == "Stone":
+        station.stone = str(int(station.stone) + int(quantity))
+    if resource == "Ore":
+        station.ore = str(int(station.ore) + int(quantity))
+    
 
 #========================================================================================================
 #   TransferResource
@@ -1208,6 +1302,534 @@ def CreateFief(num):
 #========================================================================================================
 
 #==================================================================================
+#   [CreateListing]
+#   parameter: userStronghold
+#       Guides user through menu to list a sale or offer
+#==================================================================================
+def CreateListing(userStronghold):
+    os.system("clear")
+    header(userStronghold.name)
+    seller = str(WARNING + str(userStronghold.name) + RESET)
+    transaction = str(CYAN + " [?] " + RESET)
+    costAmount = str(WARNING + " (?) " + RESET)
+    costType = str(GREEN + " (?) " + RESET)
+    goodAmount = str(WARNING + " (?) " + RESET)
+    goodType = str(CYAN + "(?)" + RESET)
+    numListings = serverMarket.NumListings(userStronghold.name)
+
+    #Check if the user has too many listings already
+    if int(numListings) >= MAX_LISTING_AMOUNT:
+        time.sleep(0.5)
+        print("    You have too many listings! Maximum is " + str(MAX_LISTING_AMOUNT) + "!")
+        nothing = input("    Press enter to continue.")
+        return "market"
+
+    listing = str("\n        " + seller + transaction + costAmount + costType + " [For] " + goodAmount + goodType)
+
+    print("\n    Your Listing:")
+    print(listing)
+
+    print('')
+    if int(numListings) > int(MAX_LISTING_AMOUNT) - 3:
+        print("    (Note: users may have 10 active listings at one time! You have " + WARNING + str(numListings) + RESET + " currently!")
+    print("    Please select the kind of " + CYAN + "transaction " + RESET + "you want to make:")
+    print('    -------------------------------------------------------')
+    if int(userStronghold.gold) > 0:
+        print('    {1}: Buy') 
+    if StationHasSomeResources(userStronghold):
+        print('    {2}: Sell')
+        print('    {3}: Trade')
+    print('    {4}: Cancel')
+    print('    -------------------------------------------------------')
+    print('')
+    command = input("    Enter your command: ")
+    picking = True
+    while picking:
+        if int(userStronghold.gold) > 0:
+            if command == "1":
+                transaction = str(GREEN + "  [Buying] " + RESET)
+                tr = "buy"
+                picking = False
+        if StationHasSomeResources(userStronghold):
+            if command == "2":
+                transaction = str(CYAN + "  [Selling] " + RESET)
+                tr = "sell"
+                picking = False
+            if command == "3":
+                transaction = str(WARNING + "  [Trading] " + RESET)
+                tr = "trade"
+                picking = False
+        if command == "4":
+            return "market"
+
+    #--------------------------------------------------------------------------------------------------------------
+    #--------------------------------------------------------------------------------------------------------------
+    #                                                   BUY
+    #--------------------------------------------------------------------------------------------------------------
+    #--------------------------------------------------------------------------------------------------------------
+    if tr == "buy":
+        os.system("clear")
+        header(userStronghold.name)
+        listing = str("\n        " + seller + transaction + costAmount + costType + " [For] " + goodAmount + goodType)
+        print("\n    Your Listing:")
+        print(listing)
+
+        print('')
+        print("    Please select the good you're" + WARNING + " BUYING" + RESET + ":")
+        print('    -------------------------------------------------------')
+        print('    {1}: Food')
+        print('    {2}: Wood')
+        print('    {3}: Stone')
+        print('    {4}: Ore')
+        print('    {5}: Cancel')
+        print('    -------------------------------------------------------')
+        print('')
+        picking = True
+        while picking:
+            command = input("    Select a good or cancel listing: ")
+            if command == "1":
+                costType = str(C_FOOD + " Food " + RESET)
+                ct = "Food"
+                picking = False
+            elif command == "2":
+                costType = str(C_WOOD + " Wood " + RESET)
+                ct = "Wood"
+                picking = False
+            elif command == "3":
+                costType = str(C_STONE + " Stone " + RESET)
+                ct = "Stone"
+                picking = False
+            elif command == "4":
+                costType = str(C_ORE + " Ore " + RESET)
+                ct = "Ore"
+                picking = False
+            elif command == "5":
+                return "market"
+
+        picking = True
+        while picking:
+            command = input("    How much are you wanting?: ")
+            if IsPositiveInteger(command):    
+                costAmount = str(WARNING + " " + str(command) + " " + RESET)
+                ca = str(command)
+                picking = False
+            elif command == "cancel":
+                return "market"
+            else:
+                print("    Positive integers only (or type cancel to exit): ")
+
+        os.system("clear")
+        header(userStronghold.name)
+        listing = str("\n        " + seller + transaction + costAmount + costType + " [For] " + goodAmount + goodType)
+        print("\n    Your Listing:")
+        print(listing)
+            
+        picking = True
+        while picking:
+            command = input("\n\n    How much gold are you offering?: ")
+            if IsPositiveInteger(command):
+                if CheckResourceByType(userStronghold, "Gold", command):
+                    goodType = str(C_GOLD + " Gold " + RESET)
+                    gt = "Gold"
+                    goodAmount = str(WARNING + " " + command + " " + RESET)
+                    ga = str(command)
+                    picking = False
+                else:
+                    print("    You don't have enough gold!")
+            elif command == "cancel":
+                return "market"
+            else:
+                print("    Positive integers only (or type cancel to exit): ")
+
+        os.system("clear")
+        header(userStronghold.name)
+        listing = str("\n        " + seller + transaction + costAmount + costType + " [For] " + goodAmount + goodType)
+        print("\n    Your Listing:")
+        print(listing)
+
+        print('')
+        print("    Please select how" + WARNING + " LONG" + RESET + " you want your listing to be up for:")
+        print('    -------------------------------------------------------')
+        print('    {1}: One Hour') 
+        print('    {2}: Three Hours')
+        print('    {3}: One Day')
+        print('    {4}: Two Days')
+        print('    {5}: Three Days')
+        print('    {6}: Cancel')
+        print('    -------------------------------------------------------')
+        print('')
+        picking = True
+        while picking:
+            command = input("    Input a time or cancel listing: ")
+            if command == "1":
+                shelfLife = "One Hour"
+                sl = 3600
+                picking = False
+            elif command == "2":
+                shelfLife = "Three Hours"
+                sl = int(3600 * 3)
+                picking = False
+            elif command == "3":
+                shelfLife = "One Day"
+                sl = int(3600 * 24)
+                picking = False
+            elif command == "4":
+                shelfLife = "Two Days"
+                sl = int(3600 * 48)
+                picking = False
+            elif command == "5":
+                shelfLife = "Three Days"
+                sl = int(3600 * 72)
+                picking = False
+            elif command == "6":
+                return "market"
+
+        os.system("clear")
+        header(userStronghold.name)
+        listing = str("\n        " + seller + transaction + costAmount + costType + " [For] " + goodAmount + goodType)
+        print("\n    Your Listing:")
+        print(listing)
+
+        time.sleep(0.5)
+        print("\n    Your" + goodAmount + goodType + "will be returned after " + CYAN + shelfLife + RESET + " if no one accepts the offer.\n")
+        time.sleep(0.5)
+        if AnswerYes("    Finalize listing?"):
+            serverMarket.AddGood(userStronghold.name, sl, gt, ga, ct, ca)
+            DeductResourceByType(userStronghold, gt, ga)
+            time.sleep(0.5)
+            print("\n    Listing successful!")
+            time.sleep(0.5)
+            nothing = input("\n    Press enter to continue.")
+
+        return "market"
+    #--------------------------------------------------------------------------------------------------------------
+    #--------------------------------------------------------------------------------------------------------------
+    #                                                      SELL
+    #--------------------------------------------------------------------------------------------------------------
+    #--------------------------------------------------------------------------------------------------------------
+    elif tr == "sell":
+        os.system("clear")
+        header(userStronghold.name)
+        ct = "Gold"
+        costType = str(C_GOLD + " Gold " + RESET)
+        listing = str("\n        " + seller + transaction + goodAmount + goodType + " [For] " + costAmount + costType)
+        print("\n    Your Listing:")
+        print(listing)
+
+        print('')
+        print("    Please select the good you're" + WARNING + " OFFERING" + RESET + ":")
+        print('    -------------------------------------------------------')
+        if int(userStronghold.food) > 0:
+            print('    {1}: Food')
+        if int(userStronghold.wood) > 0:
+            print('    {2}: Wood')
+        if int(userStronghold.stone) > 0:
+            print('    {3}: Stone')
+        if int(userStronghold.ore) > 0:
+            print('    {4}: Ore')
+        print('    {5}: Cancel')
+        print('    -------------------------------------------------------')
+        print('')
+        picking = True
+        while picking:
+            command = input("    Select a good or cancel listing: ")
+            if int(userStronghold.food) > 0:
+                if command == "1":
+                    goodType = str(C_FOOD + " Food " + RESET)
+                    gt = "Food"
+                    picking = False
+            if int(userStronghold.wood) > 0:
+                if command == "2":
+                    goodType = str(C_WOOD + " Wood " + RESET)
+                    gt = "Wood"
+                    picking = False
+            if int(userStronghold.stone) > 0:
+                if command == "3":
+                    goodType = str(C_STONE + " Stone " + RESET)
+                    gt = "Stone"
+                    picking = False
+            if int(userStronghold.ore) > 0:
+                if command == "4":
+                    goodType = str(C_ORE + " Ore " + RESET)
+                    gt = "Ore"
+                    picking = False
+            if command == "5":
+                return "market"
+            
+        picking = True
+        while picking:
+            command = input("    How much" + goodType + "are you offering?: ")
+            if IsPositiveInteger(command):
+                if CheckResourceByType(userStronghold, gt, command):
+                    goodAmount = str(WARNING + " " + str(command) + " " + RESET)
+                    ga = str(command)
+                    picking = False
+                else:
+                    print("    You don't have enough of that resource!")
+            elif command == "cancel":
+                return "market"
+            else:
+                print("    Positive integers only (or type cancel to exit): ")
+
+        os.system("clear")
+        header(userStronghold.name)
+        listing = str("\n        " + seller + transaction + goodAmount + goodType + " [For] " + costAmount + costType)
+        print("\n    Your Listing:")
+        print(listing)
+            
+        picking = True
+        while picking:
+            command = input("\n\n    How much" + costType + "are you wanting?: ")
+            if IsPositiveInteger(command):
+                costAmount = str(WARNING + " " + command + " " + RESET)
+                ca = str(command)
+                picking = False
+            elif command == "cancel":
+                return "market"
+            else:
+                print("    Positive integers only (or type cancel to exit): ")
+
+        os.system("clear")
+        header(userStronghold.name)
+        listing = str("\n        " + seller + transaction + goodAmount + goodType + " [For] " + costAmount + costType)
+        print("\n    Your Listing:")
+        print(listing)
+
+        print('')
+        print("    Please select how" + WARNING + " LONG" + RESET + " you want your listing to be up for:")
+        print('    -------------------------------------------------------')
+        print('    {1}: One Hour') 
+        print('    {2}: Three Hours')
+        print('    {3}: One Day')
+        print('    {4}: Two Days')
+        print('    {5}: Three Days')
+        print('    {6}: Cancel')
+        print('    -------------------------------------------------------')
+        print('')
+        picking = True
+        while picking:
+            command = input("    Input a time or cancel listing: ")
+            if command == "1":
+                shelfLife = "One Hour"
+                sl = 3600
+                picking = False
+            elif command == "2":
+                shelfLife = "Three Hours"
+                sl = int(3600 * 3)
+                picking = False
+            elif command == "3":
+                shelfLife = "One Day"
+                sl = int(3600 * 24)
+                picking = False
+            elif command == "4":
+                shelfLife = "Two Days"
+                sl = int(3600 * 48)
+                picking = False
+            elif command == "5":
+                shelfLife = "Three Days"
+                sl = int(3600 * 72)
+                picking = False
+            elif command == "6":
+                return "market"
+
+        os.system("clear")
+        header(userStronghold.name)
+        listing = str("\n        " + seller + transaction + goodAmount + goodType + " [For] " + costAmount + costType)
+        print("\n    Your Listing:")
+        print(listing)
+
+        time.sleep(0.5)
+        print("\n    Your" + goodAmount + goodType + "will be returned after " + CYAN + shelfLife + RESET + " if no one accepts the offer.\n")
+        time.sleep(0.5)
+        if AnswerYes("    Finalize listing?"):
+            serverMarket.AddGood(userStronghold.name, sl, gt, ga, ct, ca)
+            DeductResourceByType(userStronghold, gt, ga)
+            time.sleep(0.5)
+            print("\n    Listing successful!")
+            time.sleep(0.5)
+            nothing = input("\n    Press enter to continue.")
+
+        return "market"
+    #--------------------------------------------------------------------------------------------------------------
+    #--------------------------------------------------------------------------------------------------------------
+    #                                                      TRADE
+    #--------------------------------------------------------------------------------------------------------------
+    #--------------------------------------------------------------------------------------------------------------
+    else:
+        os.system("clear")
+        header(userStronghold.name)
+        listing = str("\n        " + seller + transaction + goodAmount + goodType + " [For] " + costAmount + costType)
+        print("\n    Your Listing:")
+        print(listing)
+
+        print('')
+        print("    Please select the good you're" + WARNING + " WANTING" + RESET + ":")
+        print('    -------------------------------------------------------')
+        print('    {1}: Food')
+        print('    {2}: Wood')
+        print('    {3}: Stone')
+        print('    {4}: Ore')
+        print('    {5}: Cancel')
+        print('    -------------------------------------------------------')
+        print('')
+        picking = True
+        while picking:
+            command = input("    Select a good or cancel listing: ")
+            if command == "1":
+                costType = str(C_FOOD + " Food " + RESET)
+                ct = "Food"
+                picking = False
+            elif command == "2":
+                costType = str(C_WOOD + " Wood " + RESET)
+                ct = "Wood"
+                picking = False
+            elif command == "3":
+                costType = str(C_STONE + " Stone " + RESET)
+                ct = "Stone"
+                picking = False
+            elif command == "4":
+                costType = str(C_ORE + " Ore " + RESET)
+                ct = "Ore"
+                picking = False
+            elif command == "5":
+                return "market"
+
+        picking = True
+        while picking:
+            command = input("    How much" + costType + "are you wanting?: ")
+            if IsPositiveInteger(command):    
+                costAmount = str(WARNING + " " + str(command) + " " + RESET)
+                ca = str(command)
+                picking = False
+            elif command == "cancel":
+                return "market"
+            else:
+                print("    Positive integers only (or type cancel to exit): ")
+
+        os.system("clear")
+        header(userStronghold.name)
+        listing = str("\n        " + seller + transaction + goodAmount + goodType + " [For] " + costAmount + costType)
+        print("\n    Your Listing:")
+        print(listing)
+
+        print('')
+        print("    Please select the good you're" + WARNING + " OFFERING" + RESET + ":")
+        print('    -------------------------------------------------------')
+        if int(userStronghold.food) > 0:
+            print('    {1}: Food')
+        if int(userStronghold.wood) > 0:
+            print('    {2}: Wood')
+        if int(userStronghold.stone) > 0:
+            print('    {3}: Stone')
+        if int(userStronghold.ore) > 0:
+            print('    {4}: Ore')
+        print('    {5}: Cancel')
+        print('    -------------------------------------------------------')
+        print('')
+        picking = True
+        while picking:
+            command = input("    Select a good or cancel listing: ")
+            if int(userStronghold.food) > 0:
+                if command == "1":
+                    goodType = str(C_FOOD + " Food " + RESET)
+                    gt = "Food"
+                    picking = False
+            if int(userStronghold.wood) > 0:
+                if command == "2":
+                    goodType = str(C_WOOD + " Wood " + RESET)
+                    gt = "Wood"
+                    picking = False
+            if int(userStronghold.stone) > 0:
+                if command == "3":
+                    goodType = str(C_STONE + " Stone " + RESET)
+                    gt = "Stone"
+                    picking = False
+            if int(userStronghold.ore) > 0:
+                if command == "4":
+                    goodType = str(C_ORE + " Ore " + RESET)
+                    gt = "Ore"
+                    picking = False
+            if command == "5":
+                return "market"
+            
+        picking = True
+        while picking:
+            command = input("    How much" + goodType + "are you offering?: ")
+            if IsPositiveInteger(command):
+                if CheckResourceByType(userStronghold, gt, command):
+                    goodAmount = str(WARNING + " " + str(command) + " " + RESET)
+                    ga = str(command)
+                    picking = False
+                else:
+                    print("    You don't have enough of that resource!")
+            elif command == "cancel":
+                return "market"
+            else:
+                print("    Positive integers only (or type cancel to exit): ")
+
+        os.system("clear")
+        header(userStronghold.name)
+        listing = str("\n        " + seller + transaction + goodAmount + goodType + " [For] " + costAmount + costType)
+        print("\n    Your Listing:")
+        print(listing)
+
+        print('')
+        print("    Please select how" + WARNING + " LONG" + RESET + " you want your listing to be up for:")
+        print('    -------------------------------------------------------')
+        print('    {1}: One Hour') 
+        print('    {2}: Three Hours')
+        print('    {3}: One Day')
+        print('    {4}: Two Days')
+        print('    {5}: Three Days')
+        print('    {6}: Cancel')
+        print('    -------------------------------------------------------')
+        print('')
+        picking = True
+        while picking:
+            command = input("    Input a time or cancel listing: ")
+            if command == "1":
+                shelfLife = "One Hour"
+                sl = 3600
+                picking = False
+            elif command == "2":
+                shelfLife = "Three Hours"
+                sl = int(3600 * 3)
+                picking = False
+            elif command == "3":
+                shelfLife = "One Day"
+                sl = int(3600 * 24)
+                picking = False
+            elif command == "4":
+                shelfLife = "Two Days"
+                sl = int(3600 * 48)
+                picking = False
+            elif command == "5":
+                shelfLife = "Three Days"
+                sl = int(3600 * 72)
+                picking = False
+            elif command == "6":
+                return "market"
+
+        os.system("clear")
+        header(userStronghold.name)
+        listing = str("\n        " + seller + transaction + goodAmount + goodType + " [For] " + costAmount + costType)
+        print("\n    Your Listing:")
+        print(listing)
+
+        time.sleep(0.5)
+        print("\n    Your" + goodAmount + goodType + "will be returned after " + CYAN + shelfLife + RESET + " if no one accepts the offer.\n")
+        time.sleep(0.5)
+        if AnswerYes("    Finalize listing?"):
+            serverMarket.AddGood(userStronghold.name, sl, gt, ga, ct, ca)
+            DeductResourceByType(userStronghold, gt, ga)
+            time.sleep(0.5)
+            print("\n    Listing successful!")
+            time.sleep(0.5)
+            nothing = input("\n    Press enter to continue.")
+
+        return "market"
+
+#==================================================================================
 #   [AddResources]
 #   parameter: userStronghold, type, amount
 #   Adds resources based on passed amount
@@ -1274,6 +1896,12 @@ def PurchasedGood(userStronghold, num):
                 if good.seller == "The Wandering Merchant":
                     pas_market_transactionComplete()
                 else:
+                    sellerStronghold = Stronghold()
+                    sellerStronghold.name = str(good.seller)
+                    sellerStronghold.read()
+                    AddResourceByType(sellerStronghold, good.costType, good.costAmount)
+                    sellerStronghold.write()
+                    sellerStronghold.read()
                     print("\n    Transaction complete!\n")
 
                 time.sleep(0.5)
@@ -1310,6 +1938,12 @@ def PurchasedGood(userStronghold, num):
                 if good.seller == "The Wandering Merchant":
                     pas_market_transactionComplete()
                 else:
+                    sellerStronghold = Stronghold()
+                    sellerStronghold.name = str(good.seller)
+                    sellerStronghold.read()
+                    AddResourceByType(sellerStronghold, good.costType, good.costAmount)
+                    sellerStronghold.write()
+                    sellerStronghold.read()
                     print("\n    Transaction complete!\n")
 
                 time.sleep(0.5)
@@ -1346,6 +1980,12 @@ def PurchasedGood(userStronghold, num):
                 if good.seller == "The Wandering Merchant":
                     pas_market_transactionComplete()
                 else:
+                    sellerStronghold = Stronghold()
+                    sellerStronghold.name = str(good.seller)
+                    sellerStronghold.read()
+                    AddResourceByType(sellerStronghold, good.costType, good.costAmount)
+                    sellerStronghold.write()
+                    sellerStronghold.read()
                     print("\n    Transaction complete!\n")
 
                 time.sleep(0.5)

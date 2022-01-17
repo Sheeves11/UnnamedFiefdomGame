@@ -1,4 +1,5 @@
 from colors import *
+from classes import *
 import random
 
 #This file contains the Market and Good classes. 
@@ -114,11 +115,28 @@ class Market:
     #   [PurgeGoods]
     #   parameters: self
     #       Removes any goods with a shelfLife of 0
+    #       If the goods were posted by a user, they are returned to that user.
     #==================================================================================
     def PurgeGoods(self):
         for i in range(len(self.merchandise)):
             if int(self.merchandise[i].shelfLife) == 0:
-                self.merchandise.pop(i)
+                if self.merchandise[i].seller == "The Wandering Merchant":
+                    self.merchandise.pop(i)
+                else:
+                    tempStronghold = Stronghold()
+                    tempStronghold.name = str(self.merchandise[i].seller)
+                    tempStronghold.read()
+                    if self.merchandise[i].goodType == "Gold":
+                        tempStronghold.gold = int(tempStronghold.gold) + int(self.merchandise[i].goodAmount)
+                    elif self.merchandise[i].goodType == "Food":
+                        tempStronghold.food = int(tempStronghold.food) + int(self.merchandise[i].goodAmount)
+                    elif self.merchandise[i].goodType == "Wood":
+                        tempStronghold.wood = int(tempStronghold.wood) + int(self.merchandise[i].goodAmount)
+                    elif self.merchandise[i].goodType == "Stone":
+                        tempStronghold.stone = int(tempStronghold.stone) + int(self.merchandise[i].goodAmount)
+                    elif self.merchandise[i].goodType == "Ore":
+                        tempStronghold.ore = int(tempStronghold.ore) + int(self.merchandise[i].goodAmount)
+                    self.merchandise.pop(i)
 
     #==================================================================================
     #   [CheckRestock]
@@ -130,6 +148,19 @@ class Market:
         if int(len(self.merchandise)) <= RESTOCK_THRESHOLD:
             for i in range(RESTOCK_THRESHOLD):
                 self.GenerateGood()
+
+    #==================================================================================
+    #   [NumListings]
+    #   parameters: self, username
+    #       Returns number of listings under the passed username
+    #==================================================================================
+    def NumListings(self, username):
+        count = 0
+        for i in range(len(self.merchandise)):
+            if str(self.merchandise[i].seller) == str(username):
+                count = int(count) + 1
+        return count
+            
 
     #==================================================================================
     #   [DecrementMerchandiseShelfLife]
@@ -351,10 +382,10 @@ class Good:
     def ListDetails(self):
         if self.seller == "The Wandering Merchant": #This is the default merchant name. It's a Drakkhen reference, but no one knows that game.
             sellerColor = TEAL
+            seller = str(sellerColor + str(self.seller) + RESET).ljust(30, "-")
         else:
             sellerColor = MAGENTA
-        
-        seller = str(sellerColor + str(self.seller) + RESET).ljust(30, "-")
+            seller = str(sellerColor + str(self.seller) + RESET).ljust(31, "-")
 
         if self.costType == "Gold":
             transaction = "sell"

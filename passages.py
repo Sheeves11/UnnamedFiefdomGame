@@ -188,7 +188,7 @@ def pas_c2_1():
 #------------------------------------------------------------------------------
 #------------------------------------------------------------------------------
 def pas_market_notEnoughFunds():
-    rando = random.randint(1,19)
+    rando = random.randint(1,20)
     if rando == 1:
         print(TEAL + "    *The goods are snatched from your hands as the merchant notices your lack of payment*\n" + RESET)
     if rando == 2:
@@ -198,7 +198,7 @@ def pas_market_notEnoughFunds():
     if rando == 4:
         print(TEAL + "    *The merchant is sad*\n" + RESET)
     if rando == 5:
-        print(TEAL + "    *The hobbles about, tossing the goods you wanted around like they don't matter*\n    *They all land perfectly where you found them*" + RESET)
+        print(TEAL + "    *The merchant hobbles about, tossing the goods you wanted around like they don't matter*\n    *They all land perfectly where you found them*" + RESET)
     if rando == 6:
         print(TEAL + "    *The merchant produces a small goat figurine from their goat pocket and eats it while making eye contact with you*\n" + RESET) #the second goat was a typo, but it made it better
     if rando == 7:
@@ -227,9 +227,11 @@ def pas_market_notEnoughFunds():
         print(TEAL + "    *The merchant rolls their eyes*" + RESET)
     if rando == 19:
         print(TEAL + "    *The merchant wonders if they should just build their own stronghold*" + RESET)
+    if rando == 20:
+        print(TEAL + "    *The merchant is pretty annoyed*" + RESET)
 
 def pas_market_transactionComplete():
-    rando = random.randint(1,19)
+    rando = random.randint(1,20)
     if rando == 1:
         print(TEAL + "    *The merchant smiles and shakes your hand*\n" + RESET)
     if rando == 2:
@@ -268,9 +270,11 @@ def pas_market_transactionComplete():
         print(TEAL + "    *The merchant gives you a thumbs up*\n" + RESET)
     if rando == 19:
         print(TEAL + "    *The merchant removes their cloak, revealing another merchant*\n" + RESET)
+    if rando == 20:
+        print(TEAL + "    *The merchant starts to juggle some stones dangerously*\n" + RESET)
 
 def pas_market_greetings():
-    rando = random.randint(1,19)
+    rando = random.randint(1,20)
     if rando == 1:
         print(TEAL + "    *The merchant appears to be draped in green, obscuring their identity while somehow retaining an inviting atmosphere*\n" + RESET)
     if rando == 2:
@@ -309,9 +313,11 @@ def pas_market_greetings():
         print(TEAL + "    *The merchant flags you down when they notice you perusing*\n" + RESET)
     if rando == 19:
         print(TEAL + "    *The merchant is standing around in a cool way*\n" + RESET)
+    if rando == 20:
+        print(TEAL + "    *You see the merchant cupping something in their hands*\n" + RESET)
 
 def pas_market_transactionCancelled():
-    rando = random.randint(1,19)
+    rando = random.randint(1,20)
     if rando == 1:
         print(TEAL + "    *The merchant smells you and spits on the ground*\n" + RESET)
     if rando == 2:
@@ -350,3 +356,5 @@ def pas_market_transactionCancelled():
         print(TEAL + "    *The merchant gets mad but doesn't do anything*\n" + RESET)
     if rando == 19:
         print(TEAL + "    *The merchant hops away*\n" + RESET)
+    if rando == 20:
+        print(TEAL + "    *The merchant wants to know why*\n" + RESET)

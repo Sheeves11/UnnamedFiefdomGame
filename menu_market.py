@@ -7,6 +7,9 @@ def MarketMenu(screen, userStronghold):
         os.system("clear")
         header(userStronghold.name)
 
+        # serverMarket.read()
+
+        print("\n    The Market is Open!\n")
         marketCount = 0
         marketMargin = 0
         goodCount = 0
@@ -28,14 +31,12 @@ def MarketMenu(screen, userStronghold):
         print("\n    Avalible Commands:")
         print('    ------------------------------------------------------')
         print('    {R}: Return to Stronghold')
-        print('    {S}: Sell Resources')
-        print('    {B}: Buy Resources')
-        print('    {T}: Trade Resources')
+        print('    {C}: Create Listing')
         if marketMargin > LINES_PER_PAGE:
                 print('    {E}: Next Page')
         if currentPage > 1:
                 print('    {Q}: Previous Page')
-        print('    {Enter a number above to accept the offer}: ')
+        print('    {Enter a number above to view the offer}: ')
         print('    ------------------------------------------------------')
         print('')
         command = input("    Enter your command: ")
@@ -48,14 +49,10 @@ def MarketMenu(screen, userStronghold):
         elif currentPage > 1 and str(command) == 'q':
             screen = "market"
             currentPage = currentPage - 1
+        elif str(command) == 'c':
+            screen = CreateListing(userStronghold)
         elif str(command) == 'r':
             screen = "stronghold"
-        elif str(command) == 's':
-            screen = "market"
-        elif str(command) == 'b':
-            screen = "market"
-        elif str(command) == 't':
-            screen = "market"
         elif IsPositiveIntEqualOrLessThan(command, LINES_PER_PAGE):
             if IsPositiveIntEqualOrLessThan((int(command) + int(int(LINES_PER_PAGE) * int(int(currentPage) - 1))), totalMarketCount):
                 numToPop = int(command) + int(int(LINES_PER_PAGE) * int(int(currentPage) - 1)) - 1 #Subtracts an additional 1 since lists start at 0
