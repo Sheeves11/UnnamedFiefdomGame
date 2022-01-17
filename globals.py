@@ -5,6 +5,7 @@ from worldmap import *
 from market import *
 from passages import *
 from art import *
+from armies import *
 
 #from tempMethods import *
 
@@ -34,6 +35,7 @@ currentUsername = 'default'
 attackFief = Fiefdom()
 serverMap = Map()
 serverMarket = Market()
+serverArmies = Armies()
 testMap = TestMap() #This is for users to have fun messing with the map generator
 firstMapRead = True
 newUserAccount = False

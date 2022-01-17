@@ -1,6 +1,6 @@
 from colors import *
 
-#==================================================================================
+#======================================================================================
 #   ::Idea Board::
 #       Armies and Battalions have a similar setup to Markets and Goods.
 #       The Armies class contains a list of all the Battalions in the game, so
@@ -11,8 +11,8 @@ from colors import *
 #       traverse the world map. Battalions have a number of variables that lend to
 #       a lot of strategy and gameplay mechanics, detailed below:
 #
-#               name : Whatever the player decides to call the battalion (subject 
-#                      to change)
+#               name :      Whatever the player decides to call the battalion (subject 
+#                           to change) Can't contain some characters.
 #
 #               commander : Name of the player that owns it
 #
@@ -34,9 +34,25 @@ from colors import *
 #               xPos :      horizontal position on world map
 #
 #               yPos :      vertical position on world map
+#       
+#       When a battalion is created, the user must spend at least 100 units. If a 
+#       battalion ever falls below 100 units, that's fine. At any point, a user may
+#       disband a battalion when they're at an owned Fief or Stronghold to add those
+#       troops to that locations defenses. A user cannot have more than 3 battalions
+#       at any given time (subject to extension via possible stronghold upgrade).
+#       Additionally, battalions have a cap of 1000 (currently) units.
 #           
-#==================================================================================
-BATTALION_MIN = 10
+#   Things that need to be made:
+#       - A page where the user can see and manage their battalions.
+#       - A page with a map overlay (accessible from world maps) that shows where
+#         active battalions are at.
+#       - A function that allows users to transport troops in a battalion from one
+#         coordinate on the map to another. Will require its own page too. Travel
+#         system will be necessary.
+#         
+#======================================================================================
+BATTALION_MIN = 100 #This is the min required to -create- a battalion.
+BATTALION_MAX = 1000 #This is the maximum number of troops to a single battalion. Very much subject to change.
 
 class Armies:
     battalions = []
@@ -53,7 +69,7 @@ class Armies:
     #==================================================================================
     #   [GetBattalions] NOTE - [WIP]
     #   parameters: self
-    #       Gets a list of battalions   
+    #       Gets a list of battalions
     #==================================================================================
     def GetBattalions(self):
         battalions = []
