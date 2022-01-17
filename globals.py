@@ -1331,7 +1331,7 @@ def CreateListing(userStronghold):
 
     print('')
     if int(numListings) > int(MAX_LISTING_AMOUNT) - 3:
-        print("    (Note: users may have 10 active listings at one time! You have " + WARNING + str(numListings) + RESET + " currently!")
+        print("    " + RED + "Warning" + RESET + ": users may have 10 active listings at one time! You have " + WARNING + str(numListings) + RESET + " currently!")
     print("    Please select the kind of " + CYAN + "transaction " + RESET + "you want to make:")
     print('    -------------------------------------------------------')
     if int(userStronghold.gold) > 0:
@@ -1495,6 +1495,7 @@ def CreateListing(userStronghold):
         time.sleep(0.5)
         if AnswerYes("    Finalize listing?"):
             serverMarket.AddGood(userStronghold.name, sl, gt, ga, ct, ca)
+            serverMarket.write()
             DeductResourceByType(userStronghold, gt, ga)
             time.sleep(0.5)
             print("\n    Listing successful!")
@@ -1643,6 +1644,7 @@ def CreateListing(userStronghold):
         time.sleep(0.5)
         if AnswerYes("    Finalize listing?"):
             serverMarket.AddGood(userStronghold.name, sl, gt, ga, ct, ca)
+            serverMarket.write()
             DeductResourceByType(userStronghold, gt, ga)
             time.sleep(0.5)
             print("\n    Listing successful!")
@@ -1821,6 +1823,7 @@ def CreateListing(userStronghold):
         time.sleep(0.5)
         if AnswerYes("    Finalize listing?"):
             serverMarket.AddGood(userStronghold.name, sl, gt, ga, ct, ca)
+            serverMarket.write()
             DeductResourceByType(userStronghold, gt, ga)
             time.sleep(0.5)
             print("\n    Listing successful!")

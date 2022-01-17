@@ -63,6 +63,7 @@ class Market:
     def InitializeGoods(self):
         for i in range(GOODS_AT_LAUNCH):
             self.GenerateGood()
+        self.write()
 
     #==================================================================================
     #   [AddGood]
@@ -110,6 +111,7 @@ class Market:
     #==================================================================================
     def RemoveGood(self, index):
         self.merchandise.pop(index)
+        self.write()
 
     #==================================================================================
     #   [PurgeGoods]
@@ -171,6 +173,7 @@ class Market:
         for i in range(len(self.merchandise)):
             self.merchandise[i].DecrementShelfLife(amount)
         self.PurgeGoods()
+        self.write()
 
     #==================================================================================
     #   [CheckAbV]

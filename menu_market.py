@@ -7,7 +7,7 @@ def MarketMenu(screen, userStronghold):
         os.system("clear")
         header(userStronghold.name)
 
-        # serverMarket.read()
+        serverMarket.read()
 
         print("\n    The Market is Open!\n")
         marketCount = 0
