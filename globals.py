@@ -1254,7 +1254,7 @@ def UpgradeOutpost(station, outpostType, tier, numberBuilt, cost, color, flavorT
 #   if a fief has been created before doing so.
 #--------------------------------------------------------------------------------------------------------------
 def CreateFief(num):
-    print('\n\n    Creating New Fief')
+    #print('\n\n    Creating New Fief')
 
     filename = "defaultfieflist.dat"
     fiefExists = True
@@ -1264,14 +1264,14 @@ def CreateFief(num):
     while(fiefExists):
         lines = open(filename).read().splitlines()
         randomFief = random.choice(lines)
-        print('\n    ' + randomFief + ' chosen. Checking to see if it exists in fiefs/')
+        #print('\n    ' + randomFief + ' chosen. Checking to see if it exists in fiefs/')
         
         userPath = ('fiefs/' + randomFief + '.txt')        
         if exists(userPath) == True:
-            print('\n    This fief already exists in the fiefs/ folder! Trying again')
+            #print('\n    This fief already exists in the fiefs/ folder! Trying again')
+            pass
         else:
-            print('\n    This fief is unique! Create it now')
-
+            # print('\n    This fief is unique! Create it now')
             #ok now we need to create a new fief file with the default values
 
             currentFief = Fiefdom()
@@ -1285,17 +1285,18 @@ def CreateFief(num):
             try:
                 map().read(serverMap)
             except:
-                print('(map().read(serverMap)      failed')
+                #print('(map().read(serverMap)      failed')
                 pass
 
-            print('\n    ' + randomFief + ' is created')
+            #print('\n    ' + randomFief + ' is created')
             fiefName = randomFief
-            fiefExists = False
+            fiefExists = False    
+            return(randomFief)
 
 
 
-    tempInput = input('\n    Press Enter to Continue: ')
-    return(randomFief)
+    #tempInput = input('\n    Press Enter to Continue: ')
+
 
 
 
