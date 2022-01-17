@@ -1415,7 +1415,7 @@ def CreateListing(userStronghold):
 
         picking = True
         while picking:
-            command = input("    How much are you wanting?: ")
+            command = input("    How much" + costType + "are you wanting?: ")
             if IsPositiveInteger(command):    
                 costAmount = str(WARNING + " " + str(command) + " " + RESET)
                 ca = str(command)
@@ -1433,7 +1433,7 @@ def CreateListing(userStronghold):
             
         picking = True
         while picking:
-            command = input("\n\n    How much gold are you offering?: ")
+            command = input("\n\n    How much " + C_GOLD + "Gold" + RESET + " are you offering?: ")
             if IsPositiveInteger(command):
                 if CheckResourceByType(userStronghold, "Gold", command):
                     goodType = str(C_GOLD + " Gold " + RESET)
@@ -1442,7 +1442,7 @@ def CreateListing(userStronghold):
                     ga = str(command)
                     picking = False
                 else:
-                    print("    You don't have enough gold!")
+                    print("    You don't have enough " + C_GOLD + "Gold" + RESET + "!")
             elif command == "cancel":
                 return "market"
             else:
