@@ -292,6 +292,7 @@ while (loop):
             serverMap.read()
             SetFiefStartingResources()
             serverMarket.InitializeGoods()
+            serverMarket.read()
             newUserAccount = False
 
         if  newUserAccount:
@@ -325,7 +326,7 @@ while (loop):
         print('           {2}: View Player Strongholds                                   {7}: Market')
         print('           {3}: Hire and Recruit                                          {8}: Chatroom')
         print('           {4}: Upgrades and Customization                                {9}: More Options')
-        print('           {5}: View The World Map                                        {10}: How To Play'')  
+        print('           {5}: View The World Map                                        {10}: How To Play')  
         print('         ----------------------------------------------------------------------------------------------------')
         print('')
         command = input("            Enter your command: ")
