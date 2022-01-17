@@ -11,7 +11,9 @@ def ViewMapAndSurroundings(screen, userStronghold, attackStronghold, STRONGHOLD,
     #This page prints the world map with your stronghold's location marked on it
     if screen == "viewMapYourStronghold":
         os.system("clear")
-        header(currentUsername)
+        headerStripped()
+        print('    --------------------------------------------------------------------------------------------------------------   ')
+        print('                                                    W O R L D   M A P                                              ')
 
         serverMap.name = "serverMap"
 
@@ -21,13 +23,29 @@ def ViewMapAndSurroundings(screen, userStronghold, attackStronghold, STRONGHOLD,
 
         PrintLegend()
         print('')
-        print('    ' + UNDERLINE + WARNING + 'World Map' + RESET + ':    [Current Location -  Row: ' + WARNING + str(userStronghold.yCoordinate) + RESET + '   Column: ' + WARNING + str(userStronghold.xCoordinate) + RESET + ']')
+        #print('    ' + UNDERLINE + WARNING + 'World Map' + RESET + ':    [Current Location -  Row: ' + WARNING + str(userStronghold.yCoordinate) + RESET + '   Column: ' + WARNING + str(userStronghold.xCoordinate) + RESET + ']')
         WorldMapLocation(int(userStronghold.yCoordinate), int(userStronghold.xCoordinate), serverMap, userStronghold.name)
         print('')
-        time.sleep(1)
-        nothing = input('    Press Enter to Continue')
 
-        return 'stronghold'
+        print("    Avalible Commands:")
+        print('    -------------------------------------------------------')
+        print('    {1}: Return to Stronghold')
+        print('    {2}: Look at Surroundings')
+        print('    {3}: View Temperature Map')
+        print('    --------------------------------------------------------')
+        print('')
+        command = input("    Enter your command: ")
+
+        if command == '1':
+            screen = "stronghold"
+
+        if command == '2':
+            screen = 'viewSurroundings'
+            USER_STRONGHOLD = True
+            STRONGHOLD = True
+
+        if command == '3':
+            screen = "tempMap"
 
 #This page prints the world map with your stronghold's location marked on it
     if screen == "viewMapEnemyStronghold":
@@ -82,7 +100,9 @@ def ViewMapAndSurroundings(screen, userStronghold, attackStronghold, STRONGHOLD,
         serverMap.read()
 
         if STRONGHOLD:
-            header(currentUsername)
+            headerStripped()
+            print('\n\n\n    ')
+            print('    You stand atop the tallest tower in your stronghold and take a look around. This is what you see: \n\n\n')
             if USER_STRONGHOLD:
                 ListSurroundings(serverMap.worldMap, userStronghold.xCoordinate, userStronghold.yCoordinate)
                 print('')
@@ -97,6 +117,8 @@ def ViewMapAndSurroundings(screen, userStronghold, attackStronghold, STRONGHOLD,
                 return "enemyStrongholdDetails"
         else:
             headerFief(attackFief)
+            print('\n\n\n    ')
+            print('    You stand atop the highest point in the fiefdom and take a look around. This is what you see: \n\n\n')
             ListSurroundings(serverMap.worldMap, attackFief.xCoordinate, attackFief.yCoordinate)
             print('')
             print('    In all:')

@@ -17,8 +17,8 @@ def MoreMenu(screen, userStronghold):
 #----------------------------------------------------------------------------------
     if screen == "moreCommands":
         os.system("clear")
-
-        header(currentUsername)
+        headerStripped()
+        
         print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
         print("     Avalible Commands:")
         print('     -------------------------------------------------------')
@@ -54,8 +54,7 @@ def MoreMenu(screen, userStronghold):
 #----------------------------------------------------------------------------------
     if screen == "messageBoard":
         os.system("clear")
-
-        header(currentUsername)
+        headerStripped()
 
         print('\n    Welcome to the message board! Keep it friendly :)')
         print('\n    --------------------------------------------------------------------------------------\n')
@@ -90,7 +89,8 @@ def MoreMenu(screen, userStronghold):
 #----------------------------------------------------------------------------------
     if screen == "pastWinners":
         os.system("clear")
-        header(currentUsername)
+        headerStripped()
+
         print('\n    These are your honorable past winners of Unnamed Fiefdom Game')
         print('\n    --------------------------------------------------------------------------------------\n')
         print('\n    Pre-Release (12/20/21): Steelwing\n')
@@ -103,8 +103,8 @@ def MoreMenu(screen, userStronghold):
 #------------------------------------------------------------------------------
     if screen == "about":
         os.system("clear")
+        headerStripped()
 
-        header(currentUsername)
         print('\n\n')
 
         print('''
@@ -141,13 +141,18 @@ def MoreMenu(screen, userStronghold):
 #------------------------------------------------------------------------------
     if screen == "tempMap":
         os.system('clear')
-        print('\n\n\n\n\n\n\n')
+        headerStripped()
+        print('    --------------------------------------------------------------------------------------------------------------   ')
+        print('                                             T E M P E R A T U R E   M A P                                        ')
+        print('    --------------------------------------------------------------------------------------------------------------   ')
         gameTime = int(readGametime())
         base = int(readBaseline())
         writeWeather(str(base), gameTime)
         updateWeatherFile()
-        print('    Current time: ' + str(readRealGametimeHour()) + ':' + str(readRealGametimeMin()) + ' ' + str(readRealGametimeAmpm()))
-        print('    Current Average Temperature: ' + str(readBaseline()))
+        tempPrintout = '    Current Average Temperature: ' + str(readBaseline())
+        print(textColor.WARNING, end = '')
+        print('                                Current time: ' + str(readRealGametimeHour()) + ':' + str(readRealGametimeMin()) + ' ' + str(readRealGametimeAmpm() + tempPrintout))
+        print(textColor.RESET, end = '')
 
         serverMap.name = "serverMap"
         serverMap.read()
@@ -156,15 +161,15 @@ def MoreMenu(screen, userStronghold):
         printTempMapDot(0)
 
 
-        tempInput = input('\n\n    Press Enter to Continue')
-        return 'moreCommands'
+        tempInput = input('\n\n                   Press Enter to Continue')
+        return 'stronghold'
 
 #This is the features page for the game. Keep it updated
 #------------------------------------------------------------------------------
     if screen == "features":
         os.system("clear")
 
-        header(currentUsername)
+        headerStripped()
         print('\n\n')
 
         print('''

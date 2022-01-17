@@ -153,7 +153,7 @@ def printTempMapDot(baselineMod):
             for j in range(MAP_WIDTH):
                 symbol = serverMap.worldMap[i][j]
                 if j == 0:
-                    print('\n    ', end = ' ')
+                    print('\n                  ', end = ' ')
                     printWeatherMapDot(getLocalTemp(i, j, int(readBaseline()), WEATHER_SYSTEM_MOD, baselineMod))
 
                 else:

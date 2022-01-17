@@ -38,6 +38,12 @@ testMap = TestMap() #This is for users to have fun messing with the map generato
 firstMapRead = True
 newUserAccount = False
 
+#=========================
+#   System Announcement
+#=========================
+#I had to throw this one in the art file do to import issues
+#ANNOUNCEMENT = "This is a test build"
+
 #=====================
 #   Fiefdom Pages
 #=====================
@@ -100,7 +106,7 @@ UCAP_PROSPECTOR = 5
 #     Unit Costs
 #=====================
 UCOST_THIEF = [1000, 0, 0, 0, 0]
-UCOST_WARRIOR = [10, 0, 0, 0, 0]    #Manage this for practical reasons (warrior costs 10, farmer costs 500. wat.)
+UCOST_WARRIOR = [100, 0, 0, 0, 0]    #Manage this for practical reasons (warrior costs 10, farmer costs 500. wat.)
 UCOST_FARMER = [500, 0, 0, 0, 0]
 UCOST_VENDOR = [1500, 0, 0, 0, 0]
 UCOST_FISHER = [500, 0, 0, 0, 0]

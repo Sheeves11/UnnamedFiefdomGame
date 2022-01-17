@@ -412,25 +412,25 @@ def PrintColorMapWithFiefs(wMap, userName):
             symbol = wMap[i][j]
             if j == 0:
                 if symbol == UNEXPLORED:
-                    print('    ' + IC_UNEXPLORED + symbol + RESET, end=" ")
+                    print('              ' + IC_UNEXPLORED + symbol + RESET, end=" ")
                 elif symbol == EMPTY:
-                    print('    ' + symbol, end=" ")
+                    print('              ' + symbol, end=" ")
                 elif symbol == WATER:
-                    print('    ' + IC_WATER + symbol + RESET, end=" ")
+                    print('              ' + IC_WATER + symbol + RESET, end=" ")
                 elif symbol == RIVER[0] or symbol == RIVER[1] or symbol == RIVER[2]:
-                    print('    ' + IC_RIVER + symbol + RESET, end=" ")
+                    print('              ' + IC_RIVER + symbol + RESET, end=" ")
                 elif symbol == FOREST:
-                    print('    ' + IC_FOREST + symbol + RESET, end=" ")
+                    print('              ' + IC_FOREST + symbol + RESET, end=" ")
                 elif symbol == PLAINS:
-                    print('    ' + IC_PLAINS + symbol + RESET, end=" ")
+                    print('              ' + IC_PLAINS + symbol + RESET, end=" ")
                 elif symbol == MOUNTAIN:
-                    print('    ' + IC_MOUNTAIN + symbol + RESET, end=" ")
+                    print('              ' + IC_MOUNTAIN + symbol + RESET, end=" ")
                 elif symbol == FIEF:
-                    print('    ' + GetFiefByOwner(i, j, userName) + RESET, end=" ")
+                    print('              ' + GetFiefByOwner(i, j, userName) + RESET, end=" ")
                 elif symbol == STRONGHOLD:
-                    print('    ' + IC_STRONGHOLD + symbol + RESET, end=" ")
+                    print('              ' + IC_STRONGHOLD + symbol + RESET, end=" ")
                 elif symbol == LOCATION:
-                    print('    ' + IC_LOCATION + symbol + RESET, end=" ")
+                    print('              ' + IC_LOCATION + symbol + RESET, end=" ")
             elif j == MAP_WIDTH - 1:
                 if symbol == UNEXPLORED:
                     print(IC_UNEXPLORED + symbol + RESET, *fiefsInRow, *strongholdsInRow, end=" ")
@@ -545,15 +545,11 @@ def GetStrongholdRow(row, userName):
 #   Prints a legend for the map
 #--------------------------------------------------------------------------------------------------------------
 def PrintLegend():
-    print('    -[ Legend ]--------------')
-    print('    -  ' + WARNING + 'Water        ' + RESET + ':   ' + IC_WATER + WATER + RESET + '   -')
-    print('    -  ' + WARNING + 'Rivers       ' + RESET + ': ' + IC_RIVER + RIVER[0] + RESET + ' ' + IC_RIVER + RIVER[1] + RESET + ' ' + IC_RIVER + RIVER[2] + RESET + ' -')
-    print('    -  ' + WARNING + 'Forest       ' + RESET + ':   ' + IC_FOREST + FOREST + RESET + '   -')
-    print('    -  ' + WARNING + 'Plains       ' + RESET + ':   ' + IC_PLAINS + PLAINS + RESET + '   -')
-    print('    -  ' + WARNING + 'Mountain     ' + RESET + ':   ' + IC_MOUNTAIN + MOUNTAIN + RESET + '   -')
-    print('    -  ' + WARNING + 'Fief         ' + RESET + ':  ' + IC_FIEF + FIEF + ' ' + CYAN + FIEF + RESET + '  -')
-    print('    -  ' + WARNING + 'Stronghold   ' + RESET + ':   ' + IC_STRONGHOLD + STRONGHOLD + RESET + '   -')
-    print('    -  ' + WARNING + 'You are Here ' + RESET + ':   ' + IC_LOCATION + LOCATION + RESET + '   -')
+    print('                      -[ Legend ]----------------------------------------------------------------')
+    print('                         -  ' + WARNING + 'Water        ' + RESET + ':   ' + IC_WATER + WATER + RESET + '   -' + '                -  ' + WARNING + 'Mountain     ' + RESET + ':   ' + IC_MOUNTAIN + MOUNTAIN + RESET + '   -')
+    print('                         -  ' + WARNING + 'Rivers       ' + RESET + ': ' + IC_RIVER + RIVER[0] + RESET + ' ' + IC_RIVER + RIVER[1] + RESET + ' ' + IC_RIVER + RIVER[2] + RESET + ' -' + '                -  ' + WARNING + 'Fief         ' + RESET + ':  ' + IC_FIEF + FIEF + ' ' + CYAN + FIEF + RESET + '  -')
+    print('                         -  ' + WARNING + 'Forest       ' + RESET + ':   ' + IC_FOREST + FOREST + RESET + '   -' + '                -  ' + WARNING + 'Stronghold   ' + RESET + ':   ' + IC_STRONGHOLD + STRONGHOLD + RESET + '   -')
+    print('                         -  ' + WARNING + 'Plains       ' + RESET + ':   ' + IC_PLAINS + PLAINS + RESET + '   -' + '                -  ' + WARNING + 'You are Here ' + RESET + ':   ' + IC_LOCATION + LOCATION + RESET + '   -')
 
 #--------------------------------------------------------------------------------------------------------------
 #   [DefineFiefBiome]
