@@ -295,6 +295,7 @@ while (loop):
             serverMap.read()
             SetFiefStartingResources()
             serverMarket.InitializeGoods()
+            serverMarket.read()
             newUserAccount = False
 
         if  newUserAccount:
