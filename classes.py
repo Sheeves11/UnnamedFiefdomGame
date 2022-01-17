@@ -2,6 +2,7 @@
 import os
 import time
 import random
+from colors import *
 
 #============================
 #  UNIT RESOURCE MODIFIERS
@@ -30,30 +31,6 @@ MOUNTAIN = 'M'
 PLAINS = '#'
 FOREST = '^'
 BACKSLASH_SUB = 'L'     #This needed to be added so the program could properly read/write '\'
-
-#define some text colors
-class textColor:
-    RED = '\033[91m'
-    DARK_RED = "\033[31m"
-    GREEN = '\033[92m'
-    DARK_GREEN = "\033[32m"
-    RESET = '\033[0m'
-    DIM = '\033[2m'
-    MAGENTA = '\033[95m'
-    DARK_MAGENTA = "\033[35m"
-    BLUE = '\033[94m'
-    DARK_BLUE = "\033[34m"
-    CYAN = '\033[96m'
-    TEAL = "\033[36m"
-    WARNING = '\033[93m'
-    YELLOW = '\033[33m'
-    DARK_GRAY = '\033[90m'
-    LIGHT_GRAY = '\033[37m'
-    PURPLE = "\033[0;95m"
-    ORANGE = "\u001b[38;5;208m"
-    BROWN = "\u001b[38;5;216m"
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
 
 def biomeColor(biome):
     if biome == MOUNTAIN:

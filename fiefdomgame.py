@@ -14,6 +14,7 @@ from menu_fiefBuildings import *
 from menu_combatAndThievery import *
 from menu_fiefCommands import *
 from menu_resourceManagement import *
+from menu_market import*
 
 '''
 
@@ -169,7 +170,7 @@ while (loop):
                         print('\n\n')
                         print(textColor.WARNING + '    WELCOME NEW PLAYER' + textColor.RESET)
                         print('    -------------------------------------------------------------------------------------------------------------')
-                        print('\n    Creating new account for ' + str(username) + '!')
+                        print('    Creating new account for ' + str(username) + '!')
                         password = "default"
                         email = "default"
 
@@ -189,10 +190,10 @@ while (loop):
                                 f.write(hashed + '\n')
                                 f.write(email)
 
-                            print('\n\n')
+                            print('')
                             print('    Creating new account...')
                             time.sleep(.5)
-                            print('    Logging in as: ' + username)
+                            print('\n    Logging in as: ' + username)
                             time.sleep(.5)
 
                             #------------------------------------------------------------------
@@ -283,6 +284,7 @@ while (loop):
             SilentlyGenerateWorld(serverMap)
             serverMap.read()
             SetFiefStartingResources()
+            serverMarket.InitializeGoods()
             newUserAccount = False
 
         if  newUserAccount:
@@ -310,8 +312,8 @@ while (loop):
 
         print("    Avalible Commands:")
         print('    -------------------------------------------------------')
-        print('    {1}: View Fiefdoms               {9}: More')
-        print('    {2}: View Player Strongholds')
+        print('    {1}: View Fiefdoms               {9}: Market')
+        print('    {2}: View Player Strongholds     {10}: More')
         print('    {3}: Hire and Recruit')
         print('    {4}: Upgrade and Customize')
         print('    {5}: Look Around')
@@ -350,6 +352,9 @@ while (loop):
             screen = 'messageBoard'
 
         if command == '9':
+            screen = 'market'
+
+        if command == '10':
             screen = 'moreCommands'
         
         #The following command is for testing only!
@@ -390,7 +395,7 @@ while (loop):
 
                 enemyFiefdomInfo = str('    ' + textColor.WARNING + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + tempName.defenders + textColor.RESET)
                 ownedFiefdomInfo = str('    ' + textColor.CYAN + tempName.name + ' || Ruled by: ' + tempName.ruler + ' || Defenders: ' + tempName.defenders + textColor.RESET)
-                fiefdomResources = str(' | ' + textColor.YELLOW + tempName.gold + textColor.RESET + ' ' + textColor.DARK_RED + tempName.food + textColor.RESET + ' ' + textColor.DARK_GREEN + tempName.wood + textColor.RESET + ' ' + textColor.DARK_GRAY + tempName.stone + textColor.RESET + ' ' + textColor.DARK_MAGENTA + tempName.ore + textColor.RESET + '')
+                fiefdomResources = str('| ' + textColor.YELLOW + tempName.gold + textColor.RESET + ' ' + textColor.DARK_RED + tempName.food + textColor.RESET + ' ' + textColor.DARK_GREEN + tempName.wood + textColor.RESET + ' ' + textColor.DARK_GRAY + tempName.stone + textColor.RESET + ' ' + textColor.DARK_MAGENTA + tempName.ore + textColor.RESET + '')
 
                 if (fiefdomMargin <= LINES_PER_PAGE) and (fiefdomMargin > 0):
                     if tempName.home != 'True' and tempName.ruler != userStronghold.name:
@@ -792,6 +797,7 @@ while (loop):
     screen = FiefBuildingsMenu(screen, userStronghold)
     screen = HireMenu(screen, userStronghold)
     screen = GarrisonMenu(screen, userStronghold)
+    screen = MarketMenu(screen, userStronghold)
     screen = ViewMapAndSurroundings(screen, userStronghold, attackStronghold, STRONGHOLD, USER_STRONGHOLD)
     screen = ResourceManagementMenu(screen, userStronghold)
     screen = CombatAndThieveryMenu(screen, userStronghold, attackStronghold)

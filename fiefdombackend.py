@@ -19,6 +19,12 @@ while (loop):
     print('\n\n\n--------------------------------------------------------')
     print('Incrementing totals')
     print('--------------------------------------------------------\n')
+
+    #=====================
+    #    Update Market
+    #=====================
+    serverMarket.DecrementMerchandiseShelfLife(INTERVAL)
+    serverMarket.CheckRestock()
   
     for filename in os.listdir('fiefs'):
             with open(os.path.join('fiefs', filename), 'r') as f:

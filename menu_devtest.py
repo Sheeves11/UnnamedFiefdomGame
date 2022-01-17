@@ -1,4 +1,5 @@
 from globals import *
+from market import *
 
 #This document contains screens for:
 #   devTest
@@ -75,7 +76,9 @@ def DevTestMenu(screen, userStronghold):
             return 'devTestRiverTool'
         
         if command == 't':
-            screen = 'testScreen'
+            screen = 'testScreen1'
+        if command == 't2':
+            screen = 'testScreen2'
 
 
 #This is a "secret" page that you can use to create default Fiefdoms
@@ -257,8 +260,41 @@ def DevTestMenu(screen, userStronghold):
 
 #This is a test screen for quickly testing out formatting and the like.
 #-----------------------------------------------------------------------------------
-    if screen == "testScreen":
+    if screen == "testScreen1":
         os.system("clear")
+        header(userStronghold.name)
+        print("    The Market is open:")
+        
+        # serverMarket.AddGood("Wandering Merchant", str(int(INTERVAL) * 24), "Gold", "300", "Food", "10")
+
+        # serverMarket.AddGood("Wandering Merchant", str(int(INTERVAL) * 24), "Food", "300", "Wood", "10")
+
+        # serverMarket.AddGood("Wandering Merchant", str(int(INTERVAL) * 24), "Stone", "300", "Food", "10")
+
+        # serverMarket.AddGood("Wandering Merchant", str(int(INTERVAL) * 24), "Ore", "20", "Wood", "150")
+
+        # serverMarket.AddGood("Wandering Merchant", str(int(INTERVAL) * 24), "Gold", "3000", "Food", "200")
+
+        # serverMarket.AddGood("Wandering Merchant", str(int(INTERVAL) * 24), "Wood", "200", "Food", "300")
+
+        # serverMarket.AddGood("Wandering Merchant", str(int(INTERVAL) * 24), "Stone", "100", "Gold", "1000")
+
+        serverMarket.GenerateGood()
+
+        serverMarket.ListGoods()
+
+        serverMarket.write()
+
+        nothing = input('    Continue:')
+        return 'devTest'
+
+    if screen == "testScreen2":
+        os.system("clear")
+
+        print("Attempting to read!")
+        serverMarket.read()
+
+        serverMarket.ListGoods()
 
         nothing = input('    Continue:')
         return 'devTest'
