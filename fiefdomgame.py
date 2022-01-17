@@ -302,10 +302,38 @@ while (loop):
             serverMap.name = 'serverMap'
             serverMap.read()
             SilentlyPlaceStrongholdInWorldMap(userStronghold, serverMap)
-            #pass the newly created fief
+            #pass the newly created random fief to the "place fiefdom" function
             if newFief.name != "TestFief":
                 SilentlyPlaceFiefInWorldMap(newFief, serverMap)
-                print('Placing New Fief')
+                
+                #Setting starting resources for this new random fiefdom
+                filenameTemp = newFief.name + '.txt'
+                with open(os.path.join('fiefs', filenameTemp), 'r') as f:
+                    tempName = filenameTemp[:-4]
+                    tempName = Fiefdom()
+                    tempName.name = filenameTemp[:-4]
+                    tempName.read()
+
+                    if tempName.biome == MOUNTAIN:
+                        tempName.stone = int(tempName.stone) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
+                    elif tempName.biome == FOREST:
+                        tempName.wood = int(tempName.wood) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
+                    elif tempName.biome == PLAINS:
+                        tempName.food = int(tempName.food) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
+
+                    for i in range(int(tempName.adjacentForests)):
+                        tempName.wood = int(tempName.wood) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
+                    for i in range(int(tempName.adjacentRivers)):
+                        tempName.food = int(tempName.food) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
+                    for i in range(int(tempName.adjacentWater)):
+                        tempName.food = int(tempName.food) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
+                    for i in range(int(tempName.adjacentPlains)):
+                        tempName.food = int(tempName.food) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
+                    for i in range(int(tempName.adjacentMountains)):
+                        tempName.stone = int(tempName.stone) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
+                    tempName.write()
+
+                #print('Placing New Fief')
             userStronghold.write()
             serverMap.read()
             newUserAccount = False
