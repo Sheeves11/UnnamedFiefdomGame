@@ -121,15 +121,10 @@ while (loop):
 
         art_titleScreen()
 
-        print(textColor.RESET + '''
-                        Welcome to the Unnamed Fiefdom Game!
-
-                        This is a python programming project and multiplayer war game based on the classic
-                        BBS door games of the 80s and 90s. In much the same way, this system uses a central
-                        server to host the game to multiple users, who access it using a terminal emulator.
-
-                        See more info at github.com/Sheeves11/UnnamedFiefdomGame ''')
-        print('\n')
+        print(textColor.BOLD + '''
+                                                 Welcome to the Unnamed Fiefdom Game!'''+textColor.RESET+'''
+                        
+                                                    We hope you have a lot of fun ''')
 
         print(textColor.WARNING)
         username = input("                        Enter your username: " + textColor.RESET)
