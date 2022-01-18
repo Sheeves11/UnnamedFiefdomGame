@@ -33,7 +33,7 @@ def UpgradesAndCustomizations(screen, userStronghold):
             screen = 'stronghold'
 
         if command == '2':
-            screen = 'upgradeFiefAtt'
+            screen = 'upgradeAttack'
 
         if command == '3':
             screen = 'changeStrongholdColor'
