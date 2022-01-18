@@ -1,5 +1,4 @@
 from globals import *
-from market import *
 
 #This document contains screens for:
 #   devTest
@@ -268,9 +267,12 @@ def DevTestMenu(screen, userStronghold):
         serverArmies.AddBattalion("Cool Dudes", "y", "105", "1", "1", "1", "120", "6", "6")
         serverArmies.AddBattalion("Neato Banditos", "y", "160", "1", "1", "1", "120", "7", "7")
 
-        serverArmies.write()
+        # for i in range(len(serverArmies.battalions)):
+        print(*serverArmies.GetBattalions())
 
-        serverArmies.read()
+        # serverArmies.write()
+
+        # serverArmies.read()
 
         nothing = input('    Continue:')
         return 'devTest'

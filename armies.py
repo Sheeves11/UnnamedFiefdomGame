@@ -65,6 +65,8 @@ class Armies:
     def AddBattalion(self, name, commander, numTroops, attLevel, speed, stamina, rations, xPos, yPos):
         newBattalion = Battalion(name, commander, numTroops, attLevel, speed, stamina, rations, xPos, yPos)
         self.battalions.append(newBattalion)
+        self.write()
+        self.read()
     
     #==================================================================================
     #   [GetBattalions] NOTE - [WIP]
@@ -72,10 +74,10 @@ class Armies:
     #       Gets a list of battalions
     #==================================================================================
     def GetBattalions(self):
-        battalions = []
-        # for i in range(len(self.battalions)):
-            # battalions.append(self.battalions[i].ListDetails())
-        return battalions
+        batts = []
+        for i in range(len(self.battalions)):
+            batts.append(self.battalions[i].ListDetails())
+        return batts
 
     #==================================================================================
     #   [GetBattalion]
@@ -120,10 +122,13 @@ class Armies:
                         f.write(str("]"))
                 f.write(str("]"))
         except:
+            print('Could not write armies file!')
             pass
         #If file has already been made:
         try:
+            print("Trying to Open")
             with open(armiesFile, 'x') as f:
+                print("About to loop")
                 f.write(str("["))
                 for i in range(len(self.battalions)):
                     f.write(str("["))
@@ -142,6 +147,7 @@ class Armies:
                         f.write(str("]"))
                 f.write(str("]"))
         except:
+            print('Could not write armies file!')
             pass
 
     #==================================================================================
@@ -183,4 +189,17 @@ class Battalion:
         self.rations = rations
         self.xPos = xPos
         self.yPos = yPos
+
+    def ListDetails(self):
+        name = str("    name: " + str(self.name))
+        commander = str(" commander: " + str(self.commander))
+        numTroops = str(" numTroops: " + str(self.numTroops))
+        attLevel = str(" attLevel: " + str(self.attLevel))
+        speed = str(" speed: " + str(self.speed))
+        stamina = str(" stamina: " + str(self.stamina))
+        rations = str(" rations: " + str(self.rations))
+        xPos = str(" xPos: " + str(self.xPos))
+        yPos = str(" yPos: " + str(self.yPos))
+
+        return str(name + commander + numTroops + attLevel + speed + stamina + rations + xPos + yPos)
 
