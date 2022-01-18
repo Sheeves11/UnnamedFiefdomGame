@@ -270,8 +270,8 @@ def DevTestMenu(screen, userStronghold):
         # for i in range(len(serverArmies.battalions)):
         print(*serverArmies.GetBattalions())
 
-        # serverArmies.write()
-
+        serverArmies.write()
+# 
         # serverArmies.read()
 
         nothing = input('    Continue:')

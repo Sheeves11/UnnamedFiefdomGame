@@ -69,7 +69,7 @@ class Armies:
         self.read()
     
     #==================================================================================
-    #   [GetBattalions] NOTE - [WIP]
+    #   [GetBattalions]
     #   parameters: self
     #       Gets a list of battalions
     #==================================================================================
