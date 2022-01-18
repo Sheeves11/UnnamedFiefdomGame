@@ -1,5 +1,4 @@
 from globals import *
-from market import *
 
 #This document contains screens for:
 #   devTest
@@ -263,27 +262,17 @@ def DevTestMenu(screen, userStronghold):
     if screen == "testScreen1":
         os.system("clear")
         header(userStronghold.name)
-        print("    The Market is open:")
         
-        # serverMarket.AddGood("Wandering Merchant", str(int(INTERVAL) * 24), "Gold", "300", "Food", "10")
+        serverArmies.AddBattalion("Crimson Somethings", "y", "200", "1", "1", "1", "200", "5", "5")
+        serverArmies.AddBattalion("Cool Dudes", "y", "105", "1", "1", "1", "120", "6", "6")
+        serverArmies.AddBattalion("Neato Banditos", "y", "160", "1", "1", "1", "120", "7", "7")
 
-        # serverMarket.AddGood("Wandering Merchant", str(int(INTERVAL) * 24), "Food", "300", "Wood", "10")
+        # for i in range(len(serverArmies.battalions)):
+        print(*serverArmies.GetBattalions())
 
-        # serverMarket.AddGood("Wandering Merchant", str(int(INTERVAL) * 24), "Stone", "300", "Food", "10")
+        # serverArmies.write()
 
-        # serverMarket.AddGood("Wandering Merchant", str(int(INTERVAL) * 24), "Ore", "20", "Wood", "150")
-
-        # serverMarket.AddGood("Wandering Merchant", str(int(INTERVAL) * 24), "Gold", "3000", "Food", "200")
-
-        # serverMarket.AddGood("Wandering Merchant", str(int(INTERVAL) * 24), "Wood", "200", "Food", "300")
-
-        # serverMarket.AddGood("Wandering Merchant", str(int(INTERVAL) * 24), "Stone", "100", "Gold", "1000")
-
-        serverMarket.GenerateGood()
-
-        serverMarket.ListGoods()
-
-        serverMarket.write()
+        # serverArmies.read()
 
         nothing = input('    Continue:')
         return 'devTest'

@@ -5,6 +5,7 @@ from worldmap import *
 from market import *
 from passages import *
 from art import *
+from armies import *
 
 #from tempMethods import *
 
@@ -34,6 +35,7 @@ currentUsername = 'default'
 attackFief = Fiefdom()
 serverMap = Map()
 serverMarket = Market()
+serverArmies = Armies()
 testMap = TestMap() #This is for users to have fun messing with the map generator
 firstMapRead = True
 newUserAccount = False
@@ -73,6 +75,11 @@ BIOME_RESOURCE_MAX = 15
 ADJACENT_RESOURCE_MIN = 2
 ADJACENT_RESOURCE_MAX = 5
 SCAV_RESOURCE_MAX = 3
+STR_GOLD = str(C_GOLD + " Gold " + RESET)
+STR_FOOD = str(C_FOOD + " Food " + RESET)
+STR_WOOD = str(C_WOOD + " Wood " + RESET)
+STR_STONE = str(C_STONE + " Stone " + RESET)
+STR_ORE = str(C_ORE + " Ore " + RESET)
 
 #=============================================
 #      Starting Fiefdom Gold and Warriors
@@ -1393,10 +1400,10 @@ def CreateListing(userStronghold):
         print('')
         print("    Please select the good you're" + WARNING + " BUYING" + RESET + ":")
         print('    -------------------------------------------------------')
-        print('    {1}: Food')
-        print('    {2}: Wood')
-        print('    {3}: Stone')
-        print('    {4}: Ore')
+        print('    {1}:' + STR_FOOD)
+        print('    {2}:' + STR_WOOD)
+        print('    {3}:' + STR_STONE)
+        print('    {4}:' + STR_ORE)
         print('    {5}: Cancel')
         print('    -------------------------------------------------------')
         print('')
@@ -1404,19 +1411,19 @@ def CreateListing(userStronghold):
         while picking:
             command = input("    Select a good or cancel listing: ")
             if command == "1":
-                costType = str(C_FOOD + " Food " + RESET)
+                costType = str(STR_FOOD)
                 ct = "Food"
                 picking = False
             elif command == "2":
-                costType = str(C_WOOD + " Wood " + RESET)
+                costType = str(STR_WOOD)
                 ct = "Wood"
                 picking = False
             elif command == "3":
-                costType = str(C_STONE + " Stone " + RESET)
+                costType = str(STR_STONE)
                 ct = "Stone"
                 picking = False
             elif command == "4":
-                costType = str(C_ORE + " Ore " + RESET)
+                costType = str(STR_ORE)
                 ct = "Ore"
                 picking = False
             elif command == "5":
@@ -1442,16 +1449,16 @@ def CreateListing(userStronghold):
             
         picking = True
         while picking:
-            command = input("\n\n    How much " + C_GOLD + "Gold" + RESET + " are you offering?: ")
+            command = input("\n\n    How much " + STR_GOLD + " are you offering?: ")
             if IsPositiveInteger(command):
                 if CheckResourceByType(userStronghold, "Gold", command):
-                    goodType = str(C_GOLD + " Gold " + RESET)
+                    goodType = str(STR_GOLD)
                     gt = "Gold"
                     goodAmount = str(WARNING + " " + command + " " + RESET)
                     ga = str(command)
                     picking = False
                 else:
-                    print("    You don't have enough " + C_GOLD + "Gold" + RESET + "!")
+                    print("    You don't have enough " + STR_GOLD + "!")
             elif command == "cancel":
                 return "market"
             else:
@@ -1528,7 +1535,7 @@ def CreateListing(userStronghold):
         os.system("clear")
         header(userStronghold.name)
         ct = "Gold"
-        costType = str(C_GOLD + " Gold " + RESET)
+        costType = str(STR_GOLD)
         listing = str("\n        " + seller + transaction + goodAmount + goodType + " [For] " + costAmount + costType)
         print("\n    Your Listing:")
         print(listing)
@@ -1537,13 +1544,13 @@ def CreateListing(userStronghold):
         print("    Please select the good you're" + WARNING + " OFFERING" + RESET + ":")
         print('    -------------------------------------------------------')
         if int(userStronghold.food) > 0:
-            print('    {1}: Food')
+            print('    {1}:' + STR_FOOD)
         if int(userStronghold.wood) > 0:
-            print('    {2}: Wood')
+            print('    {2}:' + STR_WOOD)
         if int(userStronghold.stone) > 0:
-            print('    {3}: Stone')
+            print('    {3}:' + STR_STONE)
         if int(userStronghold.ore) > 0:
-            print('    {4}: Ore')
+            print('    {4}:' + STR_ORE)
         print('    {5}: Cancel')
         print('    -------------------------------------------------------')
         print('')
@@ -1552,22 +1559,22 @@ def CreateListing(userStronghold):
             command = input("    Select a good or cancel listing: ")
             if int(userStronghold.food) > 0:
                 if command == "1":
-                    goodType = str(C_FOOD + " Food " + RESET)
+                    goodType = str(STR_FOOD)
                     gt = "Food"
                     picking = False
             if int(userStronghold.wood) > 0:
                 if command == "2":
-                    goodType = str(C_WOOD + " Wood " + RESET)
+                    goodType = str(STR_WOOD)
                     gt = "Wood"
                     picking = False
             if int(userStronghold.stone) > 0:
                 if command == "3":
-                    goodType = str(C_STONE + " Stone " + RESET)
+                    goodType = str(STR_STONE)
                     gt = "Stone"
                     picking = False
             if int(userStronghold.ore) > 0:
                 if command == "4":
-                    goodType = str(C_ORE + " Ore " + RESET)
+                    goodType = str(STR_ORE)
                     gt = "Ore"
                     picking = False
             if command == "5":
@@ -1683,10 +1690,10 @@ def CreateListing(userStronghold):
         print('')
         print("    Please select the good you're" + WARNING + " WANTING" + RESET + ":")
         print('    -------------------------------------------------------')
-        print('    {1}: Food')
-        print('    {2}: Wood')
-        print('    {3}: Stone')
-        print('    {4}: Ore')
+        print('    {1}:' + STR_FOOD)
+        print('    {2}:' + STR_WOOD)
+        print('    {3}:' + STR_STONE)
+        print('    {4}:' + STR_ORE)
         print('    {5}: Cancel')
         print('    -------------------------------------------------------')
         print('')
@@ -1694,19 +1701,19 @@ def CreateListing(userStronghold):
         while picking:
             command = input("    Select a good or cancel listing: ")
             if command == "1":
-                costType = str(C_FOOD + " Food " + RESET)
+                costType = str(STR_FOOD)
                 ct = "Food"
                 picking = False
             elif command == "2":
-                costType = str(C_WOOD + " Wood " + RESET)
+                costType = str(STR_WOOD)
                 ct = "Wood"
                 picking = False
             elif command == "3":
-                costType = str(C_STONE + " Stone " + RESET)
+                costType = str(STR_STONE)
                 ct = "Stone"
                 picking = False
             elif command == "4":
-                costType = str(C_ORE + " Ore " + RESET)
+                costType = str(STR_ORE)
                 ct = "Ore"
                 picking = False
             elif command == "5":
@@ -1734,13 +1741,13 @@ def CreateListing(userStronghold):
         print("    Please select the good you're" + WARNING + " OFFERING" + RESET + ":")
         print('    -------------------------------------------------------')
         if int(userStronghold.food) > 0:
-            print('    {1}: Food')
+            print('    {1}:' + STR_FOOD)
         if int(userStronghold.wood) > 0:
-            print('    {2}: Wood')
+            print('    {2}:' + STR_WOOD)
         if int(userStronghold.stone) > 0:
-            print('    {3}: Stone')
+            print('    {3}:' + STR_STONE)
         if int(userStronghold.ore) > 0:
-            print('    {4}: Ore')
+            print('    {4}:' + STR_ORE)
         print('    {5}: Cancel')
         print('    -------------------------------------------------------')
         print('')
@@ -1749,22 +1756,22 @@ def CreateListing(userStronghold):
             command = input("    Select a good or cancel listing: ")
             if int(userStronghold.food) > 0:
                 if command == "1":
-                    goodType = str(C_FOOD + " Food " + RESET)
+                    goodType = str(STR_FOOD)
                     gt = "Food"
                     picking = False
             if int(userStronghold.wood) > 0:
                 if command == "2":
-                    goodType = str(C_WOOD + " Wood " + RESET)
+                    goodType = str(STR_WOOD)
                     gt = "Wood"
                     picking = False
             if int(userStronghold.stone) > 0:
                 if command == "3":
-                    goodType = str(C_STONE + " Stone " + RESET)
+                    goodType = str(STR_STONE)
                     gt = "Stone"
                     picking = False
             if int(userStronghold.ore) > 0:
                 if command == "4":
-                    goodType = str(C_ORE + " Ore " + RESET)
+                    goodType = str(STR_ORE)
                     gt = "Ore"
                     picking = False
             if command == "5":
