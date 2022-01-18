@@ -214,7 +214,7 @@ while (loop):
 
                             newUserAccount = True
 
-                            screen = 'stronghold'
+                            screen = 'howTo'
 
                         if password != password2:
                             print('\n    Your passwords don\'t match! Please try again.')
@@ -872,6 +872,56 @@ while (loop):
             
         if command == "5":
             screen = "viewMapEnemyStronghold"
+
+#This is the how-to page for the game. Keep it updated
+#------------------------------------------------------------------------------
+    if screen == "howTo":
+        os.system("clear")
+        headerStripped()
+
+        print('\n\n')
+
+        print('''
+
+
+      '''+textColor.WARNING+'''Welcome to Unnamed Fiefdom Game!'''+textColor.RESET+''' This is a text-based multiplayer online game that takes inspiration
+      from the BBS Door games of the late 80s and early 90s. It uses a real terminal emulator to host user
+      terminal sessions directly in your browser!
+
+      How To Play:
+
+      Don't be intimidated by our menus! This game is very simple at its core and is quite fast to play. Your goal is to control
+      as much territory as you can manage at the end of each two week season. You will need to build your army and economic
+      empire into a respectible force in order to have a shot!
+
+      You can achieve this by conquest, economy, theivery, trade, or a combination of the four. Your home stronghold
+      will never fall, but the fiefdoms your conqur are under constant threat from other players. Be sure to defend them
+      well and avoid over-extending your forces and leaving yourself vulnerable to attack.
+
+      Each fiefdom has a variety of upgrades that you can purchace. These include defense fortifications and resource
+      gathering outposts. If you want a shot at the top, you'll need to gather as many resources as you can.
+      These resources are essential in your quest to upgrade your fortifications and defend your territory.
+
+      Gold is the currency of the relm. Your warriors produce a certain amount of gold as each game hour passes. The larger
+      your army, the faster you can gather this gold.
+
+      If you are missing a certain resource, be sure to check the markets! Chances are that another player has listed a trade offer
+      in your favor. If you have excess resources avalible, you may list them for sale. 
+
+      Your resources are not avalible globally. You must use the "Send Resources" menus to send shipments back home.
+      This also applies to soldiers. Be careful about collecting too many resources in a fiefdom. You'll leave yourself looking
+      like a good target to any potential attackers.
+
+      Those are the basics. We hope you enjoy your time here.
+
+      Have fun!
+
+      Additional Info is avalible at github.com/Sheeves11/UnnamedFiefdomGame
+
+        ''')
+
+        tempInput = input('        Press Enter to Continue')
+        screen = 'stronghold'
 
 
 #------------------------------------------------------------------------------
