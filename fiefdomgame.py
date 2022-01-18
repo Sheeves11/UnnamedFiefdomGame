@@ -209,7 +209,7 @@ while (loop):
                             #----- Create a new fief from fieflist when a new user is made.
                             #------------------------------------------------------------------
 
-                            newFief.name = str(CreateFief(1))     #the constant that is passed in is how many fiefs you want to create
+                            newFief.name = str(CreateFief())
 
 
                             newUserAccount = True
@@ -294,10 +294,10 @@ while (loop):
             serverMap.name = 'serverMap'
             SilentlyGenerateWorld(serverMap)
             
-            for i in range(8):
+            for i in range(DEFAULT_FIEFDOM_NUMBER):
  
                 #Create Default Fiefs
-                firstLaunchFief.name = str(CreateFief(1))
+                firstLaunchFief.name = str(CreateFief())
                 
                 serverMap.read()
 
@@ -314,7 +314,7 @@ while (loop):
                     tempName.gold = random.randint(FIEFDOM_GOLD_MIN, FIEFDOM_GOLD_MAX)
                     tempName.defenders= random.randint(FIEFDOM_WARRIOR_MIN, FIEFDOM_WARRIOR_MAX)
 
-                    print(tempName.name + ' BIOME: ' + tempName.biome)
+                    #print(tempName.name + ' BIOME: ' + tempName.biome)
 
                     if tempName.biome == 'M':
                         tempName.stone = int(tempName.stone) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)

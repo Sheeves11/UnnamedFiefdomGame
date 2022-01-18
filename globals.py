@@ -39,6 +39,7 @@ serverArmies = Armies()
 testMap = TestMap() #This is for users to have fun messing with the map generator
 firstMapRead = True
 newUserAccount = False
+DEFAULT_FIEFDOM_NUMBER = 8    #This is the number of fiefdoms to create when starting a new server
 
 #=========================
 #   System Announcement
@@ -52,7 +53,7 @@ newUserAccount = False
 LINES_PER_PAGE = 15         #The number of fiefs/strongholds that appear in the list
 currentPage = 1             #Used to keep track of the page the user should be on
 userFiefCount = 0           #Used to keep track of how many fiefs the user controls.
-RESOURCE_SPACING = 70
+RESOURCE_SPACING = 90
 FILL_SYMBOL = "-"
 
 #=====================
@@ -1268,7 +1269,7 @@ def UpgradeOutpost(station, outpostType, tier, numberBuilt, cost, color, flavorT
 #   Creates a new fief file when called. It will pull names from the fieflist.py and check to see
 #   if a fief has been created before doing so.
 #--------------------------------------------------------------------------------------------------------------
-def CreateFief(num):
+def CreateFief():
     #print('\n\n    Creating New Fief')
 
     filename = "defaultfieflist.dat"
