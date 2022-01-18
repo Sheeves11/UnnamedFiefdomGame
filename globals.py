@@ -50,7 +50,7 @@ DEFAULT_FIEFDOM_NUMBER = 8    #This is the number of fiefdoms to create when sta
 #=====================
 #   Fiefdom Pages
 #=====================
-LINES_PER_PAGE = 15         #The number of fiefs/strongholds that appear in the list
+LINES_PER_PAGE = 25         #The number of fiefs/strongholds that appear in the list
 currentPage = 1             #Used to keep track of the page the user should be on
 userFiefCount = 0           #Used to keep track of how many fiefs the user controls.
 RESOURCE_SPACING = 90
@@ -60,11 +60,11 @@ FILL_SYMBOL = "-"
 #  Backend Variables
 #=====================
 # maxProductionSoldiers now scales by defenseLevel. 300/600/900/1200/1500/1800 (see constant)
-GOLD_PER = 100
+GOLD_PER = 200
 INTERVAL = 3600
 # INTERVAL = 60
-MAX_PRODUCTION_SOLDIERS_CONSTANT = 300  #Nerfed to 300 down from 500. May not be necessary.
-defendersPer = 3
+MAX_PRODUCTION_SOLDIERS_CONSTANT = 3000  #Nerfed to 300 down from 500. May not be necessary. // I'm raising this quite high after the removal of production upgrades -Sheeves
+defendersPer = 5
 MARKET_ITEM_THRESHOLD = 5
 MAX_LISTING_AMOUNT = 10
 
@@ -93,7 +93,7 @@ FIEFDOM_WARRIOR_MAX = 100
 #=====================
 #  Weather
 #=====================
-WEATHER_SYSTEM_MOD = 15         #think of this as a seasonal modifier for temperature
+WEATHER_SYSTEM_MOD = 0         #think of this as a seasonal modifier for temperature
 BASELINE_TEMP = 72              #this is the baseline for global temp calculations
 
 #=====================
@@ -122,16 +122,16 @@ UCAP_PROSPECTOR = 5
 #=====================
 #     Unit Costs
 #=====================
-UCOST_THIEF = [1000, 0, 0, 0, 0]
-UCOST_WARRIOR = [100, 0, 0, 0, 0]    #Manage this for practical reasons (warrior costs 10, farmer costs 500. wat.)
-UCOST_FARMER = [500, 0, 0, 0, 0]
-UCOST_VENDOR = [1500, 0, 0, 0, 0]
-UCOST_FISHER = [500, 0, 0, 0, 0]
-UCOST_SCAVENGER = [1000, 0, 0, 0, 0]
-UCOST_LUMBERJACK = [500, 0, 0, 0, 0]
-UCOST_HUNTER = [1000, 0, 0, 0, 0]
-UCOST_MINER = [500, 0, 0, 0, 0]
-UCOST_PROSPECTOR = [1500, 0, 0, 0, 0]
+UCOST_THIEF = [500, 0, 0, 0, 0]
+UCOST_WARRIOR = [50, 0, 0, 0, 0]    #Manage this for practical reasons (warrior costs 10, farmer costs 500. wat.)
+UCOST_FARMER = [125, 0, 0, 0, 0]
+UCOST_VENDOR = [750, 0, 0, 0, 0]
+UCOST_FISHER = [125, 0, 0, 0, 0]
+UCOST_SCAVENGER = [250, 0, 0, 0, 0]
+UCOST_LUMBERJACK = [125, 0, 0, 0, 0]
+UCOST_HUNTER = [250, 0, 0, 0, 0]
+UCOST_MINER = [125, 0, 0, 0, 0]
+UCOST_PROSPECTOR = [375, 0, 0, 0, 0]
 
 #=====================
 #   Outpost Costs
@@ -140,18 +140,18 @@ UCOST_PROSPECTOR = [1500, 0, 0, 0, 0]
 #   Values here are multiplied in cost based on the number of like-outposts constructed.
 #   When constructing new outposts, the cost is equal to the current tier your
 #   other outposts of the same kind are at. 
-OP_RCOST_T1_FARMLAND = [1000, 0, 0, 0, 0]
-OP_RCOST_T2_FARMLAND = [1500, 0, 10, 10, 0]
-OP_RCOST_T3_FARMLAND = [3000, 0, 20, 20, 0]
-OP_RCOST_T1_FISHERY = [1000, 0, 0, 0, 0]
-OP_RCOST_T2_FISHERY = [1500, 0, 10, 10, 0]
-OP_RCOST_T3_FISHERY = [3000, 0, 20, 20, 0]
-OP_RCOST_T1_LUMBERMILL = [1000, 0, 0, 0, 0]
-OP_RCOST_T2_LUMBERMILL = [1500, 0, 10, 10, 0]
-OP_RCOST_T3_LUMBERMILL = [3000, 0, 20, 20, 0]
-OP_RCOST_T1_MINE = [1000, 0, 0, 0, 0]
-OP_RCOST_T2_MINE = [1500, 0, 10, 10, 0]
-OP_RCOST_T3_MINE = [3000, 0, 20, 20, 0]
+OP_RCOST_T1_FARMLAND = [500, 0, 0, 0, 0]
+OP_RCOST_T2_FARMLAND = [750, 0, 10, 10, 0]
+OP_RCOST_T3_FARMLAND = [1500, 0, 20, 20, 0]
+OP_RCOST_T1_FISHERY = [500, 0, 0, 0, 0]
+OP_RCOST_T2_FISHERY = [750, 0, 10, 10, 0]
+OP_RCOST_T3_FISHERY = [1500, 0, 20, 20, 0]
+OP_RCOST_T1_LUMBERMILL = [500, 0, 0, 0, 0]
+OP_RCOST_T2_LUMBERMILL = [750, 0, 10, 10, 0]
+OP_RCOST_T3_LUMBERMILL = [1500, 0, 20, 20, 0]
+OP_RCOST_T1_MINE = [500, 0, 0, 0, 0]
+OP_RCOST_T2_MINE = [750, 0, 10, 10, 0]
+OP_RCOST_T3_MINE = [1500, 0, 20, 20, 0]
 
 #===========================
 #   Attack Upgrade Costs
@@ -159,22 +159,22 @@ OP_RCOST_T3_MINE = [3000, 0, 20, 20, 0]
 #   Resource layout: [gold, food, wood, stone, ore]
 UPGRADE_ATTACK_T1 = [500, 0, 0, 0, 0]
 UPGRADE_ATTACK_T2 = [3500, 0, 0, 0, 0]
-UPGRADE_ATTACK_T3 = [10000, 0, 0, 0, 0]
-UPGRADE_ATTACK_T4 = [45000, 0, 0, 0, 0]
-UPGRADE_ATTACK_T5 = [75000, 0, 0, 0, 0]
-UPGRADE_ATTACK_T6 = [200000, 0, 0, 0, 0]
-UPGRADE_ATTACK_T7 = [400000, 0, 0, 0, 0]
+UPGRADE_ATTACK_T3 = [5000, 0, 0, 0, 0]
+UPGRADE_ATTACK_T4 = [10000, 0, 0, 0, 0]
+UPGRADE_ATTACK_T5 = [20000, 0, 0, 0, 0]
+UPGRADE_ATTACK_T6 = [40000, 0, 0, 0, 0]
+UPGRADE_ATTACK_T7 = [80000, 0, 0, 0, 0]
 
 #===========================
 #   Defense Upgrade Costs
 #===========================
 #   Resource layout: [gold, food, wood, stone, ore]
 UPGRADE_DEFENSE_T1 = [500, 0, 20, 0, 0]
-UPGRADE_DEFENSE_T2 = [1500, 0, 20, 20, 0]
+UPGRADE_DEFENSE_T2 = [1000, 0, 20, 20, 0]
 UPGRADE_DEFENSE_T3 = [3000, 0, 30, 30, 0]
 UPGRADE_DEFENSE_T4 = [5000, 0, 30, 30, 0]
 UPGRADE_DEFENSE_T5 = [8000, 0, 40, 40, 10]
-UPGRADE_DEFENSE_T6 = [15000, 0, 50, 50, 20]
+UPGRADE_DEFENSE_T6 = [13000, 0, 50, 50, 20]
 
 
 #=================================================

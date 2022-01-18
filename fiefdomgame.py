@@ -121,8 +121,8 @@ while (loop):
 
         art_titleScreen()
 
-        print(textColor.BOLD + '''
-                                                 Welcome to the Unnamed Fiefdom Game!'''+textColor.RESET+'''
+        print(textColor.BOLD + '''                                                 Welcome to the Unnamed Fiefdom Game!'''+textColor.RESET+'''
+
                         
                                                     We hope you have a lot of fun ''')
 
@@ -874,12 +874,14 @@ while (loop):
         os.system("clear")
         headerStripped()
 
-        print('\n\n')
+
 
         print('''
 
 
-      '''+textColor.WARNING+'''Welcome to Unnamed Fiefdom Game!'''+textColor.RESET+''' This is a text-based multiplayer online game that takes inspiration
+      '''+textColor.WARNING+'''Welcome to Unnamed Fiefdom Game!'''+textColor.RESET+''' 
+      
+      This is a text-based multiplayer online game that takes inspiration
       from the BBS Door games of the late 80s and early 90s. It uses a real terminal emulator to host user
       terminal sessions directly in your browser!
 
@@ -915,7 +917,7 @@ while (loop):
 
         ''')
 
-        tempInput = input('        Press Enter to Continue')
+        tempInput = input('      Press Enter to Continue')
         screen = 'stronghold'
 
 
