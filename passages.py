@@ -221,11 +221,13 @@ def pas_c1_1():
     print("\n\n    Enemy troops are advancing! Prepare yourself to react in time!")
 
 def pas_c1_2():
-    response = input("\n    Hit { " + WARNING + "Enter" + RESET + " } to continue, or input { " + CYAN + "help" + " } for more information first : \n")
+    response = input("\n    Hit { " + WARNING + "Enter" + RESET + " } to start, or type { " + CYAN + "help" + RESET + " } for more information first : ")
     if response == "help":
         print("\n    [" + CYAN + "Reaction Time Event" + RESET + "]: Upon hitting enter, a random character (or sequence of them)")
         print("    will appear on the screen. Type it/them and hit enter as quickly as possible for the best outcome!\n")
+        nothing = input("    Press enter to start the encounter : ")
 
+    print("\n")
     ReactionTimeEvent()
 
 
