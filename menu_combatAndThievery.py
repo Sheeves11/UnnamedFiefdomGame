@@ -1,5 +1,38 @@
 from globals import *
 
+
+
+#======================================================================================
+#   [Idea Board]
+#
+#       Expanding on combat features:
+#           Elements of Engagement:
+#               - Reaction-Time elements:
+#                       Some story dialogue that sets up a sequence for the user to
+#                       press a particular key.
+#                       Time could be measured between the start of the event and the
+#                       end of the event (when key is pressed).
+#                       Depending on the value, the event could be lost, or the user
+#                       could help bend the odds in their favor. 
+#                       Key could be random. Time could be shortened based on number
+#                       disadvantages. Etc.
+#
+#               - RPG elements:
+#                       Deciding between retreating or attacking. 
+#                       Giving an order to focus attacks on a certain area or group.
+#                       Changing combat formations.
+#                       These things could be further fleshed out with behind-
+#                       the-scenes rolls that have weights depending on other elements
+#                       (like number of warriors on each side, stamina values, etc.)
+#
+#               - Puzzles and Problems:
+#                       This could potentially be cheesy or may not sit right with
+#                       some users, but could implement puzzles or logic based 
+#                       questions into the combat sequences. If done in a creative and
+#                       relevant way, it could be a nice addition. 
+#
+#======================================================================================
+
 #This document contains screens for:
 #   thiefPage
 #   battle
