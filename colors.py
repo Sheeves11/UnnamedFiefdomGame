@@ -30,6 +30,8 @@ class textColor:
 
 #More, lazier color definitions.
 RED = '\033[91m'
+ORANGE = "\u001b[38;5;208m"
+BROWN = "\u001b[38;5;216m"
 DARK_RED = "\033[31m"
 GREEN = '\033[92m'
 DARK_GREEN = "\033[32m"
