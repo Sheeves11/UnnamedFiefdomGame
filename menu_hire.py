@@ -12,7 +12,7 @@ def HireMenu(screen, userStronghold):
     if screen == "hireAndRecruit":
         os.system("clear")
 
-        header(currentUsername)
+        header(userStronghold.name)
         print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
         print("     Avalible Commands:")
         print('     -------------------------------------------------------')

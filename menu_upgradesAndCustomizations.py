@@ -75,7 +75,7 @@ def UpgradesAndCustomizations(screen, userStronghold):
 #----------------------------------------------------------------------------------
     if screen == "upgradeAttack":
         os.system("clear")
-        header(currentUsername)
+        header(userStronghold.name)
 
         attTypeNext = 'undefined'
         attUpgradeCost = 0
@@ -215,7 +215,7 @@ def UpgradesAndCustomizations(screen, userStronghold):
     #This page prints a menu for choosing your stronghold's color:
     if screen == "changeStrongholdColor":
         os.system("clear")
-        header(currentUsername)
+        header(userStronghold.name)
 
         print('\n\n\n\n\n')
         print("     Choose a Stronghold Color:")

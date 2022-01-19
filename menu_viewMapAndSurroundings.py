@@ -50,7 +50,7 @@ def ViewMapAndSurroundings(screen, userStronghold, attackStronghold, STRONGHOLD,
 #This page prints the world map with your stronghold's location marked on it
     if screen == "viewMapEnemyStronghold":
         os.system("clear")
-        header(currentUsername)
+        headerStripped()
 
         serverMap.name = "serverMap"
 
@@ -71,7 +71,7 @@ def ViewMapAndSurroundings(screen, userStronghold, attackStronghold, STRONGHOLD,
 #This page prints the world map with your stronghold's location marked on it
     if screen == "viewMapCurrentFief":
         os.system("clear")
-        headerFief(attackFief)
+        headerStripped()
 
         serverMap.name = "serverMap"
 
@@ -116,7 +116,7 @@ def ViewMapAndSurroundings(screen, userStronghold, attackStronghold, STRONGHOLD,
                 nothing = input('    Press Enter to Continue')
                 return "enemyStrongholdDetails"
         else:
-            headerFief(attackFief)
+            headerStripped()
             print('\n\n\n    ')
             print('    You stand atop the highest point in the fiefdom and take a look around. This is what you see: \n\n\n')
             ListSurroundings(serverMap.worldMap, attackFief.xCoordinate, attackFief.yCoordinate)

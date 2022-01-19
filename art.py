@@ -31,7 +31,36 @@ def header(username):
     E = textColor.DARK_GRAY
 
     # line5 = str(" Player: " + str(headerStronghold.name) + "    Gold: " + str(headerStronghold.gold) + "    Warriors: " + str(headerStronghold.defenders) + "    Thieves: " + str(headerStronghold.thieves) + ' ')
-    line5 = str(" Player: " + M + str(headerStronghold.name) + R + "  Gold: " + Y + str(headerStronghold.gold) + R + "  Food: " + D + str(headerStronghold.food) + R + "  Wood: " + G + str(headerStronghold.wood) + R + "  Stone: " + E + str(headerStronghold.stone) + R + "  Ore: " + M + str(headerStronghold.ore) + R + " ")
+    line5 = str(" Player: " + M + str(headerStronghold.name) + R + "    Gold: " + Y + str(headerStronghold.gold) + R + "    Warriors: " + str(headerStronghold.defenders) + "    Thieves: " + str(headerStronghold.thieves) + ' ')
+    line6 = str("  Food: " + D + str(headerStronghold.food) + R + "  Wood: " + G + str(headerStronghold.wood) + R + "  Stone: " + E + str(headerStronghold.stone) + R + "  Ore: " + M + str(headerStronghold.ore) + R + " ")
+    
+    print('\n' +
+'                                                       __        _             __           \n' +
+'                              | |__ __  _ __  _  _|   |_  o  _ _|_ _| _ __    /__ _ __  _    \n' +
+'                              |_|| || |(_||||(/_(_|   |   | (/_ | (_|(_)|||   \_|(_||||(/_   \n' +
+'   ' + '\n' +       
+
+                                        (line5.center(138, '-')) + '\n' +
+                                        (line6.center(155, ' ')) + '\n')
+#                                    (ANNOUNCEMENT.center(119, '-')) + ' ')
+
+#Define Header With Soldiers (for battle pages and when you need to purchace things):
+#====================================================================================================================
+        
+#===============================================================================================================
+
+def headerWithSoldiers(username):
+    headerStronghold = Stronghold()
+    headerStronghold.name = username
+    headerStronghold.read()
+    R = textColor.RESET
+    Y = textColor.YELLOW
+    D = textColor.DARK_RED
+    M = textColor.DARK_MAGENTA
+    G = textColor.DARK_GREEN
+    E = textColor.DARK_GRAY
+
+    line5 = str(" Player: " + M + str(headerStronghold.name) + R + "  Gold: " + Y + str(headerStronghold.gold) + R + "  Warriors: " + D + str(headerStronghold.defenders) + G + "Thieves: " + str(headerStronghold.thieves) + ' ')
     
     print('\n' +
 '                                                       __        _             __           \n' +

@@ -15,6 +15,8 @@ If you would like to play on our development server, visit http://216.128.140.23
 Please note that this game is in the super pre-alpha testing phase right now. More updates and features to 
 come soon!
 
+If you'd like to talk to us or get real-time updates on our progress, check out our Discord! https://discord.gg/FVvMCfZ3fq
+
 <p align="center">
 
 <img width="748" alt="ufg" src="https://user-images.githubusercontent.com/3498355/149644850-ed561f5c-a28c-4687-80c7-1ffd46be5b91.png">

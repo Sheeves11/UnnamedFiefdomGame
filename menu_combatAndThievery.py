@@ -148,8 +148,8 @@ def CombatAndThieveryMenu(screen, userStronghold, attackStronghold):
 #------------------------------------------------------------------------------
     if screen == "battle":
         os.system("clear")
-        # header(userStronghold.name)
-        headerFief(attackFief)
+        header(userStronghold.name)
+        #headerFief(attackFief)
 
         #Idea: We're going to do a DnD style battle using D20s and modifiers.
         #roll(mod) is going to give the result of a roll plus modifiers and is
@@ -166,11 +166,20 @@ def CombatAndThieveryMenu(screen, userStronghold, attackStronghold):
 
         #this is where the battle logic happens!
         if attackFief.home == 'False':
-            print('\n\n    This battle is between ' + attackFief.name + ' and ' + userStronghold.name)
-            print('\n\n    Simulating Battle...')
-            time.sleep(1)
-            print('\n        ...\n')
-            time.sleep(1)
+            print('            \n')
+            print('                    ------------------------------------------------------------------------------')
+            print('                    ------------------------------------------------------------------------------')
+            print('                    ------------------------------------------------------------------------------')
+
+            print('''    
+                    Your forces gather their strength, write their goodbyes in letters back home,
+                    and eat what could be their very last meal.
+
+                    At dawn, with the sun to your backs, you charge towards glory!'''
+    )
+            print('\n                    This battle is between ' + attackFief.name + ' and ' + userStronghold.name)
+            print('\n                    Simulating Battle...')
+            time.sleep(1.5)
 
             attackers = int(userStronghold.defenders)
             defenders = int(attackFief.defenders)
@@ -197,21 +206,33 @@ def CombatAndThieveryMenu(screen, userStronghold, attackStronghold):
                             attackLosses = attackLosses + 1
 
             print('    \n')
-            print('    ------------------------------------------------------------------------------')
-            print('    -----------------------------Battle Results-----------------------------------')
-            print('    ------------------------------------------------------------------------------')
+            print('                    ------------------------------------------------------------------------------')
+            print('                    -----------------------------Battle Results-----------------------------------')
+            print('                    ------------------------------------------------------------------------------')
             print('    \n')
-            print('    ' + userStronghold.ruler + ' lost ' + str(attackLosses) + ' soldiers')
-            print('    ' + attackFief.ruler + ' lost ' + str(defenseLosses) + ' soldiers')
+            print('                    ' + userStronghold.ruler + ' lost ' + str(attackLosses) + ' soldiers')
+            print('                    ' + attackFief.ruler + ' lost ' + str(defenseLosses) + ' soldiers')
             print('    \n')
-            print('    ------------------------------------------------------------------------------')
-            print('    ------------------------------------------------------------------------------')
+            print('                    ------------------------------------------------------------------------------')
+            print('                    ------------------------------------------------------------------------------')
             print('    \n\n')
 
             #if the current player wins
             if attackers > defenders:
-                print('    After a hard fought battle, your weary forces remain standing\n')
-                print('    You are the new ruler of ' + attackFief.name + '\n')
+                #log this event
+                #for enemy
+                logString = userStronghold.name + ' attacked you at ' + attackFief.name + '. They won.'
+                Log(logString, attackFief.ruler)
+
+                #for current player
+                logString = 'You attacked ' + attackFief.ruler + ' at ' + attackFief.name + '. You won.'
+                Log(logString, userStronghold.ruler)
+
+
+
+
+                print('                    After a hard fought battle, your weary forces remain standing\n')
+                print(textColor.WARNING + '                    You are the new ruler of ' + attackFief.name + '\n' + textColor.RESET)
 
                 attackFief.defenders = defenders
                 attackFief.ruler = userStronghold.ruler
@@ -226,22 +247,34 @@ def CombatAndThieveryMenu(screen, userStronghold, attackStronghold):
 
                 userStronghold.write()
                 attackFief.write()
+                nothing = input('\n                    Press Enter to Continue ')
+                currentPage = 1
+                return "ownedFiefDetails"
 
             #if the other player wins
             if attackers <= defenders:
-                print('    Although your soldiers fought valiantly, they were unable to overcome ' + attackFief.ruler + '\'s forces\n')
-                print('    Your forces, now many fewer in number, begin the long march home.\n')
+                #log this event
+                #for enemy
+                logString = userStronghold.name + ' attacked you. They lost valiantly.'
+                Log(logString, attackFief.ruler)
+
+                #for current player
+                logString = 'You attacked ' + attackFief.ruler + ' at ' + attackFief.name + '. They routed your army.'
+                Log(logString, userStronghold.ruler)
+
+
+                print(textColor.WARNING + '                    Although your soldiers fought valiantly, they were unable to overcome ' + attackFief.ruler + '\'s forces\n' + textColor.RESET)
+                print('                    Your forces, now many fewer in number, begin the long march home.\n')
 
                 attackFief.defenders = defenders
                 attackFief.write()
 
                 userStronghold.defenders = attackers
                 userStronghold.write()
+                nothing = input('\n                    Press Enter to Continue ')
+                currentPage = 1
 
-
-            time.sleep(1)
-            nothing = input('    Press Enter to Continue ')
-            currentPage = 1
-            return "ownedFiefDetails"
+                return "stronghold"
+            
 
     return screen

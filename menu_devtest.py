@@ -17,7 +17,7 @@ def DevTestMenu(screen, userStronghold):
 #------------------------------------------------------------------------------
     if screen == "devTest":
         os.system("clear")
-        header(currentUsername)
+        headerStripped()
         print("\n")
 
         print('    Welcome to the dev test menu. This should only be used for testing purposes.')
@@ -87,7 +87,7 @@ def DevTestMenu(screen, userStronghold):
 #----------------------------------------------------------------------------------
     if screen == "devTestCreateDefaults":
         os.system("clear")
-        header(currentUsername)
+        headerStripped()
 
         print('    Seeding the world with default fiefdoms')
 
@@ -113,7 +113,7 @@ def DevTestMenu(screen, userStronghold):
 #----------------------------------------------------------------------------------
     if screen == "devTestAddResources":
         os.system("clear")
-        header(currentUsername)
+        headerStripped()
 
         print('    Adding Resources!...')
 
@@ -135,7 +135,7 @@ def DevTestMenu(screen, userStronghold):
 #----------------------------------------------------------------------------------
     if screen == "devTestWorldMap":
         os.system("clear")
-        header(currentUsername)
+        headerStripped()
 
         serverMap.name = 'serverMap'
         serverMap.seed = GenerateSeed()
@@ -156,7 +156,7 @@ def DevTestMenu(screen, userStronghold):
 #----------------------------------------------------------------------------------
     if screen == "devTestFiefPlacement":
         os.system("clear")
-        header(currentUsername)
+        headerStripped()
 
         fief = Fiefdom()
         command = input('    Enter a fief name to input: ')
@@ -179,7 +179,7 @@ def DevTestMenu(screen, userStronghold):
 #----------------------------------------------------------------------------------
     if screen == "devTestPlotAllFiefs":
         os.system("clear")
-        header(currentUsername)
+        headerStripped()
 
         PlotAllFiefs(serverMap)
 
@@ -191,7 +191,7 @@ def DevTestMenu(screen, userStronghold):
 #----------------------------------------------------------------------------------
     if screen == "devTestPlotAllStrongholds":
         os.system("clear")
-        header(currentUsername)
+        headerStripped()
 
         PlotAllStrongholds(serverMap)
 
@@ -204,7 +204,7 @@ def DevTestMenu(screen, userStronghold):
 #----------------------------------------------------------------------------------
     if screen == "devTestGenerateWorld":
         os.system("clear")
-        header(currentUsername)
+        headerStripped()
 
         serverMap.name = 'serverMap'
         serverMap.seed = GenerateSeed()
@@ -233,7 +233,7 @@ def DevTestMenu(screen, userStronghold):
 #----------------------------------------------------------------------------------
     if screen == "devTestWorldMapDiagnostics":
         os.system("clear")
-        header(currentUsername)
+        headerStripped()
 
         serverMap.selfDiagnostic()
         # print('\n')
@@ -249,6 +249,7 @@ def DevTestMenu(screen, userStronghold):
 #-----------------------------------------------------------------------------------
     if screen == "devTestRiverTool":
         os.system("clear")
+        headerStripped()
 
         serverMap.read()
         GenerateRivers(serverMap)
@@ -261,12 +262,14 @@ def DevTestMenu(screen, userStronghold):
 #-----------------------------------------------------------------------------------
     if screen == "testScreen1":
         os.system("clear")
-        header(userStronghold.name)
 
 
         pas_c1_1()
 
         pas_c1_2()
+
+        headerStripped()
+
         
         # serverArmies.AddBattalion("Crimson Somethings", "y", "200", "1", "1", "1", "200", "5", "5")
         # serverArmies.AddBattalion("Cool Dudes", "y", "105", "1", "1", "1", "120", "6", "6")
@@ -284,7 +287,8 @@ def DevTestMenu(screen, userStronghold):
 
     if screen == "testScreen2":
         os.system("clear")
-
+        headerStripped()
+        
         print("Attempting to read!")
         serverMarket.read()
 
