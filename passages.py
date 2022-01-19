@@ -45,7 +45,6 @@ def ReactionTimeEvent():
         
         if str(orders[i]) == "." or str(orders[i]) == ".\n":
             dots = int(dots) + 1
-            # ticked = True
         if int(dots) == 3 and str(orders[i]) != nock:
             waitTime = GetSmallRandomFloat()
         elif int(dots) == 6 and str(orders[i]) != draw:
