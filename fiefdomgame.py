@@ -758,8 +758,8 @@ while (loop):
 #------------------------------------------------------------------------------
     if screen == "enemyFiefDetails":
         os.system("clear")
-        # header(userStronghold.name)
-        headerFief(attackFief)
+        header(userStronghold.name)
+        #headerFief(attackFief)
 
         if attackFief.biome == MOUNTAIN:
             currentBiome = 'Mountain'
