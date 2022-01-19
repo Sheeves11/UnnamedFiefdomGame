@@ -186,6 +186,18 @@ def CombatAndThieveryMenu(screen, userStronghold, attackStronghold):
 
             #if the current player wins
             if attackers > defenders:
+                #log this event
+                #for enemy
+                logString = userStronghold.name + ' attacked you at ' + attackFief.name + '. They won.'
+                Log(logString, attackFief.ruler)
+
+                #for current player
+                logString = 'You attacked ' + attackFief.ruler + ' at ' + attackFief.name + '. You won.'
+                Log(logString, userStronghold.ruler)
+
+
+
+
                 print('                    After a hard fought battle, your weary forces remain standing\n')
                 print(textColor.WARNING + '                    You are the new ruler of ' + attackFief.name + '\n' + textColor.RESET)
 
@@ -208,6 +220,16 @@ def CombatAndThieveryMenu(screen, userStronghold, attackStronghold):
 
             #if the other player wins
             if attackers <= defenders:
+                #log this event
+                #for enemy
+                logString = userStronghold.name + ' attacked you. They lost valiantly.'
+                Log(logString, attackFief.ruler)
+
+                #for current player
+                logString = 'You attacked ' + attackFief.ruler + ' at ' + attackFief.name + '. They routed your army.'
+                Log(logString, userStronghold.ruler)
+
+
                 print(textColor.WARNING + '                    Although your soldiers fought valiantly, they were unable to overcome ' + attackFief.ruler + '\'s forces\n' + textColor.RESET)
                 print('                    Your forces, now many fewer in number, begin the long march home.\n')
 
@@ -218,6 +240,7 @@ def CombatAndThieveryMenu(screen, userStronghold, attackStronghold):
                 userStronghold.write()
                 nothing = input('\n                    Press Enter to Continue ')
                 currentPage = 1
+
                 return "stronghold"
             
 
