@@ -41,6 +41,7 @@ github.com/Sheeves11/UnnamedFiefdomGame
 #           ownedFiefDetails
 #           enemyFiefDetails
 #           enemyStrongholdDetails
+#           logPrint
 #   menu_more.py:
 #           moreCommands
 #           messageBoard
@@ -436,6 +437,9 @@ while (loop):
 
         if command == '10':
             screen = 'howTo'
+
+        if command == '11':
+            screen = 'logPrint'
 
         
         #The following command is for testing only!
@@ -919,6 +923,63 @@ while (loop):
         tempInput = input('      Press Enter to Continue')
         screen = 'stronghold'
 
+#This is the screen for the message board.
+#----------------------------------------------------------------------------------
+    if screen == "logPrint":
+        os.system("clear")
+        headerStripped()
+
+        print('\n    Log:')
+        print('\n    ---------------------------------------------------------------------------------------------------\n')
+
+        #print off recent messages
+        #dump the last 30 lines of chatlog.log to the screen
+        with open('logFile.log', "r") as logfile:
+            #lines = logfile.readlines()
+            
+            #last_lines = lines[-30:]
+            #last_lines = [line[:-1] for line in last_lines]
+
+            #j = 0
+            #firstWord = lines[j][0].split()
+            #print(str(firstWord))
+            #j = 0
+
+            #for i in last_lines:
+            #    #print ('    ' + i)
+            #    firstWord = lines[j][0].split()
+            #    if firstWord == userStronghold.name:
+            #        print ('    ' + i)
+            #        j = j + 1
+
+            #i = 0
+            #while i < 6:
+            #    logLine = logfile.readline()
+            #    firstWord = logLine.split(' ', 0)
+            #    print(str(firstWord))
+            #    #print(logLine)
+            #    print('\n')
+
+            #    i = i + 1
+
+            f=open("logFile.log","r")
+            for line in f:
+                words=line.split()
+                if words:
+                    if words[0] == userStronghold.name:
+                        print('    ' + str(words))
+            f.close()
+                        
+            print('\n\n    End of File')
+
+
+
+
+
+        print('\n    ---------------------------------------------------------------------------------------------------\n\n')
+
+        tempInput = input('      Press Enter to Continue')
+        screen = 'stronghold'
 
 #------------------------------------------------------------------------------
 #This is a list of external menus (from other files)

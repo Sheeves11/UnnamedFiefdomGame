@@ -14,7 +14,7 @@ from armies import *
 
 
 #This file also contains the following global functions:
-#   FirstLaunch, PrintFiefArt, HireUnit, ConstructOutpost, CreateFief
+#   FirstLaunch, PrintFiefArt, HireUnit, ConstructOutpost, CreateFief, Log
 #   And many others... maybe update this sometime.
 
 
@@ -2037,4 +2037,12 @@ def PurchasedGood(userStronghold, num):
             time.sleep(0.5)
             nothing = input("\n    Press enter to look elsewhere...")
             return False
+
+def Log(inputString, username):
+ with open('logFile.log', 'a') as logFile:
+    from datetime import datetime
+    now = datetime.now()
+    current_time = now.strftime("%H:%M:%S")
+    print("Current Time =", current_time)
+    logFile.write('\n' + username + ' |----| Time: ' + current_time + ' |----| Event: ' + inputString)
 
