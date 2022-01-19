@@ -109,26 +109,14 @@ def MoreMenu(screen, userStronghold):
 
         print('''
 
-
       Intro:
 
-      Unnamed Fiefdom Game is a python programming project by Mike Quain (mquain@uark.edu)
-      The goal was to take on a project that was big enough to be challenging, but small enough to stay interesting.
-      This game looks simple, but it taught me the basics of reading and writing to a database, data persistance,
-      and multi-user tools.
-
-
-      How to play:
-
-      Your goal is to control as many fiefdoms as you can manage without spreading your army too thin and leaving
-      yourself open to attack! Your home stronghold will never fall, but any conquered fiefdoms can be taken by
-      opposing players. Make sure you can defend the territory you claim!
-
-      Each claimed fiefdom will generate gold per hour depending on the number of soldiers you have! That gold can 
-      be spent on defense and attack upgrades as well as additional soldiers or thieves.
-
-      Upgrade your conqured fiefdoms to keep them safe! Be careful though. Any upgraded fiefdom can still be taken,
-      and your upgrades will be transfered to the new ruler.
+      Unnamed Fiefdom Game is a python programming project by Mike Quain (mquain@uark.edu) of the University of Arkansas,
+      and Joshua Davis, also of the University of Arkansas. The game draws inspiration from the BBS door games of the late
+      80s and early 90s, as well as more modern text-based games like Kings of Chaos. We started building this game in late
+      2021 and it is still very much a work in progress. We welcome any an all contributions of code or bug reports.
+      
+      Thanks for playing!
 
       Additional Info is avalible at github.com/Sheeves11/UntitledFiefdomGame
 
