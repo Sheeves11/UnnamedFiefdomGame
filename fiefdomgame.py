@@ -223,10 +223,10 @@ while (loop):
                     screen = "login"
             else:
                 if username.strip() == "":
-                    print("                Error, name can't be blank!")
+                    print("                        Error, name can't be blank!")
                 else:
-                    print("                Error, name can't be " + str(username) + "!")
-                time.sleep(1)
+                    print("                        Error, this name is either too long or is reserved by the system. Please try again!")
+                nothing = input('                        Press Enter to Continue')
                 screen = "login"
 
 #The stronghold screen is homebase for players. The page also writes the current username

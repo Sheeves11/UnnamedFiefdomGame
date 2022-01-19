@@ -248,12 +248,15 @@ def FirstLaunch():
 #========================================================================================================
 def CheckLegalUsername(username):
     illegalUserNames = ['', ' ', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', 'The Wandering Merchant']
-    if username.strip() == "":
-        return False
-    for i in range(len(illegalUserNames)):
-        if username == illegalUserNames[i]:
+    if len(username) < 30:
+        if username.strip() == "":
             return False
-    return True
+        for i in range(len(illegalUserNames)):
+            if username == illegalUserNames[i]:
+                return False
+        return True
+    os.system('clear')
+    return False
 
 #========================================================================================================
 #   [SetFiefStartingResources]
