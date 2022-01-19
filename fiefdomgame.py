@@ -106,6 +106,8 @@ userStronghold = Stronghold()
 attackStronghold = Stronghold()
 newFief = Fiefdom()
 newFief.name = "TestFief"
+firstLaunchFief = Fiefdom()
+firstLaunchFief.name = "defaults"
 
 #this begins the main game loop
 #------------------------------------------------------------------------------
@@ -119,17 +121,11 @@ while (loop):
 
         art_titleScreen()
 
-        print(textColor.RESET + '''
-                        Welcome to the Unnamed Fiefdom Game!
+        print(textColor.BOLD + '''                                                 Welcome to the Unnamed Fiefdom Game!'''+textColor.RESET+'''
 
-                        This is a python programming project and multiplayer war game based on the classic
-                        BBS door games of the 80s and 90s. In much the same way, this system uses a central
-                        server to host the game to multiple users, who access it using a terminal emulator.
+                        
+                                                    We hope you have a lot of fun ''')
 
-                        See more info at github.com/Sheeves11/UnnamedFiefdomGame ''')
-        print('\n')
-
-        # userStronghold = Stronghold()
         print(textColor.WARNING)
         username = input("                        Enter your username: " + textColor.RESET)
         currentUsername = username
@@ -208,12 +204,12 @@ while (loop):
                             #----- Create a new fief from fieflist when a new user is made.
                             #------------------------------------------------------------------
 
-                            newFief.name = str(CreateFief(1))     #the constant that is passed in is how many fiefs you want to create
+                            newFief.name = str(CreateFief())
 
 
                             newUserAccount = True
 
-                            screen = 'stronghold'
+                            screen = 'howTo'
 
                         if password != password2:
                             print('\n    Your passwords don\'t match! Please try again.')
@@ -292,8 +288,50 @@ while (loop):
         if FirstLaunch():
             serverMap.name = 'serverMap'
             SilentlyGenerateWorld(serverMap)
+            
+            for i in range(DEFAULT_FIEFDOM_NUMBER):
+ 
+                #Create Default Fiefs
+                firstLaunchFief.name = str(CreateFief())
+                
+                serverMap.read()
+
+                #Setting starting resources for this new random fiefdom
+                filenameTemp = firstLaunchFief.name + '.txt'
+                with open(os.path.join('fiefs', filenameTemp), 'r') as f:
+                    tempName = filenameTemp[:-4]
+                    tempName = Fiefdom()
+                    tempName.name = filenameTemp[:-4]
+                    tempName.read()
+                    serverMap.read()
+                    SilentlyPlaceFiefInWorldMap(tempName, serverMap)
+
+                    tempName.gold = random.randint(FIEFDOM_GOLD_MIN, FIEFDOM_GOLD_MAX)
+                    tempName.defenders= random.randint(FIEFDOM_WARRIOR_MIN, FIEFDOM_WARRIOR_MAX)
+
+                    #print(tempName.name + ' BIOME: ' + tempName.biome)
+
+                    if tempName.biome == 'M':
+                        tempName.stone = int(tempName.stone) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
+                    elif tempName.biome == '^':
+                        tempName.wood = int(tempName.wood) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
+                    elif tempName.biome == '#':
+                        tempName.food = int(tempName.food) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
+
+                    for i in range(int(tempName.adjacentForests)):
+                        tempName.wood = int(tempName.wood) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
+                    for i in range(int(tempName.adjacentRivers)):
+                        tempName.food = int(tempName.food) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
+                    for i in range(int(tempName.adjacentWater)):
+                        tempName.food = int(tempName.food) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
+                    for i in range(int(tempName.adjacentPlains)):
+                        tempName.food = int(tempName.food) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
+                    for i in range(int(tempName.adjacentMountains)):
+                        tempName.stone = int(tempName.stone) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
+                    tempName.write()
+                    serverMap.read()
+
             serverMap.read()
-            SetFiefStartingResources()
             serverMarket.InitializeGoods()
             serverMarket.read()
             newUserAccount = False
@@ -302,10 +340,9 @@ while (loop):
             serverMap.name = 'serverMap'
             serverMap.read()
             SilentlyPlaceStrongholdInWorldMap(userStronghold, serverMap)
+
             #pass the newly created random fief to the "place fiefdom" function
             if newFief.name != "TestFief":
-                SilentlyPlaceFiefInWorldMap(newFief, serverMap)
-                
                 #Setting starting resources for this new random fiefdom
                 filenameTemp = newFief.name + '.txt'
                 with open(os.path.join('fiefs', filenameTemp), 'r') as f:
@@ -313,15 +350,16 @@ while (loop):
                     tempName = Fiefdom()
                     tempName.name = filenameTemp[:-4]
                     tempName.read()
+                    SilentlyPlaceFiefInWorldMap(tempName, serverMap)
 
                     tempName.gold = random.randint(FIEFDOM_GOLD_MIN, FIEFDOM_GOLD_MAX)
                     tempName.defenders= random.randint(FIEFDOM_WARRIOR_MIN, FIEFDOM_WARRIOR_MAX)
 
-                    if tempName.biome == MOUNTAIN:
+                    if tempName.biome == 'M':
                         tempName.stone = int(tempName.stone) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
-                    elif tempName.biome == FOREST:
+                    elif tempName.biome == '^':
                         tempName.wood = int(tempName.wood) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
-                    elif tempName.biome == PLAINS:
+                    elif tempName.biome == '#':
                         tempName.food = int(tempName.food) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
 
                     for i in range(int(tempName.adjacentForests)):
@@ -336,7 +374,6 @@ while (loop):
                         tempName.stone = int(tempName.stone) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
                     tempName.write()
 
-                #print('Placing New Fief')
             userStronghold.write()
             serverMap.read()
             newUserAccount = False
@@ -830,6 +867,57 @@ while (loop):
             
         if command == "5":
             screen = "viewMapEnemyStronghold"
+
+#This is the how-to page for the game. Keep it updated
+#------------------------------------------------------------------------------
+    if screen == "howTo":
+        os.system("clear")
+        headerStripped()
+
+
+
+        print('''
+
+
+      '''+textColor.WARNING+'''Welcome to Unnamed Fiefdom Game!'''+textColor.RESET+''' 
+      
+      This is a text-based multiplayer online game that takes inspiration
+      from the BBS Door games of the late 80s and early 90s. It uses a real terminal emulator to host user
+      terminal sessions directly in your browser!
+
+      How To Play:
+
+      Don't be intimidated by our menus! This game is very simple at its core and is quite fast to play. Your goal is to control
+      as much territory as you can manage at the end of each two week season. You will need to build your army and economic
+      empire into a respectable force in order to have a shot!
+
+      You can achieve this by conquest, economy, thievery, trade, or a combination of the four. Your home stronghold
+      will never fall, but the fiefdoms your conquer are under constant threat from other players. Be sure to defend them
+      well and avoid over-extending your forces and leaving yourself vulnerable to attack.
+
+      Each fiefdom has a variety of upgrades that you can purchase. These include defense fortifications and resource
+      gathering outposts. If you want a shot at the top, you'll need to gather as many resources as you can.
+      These resources are essential in your quest to upgrade your fortifications and defend your territory.
+
+      Gold is the currency of the realm. Your warriors produce a certain amount of gold as each game hour passes. The larger
+      your army, the faster you can gather this gold.
+
+      If you are missing a certain resource, be sure to check the markets! Chances are that another player has listed a trade offer
+      in your favor. If you have excess resources available, you may list them for sale. 
+
+      Your resources are not available globally. You must use the "Send Resources" menus to send shipments back home.
+      This also applies to soldiers. Be careful about collecting too many resources in a fiefdom. You'll leave yourself looking
+      like a good target to any potential attackers.
+
+      Those are the basics. We hope you enjoy your time here.
+      Have fun!
+
+      Additional Info is avalible at github.com/Sheeves11/UnnamedFiefdomGame
+
+        ''')
+
+        tempInput = input('      Press Enter to Continue')
+        screen = 'stronghold'
 
 
 #------------------------------------------------------------------------------

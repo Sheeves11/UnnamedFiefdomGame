@@ -72,19 +72,19 @@ def pas_mountain_p3():
 
 # Secondary Passages:
 def pas_mountain_s1():
-    print("")
+    print("From this angle, these peaks look to be the tallest thing you've ever seen.")
 def pas_mountain_s2():
-    print("")
+    print("An eagle soars high above the mountain pass.")
 def pas_mountain_s3():
-    print("")
+    print("The rocks that surround you seem to have a story to tell. You stare at a rock. The rock stares back.")
 
 # Tertiary Passages:
 def pas_mountain_t1():
-    print("")
+    print("In the distance you spot a mountain goat casually walking up the craggy slope.")
 def pas_mountain_t2():
-    print("")
+    print("You hear a wild screech echo through the valley.")
 def pas_mountain_t3():
-    print("")
+    print("The thin air has you feeling a little light-headed.")
 
 #------------------------------------------------------------------------------
 # Plains
@@ -93,25 +93,25 @@ def pas_mountain_t3():
 def pas_plains_p1():
     print("A vast stretch of land lies before you, its fertile soil protected by billions of tiny blades")
 def pas_plains_p2():
-    print("")
+    print("The sky really does look bigger out here.")
 def pas_plains_p3():
-    print("")
+    print("It is said that the plains are known to drive men mad. Luckily you are already mad.")
 
 # Secondary Passages:
 def pas_plains_s1():
     print("The wind thunders across an endless sea of grass in waves.")
 def pas_plains_s2():
-    print("")
+    print("You spot the ruins of an old homestead. \"Who in their right mind would live out here,\" you wonder?")
 def pas_plains_s3():
-    print("")
+    print("There sure are a lot of ticks out here.")
 
 # Tertiary Passages:
 def pas_plains_t1():
-    print("")
+    print("In the distance, you think you hear rolling thunder.")
 def pas_plains_t2():
-    print("")
+    print("In the distance, you see a lone tree standing strong against the wind. How did it get there?")
 def pas_plains_t3():
-    print("")
+    print("You've read about places like this. To be fair the book was also pretty borning.")
 
 
 #------------------------------------------------------------------------------
