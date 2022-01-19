@@ -7,11 +7,18 @@ import random
 #The Market class can print all the goods it contains with the function "ListGoods"
 
 #Some Common shelf lifes to use:
-ONE_DAY = 86400
+
+ONE_HOUR = 3600
+TWO_HOURS = 7200
 THREE_HOURS = 10800
+SIX_HOURS = 21600
+TWELVE_HOURS = 43200
+ONE_DAY = 86400
+TWO_DAYS = 172800
+THREE_DAYS = 259200
 INTERVAL = 3600
 
-GOODS_AT_LAUNCH = 20
+GOODS_AT_LAUNCH = 10
 RESTOCK_THRESHOLD = 10
 MERCHANT_TAX = 0.25
 
@@ -64,6 +71,7 @@ class Market:
         for i in range(GOODS_AT_LAUNCH):
             self.GenerateGood()
         self.write()
+        self.read()
 
     #==================================================================================
     #   [AddGood]
@@ -101,6 +109,7 @@ class Market:
     #       each good the Market contains.
     #==================================================================================
     def ListGoods(self):
+        self.read()
         for i in range(len(self.merchandise)):
             print(str(self.merchandise[i].ListDetails()))
 
@@ -120,25 +129,38 @@ class Market:
     #       If the goods were posted by a user, they are returned to that user.
     #==================================================================================
     def PurgeGoods(self):
-        for i in range(len(self.merchandise)):
-            if int(self.merchandise[i].shelfLife) == 0:
-                if self.merchandise[i].seller == "The Wandering Merchant":
-                    self.merchandise.pop(i)
-                else:
-                    tempStronghold = Stronghold()
-                    tempStronghold.name = str(self.merchandise[i].seller)
-                    tempStronghold.read()
-                    if self.merchandise[i].goodType == "Gold":
-                        tempStronghold.gold = int(tempStronghold.gold) + int(self.merchandise[i].goodAmount)
-                    elif self.merchandise[i].goodType == "Food":
-                        tempStronghold.food = int(tempStronghold.food) + int(self.merchandise[i].goodAmount)
-                    elif self.merchandise[i].goodType == "Wood":
-                        tempStronghold.wood = int(tempStronghold.wood) + int(self.merchandise[i].goodAmount)
-                    elif self.merchandise[i].goodType == "Stone":
-                        tempStronghold.stone = int(tempStronghold.stone) + int(self.merchandise[i].goodAmount)
-                    elif self.merchandise[i].goodType == "Ore":
-                        tempStronghold.ore = int(tempStronghold.ore) + int(self.merchandise[i].goodAmount)
-                    self.merchandise.pop(i)
+        try:
+            if len(self.merchandise) == 0:
+                return
+            for i in range(len(self.merchandise)):
+                if int(self.merchandise[i].shelfLife) == 0:
+                    if self.merchandise[i].seller == "The Wandering Merchant":
+                        self.merchandise.pop(i)
+                    else:
+                        tempStronghold = Stronghold()
+                        tempStronghold.name = str(self.merchandise[i].seller)
+                        tempStronghold.read()
+                        if self.merchandise[i].goodType == "Gold":
+                            tempStronghold.gold = int(tempStronghold.gold) + int(self.merchandise[i].goodAmount)
+                        elif self.merchandise[i].goodType == "Food":
+                            tempStronghold.food = int(tempStronghold.food) + int(self.merchandise[i].goodAmount)
+                        elif self.merchandise[i].goodType == "Wood":
+                            tempStronghold.wood = int(tempStronghold.wood) + int(self.merchandise[i].goodAmount)
+                        elif self.merchandise[i].goodType == "Stone":
+                            tempStronghold.stone = int(tempStronghold.stone) + int(self.merchandise[i].goodAmount)
+                        elif self.merchandise[i].goodType == "Ore":
+                            tempStronghold.ore = int(tempStronghold.ore) + int(self.merchandise[i].goodAmount)
+                        self.merchandise.pop(i)
+                        tempStronghold.write()
+                        tempStronghold.read()
+
+            self.write()
+            self.read()
+        except:
+            self.write()
+            self.read()
+            self.PurgeGoods()
+            
 
     #==================================================================================
     #   [CheckRestock]
@@ -147,9 +169,16 @@ class Market:
     #       is equal to or less than the restock_threshold
     #==================================================================================
     def CheckRestock(self):
-        if int(len(self.merchandise)) <= RESTOCK_THRESHOLD:
+        count = 0
+        for i in range(len(self.merchandise)):
+            if self.merchandise[i].seller == "The Wandering Merchant":
+                count = int(count) + 1
+
+        if int(count) <= RESTOCK_THRESHOLD:
             for i in range(RESTOCK_THRESHOLD):
                 self.GenerateGood()
+            self.write()
+            self.read()
 
     #==================================================================================
     #   [NumListings]
@@ -294,6 +323,12 @@ class Market:
         if pickedCostType == "Gold":
             pickedCostAmount = int(pickedCostAmount * MERCHANT_NEEDS_MOD)
 
+        if int(pickedCostAmount) == 0:
+            pickedCostAmount = 1
+        
+        if int(pickedGoodAmount) == 0:
+            pickedCostAmount = 1
+
         self.AddGood(seller, shelfLife, pickedGoodType, pickedGoodAmount, pickedCostType, pickedCostAmount)
         
 
@@ -400,14 +435,31 @@ class Good:
             transaction = "trade"
             lead = str(WARNING + "[Trading]" + RESET).ljust(17, "-")
 
+        if int(self.shelfLife) <= ONE_HOUR:
+            timeLeft = str(RED + " [1 Hour] " + RESET).ljust(17, "-")
+        elif int(self.shelfLife) <= TWO_HOURS:
+            timeLeft = str(ORANGE + " [2 Hours] " + RESET).ljust(17, "-")
+        elif int(self.shelfLife) <= THREE_HOURS:
+            timeLeft = str(WARNING + " [3 Hours] " + RESET).ljust(17, "-")
+        elif int(self.shelfLife) <= SIX_HOURS:
+            timeLeft = str(WARNING + " [6 Hours] " + RESET).ljust(17, "-")
+        elif int(self.shelfLife) <= TWELVE_HOURS:
+            timeLeft = str(GREEN + " [12 Hours] " + RESET).ljust(17, "-")
+        elif int(self.shelfLife) <= ONE_DAY:
+            timeLeft = str(GREEN + " [1 Day] " + RESET).ljust(17, "-")
+        elif int(self.shelfLife) <= TWO_DAYS:
+            timeLeft = str(CYAN + " [2 Days] " + RESET).ljust(17, "-")
+        elif int(self.shelfLife) <= THREE_DAYS:
+            timeLeft = str(CYAN + " [3 Days] " + RESET).ljust(17, "-")
+
         if transaction == "sell" or transaction == "trade":
             good = str(WARNING + " " + str(self.goodAmount) + " " + self.GetGoodColor() + str(self.goodType) + RESET).rjust(30, "-")
             cost = str(WARNING + " " + str(self.costAmount) + " " + self.GetCostColor() + str(self.costType) + RESET).ljust(30, "-")
-            line = str(" " + seller + " " + lead + " " + good + " -[For]-" + cost)
+            line = str(" " + seller + " " + lead + " " + good + " -[For]-" + cost + timeLeft)
         else:
             good = str(WARNING + " " + str(self.goodAmount) + " " + self.GetGoodColor() + str(self.goodType) + RESET).ljust(30, "-")
             cost = str(WARNING + " " + str(self.costAmount) + " " + self.GetCostColor() + str(self.costType) + RESET).rjust(30, "-")
-            line = str(" " + seller + " " + lead + " " + cost + " -[For]-" + good)
+            line = str(" " + seller + " " + lead + " " + cost + " -[For]-" + good + timeLeft)
 
         return line
         # print(line)

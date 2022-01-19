@@ -1,5 +1,5 @@
 import random
-
+import time
 from colors import *
 # This is a file containing print functions for the games writing!
 
@@ -16,6 +16,58 @@ def AnswerYes(question):
             return False
         else:
             pass
+
+def GetRandomChar():
+    chars = 'abcdefghijklmnopqrstuvwxyz'
+    return random.choice(chars)
+
+def GetSmallRandomFloat():
+    return round(random.uniform(0.30, 1.00), 2)
+
+def GetMediumRandomFloat():
+    return round(random.uniform(0.50, 2.00), 2)
+
+def GetLargeRandomFloat():
+    return round(random.uniform(1.5, 3.00), 2)
+
+def ReactionTimeEvent():
+    spacer = "    "
+    randomChar = GetRandomChar()
+    ready = str(CYAN + spacer + spacer + "Ready!")
+    nock = str(spacer + spacer + GREEN + "Nock!")
+    draw = str(spacer + spacer + spacer + spacer + WARNING + "Draw!")
+    loose = str(spacer + spacer + spacer + spacer + spacer + ORANGE + "   LOOSE! " + RED + "  [" + randomChar + "]" + RESET)
+    orders = [ready, ".", ".", ".\n", nock, ".", ".", ".\n", draw, ".", ".", ".\n", loose]
+    waitTime = 0.1
+    incorrectInput = True
+    dots = 0
+    for i in range(len(orders)):
+        
+        if str(orders[i]) == "." or str(orders[i]) == ".\n":
+            dots = int(dots) + 1
+        if int(dots) == 3 and str(orders[i]) != nock:
+            waitTime = GetSmallRandomFloat()
+        elif int(dots) == 6 and str(orders[i]) != draw:
+            waitTime = GetMediumRandomFloat()
+        elif int(dots) == 9 and str(orders[i]) != loose:
+            waitTime = GetLargeRandomFloat()
+        else:
+            waitTime = 0.1
+
+        print(str(str(orders[i])).ljust(10, " "), sep='', end=' ', flush=True); time.sleep(waitTime)
+    
+    s = time.time()
+    while incorrectInput:
+        check = input(RED + " = ")
+        if str(check) == str(randomChar):
+            f = time.time()
+            incorrectInput = False
+        else:
+            print(str(spacer + spacer + " " + loose), sep='', end=' ', flush=True)
+    
+    print(RESET + "\n    Total time taken: " + str(float(f) - float(s)))
+
+
 
 #------------------------------------------------------------------------------
 #------------------------------------------------------------------------------
@@ -165,10 +217,18 @@ def pas_e2_1():
 
 #   Encounter 1 - "Name it here"
 def pas_c1_1():
-    print("")
+    print("\n\n    Enemy troops are advancing! Prepare yourself to react in time!")
 
 def pas_c1_2():
-    print("")
+    response = input("\n    Hit { " + WARNING + "Enter" + RESET + " } to start, or type { " + CYAN + "help" + RESET + " } for more information first : ")
+    if response == "help":
+        print("\n    [" + CYAN + "Reaction Time Event" + RESET + "]: Upon hitting enter, a random character (or sequence of them)")
+        print("    will appear on the screen. Type it/them and hit enter as quickly as possible for the best outcome!\n")
+        nothing = input("    Press enter to start the encounter : ")
+
+    print("\n")
+    ReactionTimeEvent()
+
 
 #   Encounter 2 - "Name it here"
 def pas_c2_1():

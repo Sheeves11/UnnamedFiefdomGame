@@ -23,7 +23,8 @@ while (loop):
     #=====================
     #    Update Market
     #=====================
-    serverMarket.DecrementMerchandiseShelfLife(INTERVAL)
+    serverMarket.ListGoods()
+    serverMarket.DecrementMerchandiseShelfLife(3600)
     serverMarket.CheckRestock()
   
     for filename in os.listdir('fiefs'):
@@ -38,7 +39,7 @@ while (loop):
                 tempName.defenderMod = '0' 
                 tempName.read()
                 
-                print(" Incrementing " + str(tempName.name) + "'s Resources. Currently at: " + GetStationResources(tempName))
+                # print(" Incrementing " + str(tempName.name) + "'s Resources. Currently at: " + GetStationResources(tempName))
                 #=====================
                 # Increment Resources
                 #=====================

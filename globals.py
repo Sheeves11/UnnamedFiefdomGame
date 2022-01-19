@@ -186,13 +186,13 @@ UPGRADE_DEFENSE_T6 = [13000, 0, 50, 50, 20]
 #===========================
 #   Attack Upgrade Names
 #===========================
-NAME_ATTACK_T1 = "Angry Villagers with Sharpened Pitchforks"
-NAME_ATTACK_T2 = "Semi-trained Longbow Archers"
-NAME_ATTACK_T3 = "Military Recruits"
-NAME_ATTACK_T4 = "Fairly Well-trained Archers with Flaming Arrows"
-NAME_ATTACK_T5 = "Drunks with Trebuchets"
-NAME_ATTACK_T6 = "Scientists who are Experiementing with Biological Warfare"
-NAME_ATTACK_T7 = "Peasents with Guns"
+NAME_ATTACK_T1 = str(WARNING + "Angry Villagers with Sharpened Pitchforks" + RESET)
+NAME_ATTACK_T2 = str(WARNING + "Semi-trained Longbow Archers" + RESET)
+NAME_ATTACK_T3 = str(WARNING + "Military Recruits" + RESET)
+NAME_ATTACK_T4 = str(WARNING + "Fairly Well-trained Archers with Flaming Arrows" + RESET)
+NAME_ATTACK_T5 = str(WARNING + "Drunks with Trebuchets") + RESET
+NAME_ATTACK_T6 = str(WARNING + "Scientists who are Experiementing with Biological Warfare" + RESET)
+NAME_ATTACK_T7 = str(WARNING + "Peasents with Guns" + RESET)
 
 #===========================
 #   Defense Upgrade Names
