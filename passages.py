@@ -28,7 +28,7 @@ def GetMediumRandomFloat():
     return round(random.uniform(0.50, 2.00), 2)
 
 def GetLargeRandomFloat():
-    return round(random.uniform(1.5, 3.00), 2)
+    return round(random.uniform(0.60, 3.00), 2)
 
 def ReactionTimeEvent():
     spacer = "    "
@@ -36,14 +36,14 @@ def ReactionTimeEvent():
     ready = str(CYAN + spacer + spacer + "Ready!")
     nock = str(spacer + spacer + GREEN + "Nock!")
     draw = str(spacer + spacer + spacer + spacer + WARNING + "Draw!")
-    loose = str(spacer + spacer + spacer + spacer + spacer + ORANGE + "   LOOSE! " + RED + "  [" + randomChar + "]" + RESET)
-    orders = [ready, ".", ".", ".\n", nock, ".", ".", ".\n", draw, ".", ".", ".\n", loose]
+    loose = str(spacer + spacer + spacer + spacer + spacer + ORANGE + "   LOOSE! " + RED + "  |" + RESET + randomChar + RED + "|" + RESET)
+    orders = [ready, ".", ".", ".\n\n", nock, ".", ".", ".\n\n", draw, ".", ".", ".\n\n", loose]
     waitTime = 0.1
     incorrectInput = True
     dots = 0
     for i in range(len(orders)):
         
-        if str(orders[i]) == "." or str(orders[i]) == ".\n":
+        if str(orders[i]) == "." or str(orders[i]) == ".\n\n":
             dots = int(dots) + 1
         if int(dots) == 3 and str(orders[i]) != nock:
             waitTime = GetSmallRandomFloat()
@@ -63,7 +63,7 @@ def ReactionTimeEvent():
             f = time.time()
             incorrectInput = False
         else:
-            print(str(spacer + spacer + " " + loose), sep='', end=' ', flush=True)
+            print(str(spacer + spacer + loose), sep='', end=' ', flush=True)
     
     print(RESET + "\n    Total time taken: " + str(float(f) - float(s)))
 
