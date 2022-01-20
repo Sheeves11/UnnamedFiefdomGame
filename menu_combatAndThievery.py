@@ -107,6 +107,15 @@ def CombatAndThieveryMenu(screen, userStronghold, attackStronghold):
             if int(randomNum) > int(chance) and int(attackers) > 0:
                 
                 print('    Despite their valient efforts, your thieves have been captured.\n    This mission is a failure.')
+
+                #log this event
+                #for enemy
+                logString = userStronghold.name + ' sent a gang of ' + str(int(thiefs)) + ' thieves to steal from you. They have been dealt with.'
+                Log(logString, attackStronghold.ruler)
+
+                #for current player
+                logString = 'You sent thieves to ' + attackStronghold.ruler + '\'s Stronghold. They didn\'t come back.'
+                Log(logString, userStronghold.ruler)
                 
                 userStronghold.thieves = int(userStronghold.thieves) - int(attackers)
                 userStronghold.write()
@@ -115,7 +124,16 @@ def CombatAndThieveryMenu(screen, userStronghold, attackStronghold):
                 print('    You have ' + str(userStronghold.thieves) + ' thieves remaining.')
 
             elif int(randomNum) <= int(chance) and int(attackers) > 0:
-                print('    Success! Your thieves return with pocketsfull of gold!\n    Your thieves managed to secure ' + str(maxCarriedGold) + ' gold for the stronghold!')
+                print('    Success! Your thieves return with pocketsfull of gold!\n    Your thieves managed to secure ' + str(int(maxCarriedGold)) + ' gold for the stronghold!')
+
+                #log this event
+                #for enemy
+                logString = userStronghold.name + ' is rumored to have sent a gang of thieves to your stronghold.'
+                Log(logString, attackStronghold.ruler)
+
+                #for current player
+                logString = 'You sent thieves to ' + attackStronghold.ruler + '\'s Stronghold. They secured ' + str(int(maxCarriedGold)) + ' gold.'
+                Log(logString, userStronghold.ruler)
                 
                 userStronghold.gold = int(maxCarriedGold) + int(userStronghold.gold)
                 userStronghold.write()

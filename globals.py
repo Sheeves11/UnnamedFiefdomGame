@@ -248,7 +248,7 @@ def FirstLaunch():
 #========================================================================================================
 def CheckLegalUsername(username):
     illegalUserNames = ['', ' ', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', 'The Wandering Merchant']
-    if len(username) < 30:
+    if len(username) < 18:
         if username.strip() == "":
             return False
         for i in range(len(illegalUserNames)):
@@ -2042,7 +2042,7 @@ def Log(inputString, username):
  with open('logFile.log', 'a') as logFile:
     from datetime import datetime
     now = datetime.now()
-    current_time = now.strftime("%H:%M:%S")
-    print("Current Time =", current_time)
-    logFile.write('\n' + username + ' |----| Time: ' + current_time + ' |----| Event: ' + inputString)
+    current_time = now.strftime("%H:%M")
+    #print("Current Time =", current_time)
+    logFile.write('\n' + username + ' |--| Time: ' + current_time + ' |--| Event: ' + inputString)
 

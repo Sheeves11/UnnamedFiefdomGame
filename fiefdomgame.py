@@ -924,45 +924,40 @@ while (loop):
         tempInput = input('      Press Enter to Continue')
         screen = 'stronghold'
 
-#This is the screen for the message board.
+#This is the screen for the log board
+#I need to fix the variables (have them count down to 0 instead of up to whatever)
+#I should also not open the file twice
 #----------------------------------------------------------------------------------
     if screen == "logPrint":
         os.system("clear")
         headerStripped()
 
         print('\n     Log:')
-        print('\n     ----------------------------------------------------------------------------------------------------------------------\n')
+        print('\n     ------------------------------------------------------------------------------------------------------------------\n')
 
-        #print off recent messages
-        #dump the last 30 lines of chatlog.log to the screen
         with open('logFile.log', "r") as logfile:
 
             #number of logFile lines to try reading
-            j = 0
+            j = 1000
             #number of user lines to try printing
-            x = 0
+            x = 20
             f=open("logFile.log","r")
             lines = logfile.readlines()
 
-            if j < 1000:    
+            if j > 0:    
                 for line in reversed(lines):
                     line = line.strip()
-                    words=line.split()
-                    if words and x < 20:
+                    words=line.split(" |--")
+                    if words and x > 0:
                         if words[0] == userStronghold.name:
-                            print('     ' + str(x+1) + '. User: ' + str(line))
-                            x += 1
-                j += 1  
+                            print('     ' + '. User: ' + str(line))
+                            x -= 1
+                j -= 1  
             f.close()             
-            print('\n\n     End of File')
 
+        print('\n     ------------------------------------------------------------------------------------------------------------------\n\n')
 
-
-
-
-        print('\n     ----------------------------------------------------------------------------------------------------------------------\n\n')
-
-        tempInput = input('      Press Enter to Continue')
+        tempInput = input('     Press Enter to Continue')
         screen = 'stronghold'
 
 #------------------------------------------------------------------------------
