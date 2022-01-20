@@ -948,7 +948,7 @@ while (loop):
                 for line in reversed(lines):
                     line = line.strip()
                     words=line.split()
-                    if words and x < 4:
+                    if words and x < 20:
                         if words[0] == userStronghold.name:
                             print('     ' + str(x+1) + '. User: ' + str(line))
                             x += 1
