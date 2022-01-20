@@ -445,7 +445,7 @@ def pas_battle_lost():
     if rando == 9:
         print(RED + "                    The story of this battle will be told for years to come. Unfortunately they \n                    won't be told by your warriors. Because they died." + RESET)
     if rando == 10:
-        print(RED + "                    You seem to misjudged your enemies defenses. Your forces were quickly subjugated." + RESET)
+        print(RED + "                    You seem to have misjudged your enemies defenses. \n                    Your forces were quickly subjugated." + RESET)
     
 def pas_battle_won():
     rando = random.randint(1,10)
