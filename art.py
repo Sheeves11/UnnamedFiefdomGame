@@ -2,7 +2,7 @@ from classes import *
 
 #This displays the announcement game-wide
 #Format it with spaces at the beginning and end
-ANNOUNCEMENT = " This is a test build "
+ANNOUNCEMENT = " Announcement: This is a test build "
 SPACER = "                        "
 
 #Define Header:
@@ -43,6 +43,32 @@ def header(username):
                                         (line5.center(138, '-')) + '\n' +
                                         (line6.center(155, ' ')) + '\n')
 #                                    (ANNOUNCEMENT.center(119, '-')) + ' ')
+
+#header() should be called on every page. You will need to pass a username into it. Usually "header(userStronghold.name)"
+def headerHomeStronghold(username):
+    headerStronghold = Stronghold()
+    headerStronghold.name = username
+    headerStronghold.read()
+    R = textColor.RESET
+    Y = textColor.YELLOW
+    D = textColor.DARK_RED
+    M = textColor.DARK_MAGENTA
+    G = textColor.DARK_GREEN
+    E = textColor.DARK_GRAY
+
+    # line5 = str(" Player: " + str(headerStronghold.name) + "    Gold: " + str(headerStronghold.gold) + "    Warriors: " + str(headerStronghold.defenders) + "    Thieves: " + str(headerStronghold.thieves) + ' ')
+    line5 = str(" Player: " + M + str(headerStronghold.name) + R + "    Gold: " + Y + str(headerStronghold.gold) + R + "    Warriors: " + str(headerStronghold.defenders) + "    Thieves: " + str(headerStronghold.thieves) + ' ')
+    line6 = str("  Food: " + D + str(headerStronghold.food) + R + "  Wood: " + G + str(headerStronghold.wood) + R + "  Stone: " + E + str(headerStronghold.stone) + R + "  Ore: " + M + str(headerStronghold.ore) + R + " ")
+    
+    print('\n' +
+'                                                       __        _             __           \n' +
+'                              | |__ __  _ __  _  _|   |_  o  _ _|_ _| _ __    /__ _ __  _    \n' +
+'                              |_|| || |(_||||(/_(_|   |   | (/_ | (_|(_)|||   \_|(_||||(/_   \n' +
+'   ' + '\n' +       
+
+                                        (line5.center(138, '-')) + '\n' +
+                                        (line6.center(155, ' ')) + '\n' +
+                                      (ANNOUNCEMENT.center(120, '-')) + ' ')
 
 #Define Header With Soldiers (for battle pages and when you need to purchace things):
 #====================================================================================================================
@@ -89,6 +115,21 @@ def headerStripped():
 '   ' + '\n' +       
 
                                     (ANNOUNCEMENT.center(119, '-')) + ' ')
+
+#headerSuperStripped() should be called when you don't need to display a full resource list
+def headerSuperStripped():
+
+    R = textColor.RESET
+    Y = textColor.YELLOW
+    D = textColor.DARK_RED
+    M = textColor.DARK_MAGENTA
+    G = textColor.DARK_GREEN
+    E = textColor.DARK_GRAY
+    
+    print('\n' +
+'                                                       __        _             __           \n' +
+'                              | |__ __  _ __  _  _|   |_  o  _ _|_ _| _ __    /__ _ __  _    \n' +
+'                              |_|| || |(_||||(/_(_|   |   | (/_ | (_|(_)|||   \_|(_||||(/_   \n')
 
 
 #This is an alternate header for displaying fief totals instead of stronghold totals.
