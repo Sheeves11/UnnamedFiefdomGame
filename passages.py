@@ -418,3 +418,55 @@ def pas_market_transactionCancelled():
         print(TEAL + "    *The merchant hops away*\n" + RESET)
     if rando == 20:
         print(TEAL + "    *The merchant wants to know why*\n" + RESET)
+
+#------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
+#                             Battle Passages
+#------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
+def pas_battle_lost():
+    rando = random.randint(1,10)
+    if rando == 1:
+        print(RED + "                    Although your warriors fought valiantly, their efforts were not enough.\n" + RESET)
+    if rando == 2:
+        print(RED + "                    Despite their best efforts, your army has been thoroughly decimated. \n                    The survivors look towards home in shame.\n" + RESET)
+    if rando == 3:
+        print(RED + "                    The enemy's superior forces quickly overpowered your warriors. What a shame.\n" + RESET)
+    if rando == 4:
+        print(RED + "                    The enemy made a mockery of your strategy and destroyed your forces. \n                    Have fun explaining this to all your citizens back home.\n" + RESET)
+    if rando == 5:
+        print(RED + "                    Against all odds, your army was swiftly crushed. Better luck next time." + RESET)
+    if rando == 6:
+        print(RED + "                    In this world there are winners and losers. Today you are a loser.\n" + RESET)
+    if rando == 7:
+        print(RED + "                    I've never seen a battle go this poorly. Good thing you don't have many \n                    survivors left to tell the tales of your incompetence." + RESET)
+    if rando == 8:
+        print(RED + "                    Your warriors, in all their might, were unable to overcome the enemy forces." + RESET)
+    if rando == 9:
+        print(RED + "                    The story of this battle will be told for years to come. Unfortunately they \n                    won't be told by your warriors. Because they died." + RESET)
+    if rando == 10:
+        print(RED + "                    You seem to misjudged your enemies defenses. Your forces were quickly subjugated." + RESET)
+    
+def pas_battle_won():
+    rando = random.randint(1,10)
+    if rando == 1:
+        print(TEAL + "                    As the dust settles, you appear victorious.\n" + RESET)
+    if rando == 2:
+        print(TEAL + "                    There is no glory in war, although as the winner of this battle, you feel pretty \n                    glorious right now." + RESET)
+    if rando == 3:
+        print(TEAL + "                    As the last blade falls, you gaze upon your new fiefdom. You will treat it well." + RESET)
+    if rando == 4:
+        print(TEAL + "                    Your forces are able to quickly overcome the enemy. You have won this fight." + RESET)
+    if rando == 5:
+        print(TEAL + "                    In this world there are winners and losers. On this day, you are a winner." + RESET)
+    if rando == 6:
+        print(TEAL + "                    You breathe a sign of relief. You have won this day." + RESET)
+    if rando == 7:
+        print(TEAL + "                    Unfortunately for your enemy, your warriors know what they're doing. \n                    You have won this battle." + RESET)
+    if rando == 8:
+        print(TEAL + "                    You feel the wind changing. This battle is yours." + RESET)
+    if rando == 9:
+        print(TEAL + "                    Your foe's reign of terror has come to an end. You have sent your enemy \n                    to the shadow realm." + RESET)
+    if rando == 10:
+        print(TEAL + "                    War is hell, but you will live to see another day. This battle is yours." + RESET)
+    
