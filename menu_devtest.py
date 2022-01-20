@@ -262,13 +262,13 @@ def DevTestMenu(screen, userStronghold):
 #-----------------------------------------------------------------------------------
     if screen == "testScreen1":
         os.system("clear")
-
+        headerStripped()
 
         pas_c1_1()
 
         pas_c1_2()
 
-        headerStripped()
+        
 
         
         # serverArmies.AddBattalion("Crimson Somethings", "y", "200", "1", "1", "1", "200", "5", "5")
