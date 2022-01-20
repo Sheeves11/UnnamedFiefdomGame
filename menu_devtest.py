@@ -263,16 +263,23 @@ def DevTestMenu(screen, userStronghold):
     if screen == "testScreen1":
         os.system("clear")
         headerStripped()
-        
-        serverArmies.AddBattalion("Crimson Somethings", "y", "200", "1", "1", "1", "200", "5", "5")
-        serverArmies.AddBattalion("Cool Dudes", "y", "105", "1", "1", "1", "120", "6", "6")
-        serverArmies.AddBattalion("Neato Banditos", "y", "160", "1", "1", "1", "120", "7", "7")
 
-        # for i in range(len(serverArmies.battalions)):
-        print(*serverArmies.GetBattalions())
+        pas_c1_1()
+
+        pas_c1_2()
+
+        
+
+        
+        # serverArmies.AddBattalion("Crimson Somethings", "y", "200", "1", "1", "1", "200", "5", "5")
+        # serverArmies.AddBattalion("Cool Dudes", "y", "105", "1", "1", "1", "120", "6", "6")
+        # serverArmies.AddBattalion("Neato Banditos", "y", "160", "1", "1", "1", "120", "7", "7")
+
+        # # for i in range(len(serverArmies.battalions)):
+        # print(*serverArmies.GetBattalions())
 
         # serverArmies.write()
-
+# 
         # serverArmies.read()
 
         nothing = input('    Continue:')
