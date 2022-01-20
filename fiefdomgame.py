@@ -398,11 +398,12 @@ while (loop):
 
         print("             Avalible Commands:")
         print('         ----------------------------------------------------------------------------------------------------')
-        print('           {1}: View Fiefdoms                                             {6}: Send Resources to Fiefdoms')
-        print('           {2}: View Player Strongholds                                   {7}: Market')
-        print('           {3}: Hire and Recruit                                          {8}: Chatroom')
-        print('           {4}: Upgrades and Customization                                {9}: More Options')
-        print('           {5}: View The World Map                                       {10}: How To Play')  
+        print('           {1}: View Fiefdoms                                             {7}: Market')
+        print('           {2}: View Player Strongholds                                   {8}: Chatroom')
+        print('           {3}: Hire and Recruit                                          {9}: More Options')
+        print('           {4}: Upgrades and Customization                               {10}: How To Play')
+        print('           {5}: View The World Map                                       {11}: View Battle Log')
+        print('           {6}: Send Resources To Your Fiefdoms')
         print('         ----------------------------------------------------------------------------------------------------')
         print('')
         command = input("            Enter your command: ")
@@ -929,54 +930,37 @@ while (loop):
         os.system("clear")
         headerStripped()
 
-        print('\n    Log:')
-        print('\n    ---------------------------------------------------------------------------------------------------\n')
+        print('\n     Log:')
+        print('\n     ----------------------------------------------------------------------------------------------------------------------\n')
 
         #print off recent messages
         #dump the last 30 lines of chatlog.log to the screen
         with open('logFile.log', "r") as logfile:
-            #lines = logfile.readlines()
-            
-            #last_lines = lines[-30:]
-            #last_lines = [line[:-1] for line in last_lines]
 
-            #j = 0
-            #firstWord = lines[j][0].split()
-            #print(str(firstWord))
-            #j = 0
-
-            #for i in last_lines:
-            #    #print ('    ' + i)
-            #    firstWord = lines[j][0].split()
-            #    if firstWord == userStronghold.name:
-            #        print ('    ' + i)
-            #        j = j + 1
-
-            #i = 0
-            #while i < 6:
-            #    logLine = logfile.readline()
-            #    firstWord = logLine.split(' ', 0)
-            #    print(str(firstWord))
-            #    #print(logLine)
-            #    print('\n')
-
-            #    i = i + 1
-
+            #number of logFile lines to try reading
+            j = 0
+            #number of user lines to try printing
+            x = 0
             f=open("logFile.log","r")
-            for line in f:
-                words=line.split()
-                if words:
-                    if words[0] == userStronghold.name:
-                        print('    ' + str(words))
-            f.close()
-                        
-            print('\n\n    End of File')
+            lines = logfile.readlines()
+
+            if j < 1000:    
+                for line in reversed(lines):
+                    line = line.strip()
+                    words=line.split()
+                    if words and x < 4:
+                        if words[0] == userStronghold.name:
+                            print('     ' + str(x+1) + '. User: ' + str(line))
+                            x += 1
+                j += 1  
+            f.close()             
+            print('\n\n     End of File')
 
 
 
 
 
-        print('\n    ---------------------------------------------------------------------------------------------------\n\n')
+        print('\n     ----------------------------------------------------------------------------------------------------------------------\n\n')
 
         tempInput = input('      Press Enter to Continue')
         screen = 'stronghold'
