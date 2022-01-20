@@ -179,6 +179,8 @@ while (loop):
                         password = "default"
                         email = "default"
 
+                        print('\n    Please note that UNIX Systems, like this one, do not display your password as you type for security reasons.')
+
                         password = getpass('\n\n\n    Please choose your password: ')
                         password2 = getpass('    Confirm your password: ')
 
@@ -257,7 +259,7 @@ while (loop):
         serverMap.name = "serverMap"
         serverMap.read()
 
-        header(userStronghold.name)
+        headerHomeStronghold(userStronghold.name)
         print("")
         strongHoldPrint = '    ' + textColor.WARNING + username + "'s Stronghold" 
 
@@ -873,9 +875,10 @@ while (loop):
         if command == "5":
             screen = "viewMapEnemyStronghold"
 
-#This is the how-to page for the game. Keep it updated
+#This is the how-to page for the game. This is the full list of instructions
+#which were too complicated to throw at new players.
 #------------------------------------------------------------------------------
-    if screen == "howTo":
+    if screen == "howToFull":
         os.system("clear")
         headerStripped()
 
@@ -923,6 +926,42 @@ while (loop):
 
         tempInput = input('      Press Enter to Continue')
         screen = 'stronghold'
+
+
+#This is the how-to page for the game. Keep it updated
+#------------------------------------------------------------------------------
+    if screen == "howTo":
+        os.system("clear")
+        headerStripped()
+
+
+
+        print('''
+
+
+      '''+textColor.WARNING+'''Welcome to Unnamed Fiefdom Game!'''+textColor.RESET+''' 
+      
+      ABOUT:
+      
+      This is a text-based multiplayer online game that takes inspiration from the BBS Door 
+      games of the late 80s and early 90s. It uses a real UNIX terminal emulator to host user
+      terminal sessions directly in your browser!
+
+      How To Play:
+
+      There's lots you'll learn as you dive into this game, but right now all you need to know
+      is that victory can be achieved via economic power, military might, trading prowess,
+      cunning thievery, or all of the above. 
+
+      Have fun and good luck! :)
+
+      Additional Info is avalible at github.com/Sheeves11/UnnamedFiefdomGame
+
+        ''')
+
+        tempInput = input('      Press Enter to Continue')
+        screen = 'stronghold'
+
 
 #This is the screen for the log board
 #I need to fix the variables (have them count down to 0 instead of up to whatever)
