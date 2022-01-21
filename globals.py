@@ -2148,11 +2148,10 @@ def PurchasedGood(userStronghold, num):
             nothing = input("\n    Press enter to look elsewhere...")
             return False
 
-def Log(inputString, username):
- with open('logFile.log', 'a') as logFile:
-    from datetime import datetime
-    now = datetime.now()
-    current_time = now.strftime("%H:%M")
-    #print("Current Time =", current_time)
-    logFile.write('\n' + username + ' |--| Time: ' + current_time + ' |--| Event: ' + inputString)
+#def Log(inputString, username):
+# with open('logFile.log', 'a') as logFile:
+#    from datetime import datetime
+#    now = datetime.now()
+#    current_time = now.strftime("%H:%M")
+#    logFile.write('\n' + username + ' |--| Time: ' + current_time + ' |--| Event: ' + inputString)
 

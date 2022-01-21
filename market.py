@@ -60,14 +60,14 @@ MAX_STONE = 5
 MIN_ORE = 1
 MAX_ORE = 5
 
-#putting this here because I'm dumb and I can't figure out how imports work. It's a duplicate
+#putting this here because I'm dumb and I can't figure out how imports work.
 def Log(inputString, username):
  with open('logFile.log', 'a') as logFile:
     from datetime import datetime
     now = datetime.now()
     current_time = now.strftime("%H:%M")
     #print("Current Time =", current_time)
-    logFile.write('\n' + username + ' |--| Time: ' + current_time + ' |--| Event: ' + inputString)
+    logFile.write('\n' + username + ' |--| ' + current_time + ' |--| ' + inputString)
 
 class Market:
     merchandise = []

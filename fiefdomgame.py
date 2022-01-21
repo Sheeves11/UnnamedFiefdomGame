@@ -395,7 +395,7 @@ while (loop):
             print('    ' + s, end = '')
             pas_stronghold_mountains()
 
-        print('  '+s+'  Your stronghold is home to ' + textColor.WARNING +  str(userStronghold.defenders) + textColor.RESET + ' highly skilled warriors, and dozens of loyal citizens.')
+        print('  '+s+'  Your stronghold is home to ' + textColor.WARNING +  str(userStronghold.defenders) + textColor.RESET + ' highly skilled warriors and dozens of loyal citizens.')
         print('\n '+s+'   These are your people. Do not let them down.')
         #print('\n')
         print('  ' +s+ textColor.DARK_GRAY + '  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~' + textColor.RESET)
@@ -999,7 +999,7 @@ while (loop):
                     words=line.split(" |--")
                     if words and x > 0:
                         if words[0] == userStronghold.name:
-                            print('     ' + '. User: ' + str(line))
+                            print('     ' + str(line))
                             x -= 1
                 j -= 1  
             f.close()             
