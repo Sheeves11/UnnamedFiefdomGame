@@ -18,14 +18,9 @@ come soon!
 If you'd like to talk to us or get real-time updates on our progress, check out our Discord! https://discord.gg/FVvMCfZ3fq
 
 <p align="center">
-
-<img width="748" alt="ufg" src="https://user-images.githubusercontent.com/3498355/149644850-ed561f5c-a28c-4687-80c7-1ffd46be5b91.png">
-
   
-<img width="604" alt="Screenshot 2022-01-15 202147" src="https://user-images.githubusercontent.com/3498355/149644858-cf3adfe8-13b6-437e-b5ef-a0fa28ab5da9.png">
 
-  
-<img width="605" alt="Screenshot 2022-01-15 202211" src="https://user-images.githubusercontent.com/3498355/149644859-31fafd11-e42b-448d-9914-cb1d6753d713.png">
+[![asciicast](https://asciinema.org/a/Wdg38v6VaiZ4FrQa5ZViRJBd4.svg)](https://asciinema.org/a/Wdg38v6VaiZ4FrQa5ZViRJBd4?t=5)
 
 
 ---------------------------------------------------------------------------------------------------------------
