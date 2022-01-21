@@ -382,21 +382,31 @@ while (loop):
             newUserAccount = False
 
         s = "         "
-        print(' '+s+'   On a hilltop overlooking endless rolling fields, you see the only home you have ever known.')
-        print('  '+s+'  The Fiefdom is home to ' + textColor.WARNING +  str(userStronghold.defenders) + textColor.RESET + ' highly skilled warriors, and dozens of loyal citizens.')
-        print('  '+s+'  You also employ the services of ' + textColor.WARNING +  str(userStronghold.thieves) + textColor.RESET + ' well-trained thieves.')
-        print('\n  '+s+'  Grow your forces to overcome the enemy. Do not let your citizens down')
-        print('\n  '+s+'  Within your coffers, you have ' + textColor.WARNING + str(userStronghold.gold) + textColor.RESET + ' gold.')
+
+        if userStronghold.biome == '^':
+            print('    ' + s, end = '')
+            pas_stronghold_forest()
+
+        if userStronghold.biome == '#':
+            print('    ' + s, end = '')
+            pas_stronghold_plains()
+
+        if userStronghold.biome == 'M':
+            print('    ' + s, end = '')
+            pas_stronghold_mountains()
+
+        print('  '+s+'  Your stronghold is home to ' + textColor.WARNING +  str(userStronghold.defenders) + textColor.RESET + ' highly skilled warriors, and dozens of loyal citizens.')
+        print('\n '+s+'   These are your people. Do not let them down.')
+        #print('\n')
+        print('  ' +s+ textColor.DARK_GRAY + '  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~' + textColor.RESET)
         print('  '+s+'  ' + 'Production: ' + str(productionCalc) + ' gold and ' + str((int(defendersPer) * int(attackFief.defenderMod))) + ' soldiers per hour.')
         print(' '+s+'   Your army of ' + textColor.WARNING + str(userStronghold.attType) + textColor.RESET + ' stands ready.')
+        print('  ' +s+ textColor.DARK_GRAY + '  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~' + textColor.RESET)
+        print(s + strongHoldMessage, end = ' ')
         print('\n')
 
         userStronghold.read()
         art_stronghold(userStronghold.biome, userStronghold.color)
-
-        print('                           ' + strongHoldMessage, end = ' ')
-        print('\n')
-
 
         print("             Avalible Commands:")
         print('         ----------------------------------------------------------------------------------------------------')
