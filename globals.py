@@ -1999,15 +1999,26 @@ def PurchasedGood(userStronghold, num):
                 userStronghold.read()
                 
                 if good.seller == "The Wandering Merchant":
+                    #log it for buyer
+                    logString = str(good.goodAmount) + ' ' + good.goodType + " bought from " + good.seller + ' for ' + str(good.costAmount) + ' gold.'
+                    Log(logString, userStronghold.name)
+
                     pas_market_transactionComplete()
                 else:
                     sellerStronghold = Stronghold()
                     sellerStronghold.name = str(good.seller)
                     sellerStronghold.read()
-                    AddResourceByType(sellerStronghold, good.costType, good.costAmount)
+                    AddResourceByType(sellerStronghold, good.goodType, good.costAmount)
                     sellerStronghold.write()
                     sellerStronghold.read()
                     print("\n    Transaction complete!\n")
+                    
+                    #log it
+                    logString = str(good.goodAmount) + ' ' + good.goodType + " sold to " + userStronghold.name + ' for ' + str(good.costAmount) + ' gold.'
+                    Log(logString, good.seller)
+                    #log it for buyer
+                    logString = str(good.goodAmount) + ' ' + good.goodType + " bought from " + good.seller + ' for ' + str(good.costAmount) + ' gold.'
+                    Log(logString, userStronghold.name)
 
                 time.sleep(0.5)
                 nothing = input("\n    Press enter to continue.")
@@ -2042,6 +2053,8 @@ def PurchasedGood(userStronghold, num):
                 
                 if good.seller == "The Wandering Merchant":
                     pas_market_transactionComplete()
+                    logString = str(good.costAmount) + ' ' + good.costType + " bought from " + good.seller + ' for ' + str(good.goodAmount) + ' gold.'
+                    Log(logString, userStronghold.name)
                 else:
                     sellerStronghold = Stronghold()
                     sellerStronghold.name = str(good.seller)
@@ -2049,6 +2062,14 @@ def PurchasedGood(userStronghold, num):
                     AddResourceByType(sellerStronghold, good.costType, good.costAmount)
                     sellerStronghold.write()
                     sellerStronghold.read()
+
+                    #log it for seller
+                    logString = str(good.costAmount) + ' ' + good.costType + " sold to " + userStronghold.name + ' for ' + str(good.goodAmount) + ' gold.'
+                    Log(logString, good.seller)
+                    #log it for buyer
+                    logString = str(good.costAmount) + ' ' + good.costType + " bought from " + good.seller + ' for ' + str(good.goodAmount) + ' gold.'
+                    Log(logString, userStronghold.name)
+
                     print("\n    Transaction complete!\n")
 
                 time.sleep(0.5)
@@ -2083,6 +2104,11 @@ def PurchasedGood(userStronghold, num):
                 userStronghold.read()
                 
                 if good.seller == "The Wandering Merchant":
+
+                    #log it for buyer
+                    logString = str(good.costAmount) + ' ' + good.costType + " traded with " + good.seller + ' for ' + str(good.goodAmount) + ' ' + good.goodType
+                    Log(logString, userStronghold.name)
+
                     pas_market_transactionComplete()
                 else:
                     sellerStronghold = Stronghold()
@@ -2091,6 +2117,15 @@ def PurchasedGood(userStronghold, num):
                     AddResourceByType(sellerStronghold, good.costType, good.costAmount)
                     sellerStronghold.write()
                     sellerStronghold.read()
+
+                    #log it for buyer
+                    logString = str(good.costAmount) + ' ' + good.costType + " traded with " + good.seller + ' for ' + str(good.goodAmount) + ' ' + good.goodType
+                    Log(logString, userStronghold.name)
+
+                    #log it for seller
+                    logString = str(good.goodAmount) + ' ' + good.goodType + " traded with " + userStronghold.name + ' for ' + str(good.costAmount) + ' ' + good.costType
+                    Log(logString, good.seller)
+
                     print("\n    Transaction complete!\n")
 
                 time.sleep(0.5)
