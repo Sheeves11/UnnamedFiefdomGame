@@ -404,7 +404,7 @@ while (loop):
         print('           {2}: View Player Strongholds                                   {8}: Chatroom')
         print('           {3}: Hire and Recruit                                          {9}: More Options')
         print('           {4}: Upgrades and Customization                               {10}: How To Play')
-        print('           {5}: View The World Map                                       {11}: View Battle Log')
+        print('           {5}: View The World Map                                       {11}: View Event Log')
         print('           {6}: Send Resources To Your Fiefdoms')
         print('         ----------------------------------------------------------------------------------------------------')
         print('')
@@ -971,7 +971,7 @@ while (loop):
         os.system("clear")
         headerStripped()
 
-        print('\n     Log:')
+        print('\n     Event Log:')
         print('\n     ------------------------------------------------------------------------------------------------------------------\n')
 
         with open('logFile.log', "r") as logfile:
@@ -979,7 +979,7 @@ while (loop):
             #number of logFile lines to try reading
             j = 1000
             #number of user lines to try printing
-            x = 20
+            x = 27
             f=open("logFile.log","r")
             lines = logfile.readlines()
 
