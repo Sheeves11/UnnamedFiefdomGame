@@ -1298,8 +1298,10 @@ def UpgradeOutpost(station, outpostType, tier, numberBuilt, cost, color, flavorT
         time.sleep(1)
         return
     elif HaveEnoughResources(station, cost, 1) == False:
-        print("    You don't have enough gold to upgrade your " + color + str(outpostType) + textColor.RESET + " outposts!\n")
-        time.sleep(1)
+        print("    You don't have enough resources to to upgrade your " + color + str(outpostType) + textColor.RESET + " outposts!\n")
+        print("    This upgrade will cost " + GetResourceCost(cost, 1))
+
+        nothing = input("\n    Press enter to continue ")
         return
     else:
         print("    You currently have " + textColor.WARNING + str(numberBuilt) + color + " " + str(outpostType) + textColor.RESET + " outposts constructed.\n")
