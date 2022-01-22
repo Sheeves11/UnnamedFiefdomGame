@@ -14,7 +14,8 @@ from menu_fiefBuildings import *
 from menu_combatAndThievery import *
 from menu_fiefCommands import *
 from menu_resourceManagement import *
-from menu_market import*
+from menu_market import *
+from menu_battalions import *
 
 '''
 
@@ -314,11 +315,11 @@ while (loop):
 
                     #print(tempName.name + ' BIOME: ' + tempName.biome)
 
-                    if tempName.biome == 'M':
+                    if tempName.biome == MOUNTAIN:
                         tempName.stone = int(tempName.stone) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
-                    elif tempName.biome == '^':
+                    elif tempName.biome == FOREST:
                         tempName.wood = int(tempName.wood) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
-                    elif tempName.biome == '#':
+                    elif tempName.biome == PLAINS:
                         tempName.food = int(tempName.food) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
 
                     for i in range(int(tempName.adjacentForests)):
@@ -358,11 +359,11 @@ while (loop):
                     tempName.gold = random.randint(FIEFDOM_GOLD_MIN, FIEFDOM_GOLD_MAX)
                     tempName.defenders= random.randint(FIEFDOM_WARRIOR_MIN, FIEFDOM_WARRIOR_MAX)
 
-                    if tempName.biome == 'M':
+                    if tempName.biome == MOUNTAIN:
                         tempName.stone = int(tempName.stone) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
-                    elif tempName.biome == '^':
+                    elif tempName.biome == FOREST:
                         tempName.wood = int(tempName.wood) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
-                    elif tempName.biome == '#':
+                    elif tempName.biome == PLAINS:
                         tempName.food = int(tempName.food) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
 
                     for i in range(int(tempName.adjacentForests)):
@@ -1008,6 +1009,7 @@ while (loop):
     screen = FiefBuildingsMenu(screen, userStronghold)
     screen = HireMenu(screen, userStronghold)
     screen = GarrisonMenu(screen, userStronghold)
+    screen = BattalionMenu(screen, userStronghold, STRONGHOLD, USER_STRONGHOLD)
     screen = MarketMenu(screen, userStronghold)
     screen = ViewMapAndSurroundings(screen, userStronghold, attackStronghold, STRONGHOLD, USER_STRONGHOLD)
     screen = ResourceManagementMenu(screen, userStronghold)

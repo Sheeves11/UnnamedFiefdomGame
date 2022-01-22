@@ -58,7 +58,64 @@ def ReactionTimeEvent():
     
     s = time.time()
     while incorrectInput:
-        check = input(RED + " = ")
+        check = input(RED + " = " + RESET)
+        if str(check) == str(randomChar):
+            f = time.time()
+            incorrectInput = False
+        else:
+            print(str(spacer + spacer + loose), sep='', end=' ', flush=True)
+
+    totalTime = float(f) - float(s)
+    speedColor = DARK_GRAY
+
+    if totalTime < 0.4:
+        speedColor = MAGENTA
+    elif totalTime < 0.5:
+        speedColor = CYAN
+    elif totalTime < 0.7:
+        speedColor = GREEN
+    elif totalTime < 1:
+        speedColor = WARNING
+    elif totalTime < 1.5:
+        speedColor = ORANGE
+    else:
+        speedColor = RED
+    
+    formattedTime = "{:.4f}".format(totalTime)
+
+    print(speedColor + "\n    Response Time: " + str(formattedTime) + " seconds" + RESET)
+
+
+
+def ReactionTimeEvent2():
+    spacer = "    "
+    randomChar = GetRandomChar()
+    ready = str(CYAN + spacer + spacer + "Ready!")
+    nock = str(spacer + spacer + GREEN + "Nock!")
+    draw = str(spacer + spacer + spacer + spacer + WARNING + "Draw!")
+    loose = str(spacer + spacer + spacer + spacer + spacer + ORANGE + "   LOOSE! " + RED + "  |" + RESET + randomChar + RED + "|" + RESET)
+    orders = [ready, ".", ".", ".\n\n", nock, ".", ".", ".\n\n", draw, ".", ".", ".\n\n", loose]
+    waitTime = 0.1
+    incorrectInput = True
+    dots = 0
+    for i in range(len(orders)):
+        
+        if str(orders[i]) == "." or str(orders[i]) == ".\n\n":
+            dots = int(dots) + 1
+        if int(dots) == 3 and str(orders[i]) != nock:
+            waitTime = GetSmallRandomFloat()
+        elif int(dots) == 6 and str(orders[i]) != draw:
+            waitTime = GetMediumRandomFloat()
+        elif int(dots) == 9 and str(orders[i]) != loose:
+            waitTime = GetLargeRandomFloat()
+        else:
+            waitTime = 0.1
+
+        print(str(str(orders[i])).ljust(10, " "), sep='', end=' ', flush=True); time.sleep(waitTime)
+    
+    s = time.time()
+    while incorrectInput:
+        check = input(RED + " = " + RESET)
         if str(check) == str(randomChar):
             f = time.time()
             incorrectInput = False
