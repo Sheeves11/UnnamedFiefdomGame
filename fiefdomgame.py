@@ -293,47 +293,7 @@ while (loop):
             serverMap.name = 'serverMap'
             SilentlyGenerateWorld(serverMap)
             
-            for i in range(DEFAULT_FIEFDOM_NUMBER):
- 
-                #Create Default Fiefs
-                firstLaunchFief.name = str(CreateFief())
-                
-                serverMap.read()
-
-                #Setting starting resources for this new random fiefdom
-                filenameTemp = firstLaunchFief.name + '.txt'
-                with open(os.path.join('fiefs', filenameTemp), 'r') as f:
-                    tempName = filenameTemp[:-4]
-                    tempName = Fiefdom()
-                    tempName.name = filenameTemp[:-4]
-                    tempName.read()
-                    serverMap.read()
-                    SilentlyPlaceFiefInWorldMap(tempName, serverMap)
-
-                    tempName.gold = random.randint(FIEFDOM_GOLD_MIN, FIEFDOM_GOLD_MAX)
-                    tempName.defenders= random.randint(FIEFDOM_WARRIOR_MIN, FIEFDOM_WARRIOR_MAX)
-
-                    #print(tempName.name + ' BIOME: ' + tempName.biome)
-
-                    if tempName.biome == MOUNTAIN:
-                        tempName.stone = int(tempName.stone) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
-                    elif tempName.biome == FOREST:
-                        tempName.wood = int(tempName.wood) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
-                    elif tempName.biome == PLAINS:
-                        tempName.food = int(tempName.food) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
-
-                    for i in range(int(tempName.adjacentForests)):
-                        tempName.wood = int(tempName.wood) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
-                    for i in range(int(tempName.adjacentRivers)):
-                        tempName.food = int(tempName.food) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
-                    for i in range(int(tempName.adjacentWater)):
-                        tempName.food = int(tempName.food) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
-                    for i in range(int(tempName.adjacentPlains)):
-                        tempName.food = int(tempName.food) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
-                    for i in range(int(tempName.adjacentMountains)):
-                        tempName.stone = int(tempName.stone) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
-                    tempName.write()
-                    serverMap.read()
+            InitializeStartingFiefs(firstLaunchFief)
 
             serverMap.read()
             serverMarket.InitializeGoods()
@@ -348,35 +308,7 @@ while (loop):
             #pass the newly created random fief to the "place fiefdom" function
             if newFief.name != "TestFief":
                 #Setting starting resources for this new random fiefdom
-                filenameTemp = newFief.name + '.txt'
-                with open(os.path.join('fiefs', filenameTemp), 'r') as f:
-                    tempName = filenameTemp[:-4]
-                    tempName = Fiefdom()
-                    tempName.name = filenameTemp[:-4]
-                    tempName.read()
-                    SilentlyPlaceFiefInWorldMap(tempName, serverMap)
-
-                    tempName.gold = random.randint(FIEFDOM_GOLD_MIN, FIEFDOM_GOLD_MAX)
-                    tempName.defenders= random.randint(FIEFDOM_WARRIOR_MIN, FIEFDOM_WARRIOR_MAX)
-
-                    if tempName.biome == MOUNTAIN:
-                        tempName.stone = int(tempName.stone) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
-                    elif tempName.biome == FOREST:
-                        tempName.wood = int(tempName.wood) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
-                    elif tempName.biome == PLAINS:
-                        tempName.food = int(tempName.food) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
-
-                    for i in range(int(tempName.adjacentForests)):
-                        tempName.wood = int(tempName.wood) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
-                    for i in range(int(tempName.adjacentRivers)):
-                        tempName.food = int(tempName.food) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
-                    for i in range(int(tempName.adjacentWater)):
-                        tempName.food = int(tempName.food) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
-                    for i in range(int(tempName.adjacentPlains)):
-                        tempName.food = int(tempName.food) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
-                    for i in range(int(tempName.adjacentMountains)):
-                        tempName.stone = int(tempName.stone) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
-                    tempName.write()
+                AddRandomFief(newFief)
 
             userStronghold.write()
             serverMap.read()
