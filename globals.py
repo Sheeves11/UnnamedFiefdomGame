@@ -260,6 +260,11 @@ def CheckLegalUsername(username):
     return False
 
 
+#========================================================================================================
+#   AddRandomFief
+#   parameter: newFief
+#       Adds a random fief and initializes its resources
+#========================================================================================================
 def AddRandomFief(newFief):
     filenameTemp = newFief.name + '.txt'
     with open(os.path.join('fiefs', filenameTemp), 'r') as f:
@@ -271,28 +276,16 @@ def AddRandomFief(newFief):
 
         tempName.gold = random.randint(FIEFDOM_GOLD_MIN, FIEFDOM_GOLD_MAX)
         tempName.defenders= random.randint(FIEFDOM_WARRIOR_MIN, FIEFDOM_WARRIOR_MAX)
-
-        if tempName.biome == MOUNTAIN:
-            tempName.stone = int(tempName.stone) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
-        elif tempName.biome == FOREST:
-            tempName.wood = int(tempName.wood) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
-        elif tempName.biome == PLAINS:
-            tempName.food = int(tempName.food) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
-
-        for i in range(int(tempName.adjacentForests)):
-            tempName.wood = int(tempName.wood) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
-        for i in range(int(tempName.adjacentRivers)):
-            tempName.food = int(tempName.food) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
-        for i in range(int(tempName.adjacentWater)):
-            tempName.food = int(tempName.food) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
-        for i in range(int(tempName.adjacentPlains)):
-            tempName.food = int(tempName.food) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
-        for i in range(int(tempName.adjacentMountains)):
-            tempName.stone = int(tempName.stone) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
         tempName.write()
 
+        AddFiefStartingResources(tempName)
 
 
+#========================================================================================================
+#   [InitializeStartingFiefs]
+#   Parameters: none
+#       Initializes all the fiefs that should be there at the beginning of the game. 
+#========================================================================================================
 def InitializeStartingFiefs(firstLaunchFief):
     for i in range(DEFAULT_FIEFDOM_NUMBER):
         #Create Default Fiefs
@@ -302,71 +295,49 @@ def InitializeStartingFiefs(firstLaunchFief):
 
         #Setting starting resources for this new random fiefdom
         AddRandomFief(firstLaunchFief)
-        # filenameTemp = firstLaunchFief.name + '.txt'
-        # with open(os.path.join('fiefs', filenameTemp), 'r') as f:
-        #     tempName = filenameTemp[:-4]
-        #     tempName = Fiefdom()
-        #     tempName.name = filenameTemp[:-4]
-        #     tempName.read()
-        #     serverMap.read()
-        #     SilentlyPlaceFiefInWorldMap(tempName, serverMap)
-
-        #     tempName.gold = random.randint(FIEFDOM_GOLD_MIN, FIEFDOM_GOLD_MAX)
-        #     tempName.defenders= random.randint(FIEFDOM_WARRIOR_MIN, FIEFDOM_WARRIOR_MAX)
-
-        #     #print(tempName.name + ' BIOME: ' + tempName.biome)
-
-        #     if tempName.biome == MOUNTAIN:
-        #         tempName.stone = int(tempName.stone) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
-        #     elif tempName.biome == FOREST:
-        #         tempName.wood = int(tempName.wood) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
-        #     elif tempName.biome == PLAINS:
-        #         tempName.food = int(tempName.food) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
-
-        #     for i in range(int(tempName.adjacentForests)):
-        #         tempName.wood = int(tempName.wood) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
-        #     for i in range(int(tempName.adjacentRivers)):
-        #         tempName.food = int(tempName.food) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
-        #     for i in range(int(tempName.adjacentWater)):
-        #         tempName.food = int(tempName.food) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
-        #     for i in range(int(tempName.adjacentPlains)):
-        #         tempName.food = int(tempName.food) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
-        #     for i in range(int(tempName.adjacentMountains)):
-        #         tempName.stone = int(tempName.stone) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
-            # tempName.write()
         serverMap.read()
 
+    #Set the fiefs starting resources
+    InitializeAllStartingFiefResources()
+
 #========================================================================================================
-#   [SetFiefStartingResources]
+#   [InitializeAllStartingFiefResources]
 #   Parameters: none
 #   Initializes fiefs with starting resources based on their surroundings and the biome they're on
 #========================================================================================================
-def SetFiefStartingResources():
+def InitializeAllStartingFiefResources():
     for filename in os.listdir('fiefs'):
             with open(os.path.join('fiefs', filename), 'r') as f:
                 tempName = filename[:-4]
                 tempName = Fiefdom()
                 tempName.name = filename[:-4]
-                tempName.read()
+                AddFiefStartingResources(tempName)
 
-                if tempName.biome == MOUNTAIN:
-                    tempName.stone = int(tempName.stone) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
-                elif tempName.biome == FOREST:
-                    tempName.wood = int(tempName.wood) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
-                elif tempName.biome == PLAINS:
-                    tempName.food = int(tempName.food) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
+#========================================================================================================
+#   [AddFiefStartingResources]
+#   Parameters: fief
+#       Sets the starting resources of a new fief based on surroundings
+#========================================================================================================
+def AddFiefStartingResources(fief):
+    fief.read()
+    if fief.biome == MOUNTAIN:
+        fief.stone = int(fief.stone) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
+    elif fief.biome == FOREST:
+        fief.wood = int(fief.wood) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
+    elif fief.biome == PLAINS:
+        fief.food = int(fief.food) + random.randint(BIOME_RESOURCE_MIN, BIOME_RESOURCE_MAX)
 
-                for i in range(int(tempName.adjacentForests)):
-                    tempName.wood = int(tempName.wood) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
-                for i in range(int(tempName.adjacentRivers)):
-                    tempName.food = int(tempName.food) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
-                for i in range(int(tempName.adjacentWater)):
-                    tempName.food = int(tempName.food) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
-                for i in range(int(tempName.adjacentPlains)):
-                    tempName.food = int(tempName.food) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
-                for i in range(int(tempName.adjacentMountains)):
-                    tempName.stone = int(tempName.stone) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
-                tempName.write()
+    for i in range(int(fief.adjacentForests)):
+        fief.wood = int(fief.wood) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
+    for i in range(int(fief.adjacentRivers)):
+        fief.food = int(fief.food) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
+    for i in range(int(fief.adjacentWater)):
+        fief.food = int(fief.food) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
+    for i in range(int(fief.adjacentPlains)):
+        fief.food = int(fief.food) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
+    for i in range(int(fief.adjacentMountains)):
+        fief.stone = int(fief.stone) + random.randint(ADJACENT_RESOURCE_MIN, ADJACENT_RESOURCE_MAX)
+    fief.write()
 
 #========================================================================================================
 #   [GetFiefByName]

@@ -111,6 +111,8 @@ newFief.name = "TestFief"
 firstLaunchFief = Fiefdom()
 firstLaunchFief.name = "defaults"
 
+spacer = "         "
+
 #this begins the main game loop
 #------------------------------------------------------------------------------
 while (loop):
@@ -314,28 +316,27 @@ while (loop):
             serverMap.read()
             newUserAccount = False
 
-        s = "         "
 
-        if userStronghold.biome == '^':
-            print('    ' + s, end = '')
+        if userStronghold.biome == FOREST:
+            print('    ' + spacer, end = '')
             pas_stronghold_forest()
 
-        if userStronghold.biome == '#':
-            print('    ' + s, end = '')
+        if userStronghold.biome == PLAINS:
+            print('    ' + spacer, end = '')
             pas_stronghold_plains()
 
-        if userStronghold.biome == 'M':
-            print('    ' + s, end = '')
+        if userStronghold.biome == MOUNTAIN:
+            print('    ' + spacer, end = '')
             pas_stronghold_mountains()
 
-        print('  '+s+'  Your stronghold is home to ' + textColor.WARNING +  str(userStronghold.defenders) + textColor.RESET + ' highly skilled warriors and dozens of loyal citizens.')
-        print('\n '+s+'   These are your people. Do not let them down.')
-        #print('\n')
-        print('  ' +s+ textColor.DARK_GRAY + '  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~' + textColor.RESET)
-        print('  '+s+'  ' + 'Production: ' + str(productionCalc) + ' gold and ' + str((int(defendersPer) * int(attackFief.defenderMod))) + ' soldiers per hour.')
-        print(' '+s+'   Your army of ' + textColor.WARNING + str(userStronghold.attType) + textColor.RESET + ' stands ready.')
-        print('  ' +s+ textColor.DARK_GRAY + '  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~' + textColor.RESET)
-        print(s + strongHoldMessage, end = ' ')
+        print('  '+spacer+'  Your stronghold is home to ' + textColor.WARNING +  str(userStronghold.defenders) + textColor.RESET + ' highly skilled warriors and dozens of loyal citizens.')
+        print('\n '+spacer+'   These are your people. Do not let them down.')
+
+        print('  ' +spacer+ textColor.DARK_GRAY + '  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~' + textColor.RESET)
+        print('  '+spacer+'  ' + 'Production: ' + str(productionCalc) + ' gold and ' + str((int(defendersPer) * int(attackFief.defenderMod))) + ' soldiers per hour.')
+        print(' '+spacer+'   Your army of ' + textColor.WARNING + str(userStronghold.attType) + textColor.RESET + ' stands ready.')
+        print('  '+spacer+ textColor.DARK_GRAY + '  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~' + textColor.RESET)
+        print(spacer + strongHoldMessage, end = ' ')
         print('\n')
 
         userStronghold.read()
