@@ -2053,7 +2053,7 @@ def PurchasedGood(userStronghold, num):
                 
                 if good.seller == "The Wandering Merchant":
                     pas_market_transactionComplete()
-                    logString = str(good.costAmount) + ' ' + good.costType + " bought from " + good.seller + ' for ' + str(good.goodAmount) + ' gold.'
+                    logString = str(good.costAmount) + ' ' + good.costType + " sold to " + good.seller + ' for ' + str(good.goodAmount) + ' gold.'
                     Log(logString, userStronghold.name)
                 else:
                     sellerStronghold = Stronghold()
