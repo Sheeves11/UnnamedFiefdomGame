@@ -478,21 +478,21 @@ def pas_battle_won():
 def pas_stronghold_forest():
     rando = random.randint(1,8)
     if rando == 1:
-        print(RED + "Deep in the heart of the forest, your stronghold thrives." + RESET)
+        print(GREEN + "Deep in the heart of the forest, your stronghold thrives." + RESET)
     if rando == 2:
-        print(RED + "These trees are all you have ever known. You would give anything to protect them." + RESET)
+        print(GREEN + "These trees are all you have ever known. You would give anything to protect them." + RESET)
     if rando == 3:
-         print(RED + "It is peaceful here in the shade of the canopy that has protected your family for generations." + RESET)
+        print(GREEN + "It is peaceful here in the shade of the canopy that has protected your family for generations." + RESET)
     if rando == 4:
-        print(RED + "The leaves are still. The forest listens." + RESET)
+        print(GREEN + "The leaves are still. The forest listens." + RESET)
     if rando == 5:
-        print(RED + "Few have dared to venture this far into the old forest. It is the only home you have known." + RESET)
+        print(GREEN + "Few have daGREEN to venture this far into the old forest. It is the only home you have known." + RESET)
     if rando == 6:
-        print(RED + "A cool wind causes the treetops to sway as your people go about their lives." + RESET)
+        print(GREEN + "A cool wind causes the treetops to sway as your people go about their lives." + RESET)
     if rando == 7:
-        print(RED + "This forest has been here as long as time. You must protect it with all that you have." + RESET)
+        print(GREEN + "This forest has been here as long as time. You must protect it with all that you have." + RESET)
     if rando == 8:
-        print(RED + "Green always was your favorite color, you say to yourself. The forest agrees." + RESET)
+        print(GREEN + "Green always was your favorite color, you say to yourself. The forest agrees." + RESET)
 
 #------------------------------------------------------------------------------
 #------------------------------------------------------------------------------
@@ -502,21 +502,21 @@ def pas_stronghold_forest():
 def pas_stronghold_plains():
     rando = random.randint(1,8)
     if rando == 1:
-        print(RED + "Your stronghold sits tall and proud over an endless sea of prarie grass." + RESET)
+        print(textColor.WARNING + "Your stronghold sits tall and proud over an endless sea of prarie grass." + RESET)
     if rando == 2:
-        print(RED + "These walls have weathered many a storm. You must not let them fall." + RESET)
+        print(textColor.WARNING + "These walls have weathetextColor.WARNING many a storm. You must not let them fall." + RESET)
     if rando == 3:
-         print(RED + "The sky really is bigger out here." + RESET)
+        print(textColor.WARNING + "The sky really is bigger out here." + RESET)
     if rando == 4:
-        print(RED + "People come from all around to see your great walls. They're all you have ever known." + RESET)
+        print(textColor.WARNING + "People come from all around to see your great walls. They're all you have ever known." + RESET)
     if rando == 5:
-        print(RED + "Your family has protected this prarie for hundreds of years." + RESET)
+        print(textColor.WARNING + "Your family has protected this prarie for hundtextColor.WARNINGs of years." + RESET)
     if rando == 6:
-        print(RED + "A cool wind causes the prarie grass to ripple as your people bustle about their chores." + RESET)
+        print(textColor.WARNING + "A cool wind causes the prarie grass to ripple as your people bustle about their chores." + RESET)
     if rando == 7:
-        print(RED + "This prarie has seen more blood than you care to think about. Still, these walls stand tall." + RESET)
+        print(textColor.WARNING + "This prarie has seen more blood than you care to think about. Still, these walls stand tall." + RESET)
     if rando == 8:
-        print(RED + "Life is tough on these plains. That never stopped you before." + RESET)
+        print(textColor.WARNING + "Life is tough on these plains. That never stopped you before." + RESET)
 
 #------------------------------------------------------------------------------
 #------------------------------------------------------------------------------
@@ -526,19 +526,19 @@ def pas_stronghold_plains():
 def pas_stronghold_mountains():
     rando = random.randint(1,8)
     if rando == 1:
-        print(RED + "Nestled deep inside a mountain valley, your people thrive" + RESET)
+        print(textColor.LIGHT_GRAY + "Nestled deep inside a mountain valley, your people thrive" + RESET)
     if rando == 2:
-        print(RED + "The weather may be cold, but your hearts are warm." + RESET)
+        print(textColor.LIGHT_GRAY + "The weather may be cold, but your hearts are warm." + RESET)
     if rando == 3:
-         print(RED + "These icy peaks cast a long shadow over the only home you have ever known." + RESET)
+        print(textColor.LIGHT_GRAY + "These icy peaks cast a long shadow over the only home you have ever known." + RESET)
     if rando == 4:
-        print(RED + "Your stronghold appears to be carved out of the rock itself. You feel safe here." + RESET)
+        print(textColor.LIGHT_GRAY + "Your stronghold appears to be carved out of the rock itself. You feel safe here." + RESET)
     if rando == 5:
-        print(RED + "Your family has guarded these mountains for generations." + RESET)
+        print(textColor.LIGHT_GRAY + "Your family has guarded these mountains for generations." + RESET)
     if rando == 6:
-        print(RED + "Snow is the least of your worries out here. These mountains hide a dark secret." + RESET)
+        print(textColor.LIGHT_GRAY + "Snow is the least of your worries out here. These mountains hide a dark secret." + RESET)
     if rando == 7:
-        print(RED + "The mountain people are proud. This stronghold has never fallen." + RESET)
+        print(textColor.LIGHT_GRAY + "The mountain people are proud. This stronghold has never fallen." + RESET)
     if rando == 8:
-        print(RED + "Few people venture this deep into the mountains. Those who do are greeted warmly." + RESET)
+        print(textColor.LIGHT_GRAY + "Few people venture this deep into the mountains. Those who do are greeted warmly." + RESET)
 
