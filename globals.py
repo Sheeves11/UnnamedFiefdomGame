@@ -2059,7 +2059,7 @@ def PurchasedGood(userStronghold, num):
                     sellerStronghold = Stronghold()
                     sellerStronghold.name = str(good.seller)
                     sellerStronghold.read()
-                    AddResourceByType(sellerStronghold, good.goodType, good.costAmount)
+                    AddResourceByType(sellerStronghold, good.costType, good.costAmount)
                     sellerStronghold.write()
                     sellerStronghold.read()
                     print("\n    Transaction complete!\n")
