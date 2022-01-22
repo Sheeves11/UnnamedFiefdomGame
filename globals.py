@@ -1178,7 +1178,8 @@ def ConstructOutpost(station, outpostType, tier, numberBuilt, spotsAvailable, co
 
     if HaveEnoughResources(station, cost, 1) == False:
         print("    You don't have the resources to build any " + color + str(outpostType) + textColor.RESET + " outposts!\n")
-        time.sleep(1)
+        print("    It will cost " + GetResourceCost(cost, 1) + " to build another outpost.")
+        nothing = input("\n    Press enter to continue ")
         return
     else:
         if int(numberBuilt) > 0:
