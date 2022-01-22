@@ -2,7 +2,7 @@ from classes import *
 
 #This displays the announcement game-wide
 #Format it with spaces at the beginning and end
-ANNOUNCEMENT = " Announcement: This is a test build "
+ANNOUNCEMENT = " Announcement: This is a quick test run between seasons! Season 3 starts 1/24/22! "
 SPACER = "                        "
 
 #Define Header:
