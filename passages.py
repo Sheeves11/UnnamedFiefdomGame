@@ -475,3 +475,127 @@ def pas_market_transactionCancelled():
         print(TEAL + "    *The merchant hops away*\n" + RESET)
     if rando == 20:
         print(TEAL + "    *The merchant wants to know why*\n" + RESET)
+
+#------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
+#                             Battle Passages
+#------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
+def pas_battle_lost():
+    rando = random.randint(1,10)
+    if rando == 1:
+        print(RED + "                    Although your warriors fought valiantly, their efforts were not enough.\n" + RESET)
+    if rando == 2:
+        print(RED + "                    Despite their best efforts, your army has been thoroughly decimated. \n                    The survivors look towards home in shame.\n" + RESET)
+    if rando == 3:
+        print(RED + "                    The enemy's superior forces quickly overpowered your warriors. What a shame.\n" + RESET)
+    if rando == 4:
+        print(RED + "                    The enemy made a mockery of your strategy and destroyed your forces. \n                    Have fun explaining this to all your citizens back home.\n" + RESET)
+    if rando == 5:
+        print(RED + "                    Against all odds, your army was swiftly crushed. Better luck next time." + RESET)
+    if rando == 6:
+        print(RED + "                    In this world there are winners and losers. Today you are a loser.\n" + RESET)
+    if rando == 7:
+        print(RED + "                    I've never seen a battle go this poorly. Good thing you don't have many \n                    survivors left to tell the tales of your incompetence." + RESET)
+    if rando == 8:
+        print(RED + "                    Your warriors, in all their might, were unable to overcome the enemy forces." + RESET)
+    if rando == 9:
+        print(RED + "                    The story of this battle will be told for years to come. Unfortunately they \n                    won't be told by your warriors. Because they died." + RESET)
+    if rando == 10:
+        print(RED + "                    You seem to have misjudged your enemies defenses. \n                    Your forces were quickly subjugated." + RESET)
+    
+def pas_battle_won():
+    rando = random.randint(1,10)
+    if rando == 1:
+        print(TEAL + "                    As the dust settles, you appear victorious.\n" + RESET)
+    if rando == 2:
+        print(TEAL + "                    There is no glory in war, although as the winner of this battle, you feel pretty \n                    glorious right now." + RESET)
+    if rando == 3:
+        print(TEAL + "                    As the last blade falls, you gaze upon your new fiefdom. You will treat it well." + RESET)
+    if rando == 4:
+        print(TEAL + "                    Your forces are able to quickly overcome the enemy. You have won this fight." + RESET)
+    if rando == 5:
+        print(TEAL + "                    In this world there are winners and losers. On this day, you are a winner." + RESET)
+    if rando == 6:
+        print(TEAL + "                    You breathe a sign of relief. You have won this day." + RESET)
+    if rando == 7:
+        print(TEAL + "                    Unfortunately for your enemy, your warriors know what they're doing. \n                    You have won this battle." + RESET)
+    if rando == 8:
+        print(TEAL + "                    You feel the wind changing. This battle is yours." + RESET)
+    if rando == 9:
+        print(TEAL + "                    Your foe's reign of terror has come to an end. You have sent your enemy \n                    to the shadow realm." + RESET)
+    if rando == 10:
+        print(TEAL + "                    War is hell, but you will live to see another day. This battle is yours." + RESET)
+
+#------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
+#                      Stronghold Passages (Forest)
+#------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
+def pas_stronghold_forest():
+    rando = random.randint(1,8)
+    if rando == 1:
+        print(GREEN + "Deep in the heart of the forest, your stronghold thrives." + RESET)
+    if rando == 2:
+        print(GREEN + "These trees are all you have ever known. You would give anything to protect them." + RESET)
+    if rando == 3:
+        print(GREEN + "It is peaceful here in the shade of the canopy that has protected your family for generations." + RESET)
+    if rando == 4:
+        print(GREEN + "The leaves are still. The forest listens." + RESET)
+    if rando == 5:
+        print(GREEN + "Few have daGREEN to venture this far into the old forest. It is the only home you have known." + RESET)
+    if rando == 6:
+        print(GREEN + "A cool wind causes the treetops to sway as your people go about their lives." + RESET)
+    if rando == 7:
+        print(GREEN + "This forest has been here as long as time. You must protect it with all that you have." + RESET)
+    if rando == 8:
+        print(GREEN + "Green always was your favorite color, you say to yourself. The forest agrees." + RESET)
+
+#------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
+#                      Stronghold Passages (Plains)
+#------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
+def pas_stronghold_plains():
+    rando = random.randint(1,8)
+    if rando == 1:
+        print(textColor.WARNING + "Your stronghold sits tall and proud over an endless sea of prarie grass." + RESET)
+    if rando == 2:
+        print(textColor.WARNING + "These walls have weathetextColor.WARNING many a storm. You must not let them fall." + RESET)
+    if rando == 3:
+        print(textColor.WARNING + "The sky really is bigger out here." + RESET)
+    if rando == 4:
+        print(textColor.WARNING + "People come from all around to see your great walls. They're all you have ever known." + RESET)
+    if rando == 5:
+        print(textColor.WARNING + "Your family has protected this prarie for hundtextColor.WARNINGs of years." + RESET)
+    if rando == 6:
+        print(textColor.WARNING + "A cool wind causes the prarie grass to ripple as your people bustle about their chores." + RESET)
+    if rando == 7:
+        print(textColor.WARNING + "This prarie has seen more blood than you care to think about. Still, these walls stand tall." + RESET)
+    if rando == 8:
+        print(textColor.WARNING + "Life is tough on these plains. That never stopped you before." + RESET)
+
+#------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
+#                      Stronghold Passages (Mountains)
+#------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
+def pas_stronghold_mountains():
+    rando = random.randint(1,8)
+    if rando == 1:
+        print(textColor.LIGHT_GRAY + "Nestled deep inside a mountain valley, your people thrive" + RESET)
+    if rando == 2:
+        print(textColor.LIGHT_GRAY + "The weather may be cold, but your hearts are warm." + RESET)
+    if rando == 3:
+        print(textColor.LIGHT_GRAY + "These icy peaks cast a long shadow over the only home you have ever known." + RESET)
+    if rando == 4:
+        print(textColor.LIGHT_GRAY + "Your stronghold appears to be carved out of the rock itself. You feel safe here." + RESET)
+    if rando == 5:
+        print(textColor.LIGHT_GRAY + "Your family has guarded these mountains for generations." + RESET)
+    if rando == 6:
+        print(textColor.LIGHT_GRAY + "Snow is the least of your worries out here. These mountains hide a dark secret." + RESET)
+    if rando == 7:
+        print(textColor.LIGHT_GRAY + "The mountain people are proud. This stronghold has never fallen." + RESET)
+    if rando == 8:
+        print(textColor.LIGHT_GRAY + "Few people venture this deep into the mountains. Those who do are greeted warmly." + RESET)
+

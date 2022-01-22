@@ -1,3 +1,4 @@
+from curses import COLOR_GREEN
 from os.path import exists
 from colors import *
 from classes import *
@@ -879,7 +880,7 @@ def SendResources(station, userStronghold):
                         if fiefName == str(ownedFiefs[i].name):
                             waiting = False
             toStation = GetFiefByName(fiefName)
-            print("\n    Please select the resources you would like to send to " + str(toStation.name) + ": \n")
+            print("\n    Please select the resources you would like to send to " + str(toStation.name) + ". (Type " + textColor.GREEN + "\"A\"" + RESET + " to send all resources): \n")
             time.sleep(0.5)
             if int(station.gold) > 0:
                 print("\n    | Stronghold Gold: " + C_GOLD + str(station.gold) + RESET + " | " + str(toStation.name) + " Gold: " + YELLOW + str(toStation.gold) + RESET + " |")
@@ -888,6 +889,11 @@ def SendResources(station, userStronghold):
                 if IsPositiveIntEqualOrLessThan(amount, station.gold):
                     TransferResource(station, toStation, "gold", amount)
                     actions.append("    Sent " + C_GOLD + str(amount) + RESET + " gold to " + str(toStation.name))
+
+                if amount == "A" or amount == "a":
+                    actions.append("    Sent " + C_GOLD + str(station.gold) + RESET + " gold to " + str(toStation.name))
+                    TransferResource(station, toStation, "gold", int(station.gold))
+
             if int(station.food) > 0:
                 print("\n    | Stronghold Food: " + C_FOOD + str(station.food) + RESET + " | " + str(toStation.name) + " Food: " + C_FOOD + str(toStation.food) + RESET + " |")
                 time.sleep(0.5)
@@ -895,6 +901,11 @@ def SendResources(station, userStronghold):
                 if IsPositiveIntEqualOrLessThan(amount, station.food):
                     TransferResource(station, toStation, "food", amount)
                     actions.append("    Sent " + C_FOOD + str(amount) + RESET + " food to " + str(toStation.name))
+
+                if amount == "A" or amount == "a":
+                    actions.append("    Sent " + C_FOOD + str(station.food) + RESET + " food to " + str(toStation.name))
+                    TransferResource(station, toStation, "food", int(station.food))
+
             if int(station.wood) > 0:
                 print("\n    | Stronghold Wood: " + C_WOOD + str(station.wood) + RESET + " | " + str(toStation.name) + " Wood: " + C_WOOD + str(toStation.wood) + RESET + " |")
                 time.sleep(0.5)
@@ -902,6 +913,11 @@ def SendResources(station, userStronghold):
                 if IsPositiveIntEqualOrLessThan(amount, station.wood):
                     TransferResource(station, toStation, "wood", amount)
                     actions.append("    Sent " + C_WOOD + str(amount) + RESET + " wood to " + str(toStation.name))
+
+                if amount == "A" or amount == "a":
+                    actions.append("    Sent " + C_WOOD + str(station.wood) + RESET + " wood to your stronghold.")
+                    TransferResource(station, toStation, "wood", int(station.wood))
+
             if int(station.stone) > 0:
                 print("\n    | Stronghold Stone: " + C_STONE + str(station.stone) + RESET + " | " + str(toStation.name) + " Stone: " + C_STONE + str(toStation.stone) + RESET + " |")
                 time.sleep(0.5)
@@ -909,6 +925,12 @@ def SendResources(station, userStronghold):
                 if IsPositiveIntEqualOrLessThan(amount, station.stone):
                     TransferResource(station, toStation, "stone", amount)
                     actions.append("    Sent " + C_STONE + str(amount) + RESET + " stone to " + str(toStation.name))
+
+                if amount == "A" or amount == "a":
+                    actions.append("    Sent " + C_STONE + str(station.stone) + RESET + " stone to your stronghold.")
+                    TransferResource(station, toStation, "stone", int(station.stone))
+
+
             if int(station.ore) > 0:
                 print("\n    | Stronghold Ore: " + C_ORE + str(station.ore) + RESET + " | " + str(toStation.name) + " Ore: " + C_ORE + str(toStation.ore) + RESET + " |")
                 time.sleep(0.5)
@@ -916,6 +938,10 @@ def SendResources(station, userStronghold):
                 if IsPositiveIntEqualOrLessThan(amount, station.ore):
                     TransferResource(station, toStation, "ore", amount)
                     actions.append("    Sent " + C_ORE + str(amount) + RESET + " ore to " + str(toStation.name))
+
+                if amount == "A" or amount == "a":
+                    actions.append("    Sent " + C_ORE + str(station.ore) + RESET + " ore to your stronghold.")
+                    TransferResource(station, toStation, "ore", int(station.ore))
             
             time.sleep(0.5)
             #Print actions taken
@@ -948,14 +974,14 @@ def SendResources(station, userStronghold):
                     PrintOwnedFiefInformation(ownedFiefs[i])
             print("")
             while waiting:
-                fiefName = input("    Please type a fief name above or 'stronghold' to send resources to that location (or hit enter to cancel) : ")
+                fiefName = input("    Type the Fiefdom name you would like to send resources to. Type " + textColor.GREEN + "\"S\"" + RESET + " to send the resources to your home Stronghold (or hit enter to cancel): ")
                 if fiefName == "":
                     waiting = False
                     print("\n    Cancelling request...\n")
                     time.sleep(0.5)
                     nothing = input("    Press enter to continue ")
                     return
-                elif fiefName == "stronghold":
+                elif fiefName == "stronghold" or fiefName == "S" or fiefName == "s":
                     toStation = userStronghold
                     stronghold = True
                     waiting = False
@@ -968,7 +994,7 @@ def SendResources(station, userStronghold):
             toStation = userStronghold
             stronghold = True
         if stronghold:
-            print("\n    Please select the resources you would like to send to your stronghold: \n")
+            print("\n    Please select the resources you would like to send to your stronghold (Type " + textColor.GREEN + "\"A\"" + RESET + " to send all resources): \n")
             time.sleep(0.5)
             if int(station.gold) > 0:
                 print("\n    | " + str(station.name) + " Gold: " + C_GOLD + str(station.gold) + RESET + " | Stronghold Gold: " + YELLOW + str(toStation.gold) + RESET + " |")
@@ -977,6 +1003,11 @@ def SendResources(station, userStronghold):
                 if IsPositiveIntEqualOrLessThan(amount, station.gold):
                     TransferResource(station, toStation, "gold", amount)
                     actions.append("    Sent " + C_GOLD + str(amount) + RESET + " gold to your stronghold.")
+
+                if amount == "A" or amount == "a":
+                    actions.append("    Sent " + C_GOLD + str(station.gold) + RESET + " gold to your stronghold.")
+                    TransferResource(station, toStation, "gold", int(station.gold))
+
             if int(station.food) > 0:
                 print("\n    | " + str(station.name) + " Food: " + C_FOOD + str(station.food) + RESET + " | Stronghold Food: " + C_FOOD + str(toStation.food) + RESET + " |")
                 time.sleep(0.5)
@@ -984,6 +1015,11 @@ def SendResources(station, userStronghold):
                 if IsPositiveIntEqualOrLessThan(amount, station.food):
                     TransferResource(station, toStation, "food", amount)
                     actions.append("    Sent " + C_FOOD + str(amount) + RESET + " food to your stronghold.")
+
+                if amount == "A" or amount == "a":
+                    actions.append("    Sent " + C_FOOD + str(station.food) + RESET + " food to your stronghold.")
+                    TransferResource(station, toStation, "food", int(station.food))
+
             if int(station.wood) > 0:
                 print("\n    | " + str(station.name) + " Wood: " + C_WOOD + str(station.wood) + RESET + " | Stronghold Wood: " + C_WOOD + str(toStation.wood) + RESET + " |")
                 time.sleep(0.5)
@@ -991,6 +1027,11 @@ def SendResources(station, userStronghold):
                 if IsPositiveIntEqualOrLessThan(amount, station.wood):
                     TransferResource(station, toStation, "wood", amount)
                     actions.append("    Sent " + C_WOOD + str(amount) + RESET + " wood to your stronghold.")
+
+                if amount == "A" or amount == "a":
+                    actions.append("    Sent " + C_WOOD + str(station.wood) + RESET + " wood to your stronghold.")
+                    TransferResource(station, toStation, "wood", int(station.wood))
+
             if int(station.stone) > 0:
                 print("\n    | " + str(station.name) + " Stone: " + C_STONE + str(station.stone) + RESET + " | Stronghold Stone: " + C_STONE + str(toStation.stone) + RESET + " |")
                 time.sleep(0.5)
@@ -998,6 +1039,11 @@ def SendResources(station, userStronghold):
                 if IsPositiveIntEqualOrLessThan(amount, station.stone):
                     TransferResource(station, toStation, "stone", amount)
                     actions.append("    Sent " + C_STONE + str(amount) + RESET + " stone to your stronghold.")
+
+                if amount == "A" or amount == "a":
+                    actions.append("    Sent " + C_STONE + str(station.stone) + RESET + " stone to your stronghold.")
+                    TransferResource(station, toStation, "stone", int(station.stone))
+
             if int(station.ore) > 0:
                 print("\n    | " + str(station.name) + " Ore: " + C_ORE + str(station.ore) + RESET + " | Stronghold Ore: " + C_ORE + str(toStation.ore) + RESET + " |")
                 time.sleep(0.5)
@@ -1005,8 +1051,13 @@ def SendResources(station, userStronghold):
                 if IsPositiveIntEqualOrLessThan(amount, station.ore):
                     TransferResource(station, toStation, "ore", amount)
                     actions.append("    Sent " + C_ORE + str(amount) + RESET + " ore to your stronghold.")
+
+                if amount == "A" or amount == "a":
+                    actions.append("    Sent " + C_ORE + str(station.ore) + RESET + " ore to your stronghold.")
+                    TransferResource(station, toStation, "ore", int(station.ore))
+
         elif isinstance(toStation, Fiefdom):
-            print("\n    Please select the resources you would like to send from " + str(station.name) + " to " + str(toStation.name) + ": \n")
+            print("\n    Please select the resources you would like to send from " + str(station.name) + " to " + str(toStation.name) + " (Type " + textColor.GREEN + "\"A\"" + RESET + " to send all resources): \n")
             time.sleep(0.5)
             if int(station.gold) > 0:
                 print("\n    | " + str(station.name) + " Gold: " + C_GOLD + str(station.gold) + RESET + " | " + str(toStation.name) + " Gold: " + YELLOW + str(toStation.gold) + RESET + " |")
@@ -1015,6 +1066,11 @@ def SendResources(station, userStronghold):
                 if IsPositiveIntEqualOrLessThan(amount, station.gold):
                     TransferResource(station, toStation, "gold", amount)
                     actions.append("    Sent " + C_GOLD + str(amount) + RESET + " gold to " + str(toStation.name))
+
+                if amount == "A" or amount == "a":
+                    actions.append("    Sent " + C_GOLD + str(station.gold) + RESET + " gold to " + str(toStation.name))
+                    TransferResource(station, toStation, "gold", int(station.gold))
+
             if int(station.food) > 0:
                 print("\n    | " + str(station.name) + " Food: " + C_FOOD + str(station.food) + RESET + " | " + str(toStation.name) + " Food: " + C_FOOD + str(toStation.food) + RESET + " |")
                 time.sleep(0.5)
@@ -1022,6 +1078,11 @@ def SendResources(station, userStronghold):
                 if IsPositiveIntEqualOrLessThan(amount, station.food):
                     TransferResource(station, toStation, "food", amount)
                     actions.append("    Sent " + C_FOOD + str(amount) + RESET + " food to " + str(toStation.name))
+
+                if amount == "A" or amount == "a":
+                    actions.append("    Sent " + C_FOOD + str(station.food) + RESET + " food to " + str(toStation.name))
+                    TransferResource(station, toStation, "food", int(station.food))
+
             if int(station.wood) > 0:
                 print("\n    | " + str(station.name) + " Wood: " + C_WOOD + str(station.wood) + RESET + " | " + str(toStation.name) + " Wood: " + C_WOOD + str(toStation.wood) + RESET + " |")
                 time.sleep(0.5)
@@ -1029,6 +1090,11 @@ def SendResources(station, userStronghold):
                 if IsPositiveIntEqualOrLessThan(amount, station.wood):
                     TransferResource(station, toStation, "wood", amount)
                     actions.append("    Sent " + C_WOOD + str(amount) + RESET + " wood to " + str(toStation.name))
+
+                if amount == "A" or amount == "a":
+                    actions.append("    Sent " + C_WOOD + str(station.wood) + RESET + " wood to " + str(toStation.name))
+                    TransferResource(station, toStation, "wood", int(station.wood))
+
             if int(station.stone) > 0:
                 print("\n    | " + str(station.name) + " Stone: " + C_STONE + str(station.stone) + RESET + " | " + str(toStation.name) + " Stone: " + C_STONE + str(toStation.stone) + RESET + " |")
                 time.sleep(0.5)
@@ -1036,6 +1102,11 @@ def SendResources(station, userStronghold):
                 if IsPositiveIntEqualOrLessThan(amount, station.stone):
                     TransferResource(station, toStation, "stone", amount)
                     actions.append("    Sent " + C_STONE + str(amount) + RESET + " stone to " + str(toStation.name))
+
+                if amount == "A" or amount == "a":
+                    actions.append("    Sent " + C_STONE + str(station.stone) + RESET + " stone to " + str(toStation.name))
+                    TransferResource(station, toStation, "stone", int(station.stone))
+
             if int(station.ore) > 0:
                 print("\n    | " + str(station.name) + " Ore: " + C_ORE + str(station.ore) + RESET + " | " + str(toStation.name) + " Ore: " + C_ORE + str(toStation.ore) + RESET + " |")
                 time.sleep(0.5)
@@ -1043,6 +1114,10 @@ def SendResources(station, userStronghold):
                 if IsPositiveIntEqualOrLessThan(amount, station.ore):
                     TransferResource(station, toStation, "ore", amount)
                     actions.append("    Sent " + C_ORE + str(amount) + RESET + " ore to " + str(toStation.name))
+
+                if amount == "A" or amount == "a":
+                    actions.append("    Sent " + C_ORE + str(station.ore) + RESET + " ore to " + str(toStation.name))
+                    TransferResource(station, toStation, "ore", int(station.wood))
         
         time.sleep(0.5)
         #Print actions taken
@@ -1180,7 +1255,8 @@ def ConstructOutpost(station, outpostType, tier, numberBuilt, spotsAvailable, co
 
     if HaveEnoughResources(station, cost, 1) == False:
         print("    You don't have the resources to build any " + color + str(outpostType) + textColor.RESET + " outposts!\n")
-        time.sleep(1)
+        print("    It will cost " + GetResourceCost(cost, 1) + " to build another outpost.")
+        nothing = input("\n    Press enter to continue ")
         return
     else:
         if int(numberBuilt) > 0:
@@ -1300,8 +1376,10 @@ def UpgradeOutpost(station, outpostType, tier, numberBuilt, cost, color, flavorT
         time.sleep(1)
         return
     elif HaveEnoughResources(station, cost, 1) == False:
-        print("    You don't have enough gold to upgrade your " + color + str(outpostType) + textColor.RESET + " outposts!\n")
-        time.sleep(1)
+        print("    You don't have enough resources to to upgrade your " + color + str(outpostType) + textColor.RESET + " outposts!\n")
+        print("    This upgrade will cost " + GetResourceCost(cost, 1))
+
+        nothing = input("\n    Press enter to continue ")
         return
     else:
         print("    You currently have " + textColor.WARNING + str(numberBuilt) + color + " " + str(outpostType) + textColor.RESET + " outposts constructed.\n")
@@ -2001,15 +2079,26 @@ def PurchasedGood(userStronghold, num):
                 userStronghold.read()
                 
                 if good.seller == "The Wandering Merchant":
+                    #log it for buyer
+                    logString = str(good.goodAmount) + ' ' + good.goodType + " bought from " + good.seller + ' for ' + str(good.costAmount) + ' gold.'
+                    Log(logString, userStronghold.name)
+
                     pas_market_transactionComplete()
                 else:
                     sellerStronghold = Stronghold()
                     sellerStronghold.name = str(good.seller)
                     sellerStronghold.read()
-                    AddResourceByType(sellerStronghold, good.costType, good.costAmount)
+                    AddResourceByType(sellerStronghold, good.goodType, good.costAmount)
                     sellerStronghold.write()
                     sellerStronghold.read()
                     print("\n    Transaction complete!\n")
+                    
+                    #log it
+                    logString = str(good.goodAmount) + ' ' + good.goodType + " sold to " + userStronghold.name + ' for ' + str(good.costAmount) + ' gold.'
+                    Log(logString, good.seller)
+                    #log it for buyer
+                    logString = str(good.goodAmount) + ' ' + good.goodType + " bought from " + good.seller + ' for ' + str(good.costAmount) + ' gold.'
+                    Log(logString, userStronghold.name)
 
                 time.sleep(0.5)
                 nothing = input("\n    Press enter to continue.")
@@ -2044,6 +2133,8 @@ def PurchasedGood(userStronghold, num):
                 
                 if good.seller == "The Wandering Merchant":
                     pas_market_transactionComplete()
+                    logString = str(good.costAmount) + ' ' + good.costType + " sold to " + good.seller + ' for ' + str(good.goodAmount) + ' gold.'
+                    Log(logString, userStronghold.name)
                 else:
                     sellerStronghold = Stronghold()
                     sellerStronghold.name = str(good.seller)
@@ -2051,6 +2142,14 @@ def PurchasedGood(userStronghold, num):
                     AddResourceByType(sellerStronghold, good.costType, good.costAmount)
                     sellerStronghold.write()
                     sellerStronghold.read()
+
+                    #log it for seller
+                    logString = str(good.costAmount) + ' ' + good.costType + " sold to " + userStronghold.name + ' for ' + str(good.goodAmount) + ' gold.'
+                    Log(logString, good.seller)
+                    #log it for buyer
+                    logString = str(good.costAmount) + ' ' + good.costType + " bought from " + good.seller + ' for ' + str(good.goodAmount) + ' gold.'
+                    Log(logString, userStronghold.name)
+
                     print("\n    Transaction complete!\n")
 
                 time.sleep(0.5)
@@ -2085,6 +2184,11 @@ def PurchasedGood(userStronghold, num):
                 userStronghold.read()
                 
                 if good.seller == "The Wandering Merchant":
+
+                    #log it for buyer
+                    logString = str(good.costAmount) + ' ' + good.costType + " traded with " + good.seller + ' for ' + str(good.goodAmount) + ' ' + good.goodType
+                    Log(logString, userStronghold.name)
+
                     pas_market_transactionComplete()
                 else:
                     sellerStronghold = Stronghold()
@@ -2093,6 +2197,15 @@ def PurchasedGood(userStronghold, num):
                     AddResourceByType(sellerStronghold, good.costType, good.costAmount)
                     sellerStronghold.write()
                     sellerStronghold.read()
+
+                    #log it for buyer
+                    logString = str(good.costAmount) + ' ' + good.costType + " traded with " + good.seller + ' for ' + str(good.goodAmount) + ' ' + good.goodType
+                    Log(logString, userStronghold.name)
+
+                    #log it for seller
+                    logString = str(good.goodAmount) + ' ' + good.goodType + " traded with " + userStronghold.name + ' for ' + str(good.costAmount) + ' ' + good.costType
+                    Log(logString, good.seller)
+
                     print("\n    Transaction complete!\n")
 
                 time.sleep(0.5)
@@ -2115,11 +2228,10 @@ def PurchasedGood(userStronghold, num):
             nothing = input("\n    Press enter to look elsewhere...")
             return False
 
-def Log(inputString, username):
- with open('logFile.log', 'a') as logFile:
-    from datetime import datetime
-    now = datetime.now()
-    current_time = now.strftime("%H:%M")
-    #print("Current Time =", current_time)
-    logFile.write('\n' + username + ' |--| Time: ' + current_time + ' |--| Event: ' + inputString)
+#def Log(inputString, username):
+# with open('logFile.log', 'a') as logFile:
+#    from datetime import datetime
+#    now = datetime.now()
+#    current_time = now.strftime("%H:%M")
+#    logFile.write('\n' + username + ' |--| Time: ' + current_time + ' |--| Event: ' + inputString)
 

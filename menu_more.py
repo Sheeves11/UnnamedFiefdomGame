@@ -94,8 +94,9 @@ def MoreMenu(screen, userStronghold):
         print('\n    These are your honorable past winners of Unnamed Fiefdom Game')
         print('\n    --------------------------------------------------------------------------------------\n')
         print('\n    Pre-Release (12/20/21): Steelwing\n')
+        print('\n    Season 1 [Alpha]: (1/3/21): Steelwing\n')
+        print('\n    Season 2 [Alpha]: (1/21/22): Steelwing\n')
         print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
-
         tempInput = input('    Press Enter to Continue')
         screen = 'moreCommands'
 

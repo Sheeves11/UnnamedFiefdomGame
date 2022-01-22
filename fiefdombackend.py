@@ -15,18 +15,23 @@ loop = True
 currentFief = Fiefdom()
 
 while (loop):
-    
-    print('\n\n\n--------------------------------------------------------')
-    print('Incrementing totals')
-    print('--------------------------------------------------------\n')
+    os.system('clear')
+
+    print('\n\n'+ textColor.WARNING)
+    print('                    ------------------------------------------------------------------------------')
+    print('                                       FIEFGAME BACKEND SUPER ENGINE V 0.0.0.0.8 ')
+    print('                    ------------------------------------------------------------------------------')
+    print(textColor.RESET)
 
     #=====================
     #    Update Market
     #=====================
+    print('\n Incrementing Market Trades -------------------------------------------------------------------------------------------|\n')
     serverMarket.ListGoods()
     serverMarket.DecrementMerchandiseShelfLife(3600)
     serverMarket.CheckRestock()
   
+    print('\n Incrementing Fiefdom Resource Totals ---------------------------------------------------------------------------------|\n')
     for filename in os.listdir('fiefs'):
             with open(os.path.join('fiefs', filename), 'r') as f:
                 
@@ -79,10 +84,16 @@ while (loop):
                     tempName.defenders = str(int(tempName.defenders) + (defendersPer * int(tempName.defenderMod)))
                     tempName.gold = str(int(tempName.gold) + int(productionCalc))
                     tempName.write()
-                    # print(str('the fiefdom of ' + tempName.name + ' now has ' + str(tempName.defenders) + ' defenders.'))
+
+                #increment the gold on unclaimed fiefdoms
+                if tempName.ruler == 'Unclaimed':
+                    tempName.gold = str(int(tempName.gold) + int(productionCalc))
+                    tempName.write()
+                    #print(' Incrementing an Unclaimed Fiefdoms: ' + str(tempName.name) + '\'s gold. Now at: ' + GetStationResources(tempName))
 
                 print(" Incremented " + str(tempName.name) + "'s Resources. Now at: " + GetStationResources(tempName))
 
+    print('\n Incrementing Player Stronghold Totals ---------------------------------------------------------------------------------|\n')
     for filename in os.listdir('strongholds'):
             with open(os.path.join('strongholds', filename), 'r') as f:
                 
@@ -107,7 +118,12 @@ while (loop):
                     tempName.defenders = str(int(tempName.defenders) + (defendersPer * int(tempName.defenderMod)))
                     tempName.gold = str(int(tempName.gold) + int(productionCalc))
                     tempName.write()
-                    print('the stronghold of ' + str(tempName.name + ' currently has ' + str(tempName.defenders) + ' defenders.'))
+                    print(' The Stronghold of ' + str(tempName.name + ' currently has ' + str(tempName.defenders) + ' defenders.'))
+    
+    from datetime import datetime
+    now = datetime.now()
+    current_time = now.strftime("%H:%M")
+    print('\n Increment Complete at ' + current_time + ' -------------------------------------------------------------------------------------------|\n')
     
 
     time.sleep(INTERVAL)

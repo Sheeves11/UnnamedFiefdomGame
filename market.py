@@ -60,6 +60,15 @@ MAX_STONE = 5
 MIN_ORE = 1
 MAX_ORE = 5
 
+#putting this here because I'm dumb and I can't figure out how imports work.
+def Log(inputString, username):
+ with open('logFile.log', 'a') as logFile:
+    from datetime import datetime
+    now = datetime.now()
+    current_time = now.strftime("%H:%M")
+    #print("Current Time =", current_time)
+    logFile.write('\n' + username + ' |--| ' + current_time + ' |--| ' + inputString)
+
 class Market:
     merchandise = []
     #==================================================================================
@@ -135,7 +144,14 @@ class Market:
             for i in range(len(self.merchandise)):
                 if int(self.merchandise[i].shelfLife) == 0:
                     if self.merchandise[i].seller == "The Wandering Merchant":
+
+                        #log it
+                        #logString = str(self.merchandise[i].goodAmount) + ' of ' + self.merchandise[i].goodType + " returned from the marketplace."
+                        #Log(logString, self.merchandise[i].seller)
+
                         self.merchandise.pop(i)
+
+
                     else:
                         tempStronghold = Stronghold()
                         tempStronghold.name = str(self.merchandise[i].seller)
@@ -150,6 +166,11 @@ class Market:
                             tempStronghold.stone = int(tempStronghold.stone) + int(self.merchandise[i].goodAmount)
                         elif self.merchandise[i].goodType == "Ore":
                             tempStronghold.ore = int(tempStronghold.ore) + int(self.merchandise[i].goodAmount)
+                        
+                        #log it
+                        logString = str(self.merchandise[i].goodAmount) + ' of ' + self.merchandise[i].goodType + " returned from the marketplace."
+                        Log(logString, self.merchandise[i].seller)
+
                         self.merchandise.pop(i)
                         tempStronghold.write()
                         tempStronghold.read()

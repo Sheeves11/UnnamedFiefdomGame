@@ -315,21 +315,31 @@ while (loop):
             newUserAccount = False
 
         s = "         "
-        print(' '+s+'   On a hilltop overlooking endless rolling fields, you see the only home you have ever known.')
-        print('  '+s+'  The Fiefdom is home to ' + textColor.WARNING +  str(userStronghold.defenders) + textColor.RESET + ' highly skilled warriors, and dozens of loyal citizens.')
-        print('  '+s+'  You also employ the services of ' + textColor.WARNING +  str(userStronghold.thieves) + textColor.RESET + ' well-trained thieves.')
-        print('\n  '+s+'  Grow your forces to overcome the enemy. Do not let your citizens down')
-        print('\n  '+s+'  Within your coffers, you have ' + textColor.WARNING + str(userStronghold.gold) + textColor.RESET + ' gold.')
+
+        if userStronghold.biome == '^':
+            print('    ' + s, end = '')
+            pas_stronghold_forest()
+
+        if userStronghold.biome == '#':
+            print('    ' + s, end = '')
+            pas_stronghold_plains()
+
+        if userStronghold.biome == 'M':
+            print('    ' + s, end = '')
+            pas_stronghold_mountains()
+
+        print('  '+s+'  Your stronghold is home to ' + textColor.WARNING +  str(userStronghold.defenders) + textColor.RESET + ' highly skilled warriors and dozens of loyal citizens.')
+        print('\n '+s+'   These are your people. Do not let them down.')
+        #print('\n')
+        print('  ' +s+ textColor.DARK_GRAY + '  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~' + textColor.RESET)
         print('  '+s+'  ' + 'Production: ' + str(productionCalc) + ' gold and ' + str((int(defendersPer) * int(attackFief.defenderMod))) + ' soldiers per hour.')
         print(' '+s+'   Your army of ' + textColor.WARNING + str(userStronghold.attType) + textColor.RESET + ' stands ready.')
+        print('  ' +s+ textColor.DARK_GRAY + '  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~' + textColor.RESET)
+        print(s + strongHoldMessage, end = ' ')
         print('\n')
 
         userStronghold.read()
         art_stronghold(userStronghold.biome, userStronghold.color)
-
-        print('                           ' + strongHoldMessage, end = ' ')
-        print('\n')
-
 
         print("             Avalible Commands:")
         print('         ----------------------------------------------------------------------------------------------------')
@@ -337,7 +347,7 @@ while (loop):
         print('           {2}: View Player Strongholds                                   {8}: Chatroom')
         print('           {3}: Hire and Recruit                                          {9}: More Options')
         print('           {4}: Upgrades and Customization                               {10}: How To Play')
-        print('           {5}: View The World Map                                       {11}: View Battle Log')
+        print('           {5}: View The World Map                                       {11}: View Event Log')
         print('           {6}: Send Resources To Your Fiefdoms')
         print('         ----------------------------------------------------------------------------------------------------')
         print('')
@@ -904,7 +914,7 @@ while (loop):
         os.system("clear")
         headerStripped()
 
-        print('\n     Log:')
+        print('\n     Event Log:')
         print('\n     ------------------------------------------------------------------------------------------------------------------\n')
 
         with open('logFile.log', "r") as logfile:
@@ -912,7 +922,7 @@ while (loop):
             #number of logFile lines to try reading
             j = 1000
             #number of user lines to try printing
-            x = 20
+            x = 27
             f=open("logFile.log","r")
             lines = logfile.readlines()
 
@@ -922,7 +932,7 @@ while (loop):
                     words=line.split(" |--")
                     if words and x > 0:
                         if words[0] == userStronghold.name:
-                            print('     ' + '. User: ' + str(line))
+                            print('     ' + str(line))
                             x -= 1
                 j -= 1  
             f.close()             

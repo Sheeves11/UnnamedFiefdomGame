@@ -18,14 +18,9 @@ come soon!
 If you'd like to talk to us or get real-time updates on our progress, check out our Discord! https://discord.gg/FVvMCfZ3fq
 
 <p align="center">
-
-<img width="748" alt="ufg" src="https://user-images.githubusercontent.com/3498355/149644850-ed561f5c-a28c-4687-80c7-1ffd46be5b91.png">
-
   
-<img width="604" alt="Screenshot 2022-01-15 202147" src="https://user-images.githubusercontent.com/3498355/149644858-cf3adfe8-13b6-437e-b5ef-a0fa28ab5da9.png">
 
-  
-<img width="605" alt="Screenshot 2022-01-15 202211" src="https://user-images.githubusercontent.com/3498355/149644859-31fafd11-e42b-448d-9914-cb1d6753d713.png">
+[![asciicast](https://asciinema.org/a/Wdg38v6VaiZ4FrQa5ZViRJBd4.svg)](https://asciinema.org/a/Wdg38v6VaiZ4FrQa5ZViRJBd4?t=5)
 
 
 ---------------------------------------------------------------------------------------------------------------
@@ -76,42 +71,42 @@ You will then need to seed some starting fiefdoms using the fieftool.py program.
   
 Installation Steps:
   
-1. Github
+0. Do a fresh install of Ubuntu LTS 18.03 or 20.03
   
-2. Clone Repo
+1. Install Git
+
+  ```sudo apt-get install git-core git-gui git-doc```
   
-3. pip3
-  apt install python3-pip
+2. Clone Our Repository
   
-4. py-bcrypt
-  pip3 install py-bcrypt
+  ```git clone https://github.com/Sheeves11/UnnamedFiefdomGame```
   
-5. GO development environment
-  apt-get golang
+3. Install pip3
   
-5. goTTY
-  go get github.com/yudai/gotty
+  ```apt install python3-pip```
+  
+4. Install the bcrypt library (for our password hashing)
+  
+  ```pip3 install py-bcrypt```
+  
+5. Install a GO development environment
+  
+  ```apt-get golang```
+  
+5. Install goTTY
+  
+  ```go get github.com/yudai/gotty```
   More information about goTTY can be had here: https://github.com/yudai/gotty
   
-6. SCREEN
-  You will use the SCREEN program to run your backend and host process so that they
-  will not exit when you leave the SSH session or logout.
+6. run fiefdombackeng.py
   
-7. run fiefdombackeng.py
-  python3 fiefdombackend.py &
+  ```scrren -d -m python3 fiefdombackend.py &```
   
-8. run the goTTY host
-  go/bin/gotty -w -p 80 python3 fiefdomgame.py
+7. run the goTTY host
+  ```screen -d -m go/bin/gotty -w -p 80 python3 fiefdomgame.py```
   
-9. Connect via browser
+8. Connect via browser using your server's IP address!
   
-10. Create default fiefs and initialize map
-  Do this by using the command "dt" on your stronghold page.
-  Run commands 2, 7, and 10 for a full initialization of the
-  server
-  
-  (Disable this when hosting a production server)
-
 -----------------------------------------------------------------------------------------------------------------
 
 Enjoy!

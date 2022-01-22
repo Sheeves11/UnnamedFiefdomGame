@@ -22,21 +22,73 @@ def FiefBuildingsMenu(screen, userStronghold):
         os.system("clear")
         headerFief(attackFief)
 
-        art_placeholder("  Art of a horizon showing each biome")
+        #art_placeholder("  Art of a horizon showing each biome")
+        print('    This is where you will build resource gathering outposts in the land surrounding your fiefdom.')
+        print('    -------------------------------------------------------------------------------------------------------')
+        print('')
+
+        #resource production printout
+        #farms
+        if int(attackFief.op_farmlandNumBuilt) > 0:
+            print("    You currently have " + WARNING + str(attackFief.op_farmlandNumBuilt) + OP_COLOR_FARMLAND + " Farmlands" + RESET + " built.")
+            
+            if int(attackFief.op_farmlandPrimaryUnits) > 0:
+                print("    You have " + WARNING + str(attackFief.op_farmlandPrimaryUnits) + COLOR_FARMER + " Farmers" + RESET + " growing food at a rate of " + CYAN + str(attackFief.GetPrimaryPer("farmland")) + RESET + " per hour.\n")
+
+            if int(attackFief.op_farmlandTier) > 0:
+                if int(attackFief.op_farmlandSecondaryUnits) > 0:
+                    print("    You have " + WARNING + str(attackFief.op_farmlandSecondaryUnits) + COLOR_VENDOR + " Vendors" + RESET + " selling excess crops at a rate of " + CYAN + str(attackFief.GetSecondaryPer("farmland")) + RESET + " gold per hour.\n")
+        #fisheries
+        if int(attackFief.op_fisheryNumBuilt) > 0:
+            print("    You currently have " + WARNING + str(attackFief.op_fisheryNumBuilt) + OP_COLOR_FISHERY + " Fisheries" + RESET + " built.")
+            
+            if int(attackFief.op_fisheryPrimaryUnits) > 0:
+                print("    You have " + WARNING + str(attackFief.op_fisheryPrimaryUnits) + COLOR_FISHER + " Fishers" + RESET + " catching food at a rate of " + CYAN + str(attackFief.GetPrimaryPer("fishery")) + RESET + " per hour.\n")
+
+            if int(attackFief.op_fisheryTier) > 0:
+                if int(attackFief.op_fisherySecondaryUnits) > 0:
+                    print("    You have " + WARNING + str(attackFief.op_fisherySecondaryUnits) + COLOR_SCAVENGER + " Scavengers" + RESET + " gathering random materials at a random rate per hour.\n")
+        #lumber mills
+        if int(attackFief.op_lumberMillNumBuilt) > 0:
+            print("    You currently have " + WARNING + str(attackFief.op_lumberMillNumBuilt) + OP_COLOR_LUMBERMILL + " Lumber Mills" + RESET + " built.")
+            if int(attackFief.op_lumberMillPrimaryUnits) > 0:
+                    print("    You have " + WARNING + str(attackFief.op_lumberMillPrimaryUnits) + COLOR_LUMBERJACK + " Lumberjacks" + RESET + " gathering wood at a rate of " + CYAN + str(attackFief.GetPrimaryPer("lumberMill")) + RESET + " per hour.\n")
+           
+            if int(attackFief.op_lumberMillTier) > 0:
+                if int(attackFief.op_lumberMillSecondaryUnits) > 0:
+                    print("    You have " + WARNING + str(attackFief.op_lumberMillSecondaryUnits) + COLOR_HUNTER + " Hunters" + RESET + " hunting for food at a rate of " + CYAN + str(attackFief.GetSecondaryPer("lumberMill")) + RESET + " per hour.\n")
+        #mines
+        if int(attackFief.op_mineNumBuilt) > 0:
+            print("    You currently have " + WARNING + str(attackFief.op_mineNumBuilt) + OP_COLOR_MINE + " Mines" + RESET + " built.")
+            if int(attackFief.op_minePrimaryUnits) > 0:
+                print("    You have " + WARNING + str(attackFief.op_minePrimaryUnits) + COLOR_MINER + " Miners" + RESET + " gathering stone at a rate of " + CYAN + str(attackFief.GetPrimaryPer("mine")) + RESET + " per hour.\n")
+
+            if int(attackFief.op_mineTier) > 0:
+                if int(attackFief.op_mineSecondaryUnits) > 0:
+                    print("    You have " + WARNING + str(attackFief.op_mineSecondaryUnits) + COLOR_PROSPECTOR + " Prospectors" + RESET + " gathering iron at a rate of " + CYAN + str(attackFief.GetSecondaryPer("mine")) + RESET + " per hour.\n")
+               
+        print('    --------------------------------------')
+        print("    You see room for:")
+        print("        " + GREEN + str(attackFief.adjacentPlains) + RESET + " Farms")
+        print("        " + GREEN + str(attackFief.adjacentWater) + RESET + " Fisheries")
+        print("        " + GREEN + str(attackFief.adjacentForests) + RESET + " Lumber Mills")
+        print("        " + GREEN + str(attackFief.adjacentMountains) + RESET + " Mines")
+        print('    --------------------------------------')
+
         
         print("\n    Avalible Commands:")
         print('    -------------------------------------')
         print('    {1}: Go Back')
         #Show different expansions available only if land exists for them:
         if int(attackFief.adjacentPlains) > 0:
-            print("    {2}: Manage" + OP_COLOR_FARMLAND + " Farmlands " + RESET + "[" + WARNING + str(attackFief.adjacentPlains) + RESET + "]")
+            print("    {2}: Manage" + OP_COLOR_FARMLAND + " Farmlands " + RESET)
         if int(attackFief.adjacentWater) > 0 or int(attackFief.adjacentRivers) > 0:
-            print("    {3}: Manage" + OP_COLOR_FISHERY + " Fisheries " + RESET + "[" + WARNING + str(int(attackFief.adjacentWater) + int(attackFief.adjacentRivers)) + RESET + "]")
+            print("    {3}: Manage" + OP_COLOR_FISHERY + " Fisheries " + RESET)
         if int(attackFief.adjacentForests) > 0:
-            print("    {4}: Manage" + OP_COLOR_LUMBERMILL + " Lumber Mills " + RESET + "[" + WARNING + str(attackFief.adjacentForests) + RESET + "]")
+            print("    {4}: Manage" + OP_COLOR_LUMBERMILL + " Lumber Mills " + RESET)
         if int(attackFief.adjacentMountains) > 0:
-            print("    {5}: Manage" + OP_COLOR_MINE + " Mines " + RESET + "[" + WARNING + str(attackFief.adjacentMountains) + RESET + "]")
-        print('    -------------------------------------')
+            print("    {5}: Manage" + OP_COLOR_MINE + " Mines " + RESET)
+        print(RESET + '    -------------------------------------')
         print('')
         command = input("    Enter your command: ")
         

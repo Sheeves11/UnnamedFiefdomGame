@@ -249,7 +249,7 @@ def CombatAndThieveryMenu(screen, userStronghold, attackStronghold):
 
 
 
-                print('                    After a hard fought battle, your weary forces remain standing\n')
+                pas_battle_won()
                 print(textColor.WARNING + '                    You are the new ruler of ' + attackFief.name + '\n' + textColor.RESET)
 
                 attackFief.defenders = defenders
@@ -281,7 +281,7 @@ def CombatAndThieveryMenu(screen, userStronghold, attackStronghold):
                 Log(logString, userStronghold.ruler)
 
 
-                print(textColor.WARNING + '                    Although your soldiers fought valiantly, they were unable to overcome ' + attackFief.ruler + '\'s forces\n' + textColor.RESET)
+                pas_battle_lost()
                 print('                    Your forces, now many fewer in number, begin the long march home.\n')
 
                 attackFief.defenders = defenders

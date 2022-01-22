@@ -2,7 +2,7 @@ from classes import *
 
 #This displays the announcement game-wide
 #Format it with spaces at the beginning and end
-ANNOUNCEMENT = " Announcement: This is a test build "
+ANNOUNCEMENT = " Announcement: This is a quick test run between seasons! Season 3 starts 1/24/22! "
 SPACER = "                        "
 
 #Define Header:
@@ -150,8 +150,8 @@ def headerFief(fief):
 '                         | |__ __  _ __  _  _|   |_  o  _ _|_ _| _ __    /__ _ __  _    \n' +
 '                         |_|| || |(_||||(/_(_|   |   | (/_ | (_|(_)|||   \_|(_||||(/_   \n' +
 '   ' + '\n' +       
-                                        (line5.center(173, '-')) + '\n' +
-                                    (ANNOUNCEMENT.center(110, '-')) + '\n')
+                                        (line5.center(173, '-')) + '\n')
+#                                    (ANNOUNCEMENT.center(110, '-')) + '\n')
 
 #Define Art:
 #====================================================================================================================
