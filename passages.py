@@ -28,7 +28,7 @@ def GetMediumRandomFloat():
     return round(random.uniform(0.50, 2.00), 2)
 
 def GetLargeRandomFloat():
-    return round(random.uniform(1.5, 3.00), 2)
+    return round(random.uniform(0.60, 3.00), 2)
 
 def ReactionTimeEvent():
     spacer = "    "
@@ -36,14 +36,14 @@ def ReactionTimeEvent():
     ready = str(CYAN + spacer + spacer + "Ready!")
     nock = str(spacer + spacer + GREEN + "Nock!")
     draw = str(spacer + spacer + spacer + spacer + WARNING + "Draw!")
-    loose = str(spacer + spacer + spacer + spacer + spacer + ORANGE + "   LOOSE! " + RED + "  [" + randomChar + "]" + RESET)
-    orders = [ready, ".", ".", ".\n", nock, ".", ".", ".\n", draw, ".", ".", ".\n", loose]
+    loose = str(spacer + spacer + spacer + spacer + spacer + ORANGE + "   LOOSE! " + RED + "  |" + RESET + randomChar + RED + "|" + RESET)
+    orders = [ready, ".", ".", ".\n\n", nock, ".", ".", ".\n\n", draw, ".", ".", ".\n\n", loose]
     waitTime = 0.1
     incorrectInput = True
     dots = 0
     for i in range(len(orders)):
         
-        if str(orders[i]) == "." or str(orders[i]) == ".\n":
+        if str(orders[i]) == "." or str(orders[i]) == ".\n\n":
             dots = int(dots) + 1
         if int(dots) == 3 and str(orders[i]) != nock:
             waitTime = GetSmallRandomFloat()
@@ -58,12 +58,69 @@ def ReactionTimeEvent():
     
     s = time.time()
     while incorrectInput:
-        check = input(RED + " = ")
+        check = input(RED + " = " + RESET)
         if str(check) == str(randomChar):
             f = time.time()
             incorrectInput = False
         else:
-            print(str(spacer + spacer + " " + loose), sep='', end=' ', flush=True)
+            print(str(spacer + spacer + loose), sep='', end=' ', flush=True)
+
+    totalTime = float(f) - float(s)
+    speedColor = DARK_GRAY
+
+    if totalTime < 0.4:
+        speedColor = MAGENTA
+    elif totalTime < 0.5:
+        speedColor = CYAN
+    elif totalTime < 0.7:
+        speedColor = GREEN
+    elif totalTime < 1:
+        speedColor = WARNING
+    elif totalTime < 1.5:
+        speedColor = ORANGE
+    else:
+        speedColor = RED
+    
+    formattedTime = "{:.4f}".format(totalTime)
+
+    print(speedColor + "\n    Response Time: " + str(formattedTime) + " seconds" + RESET)
+
+
+
+def ReactionTimeEvent2():
+    spacer = "    "
+    randomChar = GetRandomChar()
+    ready = str(CYAN + spacer + spacer + "Ready!")
+    nock = str(spacer + spacer + GREEN + "Nock!")
+    draw = str(spacer + spacer + spacer + spacer + WARNING + "Draw!")
+    loose = str(spacer + spacer + spacer + spacer + spacer + ORANGE + "   LOOSE! " + RED + "  |" + RESET + randomChar + RED + "|" + RESET)
+    orders = [ready, ".", ".", ".\n\n", nock, ".", ".", ".\n\n", draw, ".", ".", ".\n\n", loose]
+    waitTime = 0.1
+    incorrectInput = True
+    dots = 0
+    for i in range(len(orders)):
+        
+        if str(orders[i]) == "." or str(orders[i]) == ".\n\n":
+            dots = int(dots) + 1
+        if int(dots) == 3 and str(orders[i]) != nock:
+            waitTime = GetSmallRandomFloat()
+        elif int(dots) == 6 and str(orders[i]) != draw:
+            waitTime = GetMediumRandomFloat()
+        elif int(dots) == 9 and str(orders[i]) != loose:
+            waitTime = GetLargeRandomFloat()
+        else:
+            waitTime = 0.1
+
+        print(str(str(orders[i])).ljust(10, " "), sep='', end=' ', flush=True); time.sleep(waitTime)
+    
+    s = time.time()
+    while incorrectInput:
+        check = input(RED + " = " + RESET)
+        if str(check) == str(randomChar):
+            f = time.time()
+            incorrectInput = False
+        else:
+            print(str(spacer + spacer + loose), sep='', end=' ', flush=True)
     
     print(RESET + "\n    Total time taken: " + str(float(f) - float(s)))
 
@@ -486,7 +543,7 @@ def pas_stronghold_forest():
     if rando == 4:
         print(GREEN + "The leaves are still. The forest listens." + RESET)
     if rando == 5:
-        print(GREEN + "Few have daGREEN to venture this far into the old forest. It is the only home you have known." + RESET)
+        print(GREEN + "Few have dared to venture this far into the old forest. It is the only home you have known." + RESET)
     if rando == 6:
         print(GREEN + "A cool wind causes the treetops to sway as your people go about their lives." + RESET)
     if rando == 7:
@@ -504,13 +561,13 @@ def pas_stronghold_plains():
     if rando == 1:
         print(textColor.WARNING + "Your stronghold sits tall and proud over an endless sea of prarie grass." + RESET)
     if rando == 2:
-        print(textColor.WARNING + "These walls have weathetextColor.WARNING many a storm. You must not let them fall." + RESET)
+        print(textColor.WARNING + "These walls have weathered many a storm. You must not let them fall." + RESET)
     if rando == 3:
         print(textColor.WARNING + "The sky really is bigger out here." + RESET)
     if rando == 4:
         print(textColor.WARNING + "People come from all around to see your great walls. They're all you have ever known." + RESET)
     if rando == 5:
-        print(textColor.WARNING + "Your family has protected this prarie for hundtextColor.WARNINGs of years." + RESET)
+        print(textColor.WARNING + "Your family has protected this prarie for hundreds of years." + RESET)
     if rando == 6:
         print(textColor.WARNING + "A cool wind causes the prarie grass to ripple as your people bustle about their chores." + RESET)
     if rando == 7:

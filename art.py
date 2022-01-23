@@ -31,7 +31,7 @@ def header(username):
     E = textColor.DARK_GRAY
 
     # line5 = str(" Player: " + str(headerStronghold.name) + "    Gold: " + str(headerStronghold.gold) + "    Warriors: " + str(headerStronghold.defenders) + "    Thieves: " + str(headerStronghold.thieves) + ' ')
-    line5 = str(" Player: " + M + str(headerStronghold.name) + R + "    Gold: " + Y + str(headerStronghold.gold) + R + "    Warriors: " + str(headerStronghold.defenders) + "    Thieves: " + str(headerStronghold.thieves) + ' ')
+    line5 = str(" Player: " + M + str(headerStronghold.name) + R + "    Gold: " + Y + str(headerStronghold.gold) + R + "    Warriors: " + COLOR_WARRIOR + str(headerStronghold.defenders) + RESET + "    Thieves: " + COLOR_THIEF + str(headerStronghold.thieves) + RESET + ' ')
     line6 = str("  Food: " + D + str(headerStronghold.food) + R + "  Wood: " + G + str(headerStronghold.wood) + R + "  Stone: " + E + str(headerStronghold.stone) + R + "  Ore: " + M + str(headerStronghold.ore) + R + " ")
     
     print('\n' +
@@ -57,7 +57,7 @@ def headerHomeStronghold(username):
     E = textColor.DARK_GRAY
 
     # line5 = str(" Player: " + str(headerStronghold.name) + "    Gold: " + str(headerStronghold.gold) + "    Warriors: " + str(headerStronghold.defenders) + "    Thieves: " + str(headerStronghold.thieves) + ' ')
-    line5 = str(" Player: " + M + str(headerStronghold.name) + R + "    Gold: " + Y + str(headerStronghold.gold) + R + "    Warriors: " + str(headerStronghold.defenders) + "    Thieves: " + str(headerStronghold.thieves) + ' ')
+    line5 = str(" Player: " + M + str(headerStronghold.name) + R + "    Gold: " + Y + str(headerStronghold.gold) + R + "    Warriors: " + COLOR_WARRIOR + str(headerStronghold.defenders) + RESET + "    Thieves: " + COLOR_THIEF + str(headerStronghold.thieves) + RESET + ' ')
     line6 = str("  Food: " + D + str(headerStronghold.food) + R + "  Wood: " + G + str(headerStronghold.wood) + R + "  Stone: " + E + str(headerStronghold.stone) + R + "  Ore: " + M + str(headerStronghold.ore) + R + " ")
     
     print('\n' +
