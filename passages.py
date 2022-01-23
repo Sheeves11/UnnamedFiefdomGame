@@ -543,7 +543,7 @@ def pas_stronghold_forest():
     if rando == 4:
         print(GREEN + "The leaves are still. The forest listens." + RESET)
     if rando == 5:
-        print(GREEN + "Few have daGREEN to venture this far into the old forest. It is the only home you have known." + RESET)
+        print(GREEN + "Few have dared to venture this far into the old forest. It is the only home you have known." + RESET)
     if rando == 6:
         print(GREEN + "A cool wind causes the treetops to sway as your people go about their lives." + RESET)
     if rando == 7:
@@ -561,13 +561,13 @@ def pas_stronghold_plains():
     if rando == 1:
         print(textColor.WARNING + "Your stronghold sits tall and proud over an endless sea of prarie grass." + RESET)
     if rando == 2:
-        print(textColor.WARNING + "These walls have weathetextColor.WARNING many a storm. You must not let them fall." + RESET)
+        print(textColor.WARNING + "These walls have weathered many a storm. You must not let them fall." + RESET)
     if rando == 3:
         print(textColor.WARNING + "The sky really is bigger out here." + RESET)
     if rando == 4:
         print(textColor.WARNING + "People come from all around to see your great walls. They're all you have ever known." + RESET)
     if rando == 5:
-        print(textColor.WARNING + "Your family has protected this prarie for hundtextColor.WARNINGs of years." + RESET)
+        print(textColor.WARNING + "Your family has protected this prarie for hundreds of years." + RESET)
     if rando == 6:
         print(textColor.WARNING + "A cool wind causes the prarie grass to ripple as your people bustle about their chores." + RESET)
     if rando == 7:
