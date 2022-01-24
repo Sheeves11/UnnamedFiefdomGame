@@ -55,11 +55,19 @@ def BattalionMenu(screen, userStronghold, STRONGHOLD, USER_STRONGHOLD):
         print("\n    Avalible Commands:")
         print('    ------------------------------------------------------')
         print('    {1}: Go Back')
+        if location != "":
+            print('    {4}: Disband (' + LIME + 'Units are added to this location' + RESET + ')')
         print('    ------------------------------------------------------')
         print('')
         command = input("    Enter your command: ")
 
         if str(command) == '1':
+            return "battalions"
+        elif str(command) == '4':
+            userStronghold.defenders = int(userStronghold.defenders) + int(currentBattalion.numTroops)
+            serverArmies.RemoveBattalion(currentBattalion)
+            userStronghold.write()
+            userStronghold.read()
             return "battalions"
         else:
             return "battalions"

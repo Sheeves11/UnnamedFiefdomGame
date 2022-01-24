@@ -117,8 +117,10 @@ class Armies:
     #   parameters: self, index
     #       Removes Battalion at index from the battalions list.
     #==================================================================================
-    def RemoveBattalion(self, index):
-        self.battalions.pop(index)
+    def RemoveBattalion(self, bat):
+        for i in range(len(self.battalions)):
+            if bat == self.battalions[i]:
+                self.battalions.pop(i)
         self.write()
 
     #==================================================================================

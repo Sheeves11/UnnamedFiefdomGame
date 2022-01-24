@@ -2340,19 +2340,23 @@ def CreateNewBattalion(station):
                 return "battalions"
             if serverArmies.ExistingName(name):
                 print("\n    Battalion name already taken!")
-                nothing = input("    Press enter to continue")
+                nothing = input("    Press enter to continue : ")
                 return "battalions"
             print("")
             numTroops = GetAnswer(str("    How many troops will you assign to " + WARNING + str(name) + RESET + "? [min " + str(BATTALION_MIN) + "]: "), ">", BATTALION_MIN, BATTALION_MAX)
             if int(numTroops) > int(station.defenders):
                 print("    You don't have enough troops for this battalion!\n")
-                nothing = input("    Press enter to continue")
+                nothing = input("    Press enter to continue : ")
                 return "battalions"
             print("")
 
             serverArmies.AddBattalion(str(name), str(commander), str(numTroops), str(attLevel), str(speed), str(stamina), str(rations), str(xPos), str(yPos), 0, 0, 0, 0, 0)
             serverArmies.write()
-            nothing = input("    Press enter to continue")
+
+            station.defenders = int(station.defenders) - int(numTroops)
+            station.write()
+
+            nothing = input("    Press enter to continue : ")
             return "battalions"
 
     else:
