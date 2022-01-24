@@ -40,7 +40,7 @@ def header(username):
 '                              |_|| || |(_||||(/_(_|   |   | (/_ | (_|(_)|||   \_|(_||||(/_   \n' +
 '   ' + '\n' +       
 
-                                        (line5.center(138, '-')) + '\n' +
+                                        (line5.center(156, '-')) + '\n' +
                                         (line6.center(155, ' ')) + '\n')
 #                                    (ANNOUNCEMENT.center(119, '-')) + ' ')
 
@@ -66,7 +66,7 @@ def headerHomeStronghold(username):
 '                              |_|| || |(_||||(/_(_|   |   | (/_ | (_|(_)|||   \_|(_||||(/_   \n' +
 '   ' + '\n' +       
 
-                                        (line5.center(138, '-')) + '\n' +
+                                        (line5.center(156, '-')) + '\n' +
                                         (line6.center(155, ' ')) + '\n' +
                                       (ANNOUNCEMENT.center(120, '-')) + ' ')
 

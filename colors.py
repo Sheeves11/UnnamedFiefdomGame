@@ -113,3 +113,42 @@ C_FOOD = DARK_RED
 C_WOOD = DARK_GREEN
 C_STONE = DARK_GRAY
 C_ORE = DARK_MAGENTA
+
+#=====================#=====================#=====================
+#   [strongholdColor]
+#   parameter: color
+#   returns: a color code based on the passed color variable
+#=====================#=====================#=====================
+def strongholdColor(color):
+    if color == 'red':
+        return RED
+    if color == 'green':
+        return GREEN
+    if color == 'magenta':
+        return MAGENTA
+    if color == 'white':
+        return BOLD
+    if color == 'blue':
+        return BLUE
+    if color == 'yellow':
+        return YELLOW
+    if color == 'cyan':
+        return CYAN
+    if color == 'gray':
+        return DARK_GRAY
+    if color == 'purple':
+        return PURPLE
+    if color == 'orange':
+        return ORANGE
+    if color == 'teal':
+        return TEAL
+    if color == 'pink':
+        return PINK
+    if color == 'brown':
+        return BROWN
+    if color == 'mint':
+        return MINT
+    if color == 'salmon':
+        return SALMON
+    if color == 'lavender':
+        return LAVENDER

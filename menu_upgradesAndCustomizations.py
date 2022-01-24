@@ -224,7 +224,7 @@ def UpgradesAndCustomizations(screen, userStronghold):
         print('''    {2}: Green     '''+GREEN+'''#'''+RESET+'''   {11}: Orange     '''+ORANGE+'''#'''+RESET+''' ''')
         print('''    {3}: Blue      '''+BLUE+'''#'''+RESET+'''   {12}: Teal       '''+TEAL+'''#'''+RESET+''' ''')
         print('''    {4}: Yellow    '''+YELLOW+'''#'''+RESET+'''   {13}: Pink       '''+PINK+'''#'''+RESET+''' ''')
-        print('''    {5}: Magenta   '''+MAGENTA+'''#'''+RESET+'''   {14}: Brown       '''+BROWN+'''#'''+RESET+''' ''')
+        print('''    {5}: Magenta   '''+MAGENTA+'''#'''+RESET+'''   {14}: Brown      '''+BROWN+'''#'''+RESET+''' ''')
         print('''    {6}: Cyan      '''+CYAN+'''#'''+RESET+'''   {15}: Mint       '''+MINT+'''#'''+RESET+''' ''')
         print('''    {7}: White     '''+BOLD+'''#'''+RESET+'''   {16}: Salmon     '''+SALMON+'''#'''+RESET+''' ''')
         print('''    {8}: Gray      '''+DARK_GRAY+'''#'''+RESET+'''   {17}: Lavender   '''+LAVENDER+'''#'''+RESET+''' ''')
