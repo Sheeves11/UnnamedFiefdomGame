@@ -115,11 +115,11 @@ C_STONE = DARK_GRAY
 C_ORE = DARK_MAGENTA
 
 #=====================#=====================#=====================
-#   [strongholdColor]
+#   [StrongholdColor]
 #   parameter: color
 #   returns: a color code based on the passed color variable
 #=====================#=====================#=====================
-def strongholdColor(color):
+def StrongholdColor(color):
     if color == 'red':
         return RED
     if color == 'green':
@@ -152,3 +152,21 @@ def strongholdColor(color):
         return SALMON
     if color == 'lavender':
         return LAVENDER
+
+
+
+#define biome globals:
+WATER = '~'
+RIVER = ['/','|','\\']
+MOUNTAIN = 'M'
+PLAINS = '#'
+FOREST = '^'
+BACKSLASH_SUB = 'L'     #This needed to be added so the program could properly read/write '\'
+
+def BiomeColor(biome):
+    if biome == MOUNTAIN:
+        return textColor.DARK_GRAY
+    elif biome == FOREST:
+        return textColor.GREEN
+    elif biome == PLAINS:
+        return textColor.YELLOW

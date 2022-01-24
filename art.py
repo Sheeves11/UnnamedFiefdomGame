@@ -1,4 +1,4 @@
-from classes import *
+from worldmap import *
 
 #This displays the announcement game-wide
 #Format it with spaces at the beginning and end
@@ -153,6 +153,26 @@ def headerFief(fief):
                                         (line5.center(173, '-')) + '\n')
 #                                    (ANNOUNCEMENT.center(110, '-')) + '\n')
 
+#This is a header for displaying Battalion information.
+def headerBattalion(bat, userStronghold, serverMap):
+    location = GetLocation(serverMap, bat.yPos, bat.xPos)
+    if location == "":
+        menu = str(bat.MenuBar(userStronghold))
+        spacer = 196
+    else:
+        menu = str(bat.MenuBarWithLocation(userStronghold, location))
+        spacer = 186
+    R = textColor.RESET
+    C = userStronghold.color
+    inventory = bat.Inventory()
+    print('\n' +
+'                                                  __        _             __           \n' +
+'                         | |__ __  _ __  _  _|   |_  o  _ _|_ _| _ __    /__ _ __  _    \n' +
+'                         |_|| || |(_||||(/_(_|   |   | (/_ | (_|(_)|||   \_|(_||||(/_   \n' +
+'   ' + '\n' +       
+                                        (menu.center(spacer, '-')) + '\n' +
+                                        (inventory.center(170, '-')) + '\n')
+                                        
 #Define Art:
 #====================================================================================================================
 #      Splash Screen Art
@@ -262,7 +282,7 @@ def art_titleScreen():
 def art_stronghold(biome, color):
     #if an error is thrown related to this art, it is likely just because 
     #the passed biome/color didn't have a value. The real problem is with the stronghold class.
-    F = strongholdColor(color)
+    F = StrongholdColor(color)
     C = biomeColor(biome)
     R = textColor.RESET
     M = textColor.MAGENTA

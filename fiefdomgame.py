@@ -349,7 +349,7 @@ while (loop):
         print('           {3}: Hire and Recruit                                          {9}: More Options')
         print('           {4}: Upgrades and Customization                               {10}: How To Play')
         print('           {5}: View The World Map                                       {11}: View Event Log')
-        print('           {6}: Send Resources To Your Fiefdoms')
+        print('           {6}: Send Resources To Your Fiefdoms                          {12}: Manage Battalions')
         print('         ----------------------------------------------------------------------------------------------------')
         print('')
         command = input("            Enter your command: ")
@@ -387,6 +387,11 @@ while (loop):
 
         if command == '11':
             screen = 'logPrint'
+
+        if command == '12':
+            STRONGHOLD = True
+            USER_STRONGHOLD = True
+            screen = 'battalions'
 
         
         #The following command is for testing only!

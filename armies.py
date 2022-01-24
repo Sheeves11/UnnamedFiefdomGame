@@ -1,4 +1,6 @@
 from colors import *
+from classes import *
+import random
 
 #======================================================================================
 #   ::Idea Board::
@@ -62,11 +64,23 @@ class Armies:
     #               xPos, yPos
     #       Adds a new battalion to the Armies battalions list
     #==================================================================================
-    def AddBattalion(self, name, commander, numTroops, attLevel, speed, stamina, rations, xPos, yPos):
-        newBattalion = Battalion(name, commander, numTroops, attLevel, speed, stamina, rations, xPos, yPos)
+    def AddBattalion(self, name, commander, numTroops, attLevel, speed, stamina, rations, xPos, yPos, invGold, invFood, invWood, invStone, invOre):
+        newBattalion = Battalion(name, commander, numTroops, attLevel, speed, stamina, rations, xPos, yPos, invGold, invFood, invWood, invStone, invOre)
         self.battalions.append(newBattalion)
-        self.write()
-        self.read()
+
+    #==================================================================================
+    #   [ExistingName]
+    #   parameters: self, name
+    #   returns: True/False
+    #       Compares passed name to other battalion names in battalions
+    #==================================================================================
+    def ExistingName(self, name):
+        # self.read()
+        for i in range(len(self.battalions)):
+            if str(self.battalions[i].name) == str(name):
+                return True
+        else:
+            return False
     
     #==================================================================================
     #   [GetBattalions]
@@ -77,6 +91,17 @@ class Armies:
         batts = []
         for i in range(len(self.battalions)):
             batts.append(self.battalions[i].ListDetails())
+        return batts
+
+    #==================================================================================
+    #   [GetBattalionObjects]
+    #   parameters: self
+    #       Gets a list of battalions
+    #==================================================================================
+    def GetBattalionObjects(self):
+        batts = []
+        for i in range(len(self.battalions)):
+            batts.append(self.battalions[i])
         return batts
 
     #==================================================================================
@@ -101,9 +126,8 @@ class Armies:
     #==================================================================================
     def write(self):
         armiesFile = 'armies/serverArmies.txt'
-        #If no file has been made yet:
         try:
-            with open(armiesFile, 'x') as f:
+            with open(armiesFile, 'w') as f:
                 f.write(str("["))
                 for i in range(len(self.battalions)):
                     f.write(str("["))
@@ -115,32 +139,12 @@ class Armies:
                     f.write("('" + str(self.battalions[i].stamina) + "'), ")
                     f.write("('" + str(self.battalions[i].rations) + "'), ")
                     f.write("('" + str(self.battalions[i].xPos) + "'), ")
-                    f.write("('" + str(self.battalions[i].yPos) + "')")
-                    if i < len(self.battalions) - 1:
-                        f.write(str("], "))
-                    else:
-                        f.write(str("]"))
-                f.write(str("]"))
-        except:
-            print('Could not write armies file!')
-            pass
-        #If file has already been made:
-        try:
-            print("Trying to Open")
-            with open(armiesFile, 'x') as f:
-                print("About to loop")
-                f.write(str("["))
-                for i in range(len(self.battalions)):
-                    f.write(str("["))
-                    f.write("('" + str(self.battalions[i].name) + "'), ")
-                    f.write("('" + str(self.battalions[i].commander) + "'), ")
-                    f.write("('" + str(self.battalions[i].numTroops) + "'), ")
-                    f.write("('" + str(self.battalions[i].attLevel) + "'), ")
-                    f.write("('" + str(self.battalions[i].speed) + "'), ")
-                    f.write("('" + str(self.battalions[i].stamina) + "'), ")
-                    f.write("('" + str(self.battalions[i].rations) + "'), ")
-                    f.write("('" + str(self.battalions[i].xPos) + "'), ")
-                    f.write("('" + str(self.battalions[i].yPos) + "')")
+                    f.write("('" + str(self.battalions[i].yPos) + "'),")
+                    f.write("('" + str(self.battalions[i].invGold) + "'),")
+                    f.write("('" + str(self.battalions[i].invFood) + "'),")
+                    f.write("('" + str(self.battalions[i].invWood) + "'),")
+                    f.write("('" + str(self.battalions[i].invStone) + "'),")
+                    f.write("('" + str(self.battalions[i].invOre) + "')")
                     if i < len(self.battalions) - 1:
                         f.write(str("], "))
                     else:
@@ -162,7 +166,7 @@ class Armies:
             readArmiesFile.close()
 
             for i in range(len(rL)):
-                self.AddBattalion(str(rL[i][0]), str(rL[i][1]), str(rL[i][2]), str(rL[i][3]), str(rL[i][4]), str(rL[i][5]), str(rL[i][6]), str(rL[i][7]), str(rL[i][8]))
+                self.AddBattalion(str(rL[i][0]), str(rL[i][1]), str(rL[i][2]), str(rL[i][3]), str(rL[i][4]), str(rL[i][5]), str(rL[i][6]), str(rL[i][7]), str(rL[i][8]), str(rL[i][9]), str(rL[i][10]), str(rL[i][11]), str(rL[i][12]), str(rL[i][13]))
 
         except:
             print('Could not read armies file!')
@@ -178,8 +182,13 @@ class Battalion:
     rations = "0"
     xPos = "0"
     yPos = "0"
+    invGold = "0"
+    invFood = "0"
+    invWood = "0"
+    invStone = "0"
+    invOre = "0"
 
-    def __init__(self, name, commander, numTroops, attLevel, speed, stamina, rations, xPos, yPos):
+    def __init__(self, name, commander, numTroops, attLevel, speed, stamina, rations, xPos, yPos, invGold, invFood, invWood, invStone, invOre):
         self.name = name
         self.commander = commander
         self.numTroops = numTroops
@@ -189,6 +198,11 @@ class Battalion:
         self.rations = rations
         self.xPos = xPos
         self.yPos = yPos
+        self.invGold = invGold
+        self.invFood = invFood
+        self.invWood = invWood
+        self.invStone = invStone
+        self.invOre = invOre
 
     def ListDetails(self):
         name = str("    name: " + str(self.name))
@@ -200,6 +214,62 @@ class Battalion:
         rations = str(" rations: " + str(self.rations))
         xPos = str(" xPos: " + str(self.xPos))
         yPos = str(" yPos: " + str(self.yPos))
+        invGold = str(" Gold: " + str(self.invGold))
+        invFood = str(" Food: " + str(self.invFood))
+        invWood = str(" Wood: " + str(self.invWood))
+        invStone = str(" Stone: " + str(self.invStone))
+        invOre = str(" Ore: " + str(self.invOre))
 
-        return str(name + commander + numTroops + attLevel + speed + stamina + rations + xPos + yPos)
+        return str(name + commander + numTroops + attLevel + speed + stamina + rations + xPos + yPos + invGold + invFood + invWood + invStone + invOre)
+
+    def MenuBar(self, userStronghold):
+        SHC = StrongholdColor(userStronghold.color)
+        name = str("{ " + SHC + str(self.name) + RESET + " }")
+        # commander = str(" commander: " + str(self.commander))
+        numTroops = str(" | Warriors: " + COLOR_WARRIOR + str(self.numTroops) + RESET)
+        attLevel = str(" | Attack: " + MAGENTA + str(self.attLevel) + RESET)
+        speed = str(" | Speed: " + LIME + str(self.speed) + RESET)
+        stamina = str(" | Stamina: " + YELLOW + str(self.stamina) + RESET)
+        # rations = str(" | Rations: " + C_FOOD + str(self.rations) + RESET)
+        xPos = str(" | X: " + RED_GRAY + str(self.xPos) + RESET)
+        yPos = str(" | Y: " + RED_GRAY + str(self.yPos) + RESET)
+
+        return str(name + numTroops + attLevel + speed + stamina + xPos + yPos)
+
+    def MenuBarWithLocation(self, userStronghold, location):
+        SHC = StrongholdColor(userStronghold.color)
+        name = str("{ " + SHC + str(self.name) + RESET + " }")
+        # commander = str(" commander: " + str(self.commander))
+        numTroops = str(" | Warriors: " + COLOR_WARRIOR + str(self.numTroops) + RESET)
+        attLevel = str(" | Attack: " + MAGENTA + str(self.attLevel) + RESET)
+        speed = str(" | Speed: " + LIME + str(self.speed) + RESET)
+        stamina = str(" | Stamina: " + YELLOW + str(self.stamina) + RESET)
+        # rations = str(" | Rations: " + C_FOOD + str(self.rations) + RESET)
+        # xPos = str(" | X: " + RED_GRAY + str(self.xPos) + RESET)
+        # yPos = str(" | Y: " + RED_GRAY + str(self.yPos) + RESET)
+        loc = str(" | Location: " + RED_GRAY + location)
+
+        return str(name + numTroops + attLevel + speed + stamina + loc)
+
+    def Inventory(self):
+        invGold = str("| Gold: " + C_GOLD + str(self.invGold) + RESET)
+        invFood = str(" | Food: " + C_FOOD + str(self.invFood) + RESET)
+        invWood = str(" | Wood: " + C_WOOD + str(self.invWood) + RESET)
+        invStone = str(" | Stone: " + C_STONE + str(self.invStone) + RESET)
+        invOre = str(" | Ore: " + C_ORE + str(self.invOre) + RESET + " |")
+
+        return str(invGold + invFood + invWood + invStone + invOre)
+
+    def PrintGold(self):
+        return str(C_GOLD + str(self.invGold) + RESET)
+    def PrintFood(self):
+        return str(C_FOOD + str(self.invFood) + RESET)
+    def PrintWood(self):
+        return str(C_WOOD + str(self.invWood) + RESET)
+    def PrintStone(self):
+        return str(C_STONE + str(self.invStone) + RESET)
+    def PrintOre(self):
+        return str(C_ORE + str(self.invOre) + RESET)
+
+
 
