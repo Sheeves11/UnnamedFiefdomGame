@@ -15,7 +15,7 @@ def GarrisonMenu(screen, userStronghold):
 
         userFiefCount = 0
 
-        print(str("\n    " + textColor.UNDERLINE + "Nearby Fiefdoms" + textColor.RESET).ljust(RESOURCE_SPACING, FILL_SYMBOL) + "| " + textColor.UNDERLINE + "Resources" + textColor.RESET + "\n")
+        print(str("\n    " + textColor.UNDERLINE + "Your Fiefdoms" + textColor.RESET).ljust(RESOURCE_SPACING, FILL_SYMBOL) + "| " + textColor.UNDERLINE + "Resources" + textColor.RESET + "\n")
 
         for filename in os.listdir('fiefs'):
             with open(os.path.join('fiefs', filename), 'r') as f:
@@ -32,7 +32,7 @@ def GarrisonMenu(screen, userStronghold):
                     userFiefCount = userFiefCount + 1
                     print(ownedFiefdomInfo.ljust(RESOURCE_SPACING, FILL_SYMBOL) + fiefdomResources)
 
-        print('\n')
+        print('')
         print("    Avalible Commands:")
         print('    ------------------------------------------------------')
         print('    {1}: Return to Stronghold')

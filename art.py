@@ -161,7 +161,7 @@ def headerBattalion(bat, userStronghold, serverMap):
         spacer = 196
     else:
         menu = str(bat.MenuBarWithLocation(userStronghold, location))
-        spacer = 186
+        spacer = 189
     R = textColor.RESET
     C = userStronghold.color
     inventory = bat.Inventory()
@@ -171,7 +171,7 @@ def headerBattalion(bat, userStronghold, serverMap):
 '                         |_|| || |(_||||(/_(_|   |   | (/_ | (_|(_)|||   \_|(_||||(/_   \n' +
 '   ' + '\n' +       
                                         (menu.center(spacer, '-')) + '\n' +
-                                        (inventory.center(170, '-')) + '\n')
+                                        (inventory.center(174, '-')) + '\n')
                                         
 #Define Art:
 #====================================================================================================================

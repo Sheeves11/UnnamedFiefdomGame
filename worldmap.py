@@ -2843,7 +2843,7 @@ def GetFiefByCoordinates(yPos, xPos):
                 tempName = Fiefdom()
                 tempName.name = filename[:-4]
                 tempName.read()
-                if int(tempName.yCoordinate) == yPos and int(tempName.xCoordinate) == xPos:
+                if int(tempName.yCoordinate) == int(yPos) and int(tempName.xCoordinate) == int(xPos):
                     return tempName
 #--------------------------------------------------------------------------------------------------------------
 #   [GetStrongholdByCoordinates]
@@ -2857,9 +2857,7 @@ def GetStrongholdByCoordinates(yPos, xPos):
                 tempName = Stronghold()
                 tempName.name = filename[:-4]
                 tempName.read()
-                if int(tempName.yCoordinate) == yPos and int(tempName.xCoordinate) == xPos:
-                    print("    Found " + str(tempName.name) + "'s Stronghold!")
-                    nothing = input("   continue...")
+                if int(tempName.yCoordinate) == int(yPos) and int(tempName.xCoordinate) == int(xPos):
                     return tempName
 
 #--------------------------------------------------------------------------------------------------------------
@@ -2882,7 +2880,7 @@ def GetLocation(mapClass, yPos, xPos):
         tempStronghold = Stronghold()
         tempStronghold = GetStrongholdByCoordinates(yPos, xPos)
         if isinstance(tempStronghold, Stronghold):
-            return str((tempStronghold.color) + str(tempStronghold.name) + "'s Stronghold" + RESET)
+            return str(StrongholdColor(tempStronghold.color) + str(tempStronghold.name) + "'s Stronghold" + RESET)
         else:
             return ""
         

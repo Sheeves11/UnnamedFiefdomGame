@@ -169,7 +169,7 @@ class Armies:
                 self.AddBattalion(str(rL[i][0]), str(rL[i][1]), str(rL[i][2]), str(rL[i][3]), str(rL[i][4]), str(rL[i][5]), str(rL[i][6]), str(rL[i][7]), str(rL[i][8]), str(rL[i][9]), str(rL[i][10]), str(rL[i][11]), str(rL[i][12]), str(rL[i][13]))
 
         except:
-            print('Could not read armies file!')
+            # print('Could not read armies file!')
             pass
 
 class Battalion:
@@ -247,7 +247,8 @@ class Battalion:
         # rations = str(" | Rations: " + C_FOOD + str(self.rations) + RESET)
         # xPos = str(" | X: " + RED_GRAY + str(self.xPos) + RESET)
         # yPos = str(" | Y: " + RED_GRAY + str(self.yPos) + RESET)
-        loc = str(" | Location: " + RED_GRAY + location)
+        # loc = str(" | Location: " + RED_GRAY + location)
+        loc = str(" | " + location)
 
         return str(name + numTroops + attLevel + speed + stamina + loc)
 

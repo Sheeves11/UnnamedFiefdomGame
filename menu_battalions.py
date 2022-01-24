@@ -52,8 +52,6 @@ def BattalionMenu(screen, userStronghold, STRONGHOLD, USER_STRONGHOLD):
         headerBattalion(currentBattalion, userStronghold, serverMap)
         GenerateMiniMap(serverMap, currentBattalion.yPos, currentBattalion.xPos)
 
-        print()
-
         print("\n    Avalible Commands:")
         print('    ------------------------------------------------------')
         print('    {1}: Go Back')
