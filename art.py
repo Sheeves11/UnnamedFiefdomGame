@@ -26,7 +26,7 @@ def header(username):
     R = textColor.RESET
     Y = textColor.YELLOW
     D = textColor.DARK_RED
-    M = textColor.DARK_MAGENTA
+    M = StrongholdColor(headerStronghold.color)
     G = textColor.DARK_GREEN
     E = textColor.DARK_GRAY
 
@@ -52,7 +52,7 @@ def headerHomeStronghold(username):
     R = textColor.RESET
     Y = textColor.YELLOW
     D = textColor.DARK_RED
-    M = textColor.DARK_MAGENTA
+    M = StrongholdColor(headerStronghold.color)
     G = textColor.DARK_GREEN
     E = textColor.DARK_GRAY
 
@@ -82,7 +82,7 @@ def headerWithSoldiers(username):
     R = textColor.RESET
     Y = textColor.YELLOW
     D = textColor.DARK_RED
-    M = textColor.DARK_MAGENTA
+    M = StrongholdColor(headerStronghold.color)
     G = textColor.DARK_GREEN
     E = textColor.DARK_GRAY
 
@@ -135,13 +135,16 @@ def headerSuperStripped():
 #This is an alternate header for displaying fief totals instead of stronghold totals.
 #Need to update other header at some point to show totals, perhaps?
 def headerFief(fief):
+    headerStronghold = Stronghold()
+    headerStronghold.name = fief.ruler
+    headerStronghold.read()
     R = textColor.RESET
     Y = textColor.YELLOW
     D = textColor.DARK_RED
-    M = textColor.DARK_MAGENTA
+    M = StrongholdColor(headerStronghold.color)
     G = textColor.DARK_GREEN
     E = textColor.DARK_GRAY
-    C = biomeColor(fief.biome)
+    C = BiomeColor(fief.biome)
 
     line5 = str(" :: " + C + str(fief.name) + R + " :: | Ruler: " + M + str(fief.ruler) + R + "  Gold: " + Y + str(fief.gold) + R + "  Food: " + D + str(fief.food) + R + "  Wood: " + G + str(fief.wood) + R + "  Stone: " + E + str(fief.stone) + R + "  Ore: " + M + str(fief.ore) + R + " | ")
 
