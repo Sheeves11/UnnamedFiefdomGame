@@ -2,26 +2,35 @@ from globals import *
 from armies import *
 
 def BattalionMenu(screen, userStronghold, STRONGHOLD, USER_STRONGHOLD):
+    currentBattalion = 0
     if screen == "battalions":
         os.system("clear")
         header(userStronghold.name)
 
         serverArmies.read()
 
-        battalions = serverArmies.GetBattalions()
+        battalions = serverArmies.GetBattalionObjects()
         count = 0
 
-        print("\n    Your Battalions\n")
+        yourBattalions = []
+
+        print("\n    Battalions at Your Command:\n")
         for i in range(len(battalions)):
             if str(battalions[i].commander) == str(userStronghold.name):
                 count = count + 1
+                yourBattalions.append(battalions[i])
                 leftNumber = str(CYAN + "    {" + str(count) + "}" + RESET).rjust(17, " ")
-                print(str(leftNumber) + " " + str(battalions[i].ListDetails))
+                location = GetLocation(serverMap, battalions[i].yPos, battalions[i].xPos)
+                if location == "":
+                    print(str(leftNumber) + " " + str(battalions[i].MenuBar(userStronghold)))
+                else:
+                    print(str(leftNumber) + " " + str(battalions[i].MenuBarWithLocation(userStronghold, location)))
 
         print("\n    Avalible Commands:")
         print('    ------------------------------------------------------')
         print('    {R}: Return to Stronghold')
-        print('    {Enter a number above to view the offer}: ')
+        print('    {C}: Create Battalion')
+        print('    ' + CYAN + '{Enter a number above to view that battalion}: ' + RESET)
         print('    ------------------------------------------------------')
         print('')
         command = input("    Enter your command: ")
@@ -29,8 +38,38 @@ def BattalionMenu(screen, userStronghold, STRONGHOLD, USER_STRONGHOLD):
         command = str(command.lower())
 
         if str(command) == 'r':
-            screen = "stronghold"
+            return "stronghold"
+        elif str(command) == 'c':
+            return CreateNewBattalion(userStronghold)
+        elif IsPositiveIntEqualOrLessThan(command, count):
+            currentBattalion = yourBattalions[int(command) - 1]
+            screen = "commandBattalion"
         else:
-            screen = "market"
+            return "battalions"
+
+    if screen == "commandBattalion":
+        os.system("clear")
+        headerBattalion(currentBattalion, userStronghold, serverMap)
+        GenerateMiniMap(serverMap, currentBattalion.yPos, currentBattalion.xPos)
+
+        print("\n    Avalible Commands:")
+        print('    ------------------------------------------------------')
+        print('    {1}: Go Back')
+        if location != "":
+            print('    {4}: Disband (' + LIME + 'Units are added to this location' + RESET + ')')
+        print('    ------------------------------------------------------')
+        print('')
+        command = input("    Enter your command: ")
+
+        if str(command) == '1':
+            return "battalions"
+        elif str(command) == '4':
+            userStronghold.defenders = int(userStronghold.defenders) + int(currentBattalion.numTroops)
+            serverArmies.RemoveBattalion(currentBattalion)
+            userStronghold.write()
+            userStronghold.read()
+            return "battalions"
+        else:
+            return "battalions"
 
     return screen

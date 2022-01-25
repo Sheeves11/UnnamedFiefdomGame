@@ -220,14 +220,14 @@ def UpgradesAndCustomizations(screen, userStronghold):
         print('\n\n\n\n\n')
         print("     Choose a Stronghold Color:")
         print('    -------------------------------------')
-        print('''    {1}: Red       '''+textColor.RED+'''#'''+textColor.RESET+''' ''')
-        print('''    {2}: Green     '''+textColor.GREEN+'''#'''+textColor.RESET+''' ''')
-        print('''    {3}: Blue      '''+textColor.BLUE+'''#'''+textColor.RESET+''' ''')
-        print('''    {4}: Yellow    '''+textColor.YELLOW+'''#'''+textColor.RESET+''' ''')
-        print('''    {5}: Magenta   '''+textColor.MAGENTA+'''#'''+textColor.RESET+''' ''')
-        print('''    {6}: Cyan      '''+textColor.CYAN+'''#'''+textColor.RESET+''' ''')
-        print('''    {7}: White     '''+textColor.BOLD+'''#'''+textColor.RESET+''' ''')
-        print('''    {8}: Gray      '''+textColor.DARK_GRAY+'''#'''+textColor.RESET+''' ''')
+        print('''    {1}: Red       '''+RED+'''#'''+RESET+'''   {10}: Purple     '''+PURPLE+'''#'''+RESET+''' ''')
+        print('''    {2}: Green     '''+GREEN+'''#'''+RESET+'''   {11}: Orange     '''+ORANGE+'''#'''+RESET+''' ''')
+        print('''    {3}: Blue      '''+BLUE+'''#'''+RESET+'''   {12}: Teal       '''+TEAL+'''#'''+RESET+''' ''')
+        print('''    {4}: Yellow    '''+YELLOW+'''#'''+RESET+'''   {13}: Pink       '''+PINK+'''#'''+RESET+''' ''')
+        print('''    {5}: Magenta   '''+MAGENTA+'''#'''+RESET+'''   {14}: Brown      '''+BROWN+'''#'''+RESET+''' ''')
+        print('''    {6}: Cyan      '''+CYAN+'''#'''+RESET+'''   {15}: Mint       '''+MINT+'''#'''+RESET+''' ''')
+        print('''    {7}: White     '''+BOLD+'''#'''+RESET+'''   {16}: Salmon     '''+SALMON+'''#'''+RESET+''' ''')
+        print('''    {8}: Gray      '''+DARK_GRAY+'''#'''+RESET+'''   {17}: Lavender   '''+LAVENDER+'''#'''+RESET+''' ''')
         print('    {9}: Leave color as is')
         print('    -------------------------------------')
         print('')
@@ -249,6 +249,22 @@ def UpgradesAndCustomizations(screen, userStronghold):
             userStronghold.color = 'white'
         if command == "8":
             userStronghold.color = 'gray'
+        if command == "10":
+            userStronghold.color = 'purple'
+        if command == "11":
+            userStronghold.color = 'orange'
+        if command == "12":
+            userStronghold.color = 'teal'
+        if command == "13":
+            userStronghold.color = 'pink'
+        if command == "14":
+            userStronghold.color = 'brown'
+        if command == "15":
+            userStronghold.color = 'mint'
+        if command == "16":
+            userStronghold.color = 'salmon'
+        if command == "17":
+            userStronghold.color = 'lavender'
         
         userStronghold.write()
         screen = "stronghold"

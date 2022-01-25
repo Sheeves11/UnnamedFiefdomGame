@@ -39,24 +39,6 @@ def biomeColor(biome):
         return textColor.GREEN
     elif biome == PLAINS:
         return textColor.YELLOW
-
-def strongholdColor(color):
-    if color == 'red':
-        return textColor.RED
-    if color == 'green':
-        return textColor.GREEN
-    if color == 'magenta':
-        return textColor.MAGENTA
-    if color == 'white':
-        return textColor.BOLD
-    if color == 'blue':
-        return textColor.BLUE
-    if color == 'yellow':
-        return textColor.YELLOW
-    if color == 'cyan':
-        return textColor.CYAN
-    if color == 'gray':
-        return textColor.DARK_GRAY
     
 #the fiefdom class holds variables that define a player's stats
 class Fiefdom:

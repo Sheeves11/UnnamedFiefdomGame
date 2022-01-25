@@ -1,4 +1,4 @@
-from classes import *
+from worldmap import *
 
 #This displays the announcement game-wide
 #Format it with spaces at the beginning and end
@@ -26,7 +26,7 @@ def header(username):
     R = textColor.RESET
     Y = textColor.YELLOW
     D = textColor.DARK_RED
-    M = textColor.DARK_MAGENTA
+    M = StrongholdColor(headerStronghold.color)
     G = textColor.DARK_GREEN
     E = textColor.DARK_GRAY
 
@@ -40,7 +40,7 @@ def header(username):
 '                              |_|| || |(_||||(/_(_|   |   | (/_ | (_|(_)|||   \_|(_||||(/_   \n' +
 '   ' + '\n' +       
 
-                                        (line5.center(138, '-')) + '\n' +
+                                        (line5.center(156, '-')) + '\n' +
                                         (line6.center(155, ' ')) + '\n')
 #                                    (ANNOUNCEMENT.center(119, '-')) + ' ')
 
@@ -52,7 +52,7 @@ def headerHomeStronghold(username):
     R = textColor.RESET
     Y = textColor.YELLOW
     D = textColor.DARK_RED
-    M = textColor.DARK_MAGENTA
+    M = StrongholdColor(headerStronghold.color)
     G = textColor.DARK_GREEN
     E = textColor.DARK_GRAY
 
@@ -66,7 +66,7 @@ def headerHomeStronghold(username):
 '                              |_|| || |(_||||(/_(_|   |   | (/_ | (_|(_)|||   \_|(_||||(/_   \n' +
 '   ' + '\n' +       
 
-                                        (line5.center(138, '-')) + '\n' +
+                                        (line5.center(156, '-')) + '\n' +
                                         (line6.center(155, ' ')) + '\n' +
                                       (ANNOUNCEMENT.center(120, '-')) + ' ')
 
@@ -82,7 +82,7 @@ def headerWithSoldiers(username):
     R = textColor.RESET
     Y = textColor.YELLOW
     D = textColor.DARK_RED
-    M = textColor.DARK_MAGENTA
+    M = StrongholdColor(headerStronghold.color)
     G = textColor.DARK_GREEN
     E = textColor.DARK_GRAY
 
@@ -135,13 +135,16 @@ def headerSuperStripped():
 #This is an alternate header for displaying fief totals instead of stronghold totals.
 #Need to update other header at some point to show totals, perhaps?
 def headerFief(fief):
+    headerStronghold = Stronghold()
+    headerStronghold.name = fief.ruler
+    headerStronghold.read()
     R = textColor.RESET
     Y = textColor.YELLOW
     D = textColor.DARK_RED
-    M = textColor.DARK_MAGENTA
+    M = StrongholdColor(headerStronghold.color)
     G = textColor.DARK_GREEN
     E = textColor.DARK_GRAY
-    C = biomeColor(fief.biome)
+    C = BiomeColor(fief.biome)
 
     line5 = str(" :: " + C + str(fief.name) + R + " :: | Ruler: " + M + str(fief.ruler) + R + "  Gold: " + Y + str(fief.gold) + R + "  Food: " + D + str(fief.food) + R + "  Wood: " + G + str(fief.wood) + R + "  Stone: " + E + str(fief.stone) + R + "  Ore: " + M + str(fief.ore) + R + " | ")
 
@@ -153,6 +156,26 @@ def headerFief(fief):
                                         (line5.center(173, '-')) + '\n')
 #                                    (ANNOUNCEMENT.center(110, '-')) + '\n')
 
+#This is a header for displaying Battalion information.
+def headerBattalion(bat, userStronghold, serverMap):
+    location = GetLocation(serverMap, bat.yPos, bat.xPos)
+    if location == "":
+        menu = str(bat.MenuBar(userStronghold))
+        spacer = 196
+    else:
+        menu = str(bat.MenuBarWithLocation(userStronghold, location))
+        spacer = 189
+    R = textColor.RESET
+    C = userStronghold.color
+    inventory = bat.Inventory()
+    print('\n' +
+'                                                  __        _             __           \n' +
+'                         | |__ __  _ __  _  _|   |_  o  _ _|_ _| _ __    /__ _ __  _    \n' +
+'                         |_|| || |(_||||(/_(_|   |   | (/_ | (_|(_)|||   \_|(_||||(/_   \n' +
+'   ' + '\n' +       
+                                        (menu.center(spacer, '-')) + '\n' +
+                                        (inventory.center(174, '-')) + '\n')
+                                        
 #Define Art:
 #====================================================================================================================
 #      Splash Screen Art
@@ -262,7 +285,7 @@ def art_titleScreen():
 def art_stronghold(biome, color):
     #if an error is thrown related to this art, it is likely just because 
     #the passed biome/color didn't have a value. The real problem is with the stronghold class.
-    F = strongholdColor(color)
+    F = StrongholdColor(color)
     C = biomeColor(biome)
     R = textColor.RESET
     M = textColor.MAGENTA

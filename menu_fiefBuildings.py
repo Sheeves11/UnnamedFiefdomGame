@@ -67,13 +67,14 @@ def FiefBuildingsMenu(screen, userStronghold):
                 if int(attackFief.op_mineSecondaryUnits) > 0:
                     print("    You have " + WARNING + str(attackFief.op_mineSecondaryUnits) + COLOR_PROSPECTOR + " Prospectors" + RESET + " gathering iron at a rate of " + CYAN + str(attackFief.GetSecondaryPer("mine")) + RESET + " per hour.\n")
                
-        print('    --------------------------------------')
-        print("    You see room for:")
-        print("        " + GREEN + str(attackFief.adjacentPlains) + RESET + " Farms")
-        print("        " + GREEN + str(attackFief.adjacentWater) + RESET + " Fisheries")
-        print("        " + GREEN + str(attackFief.adjacentForests) + RESET + " Lumber Mills")
-        print("        " + GREEN + str(attackFief.adjacentMountains) + RESET + " Mines")
-        print('    --------------------------------------')
+        if attackFief.op_farmlandNumBuilt == '0' and attackFief.op_fisheryNumBuilt == '0' and attackFief.op_lumberMillNumBuilt == '0' and attackFief.op_mineNumBuilt == '0':
+            print('    --------------------------------------')
+            print("    You see room for:")
+            print("        " + GREEN + str(attackFief.adjacentPlains) + RESET + " Farms")
+            print("        " + GREEN + str(int(attackFief.adjacentWater) + int(attackFief.adjacentRivers)) + RESET + " Fisheries")
+            print("        " + GREEN + str(attackFief.adjacentForests) + RESET + " Lumber Mills")
+            print("        " + GREEN + str(attackFief.adjacentMountains) + RESET + " Mines")
+            print('    --------------------------------------')
 
         
         print("\n    Avalible Commands:")
@@ -138,7 +139,7 @@ def FiefBuildingsMenu(screen, userStronghold):
         art_placeholder("Art of a Farmland outpost based on current tier")
 
         print("\n    Avalible Commands:")
-        print('    -------------------------------------')
+        print('    --------------------------------------------------------------------------')
         print('    {1}: Go Back')
         if int(attackFief.op_farmlandPrimaryUnits) < (int(UCAP_FARMER) * int(attackFief.op_farmlandNumBuilt)):
             print('    {2}: Hire' + COLOR_FARMER + ' Farmers' + RESET)
@@ -147,8 +148,8 @@ def FiefBuildingsMenu(screen, userStronghold):
         if int(attackFief.op_farmlandNumBuilt) > 0 and int(attackFief.op_farmlandTier) < 2:
             print('    {4}: Upgrade' + OP_COLOR_FARMLAND + ' Farmlands' + RESET)
         if int(attackFief.op_farmlandNumBuilt) < int(attackFief.adjacentPlains):
-            print('    {5}: Construct New' + OP_COLOR_FARMLAND + ' Farmland' + RESET)
-        print('    -------------------------------------')
+            print('    {5}: Construct New' + OP_COLOR_FARMLAND + ' Farmland' + RESET + " (Room for " + LIME + str(int(attackFief.adjacentPlains) - int(attackFief.op_farmlandNumBuilt)) + RESET + " more)")
+        print('    --------------------------------------------------------------------------')
         print('')
         command = input("    Enter your command: ")
         
@@ -202,7 +203,7 @@ def FiefBuildingsMenu(screen, userStronghold):
         art_placeholder("Art of a Fishery outpost based on current tier")
 
         print("\n    Avalible Commands:")
-        print('    -------------------------------------')
+        print('    --------------------------------------------------------------------------')
         print('    {1}: Go Back')
         if int(attackFief.op_fisheryPrimaryUnits) < (int(UCAP_FISHER) * int(attackFief.op_fisheryNumBuilt)):
             print('    {2}: Hire' + COLOR_FISHER + ' Fishers' + RESET)
@@ -211,8 +212,8 @@ def FiefBuildingsMenu(screen, userStronghold):
         if int(attackFief.op_fisheryNumBuilt) > 0 and int(attackFief.op_fisheryTier) < 2:
             print('    {4}: Upgrade' + OP_COLOR_FISHERY + ' Fisheries' + RESET)
         if int(attackFief.op_fisheryNumBuilt) < int(attackFief.adjacentWater) + int(attackFief.adjacentRivers):
-            print('    {5}: Construct New' + OP_COLOR_FISHERY + ' Fishery' + RESET)
-        print('    -------------------------------------')
+            print('    {5}: Construct New' + OP_COLOR_FISHERY + ' Fishery' + RESET + " (Room for " + LIME + str(int(attackFief.adjacentWater) + int(attackFief.adjacentRivers) - int(attackFief.op_fisheryNumBuilt)) + RESET + " more)")
+        print('    --------------------------------------------------------------------------')
         print('')
         command = input("    Enter your command: ")
         
@@ -264,7 +265,7 @@ def FiefBuildingsMenu(screen, userStronghold):
         art_placeholder("Art of a Lumber Mill outpost based on current tier")
         
         print("\n    Avalible Commands:")
-        print('    -------------------------------------')
+        print('    --------------------------------------------------------------------------')
         print('    {1}: Go Back')
         if int(attackFief.op_lumberMillPrimaryUnits) < (int(UCAP_LUMBERJACK) * int(attackFief.op_lumberMillNumBuilt)):
             print('    {2}: Hire' + COLOR_LUMBERJACK + ' Lumberjacks' + RESET)
@@ -273,8 +274,8 @@ def FiefBuildingsMenu(screen, userStronghold):
         if int(attackFief.op_lumberMillNumBuilt) > 0 and int(attackFief.op_lumberMillTier) < 2:
             print('    {4}: Upgrade' + OP_COLOR_LUMBERMILL + ' Lumber Mills' + RESET)
         if int(attackFief.op_lumberMillNumBuilt) < int(attackFief.adjacentForests):
-            print('    {5}: Construct New' + OP_COLOR_LUMBERMILL + ' Lumber Mill' + RESET)
-        print('    -------------------------------------')
+            print('    {5}: Construct New' + OP_COLOR_LUMBERMILL + ' Lumber Mill' + RESET + " (Room for " + LIME + str(int(attackFief.adjacentForests) - int(attackFief.op_lumberMillNumBuilt)) + RESET + " more)")
+        print('    --------------------------------------------------------------------------')
         print('')
         command = input("    Enter your command: ")
         
@@ -325,7 +326,7 @@ def FiefBuildingsMenu(screen, userStronghold):
         art_placeholder("Art of a Mine outpost based on current tier")
 
         print("\n    Avalible Commands:")
-        print('    -------------------------------------')
+        print('    --------------------------------------------------------------------------')
         print('    {1}: Go Back')
         if int(attackFief.op_minePrimaryUnits) < (int(UCAP_MINER) * int(attackFief.op_mineNumBuilt)):
             print('    {2}: Hire' + COLOR_MINER + ' Miners' + RESET)
@@ -334,8 +335,8 @@ def FiefBuildingsMenu(screen, userStronghold):
         if int(attackFief.op_mineNumBuilt) > 0 and int(attackFief.op_mineTier) < 2:
             print('    {4}: Upgrade' + OP_COLOR_MINE + ' Mines' + RESET)
         if int(attackFief.op_mineNumBuilt) < int(attackFief.adjacentMountains):
-            print('    {5}: Construct New' + OP_COLOR_MINE + ' Mine' + RESET)
-        print('    -------------------------------------')
+            print('    {5}: Construct New' + OP_COLOR_MINE + ' Mine' + RESET + " (Room for " + LIME + str(int(attackFief.adjacentMountains) - int(attackFief.op_mineNumBuilt)) + RESET + " more)")
+        print('    --------------------------------------------------------------------------')
         print('')
         command = input("    Enter your command: ")
 
