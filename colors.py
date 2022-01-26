@@ -36,6 +36,8 @@ class textColor:
 #More, lazier color definitions.
 #Some of the original colors were changed in this last update.
 #I've commented them out instead of removing them entirely -SW
+BLACK = '\033[30m'
+WHITE = '\u001b[37;1m'
 RED = '\033[91m'
 ORANGE = "\u001b[38;5;208m"
 PINK = "\033[38;5;213m"
@@ -76,6 +78,27 @@ BOLD = '\033[1m'
 UNDERLINE = '\033[4m'
 INTENSE_PURPLE = "\033[0;95m"
 CYAN_BACKGROUND = "\033[0;106m" 
+
+#=====================
+#    BG Colors
+#=====================
+BLACK_BG = "\u001b[40m"
+RED_BG = '\033[48;5;1m'
+GREEN_BG = '\033[48;5;35m'
+MAGENTA_BG = "\033[48;5;5m"
+BLUE_BG = "\033[48;5;27m"
+YELLOW_BG = '\033[48;5;3m'
+CYAN_BG = "\033[48;5;6m"
+DARK_GRAY_BG = '\033[48;5;240m'
+PURPLE_BG = "\033[48;5;57m"
+ORANGE_BG = "\u001b[48;5;208m"
+TEAL_BG = "\033[48;5;30m"
+PINK_BG = "\033[48;5;213m"
+BROWN_BG = "\u001b[48;5;94m"
+MINT_BG = "\033[48;5;157m"
+SALMON_BG = "\033[48;5;203m"
+LAVENDER_BG = "\033[48;5;140m"
+WHITE_BG = "\033[48;5;15m"
 
 #=====================
 #  Stronghold Colors
@@ -153,7 +176,44 @@ def StrongholdColor(color):
     if color == 'lavender':
         return LAVENDER
 
-
+#=====================#=====================#=====================
+#   [BattalionIconColor]
+#   parameter: color
+#   returns: a color code combo based on the passed color variable
+#=====================#=====================#=====================
+def BattalionIconColor(color):
+    if color == 'red':
+        return RED_BG + WHITE
+    if color == 'green':
+        return GREEN_BG + BLACK
+    if color == 'magenta':
+        return MAGENTA_BG + WHITE
+    if color == 'white':
+        return WHITE_BG + BLACK
+    if color == 'blue':
+        return BLUE_BG + WHITE
+    if color == 'yellow':
+        return YELLOW_BG + BLACK
+    if color == 'cyan':
+        return CYAN_BG + BLACK
+    if color == 'gray':
+        return DARK_GRAY_BG + WHITE
+    if color == 'purple':
+        return PURPLE_BG + WHITE
+    if color == 'orange':
+        return ORANGE_BG + BLACK
+    if color == 'teal':
+        return TEAL_BG + WHITE
+    if color == 'pink':
+        return PINK_BG + BLACK
+    if color == 'brown':
+        return BROWN_BG + WHITE
+    if color == 'mint':
+        return MINT_BG + BLACK
+    if color == 'salmon':
+        return SALMON_BG + WHITE
+    if color == 'lavender':
+        return LAVENDER_BG + BLACK
 
 #define biome globals:
 WATER = '~'

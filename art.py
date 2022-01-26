@@ -24,15 +24,11 @@ def header(username):
     headerStronghold.name = username
     headerStronghold.read()
     R = textColor.RESET
-    Y = textColor.YELLOW
-    D = textColor.DARK_RED
     M = StrongholdColor(headerStronghold.color)
-    G = textColor.DARK_GREEN
-    E = textColor.DARK_GRAY
 
     # line5 = str(" Player: " + str(headerStronghold.name) + "    Gold: " + str(headerStronghold.gold) + "    Warriors: " + str(headerStronghold.defenders) + "    Thieves: " + str(headerStronghold.thieves) + ' ')
-    line5 = str(" Player: " + M + str(headerStronghold.name) + R + "    Gold: " + Y + str(headerStronghold.gold) + R + "    Warriors: " + COLOR_WARRIOR + str(headerStronghold.defenders) + RESET + "    Thieves: " + COLOR_THIEF + str(headerStronghold.thieves) + RESET + ' ')
-    line6 = str("  Food: " + D + str(headerStronghold.food) + R + "  Wood: " + G + str(headerStronghold.wood) + R + "  Stone: " + E + str(headerStronghold.stone) + R + "  Ore: " + M + str(headerStronghold.ore) + R + " ")
+    line5 = str(" Player: " + M + str(headerStronghold.name) + R + "    Gold: " + C_GOLD + str(headerStronghold.gold) + R + "    Warriors: " + COLOR_WARRIOR + str(headerStronghold.defenders) + R + "    Thieves: " + COLOR_THIEF + str(headerStronghold.thieves) + R + ' ')
+    line6 = str("  Food: " + C_FOOD + str(headerStronghold.food) + R + "  Wood: " + C_WOOD + str(headerStronghold.wood) + R + "  Stone: " + C_STONE + str(headerStronghold.stone) + R + "  Ore: " + C_ORE + str(headerStronghold.ore) + R + " ")
     
     print('\n' +
 '                                                       __        _             __           \n' +
@@ -50,15 +46,11 @@ def headerHomeStronghold(username):
     headerStronghold.name = username
     headerStronghold.read()
     R = textColor.RESET
-    Y = textColor.YELLOW
-    D = textColor.DARK_RED
     M = StrongholdColor(headerStronghold.color)
-    G = textColor.DARK_GREEN
-    E = textColor.DARK_GRAY
 
     # line5 = str(" Player: " + str(headerStronghold.name) + "    Gold: " + str(headerStronghold.gold) + "    Warriors: " + str(headerStronghold.defenders) + "    Thieves: " + str(headerStronghold.thieves) + ' ')
-    line5 = str(" Player: " + M + str(headerStronghold.name) + R + "    Gold: " + Y + str(headerStronghold.gold) + R + "    Warriors: " + COLOR_WARRIOR + str(headerStronghold.defenders) + RESET + "    Thieves: " + COLOR_THIEF + str(headerStronghold.thieves) + RESET + ' ')
-    line6 = str("  Food: " + D + str(headerStronghold.food) + R + "  Wood: " + G + str(headerStronghold.wood) + R + "  Stone: " + E + str(headerStronghold.stone) + R + "  Ore: " + M + str(headerStronghold.ore) + R + " ")
+    line5 = str(" Player: " + M + str(headerStronghold.name) + R + "    Gold: " + C_GOLD + str(headerStronghold.gold) + R + "    Warriors: " + COLOR_WARRIOR + str(headerStronghold.defenders) + R + "    Thieves: " + COLOR_THIEF + str(headerStronghold.thieves) + R + ' ')
+    line6 = str("  Food: " + C_FOOD + str(headerStronghold.food) + R + "  Wood: " + C_WOOD + str(headerStronghold.wood) + R + "  Stone: " + C_STONE + str(headerStronghold.stone) + R + "  Ore: " + C_ORE + str(headerStronghold.ore) + R + " ")
     
     print('\n' +
 '                                                       __        _             __           \n' +
@@ -80,13 +72,9 @@ def headerWithSoldiers(username):
     headerStronghold.name = username
     headerStronghold.read()
     R = textColor.RESET
-    Y = textColor.YELLOW
-    D = textColor.DARK_RED
     M = StrongholdColor(headerStronghold.color)
-    G = textColor.DARK_GREEN
-    E = textColor.DARK_GRAY
 
-    line5 = str(" Player: " + M + str(headerStronghold.name) + R + "  Gold: " + Y + str(headerStronghold.gold) + R + "  Warriors: " + D + str(headerStronghold.defenders) + G + "Thieves: " + str(headerStronghold.thieves) + ' ')
+    line5 = str(" Player: " + M + str(headerStronghold.name) + R + "  Gold: " + C_GOLD + str(headerStronghold.gold) + R + "  Warriors: " + COLOR_WARRIOR + str(headerStronghold.defenders) + R + "Thieves: " + COLOR_THIEF + str(headerStronghold.thieves) + R + ' ')
     
     print('\n' +
 '                                                       __        _             __           \n' +
@@ -100,14 +88,6 @@ def headerWithSoldiers(username):
 
 #headerStripped() should be called when you don't need to display a full resource list
 def headerStripped():
-
-    R = textColor.RESET
-    Y = textColor.YELLOW
-    D = textColor.DARK_RED
-    M = textColor.DARK_MAGENTA
-    G = textColor.DARK_GREEN
-    E = textColor.DARK_GRAY
-    
     print('\n' +
 '                                                       __        _             __           \n' +
 '                              | |__ __  _ __  _  _|   |_  o  _ _|_ _| _ __    /__ _ __  _    \n' +
@@ -118,14 +98,6 @@ def headerStripped():
 
 #headerSuperStripped() should be called when you don't need to display a full resource list
 def headerSuperStripped():
-
-    R = textColor.RESET
-    Y = textColor.YELLOW
-    D = textColor.DARK_RED
-    M = textColor.DARK_MAGENTA
-    G = textColor.DARK_GREEN
-    E = textColor.DARK_GRAY
-    
     print('\n' +
 '                                                       __        _             __           \n' +
 '                              | |__ __  _ __  _  _|   |_  o  _ _|_ _| _ __    /__ _ __  _    \n' +
@@ -139,14 +111,10 @@ def headerFief(fief):
     headerStronghold.name = fief.ruler
     headerStronghold.read()
     R = textColor.RESET
-    Y = textColor.YELLOW
-    D = textColor.DARK_RED
     M = StrongholdColor(headerStronghold.color)
-    G = textColor.DARK_GREEN
-    E = textColor.DARK_GRAY
     C = BiomeColor(fief.biome)
 
-    line5 = str(" :: " + C + str(fief.name) + R + " :: | Ruler: " + M + str(fief.ruler) + R + "  Gold: " + Y + str(fief.gold) + R + "  Food: " + D + str(fief.food) + R + "  Wood: " + G + str(fief.wood) + R + "  Stone: " + E + str(fief.stone) + R + "  Ore: " + M + str(fief.ore) + R + " | ")
+    line5 = str(" :: " + C + str(fief.name) + R + " :: | Ruler: " + M + str(fief.ruler) + R + "  Gold: " + C_GOLD + str(fief.gold) + R + "  Food: " + C_FOOD + str(fief.food) + R + "  Wood: " + C_WOOD + str(fief.wood) + R + "  Stone: " + C_STONE + str(fief.stone) + R + "  Ore: " + C_ORE + str(fief.ore) + R + " | ")
 
     print('\n' +
 '                                                  __        _             __           \n' +
@@ -165,8 +133,6 @@ def headerBattalion(bat, userStronghold, serverMap):
     else:
         menu = str(bat.MenuBarWithLocation(userStronghold, location))
         spacer = 189
-    R = textColor.RESET
-    C = userStronghold.color
     inventory = bat.Inventory()
     print('\n' +
 '                                                  __        _             __           \n' +

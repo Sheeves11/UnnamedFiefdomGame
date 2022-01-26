@@ -94,6 +94,27 @@ class Armies:
         return batts
 
     #==================================================================================
+    #   [GetBattalionData]
+    #   parameters: self
+    #       Gets a list of battalion coordinates
+    #==================================================================================
+    def GetBattalionData(self):
+        coords = []
+        for i in range(len(self.battalions)):
+            coords.append((self.battalions[i].yPos, self.battalions[i].xPos, self.battalions[i].commander, self.battalions[i].name))
+        return coords
+
+    #==================================================================================
+    #   [GetCommanderByLocation]
+    #   parameters: self
+    #       Gets a list of battalions
+    #==================================================================================
+    def GetCommanderByLocation(self, y, x):
+        for i in range(len(self.battalions)):
+            if int(self.battalions[i].yPos) == int(y) and int(self.battalions[i].xPos) == int(x):
+                return self.battalions[i].commander
+
+    #==================================================================================
     #   [GetBattalionObjects]
     #   parameters: self
     #       Gets a list of battalions
@@ -121,6 +142,37 @@ class Armies:
         for i in range(len(self.battalions)):
             if bat == self.battalions[i]:
                 self.battalions.pop(i)
+        self.write()
+
+    #==================================================================================
+    #   [RemoveBattalion]
+    #   parameters: self, index
+    #       Removes Battalion at index from the battalions list.
+    #==================================================================================
+    def SetBattalionCoords(self, bat, direction):
+        for i in range(len(self.battalions)):
+            if bat == self.battalions[i]:
+                if direction == 'n':
+                    self.battalions[i].yPos = str(int(self.battalions[i].yPos) + 1)
+                elif direction == 'ne':
+                    self.battalions[i].yPos = str(int(self.battalions[i].yPos) + 1)
+                    self.battalions[i].xPos = str(int(self.battalions[i].xPos) + 1)
+                elif direction == 'e':
+                    self.battalions[i].xPos = str(int(self.battalions[i].xPos) + 1)
+                elif direction == 'se':
+                    self.battalions[i].yPos = str(int(self.battalions[i].yPos) - 1)
+                    self.battalions[i].xPos = str(int(self.battalions[i].xPos) + 1)
+                elif direction == 's':
+                    self.battalions[i].yPos = str(int(self.battalions[i].yPos) - 1)
+                elif direction == 'sw':
+                    self.battalions[i].yPos = str(int(self.battalions[i].yPos) - 1)
+                    self.battalions[i].xPos = str(int(self.battalions[i].xPos) - 1)
+                elif direction == 'w':
+                    self.battalions[i].xPos = str(int(self.battalions[i].xPos) - 1)
+                elif direction == 'nw':
+                    self.battalions[i].yPos = str(int(self.battalions[i].yPos) + 1)
+                    self.battalions[i].xPos = str(int(self.battalions[i].xPos) - 1)
+
         self.write()
 
     #==================================================================================
@@ -273,6 +325,5 @@ class Battalion:
         return str(C_STONE + str(self.invStone) + RESET)
     def PrintOre(self):
         return str(C_ORE + str(self.invOre) + RESET)
-
 
 

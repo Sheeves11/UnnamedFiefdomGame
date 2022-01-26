@@ -221,6 +221,14 @@ NAME_DEFENSE_T6 = 'Unwavering Bastion'  #Was "Boiling Oil". Changed because boil
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #========================================================================================================
 
+#========================================================================================================
+#   Wait
+#   parameter: username
+#   returns: True/False
+#       Prevents the use of certain usernames that may interfere with menu operations.
+#========================================================================================================
+def Wait():
+    wait = input("\n    Press Enter to continue : ")
 
 #========================================================================================================
 #   FirstLaunch
@@ -2366,6 +2374,73 @@ def CreateNewBattalion(station):
             print("\n    You don't have enough warriors at this location to make a battalion!\n")
             nothing = input("    Press enter to continue : ")
             return "battalions"
-
+            
     return "battalions"
+
+
+#==================================================================================
+#   [CheckBiome]
+#   parameter: surroundings, direction, haveRaft
+#==================================================================================
+def CheckBiome(biome, direction, haveRaft):
+    #If the way is blocked by water:
+    # if biome == WATER:
+    #     print("    A body of " + IC_WATER + "water" + RESET + " blocks your path to the " + direction)
+    #     return ""
+    # if biome == RIVER[0]:
+    #     print("    A Southwest-bound " + IC_RIVER + "river" + RESET + " blocks your path to the " + direction)
+    #     return ""
+    # if biome == RIVER[1]:
+    #     print("    A South-bound " + IC_RIVER + "river" + RESET + " blocks your path to the " + direction)
+    #     return ""
+    # if biome == RIVER[2]:
+    #     print("    A Southeast-bound " + IC_RIVER + "river" + RESET + " blocks your path to the " + direction)
+    #     return ""
+
+    #For testing purposes, add a "raft" attribute:
+    if biome == WATER:
+        print("    You raft through the " + IC_WATER + "water" + RESET + " to the " + direction)
+        return ""
+    if biome == RIVER[0]:
+        print("    You raft over the Southwest-bound " + IC_RIVER + "river" + RESET + " to the " + direction)
+        return ""
+    if biome == RIVER[1]:
+        print("    You raft over the South-bound " + IC_RIVER + "river" + RESET + " to the " + direction)
+        return ""
+    if biome == RIVER[2]:
+        print("    You raft over the Southeast-bound " + IC_RIVER + "river" + RESET + " to the " + direction)
+        return ""
+    if biome == MOUNTAIN:
+        print("    You travel over the " + IC_MOUNTAIN + "mountain" + RESET + " to the " + direction)
+        return ""
+    if biome == FOREST:
+        print("    You travel through the " + IC_FOREST + "forest" + RESET + " to the " + direction)
+        return ""
+    if biome == PLAINS:
+        print("    You travel through the " + IC_PLAINS + "plains" + RESET + " to the " + direction)
+        return ""
+    if biome == FIEF:
+        print("    You travel to the " + IC_FIEF + "fief" + RESET + " to the " + direction)
+    if biome == STRONGHOLD:
+        print("    You travel to the " + IC_STRONGHOLD + "stronghold" + RESET + " to the " + direction)
+        return ""
+    
+#==================================================================================
+#   [MoveBattalion]
+#   parameter: station, battalion
+#       Moves the battalion based on direction
+#==================================================================================
+def MoveBattalion(station, battalion, direction):
+    os.system("clear")
+    headerBattalion(battalion, station, serverMap)
+    raft = True #Change this later
+    surroundings = ScanSurroundings(serverMap.worldMap, battalion.xPos, battalion.yPos)
+    #[dN, dNE, dE, dSE, dS, dSW, dW, dNW]
+    if direction == 'n':
+        LoadingAnimation(surroundings[0])
+        check = CheckBiome(surroundings[0], direction, raft)
+
+
+    serverArmies.SetBattalionCoords(battalion, direction)
+
 

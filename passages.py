@@ -86,6 +86,11 @@ def ReactionTimeEvent():
     print(speedColor + "\n    Response Time: " + str(formattedTime) + " seconds" + RESET)
 
 
+def LoadingAnimation(biome):
+    waitTime = 0.1
+    C = BiomeColor(biome)
+    for i in range(10):
+        print(str(C + "." + RESET).ljust(10, " "), sep='', end=' ', flush=True); time.sleep(waitTime)
 
 def ReactionTimeEvent2():
     spacer = "    "
