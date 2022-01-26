@@ -2398,31 +2398,31 @@ def CheckBiome(biome, direction, haveRaft):
     #     return ""
 
     #For testing purposes, add a "raft" attribute:
-    if biome == WATER:
-        print("    You raft through the " + IC_WATER + "water" + RESET + " to the " + direction)
+    if str(biome) == WATER:
+        print("    Your troops raft through the " + IC_WATER + "water" + RESET + " to the " + str(direction))
         return ""
-    if biome == RIVER[0]:
-        print("    You raft over the Southwest-bound " + IC_RIVER + "river" + RESET + " to the " + direction)
+    if str(biome) == RIVER[0]:
+        print("    Your troops raft over the Southwest-bound " + IC_RIVER + "river" + RESET + " to the " + str(direction))
         return ""
-    if biome == RIVER[1]:
-        print("    You raft over the South-bound " + IC_RIVER + "river" + RESET + " to the " + direction)
+    if str(biome) == RIVER[1]:
+        print("    Your troops raft over the South-bound " + IC_RIVER + "river" + RESET + " to the " + str(direction))
         return ""
-    if biome == RIVER[2]:
-        print("    You raft over the Southeast-bound " + IC_RIVER + "river" + RESET + " to the " + direction)
+    if str(biome) == RIVER[2]:
+        print("    Your troops raft over the Southeast-bound " + IC_RIVER + "river" + RESET + " to the " + str(direction))
         return ""
-    if biome == MOUNTAIN:
-        print("    You travel over the " + IC_MOUNTAIN + "mountain" + RESET + " to the " + direction)
+    if str(biome) == MOUNTAIN:
+        print("    Your troops travel over the " + IC_MOUNTAIN + "mountain" + RESET + " to the " + str(direction))
         return ""
-    if biome == FOREST:
-        print("    You travel through the " + IC_FOREST + "forest" + RESET + " to the " + direction)
+    if str(biome) == FOREST:
+        print("    Your troops travel through the " + IC_FOREST + "forest" + RESET + " to the " + str(direction))
         return ""
-    if biome == PLAINS:
-        print("    You travel through the " + IC_PLAINS + "plains" + RESET + " to the " + direction)
+    if str(biome) == PLAINS:
+        print("    Your troops travel through the " + IC_PLAINS + "plains" + RESET + " to the " + str(direction))
         return ""
-    if biome == FIEF:
-        print("    You travel to the " + IC_FIEF + "fief" + RESET + " to the " + direction)
-    if biome == STRONGHOLD:
-        print("    You travel to the " + IC_STRONGHOLD + "stronghold" + RESET + " to the " + direction)
+    if str(biome) == FIEF:
+        print("    Your troops travel to the " + IC_FIEF + "fief" + RESET + " to the " + str(direction))
+    if str(biome) == STRONGHOLD:
+        print("    Your troops travel to the " + IC_STRONGHOLD + "stronghold" + RESET + " to the " + str(direction))
         return ""
     
 #==================================================================================
@@ -2434,13 +2434,91 @@ def MoveBattalion(station, battalion, direction):
     os.system("clear")
     headerBattalion(battalion, station, serverMap)
     raft = True #Change this later
-    surroundings = ScanSurroundings(serverMap.worldMap, battalion.xPos, battalion.yPos)
+    surroundings = ScanSurroundings(serverMap.worldMap, int(battalion.xPos), int(battalion.yPos))
     #[dN, dNE, dE, dSE, dS, dSW, dW, dNW]
+    # print(*surroundings)
     if direction == 'n':
-        LoadingAnimation(surroundings[0])
+        direction = 'north'
         check = CheckBiome(surroundings[0], direction, raft)
+    if direction == 'ne':
+        direction = 'northeast'
+        check = CheckBiome(surroundings[1], direction, raft)
+    if direction == 'e':
+        direction = 'east'
+        check = CheckBiome(surroundings[2], direction, raft)
+    if direction == 'se':
+        direction = 'southeast'
+        check = CheckBiome(surroundings[3], direction, raft)
+    if direction == 's':
+        direction = 'south'
+        check = CheckBiome(surroundings[4], direction, raft)
+    if direction == 'sw':
+        direction = 'southwest'
+        check = CheckBiome(surroundings[5], direction, raft)
+    if direction == 'w':
+        direction = 'west'
+        check = CheckBiome(surroundings[6], direction, raft)
+    if direction == 'nw':
+        direction = 'northwest'
+        check = CheckBiome(surroundings[7], direction, raft)
 
-
+    Wait()
+    
+    #Later use 'check' here to make sure a raft exists or something
     serverArmies.SetBattalionCoords(battalion, direction)
 
+
+#==================================================================================
+#   [AvailableDirections]
+#   parameter: battalion
+#   returns: list of directions based on map constraints
+#==================================================================================
+def AvailableDirections(currentBattalion):
+    if int(currentBattalion.xPos) > 0 and int(currentBattalion.xPos) < MAP_WIDTH and int(currentBattalion.yPos) > 0 and int(currentBattalion.yPos) < MAP_HEIGHT:
+        directions = ['n', 'ne', 'e', 'se', 's', 'sw', 'w', 'nw']
+        print('    {NW} {N} {NE}')
+        print('    {W}       {E}')
+        print('    {SW} {S} {SE}')
+    elif int(currentBattalion.xPos) == 0 and int(currentBattalion.yPos) > 0 and int(currentBattalion.yPos) < MAP_HEIGHT:
+        directions = ['n', 'ne', 'e', 'se', 's']
+        print('    {X} {N} {NE}')
+        print('    {X}      {E}')
+        print('    {X} {S} {SE}')
+    elif int(currentBattalion.xPos) == MAP_WIDTH and int(currentBattalion.yPos) > 0 and int(currentBattalion.yPos) < MAP_HEIGHT:
+        directions = ['n', 's', 'sw', 'w', 'nw']
+        print('    {NW} {N} {X}')
+        print('    {W}      {X}')
+        print('    {SW} {S} {X}')
+    elif int(currentBattalion.xPos) > 0 and int(currentBattalion.xPos) < MAP_WIDTH and int(currentBattalion.yPos) == 0:
+        directions = ['e', 'se', 's', 'sw', 'w']
+        print('    {X}  {X}  {X}')
+        print('    {W}       {E}')
+        print('    {SW} {S} {SE}')
+    elif int(currentBattalion.xPos) > 0 and int(currentBattalion.xPos) < MAP_WIDTH and int(currentBattalion.yPos) == MAP_HEIGHT:
+        directions = ['n', 'ne', 'e', 'w', 'nw']
+        print('    {NW} {N} {NE}')
+        print('    {W}       {E}')
+        print('    {X}  {X}  {X}')
+    elif int(currentBattalion.xPos) == MAP_WIDTH and int(currentBattalion.yPos) == MAP_HEIGHT:
+        directions = ['n', 'w', 'nw']
+        print('    {NW} {N}  {X}')
+        print('    {W}       {X}')
+        print('    {X}  {X}  {X}')
+    elif int(currentBattalion.xPos) == 0 and int(currentBattalion.yPos) == 0:
+        directions = ['e', 'se', 's']
+        print('    {X} {X}  {X}')
+        print('    {X}      {E}')
+        print('    {X} {S} {SE}')
+    elif int(currentBattalion.xPos) == MAP_WIDTH and int(currentBattalion.yPos) == 0:
+        directions = ['s', 'sw', 'w']
+        print('    {X}  {X} {X}')
+        print('    {W}      {X}')
+        print('    {SW} {S} {X}')
+    elif int(currentBattalion.xPos) == 0 and int(currentBattalion.yPos) == MAP_HEIGHT:
+        directions = ['n', 'ne', 'e']
+        print('    {X} {N} {NE}')
+        print('    {X}      {E}')
+        print('    {X} {X}  {X}')
+    
+    return directions
 

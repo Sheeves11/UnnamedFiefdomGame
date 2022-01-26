@@ -134,6 +134,16 @@ class Armies:
         return self.battalions[index]
 
     #==================================================================================
+    #   [GetBattalionByName]
+    #   parameters: self, name
+    #       Returns a Battalion object at passed index
+    #==================================================================================
+    def GetBattalion(self, name):
+        for i in range(len(self.battalions)):
+            if self.battalions[i].name == name:
+                return self.battalions[i]
+
+    #==================================================================================
     #   [RemoveBattalion]
     #   parameters: self, index
     #       Removes Battalion at index from the battalions list.
@@ -153,24 +163,24 @@ class Armies:
         for i in range(len(self.battalions)):
             if bat == self.battalions[i]:
                 if direction == 'n':
-                    self.battalions[i].yPos = str(int(self.battalions[i].yPos) + 1)
+                    self.battalions[i].yPos = str(int(self.battalions[i].yPos) - 1)
                 elif direction == 'ne':
-                    self.battalions[i].yPos = str(int(self.battalions[i].yPos) + 1)
+                    self.battalions[i].yPos = str(int(self.battalions[i].yPos) - 1)
                     self.battalions[i].xPos = str(int(self.battalions[i].xPos) + 1)
                 elif direction == 'e':
                     self.battalions[i].xPos = str(int(self.battalions[i].xPos) + 1)
                 elif direction == 'se':
-                    self.battalions[i].yPos = str(int(self.battalions[i].yPos) - 1)
+                    self.battalions[i].yPos = str(int(self.battalions[i].yPos) + 1)
                     self.battalions[i].xPos = str(int(self.battalions[i].xPos) + 1)
                 elif direction == 's':
-                    self.battalions[i].yPos = str(int(self.battalions[i].yPos) - 1)
+                    self.battalions[i].yPos = str(int(self.battalions[i].yPos) + 1)
                 elif direction == 'sw':
-                    self.battalions[i].yPos = str(int(self.battalions[i].yPos) - 1)
+                    self.battalions[i].yPos = str(int(self.battalions[i].yPos) + 1)
                     self.battalions[i].xPos = str(int(self.battalions[i].xPos) - 1)
                 elif direction == 'w':
                     self.battalions[i].xPos = str(int(self.battalions[i].xPos) - 1)
                 elif direction == 'nw':
-                    self.battalions[i].yPos = str(int(self.battalions[i].yPos) + 1)
+                    self.battalions[i].yPos = str(int(self.battalions[i].yPos) - 1)
                     self.battalions[i].xPos = str(int(self.battalions[i].xPos) - 1)
 
         self.write()

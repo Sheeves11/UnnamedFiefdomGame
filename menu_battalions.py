@@ -2,10 +2,13 @@ from globals import *
 from armies import *
 
 BatMenu = False
+CurrentBattalion = 0
 
 #   Not set up to handle Fiefs just yet!
 def BattalionMenu(screen, userStronghold, STRONGHOLD, USER_STRONGHOLD):
-    currentBattalion = 0
+    global CurrentBattalion
+    if CurrentBattalion != 0:
+        CurrentBattalion = serverArmies.GetBattalion(CurrentBattalion.name)
     xPos = 0
     yPos = 0
     if screen == "battalions":
@@ -56,15 +59,15 @@ def BattalionMenu(screen, userStronghold, STRONGHOLD, USER_STRONGHOLD):
             yPos = int(userStronghold.yCoordinate)
             screen = "battalionMap"
         elif IsPositiveIntEqualOrLessThan(command, count):
-            currentBattalion = yourBattalions[int(command) - 1]
+            CurrentBattalion = yourBattalions[int(command) - 1]
             screen = "commandBattalion"
         else:
             return "battalions"
 
     if screen == "commandBattalion":
         os.system("clear")
-        headerBattalion(currentBattalion, userStronghold, serverMap)
-        GenerateMiniMap(serverMap, currentBattalion.yPos, currentBattalion.xPos)
+        headerBattalion(CurrentBattalion, userStronghold, serverMap)
+        GenerateMiniMap(serverMap, CurrentBattalion.yPos, CurrentBattalion.xPos)
 
         print("\n    Avalible Commands:")
         print('    ------------------------------------------------------')
@@ -83,17 +86,17 @@ def BattalionMenu(screen, userStronghold, STRONGHOLD, USER_STRONGHOLD):
             screen = "battalionNavigation"
         elif str(command) == '3':
             BatMenu = True
-            xPos = int(currentBattalion.xPos)
-            yPos = int(currentBattalion.yPos)
+            xPos = int(CurrentBattalion.xPos)
+            yPos = int(CurrentBattalion.yPos)
             screen = "battalionMap"
         elif str(command) == '4':
-            userStronghold.defenders = int(userStronghold.defenders) + int(currentBattalion.numTroops)
-            userStronghold.gold = int(userStronghold.gold) + int(currentBattalion.invGold)
-            userStronghold.food = int(userStronghold.food) + int(currentBattalion.invFood)
-            userStronghold.wood = int(userStronghold.wood) + int(currentBattalion.invWood)
-            userStronghold.stone = int(userStronghold.stone) + int(currentBattalion.invStone)
-            userStronghold.ore = int(userStronghold.ore) + int(currentBattalion.invOre)
-            serverArmies.RemoveBattalion(currentBattalion)
+            userStronghold.defenders = int(userStronghold.defenders) + int(CurrentBattalion.numTroops)
+            userStronghold.gold = int(userStronghold.gold) + int(CurrentBattalion.invGold)
+            userStronghold.food = int(userStronghold.food) + int(CurrentBattalion.invFood)
+            userStronghold.wood = int(userStronghold.wood) + int(CurrentBattalion.invWood)
+            userStronghold.stone = int(userStronghold.stone) + int(CurrentBattalion.invStone)
+            userStronghold.ore = int(userStronghold.ore) + int(CurrentBattalion.invOre)
+            serverArmies.RemoveBattalion(CurrentBattalion)
             userStronghold.write()
             userStronghold.read()
             return "battalions"
@@ -103,7 +106,7 @@ def BattalionMenu(screen, userStronghold, STRONGHOLD, USER_STRONGHOLD):
     if screen == "battalionMap":
         os.system("clear")
         if BatMenu:
-            headerBattalion(currentBattalion, userStronghold, serverMap)
+            headerBattalion(CurrentBattalion, userStronghold, serverMap)
         else:
             header(userStronghold.name)
         GenerateBattalionMap(serverMap, userStronghold, serverArmies, yPos, xPos)
@@ -129,7 +132,7 @@ def BattalionMenu(screen, userStronghold, STRONGHOLD, USER_STRONGHOLD):
     if screen == "battalionMap+":
         os.system("clear")
         if BatMenu:
-            headerBattalion(currentBattalion, userStronghold, serverMap)
+            headerBattalion(CurrentBattalion, userStronghold, serverMap)
         else:
             header(userStronghold.name)
         GenerateBattalionMapWithLocations(serverMap, userStronghold, serverArmies, yPos, xPos)
@@ -154,57 +157,13 @@ def BattalionMenu(screen, userStronghold, STRONGHOLD, USER_STRONGHOLD):
 
     if screen == "battalionNavigation":
         os.system("clear")
-        headerBattalion(currentBattalion, userStronghold, serverMap)
+        headerBattalion(CurrentBattalion, userStronghold, serverMap)
 
-        GenerateMiniMap(serverMap, currentBattalion.yPos, currentBattalion.xPos)
+        GenerateMiniMap(serverMap, CurrentBattalion.yPos, CurrentBattalion.xPos)
         
         print("\n    Directions:")
         print('    -------------')
-        if int(currentBattalion.xPos) > 0 and int(currentBattalion.xPos) < MAP_WIDTH and int(currentBattalion.yPos) > 0 and int(currentBattalion.yPos) < MAP_HEIGHT:
-            directions = ['n', 'ne', 'e', 'se', 's', 'sw', 'w', 'nw']
-            print('    {NW} {N} {NE}')
-            print('    {W}       {E}')
-            print('    {SW} {S} {SE}')
-        elif int(currentBattalion.xPos) == 0 and int(currentBattalion.yPos) > 0 and int(currentBattalion.yPos) < MAP_HEIGHT:
-            directions = ['n', 'ne', 'e', 'se', 's']
-            print('    {X} {N} {NE}')
-            print('    {X}      {E}')
-            print('    {X} {S} {SE}')
-        elif int(currentBattalion.xPos) == MAP_WIDTH and int(currentBattalion.yPos) > 0 and int(currentBattalion.yPos) < MAP_HEIGHT:
-            directions = ['n', 's', 'sw', 'w', 'nw']
-            print('    {NW} {N} {X}')
-            print('    {W}      {X}')
-            print('    {SW} {S} {X}')
-        elif int(currentBattalion.xPos) > 0 and int(currentBattalion.xPos) < MAP_WIDTH and int(currentBattalion.yPos) == 0:
-            directions = ['e', 'se', 's', 'sw', 'w']
-            print('    {X}  {X}  {X}')
-            print('    {W}       {E}')
-            print('    {SW} {S} {SE}')
-        elif int(currentBattalion.xPos) > 0 and int(currentBattalion.xPos) < MAP_WIDTH and int(currentBattalion.yPos) == MAP_HEIGHT:
-            directions = ['n', 'ne', 'e', 'w', 'nw']
-            print('    {NW} {N} {NE}')
-            print('    {W}       {E}')
-            print('    {X}  {X}  {X}')
-        elif int(currentBattalion.xPos) == MAP_WIDTH and int(currentBattalion.yPos) == MAP_HEIGHT:
-            directions = ['n', 'w', 'nw']
-            print('    {NW} {N}  {X}')
-            print('    {W}       {X}')
-            print('    {X}  {X}  {X}')
-        elif int(currentBattalion.xPos) == 0 and int(currentBattalion.yPos) == 0:
-            directions = ['e', 'se', 's']
-            print('    {X} {X}  {X}')
-            print('    {X}      {E}')
-            print('    {X} {S} {SE}')
-        elif int(currentBattalion.xPos) == MAP_WIDTH and int(currentBattalion.yPos) == 0:
-            directions = ['s', 'sw', 'w']
-            print('    {X}  {X} {X}')
-            print('    {W}      {X}')
-            print('    {SW} {S} {X}')
-        elif int(currentBattalion.xPos) == 0 and int(currentBattalion.yPos) == MAP_HEIGHT:
-            directions = ['n', 'ne', 'e']
-            print('    {X} {N} {NE}')
-            print('    {X}      {E}')
-            print('    {X} {X}  {X}')
+        directions = AvailableDirections(CurrentBattalion)
         print('    -------------')
         print('')
         command = input("    Input which direction you would like to go, or hit enter to cancel: ")
@@ -212,9 +171,10 @@ def BattalionMenu(screen, userStronghold, STRONGHOLD, USER_STRONGHOLD):
         command = str(command.lower())
         
         if command in directions:
-            MoveBattalion(userStronghold, currentBattalion, command)
+            MoveBattalion(userStronghold, CurrentBattalion, command)
+            return "battalionNavigation"
         else:
-            return "commandBattalion"
+            return "battalions"
         
         
 
