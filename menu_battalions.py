@@ -7,8 +7,8 @@ CurrentBattalion = 0
 #   Not set up to handle Fiefs just yet!
 def BattalionMenu(screen, userStronghold, STRONGHOLD, USER_STRONGHOLD):
     global CurrentBattalion
-    if CurrentBattalion != 0:
-        CurrentBattalion = serverArmies.GetBattalion(CurrentBattalion.name)
+    global BatMenu
+    
     xPos = 0
     yPos = 0
     if screen == "battalions":
@@ -29,10 +29,10 @@ def BattalionMenu(screen, userStronghold, STRONGHOLD, USER_STRONGHOLD):
                 yourBattalions.append(battalions[i])
                 leftNumber = str(CYAN + "    {" + str(count) + "}" + RESET).rjust(17, " ")
                 location = GetLocation(serverMap, battalions[i].yPos, battalions[i].xPos)
-                if location == "":
+                if location[0] == "":
                     print(str(leftNumber) + " " + str(battalions[i].MenuBar(userStronghold)))
                 else:
-                    print(str(leftNumber) + " " + str(battalions[i].MenuBarWithLocation(userStronghold, location)))
+                    print(str(leftNumber) + " " + str(battalions[i].MenuBarWithLocation(userStronghold, location[0])))
 
         print("\n    Avalible Commands:")
         print('    ------------------------------------------------------')
@@ -66,15 +66,18 @@ def BattalionMenu(screen, userStronghold, STRONGHOLD, USER_STRONGHOLD):
 
     if screen == "commandBattalion":
         os.system("clear")
+        if CurrentBattalion != 0:
+            print(str(CurrentBattalion))
+            CurrentBattalion = serverArmies.GetBattalion(CurrentBattalion.name)
         headerBattalion(CurrentBattalion, userStronghold, serverMap)
         GenerateMiniMap(serverMap, CurrentBattalion.yPos, CurrentBattalion.xPos)
-
+        print(location[0])
         print("\n    Avalible Commands:")
         print('    ------------------------------------------------------')
         print('    {1}: Go Back')
         print('    {2}: Move Out')
         print('    {3}: View World Map')
-        if location != "":
+        if location[0] != "":
             print('    {4}: Disband (' + LIME + 'Units and Inventory are added to this location' + RESET + ')')
         print('    ------------------------------------------------------')
         print('')
@@ -90,15 +93,33 @@ def BattalionMenu(screen, userStronghold, STRONGHOLD, USER_STRONGHOLD):
             yPos = int(CurrentBattalion.yPos)
             screen = "battalionMap"
         elif str(command) == '4':
-            userStronghold.defenders = int(userStronghold.defenders) + int(CurrentBattalion.numTroops)
-            userStronghold.gold = int(userStronghold.gold) + int(CurrentBattalion.invGold)
-            userStronghold.food = int(userStronghold.food) + int(CurrentBattalion.invFood)
-            userStronghold.wood = int(userStronghold.wood) + int(CurrentBattalion.invWood)
-            userStronghold.stone = int(userStronghold.stone) + int(CurrentBattalion.invStone)
-            userStronghold.ore = int(userStronghold.ore) + int(CurrentBattalion.invOre)
-            serverArmies.RemoveBattalion(CurrentBattalion)
-            userStronghold.write()
-            userStronghold.read()
+            # DetermineLocation(location)
+            
+            if str(location[1]) == 'stronghold':
+                userStronghold.defenders = int(userStronghold.defenders) + int(CurrentBattalion.numTroops)
+                userStronghold.gold = int(userStronghold.gold) + int(CurrentBattalion.invGold)
+                userStronghold.food = int(userStronghold.food) + int(CurrentBattalion.invFood)
+                userStronghold.wood = int(userStronghold.wood) + int(CurrentBattalion.invWood)
+                userStronghold.stone = int(userStronghold.stone) + int(CurrentBattalion.invStone)
+                userStronghold.ore = int(userStronghold.ore) + int(CurrentBattalion.invOre)
+                serverArmies.RemoveBattalion(CurrentBattalion)
+                userStronghold.write()
+                userStronghold.read()
+            else:
+                tempFief = Fiefdom()
+                tempFief.name = str(location[2])
+                tempFief.read()
+                print(str(tempFief.name))
+                tempFief.defenders = int(tempFief.defenders) + int(CurrentBattalion.numTroops)
+                tempFief.gold = int(tempFief.gold) + int(CurrentBattalion.invGold)
+                tempFief.food = int(tempFief.food) + int(CurrentBattalion.invFood)
+                tempFief.wood = int(tempFief.wood) + int(CurrentBattalion.invWood)
+                tempFief.stone = int(tempFief.stone) + int(CurrentBattalion.invStone)
+                tempFief.ore = int(tempFief.ore) + int(CurrentBattalion.invOre)
+                serverArmies.RemoveBattalion(CurrentBattalion)
+                tempFief.write()
+                tempFief.read()
+            
             return "battalions"
         else:
             return "battalions"
@@ -125,7 +146,7 @@ def BattalionMenu(screen, userStronghold, STRONGHOLD, USER_STRONGHOLD):
             else:
                 return "battalions"
         elif str(command) == '2':
-            screen = "battalionsMap+"
+            screen = "battalionMap+"
         else:
             return "battalionMap"
 
@@ -151,7 +172,7 @@ def BattalionMenu(screen, userStronghold, STRONGHOLD, USER_STRONGHOLD):
             else:
                 return "battalions"
         elif str(command) == '2':
-            return "battalionsMap"
+            return "battalionMap"
         else:
             return "battalionMap+"
 

@@ -127,11 +127,11 @@ def headerFief(fief):
 #This is a header for displaying Battalion information.
 def headerBattalion(bat, userStronghold, serverMap):
     location = GetLocation(serverMap, int(bat.yPos), int(bat.xPos))
-    if location == "":
+    if location[0] == "":
         menu = str(bat.MenuBar(userStronghold))
         spacer = 210
     else:
-        menu = str(bat.MenuBarWithLocation(userStronghold, location))
+        menu = str(bat.MenuBarWithLocation(userStronghold, location[0]))
         spacer = 189
     inventory = bat.Inventory()
     print('\n' +

@@ -2874,20 +2874,20 @@ def GetLocation(mapClass, yPos, xPos):
         tempFief = Fiefdom()
         tempFief = GetFiefByCoordinates(yPos, xPos)
         if isinstance(tempFief, Fiefdom):
-            return str(BiomeColor(tempFief.biome) + str(tempFief.name) + RESET)
+            return (str(BiomeColor(tempFief.biome) + str(tempFief.name) + RESET), "fief", str(tempFief.name))
         else:
-            return ""
+            return ("", "", "")
         
     elif str(mapClass.worldMap[int(yPos)][int(xPos)]) == STRONGHOLD:
         tempStronghold = Stronghold()
         tempStronghold = GetStrongholdByCoordinates(yPos, xPos)
         if isinstance(tempStronghold, Stronghold):
-            return str(StrongholdColor(tempStronghold.color) + str(tempStronghold.name) + "'s Stronghold" + RESET)
+            return (str(StrongholdColor(tempStronghold.color) + str(tempStronghold.name) + "'s Stronghold" + RESET), "stronghold", str(tempStronghold.name))
         else:
-            return ""
+            return ("", "", "")
         
     else:
-        return ""
+        return ("", "", "")
 
 #--------------------------------------------------------------------------------------------------------------
 #   [BattalionAtCoords]
@@ -3137,7 +3137,7 @@ def GenerateBattalionMap(mapClass, strongholdClass, armyClass, yPos, xPos):
 #--------------------------------------------------------------------------------------------------------------
 #   [GenerateBattalionMapWithLocations]
 #   parameters: mapClass, armyClass, yPos, xPos
-#       Creates and prints a world map with battalion markers
+#       Creates and prints a world map with battalion markers and fief/stronghold locations
 #--------------------------------------------------------------------------------------------------------------
 def GenerateBattalionMapWithLocations(mapClass, strongholdClass, armyClass, yPos, xPos):
     armyClass.read()

@@ -2438,29 +2438,21 @@ def MoveBattalion(station, battalion, direction):
     #[dN, dNE, dE, dSE, dS, dSW, dW, dNW]
     # print(*surroundings)
     if direction == 'n':
-        direction = 'north'
-        check = CheckBiome(surroundings[0], direction, raft)
+        check = CheckBiome(surroundings[0], 'north', raft)
     if direction == 'ne':
-        direction = 'northeast'
-        check = CheckBiome(surroundings[1], direction, raft)
+        check = CheckBiome(surroundings[1], 'northeast', raft)
     if direction == 'e':
-        direction = 'east'
-        check = CheckBiome(surroundings[2], direction, raft)
+        check = CheckBiome(surroundings[2], 'east', raft)
     if direction == 'se':
-        direction = 'southeast'
-        check = CheckBiome(surroundings[3], direction, raft)
+        check = CheckBiome(surroundings[3], 'southeast', raft)
     if direction == 's':
-        direction = 'south'
-        check = CheckBiome(surroundings[4], direction, raft)
+        check = CheckBiome(surroundings[4], 'south', raft)
     if direction == 'sw':
-        direction = 'southwest'
-        check = CheckBiome(surroundings[5], direction, raft)
+        check = CheckBiome(surroundings[5], 'southwest', raft)
     if direction == 'w':
-        direction = 'west'
-        check = CheckBiome(surroundings[6], direction, raft)
+        check = CheckBiome(surroundings[6], 'west', raft)
     if direction == 'nw':
-        direction = 'northwest'
-        check = CheckBiome(surroundings[7], direction, raft)
+        check = CheckBiome(surroundings[7], 'northwest', raft)
 
     Wait()
     
