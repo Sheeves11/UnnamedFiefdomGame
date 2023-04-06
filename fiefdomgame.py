@@ -22,7 +22,8 @@ from menu_battalions import *
 Welcome to the Unnamed Fiefdom Game!
 
 This game was designed and written by
-Mike Quain of the University of Arkansas
+Mia Quain of the University of Arkansas
+with significant help from Joshua Davis!
 
 More info can be found at
 github.com/Sheeves11/UnnamedFiefdomGame
