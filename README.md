@@ -27,7 +27,7 @@ If you'd like to talk to us or get real-time updates on our progress, check out 
 
 Intro:
 
-Unnamed Fiefdome Game is a python programming project by Mike Quain (mquain@uark.edu) and Joshua Davis!
+Unnamed Fiefdome Game is a python programming project by Mia Quain (mquain@uark.edu) and Joshua Davis!
 
 ---------------------------------------------------------------------------------------------------------------
 
