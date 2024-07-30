@@ -25,13 +25,13 @@ If you'd like to talk to us or get real-time updates on our progress, check out 
 
 ---------------------------------------------------------------------------------------------------------------
 
-Intro:
+## Intro:
 
 Unnamed Fiefdome Game is a python programming project by Mia Quain (mquain@uark.edu) and Joshua Davis!
 
 ---------------------------------------------------------------------------------------------------------------
 
-How to play:
+## How to play:
 
 Your goal is to control as many fiefdoms as you can manage without spreading your army too thin and leaving yourself open to attack!
 Your home stronghold will never fall, but any conquered fiefdoms can be taken by opposing players. Make sure you can defend the
@@ -46,7 +46,7 @@ to the new ruler.
 
 ---------------------------------------------------------------------------------------------------------------
 
-Hosting Server Installation Info:
+## Hosting Your Server:
 
 I use a development server running Ubuntu Server 18.03 and Python 3.6. You will also need to install gotty and a GO development environment 
 before running the game. I've laid out some instructions below that should help you set this up on a fresh server.
@@ -69,7 +69,7 @@ http://10.4.40.15
 You will then need to seed some starting fiefdoms using the fieftool.py program.
   
   
-Installation Steps:
+## Installation Steps:
   
 0. Do a fresh install of Ubuntu LTS 18.03 or 20.03
   
@@ -109,6 +109,6 @@ Installation Steps:
   
 -----------------------------------------------------------------------------------------------------------------
 
-Enjoy!
+## Enjoy!
 
 -----------------------------------------------------------------------------------------------------------------
